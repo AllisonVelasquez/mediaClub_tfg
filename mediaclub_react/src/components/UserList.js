@@ -15,7 +15,7 @@ const UserList = () => {
         if (err.response) {
           setError(err.response.data.message);
         } else {
-          setError("Error no controlado (api).");
+          setError("Error del servidor (api).");
         }
         console.error(err);
       });      

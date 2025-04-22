@@ -12,7 +12,7 @@ trait ApiResponse
         ], $status);
     }
 
-    public function error($message = 'Error del servidor', $status = 500, $data = null)
+    public function error($message = 'Error del servidor (db)', $status = 500, $data = null)
     {
         return response()->json([
             'message' => $message,
