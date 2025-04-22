@@ -20,7 +20,7 @@ DocumentRoot "C:/xampp/htdocs"
 # Virtual hosts
 Include conf/extra/httpd-vhosts.conf
 ```
-y por ultimo en Windows -> System32 -> drivers -> etc añadir
+y por ultimo en Windows -> System32 -> drivers -> etc -> host añadir
 ```
 127.0.0.1       localhost
 127.0.0.1       laravel.local
