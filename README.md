@@ -25,3 +25,7 @@ y por ultimo en Windows -> System32 -> drivers -> etc -> hosts añadir
 127.0.0.1       localhost
 127.0.0.1       laravel.local
 ```
+para correr react
+```
+npm start
+```
