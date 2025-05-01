@@ -20,14 +20,7 @@ class TmdbController extends Controller
 
     public function popular()
     {
-        try {
-            $movies = $this->tmdb->getPopularMovies()["results"];
-
-            return $this->success($movies,'Lista Populares cargada');
-        } catch (Exception $e) {
-            return $this->error();
-
-        }
+       
     }
     //aqui nos quedamos, toca hacer mas gets
 }

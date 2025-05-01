@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Apis;
 
 use Illuminate\Support\Facades\Http;
@@ -14,12 +15,20 @@ class OmdbService
         $this->apiKey = config('services.omdb.api_key');
     }
 
+    protected function request(array $params): array
+    {
+        $response = Http::get($this->baseUrl, array_merge([
+            'apikey' => $this->apiKey,
+        ], $params));
+
+        return $response->json();
+    }
+
     public function getRateMovie(): array
     {
-        $response = Http::get("{$this->baseUrl}/movie/popular", [
-            'api_key' => $this->apiKey,
-            'language' => 'es-ES',
+        return $this->request([
+            't' => 'The Shawshank Redemption',
+            'plot' => 'full',
         ]);
-        return $response->json();
     }
 }
