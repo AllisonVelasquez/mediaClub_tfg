@@ -29,4 +29,5 @@ class MovieController extends Controller
 
         }
     }
+    //aqui nos quedamos, toca hacer mas gets
 }
