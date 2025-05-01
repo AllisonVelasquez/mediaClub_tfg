@@ -9,13 +9,8 @@ use App\Actions\User\UpdateUserAction;
 use App\Actions\User\AddUserAction;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use Exception;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rules\Password;
-use Illuminate\Support\Facades\Hash;
 use App\Traits\ApiResponse;
-use App\Validators\UserValidator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
