@@ -2,7 +2,7 @@
 namespace App\Actions\User;
 
 use App\Models\User;
-use App\Services\User\UserValidator;
+use App\Services\User\UserValidatorService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -11,7 +11,7 @@ class UpdateUserAction
 
     public function execute($id, array $data): User
     {
-        UserValidator::validate($data);
+        UserValidatorService::validate($data);
 
         $user = User::find($id);
 

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\MovieController;
+use App\Http\Controllers\TmdbController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 
@@ -17,5 +17,5 @@ Route::prefix('users')->group(function () {
 //API TMDB
 Route::prefix('movies')->group(function () {
     // Route::get('/', [MovieController::class, 'index']);
-    Route::get('/popular', [MovieController::class, 'popular']);
+    Route::get('/popular', [TmdbController::class, 'popular']);
 });

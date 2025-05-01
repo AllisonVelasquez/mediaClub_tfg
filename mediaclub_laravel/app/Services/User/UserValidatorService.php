@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
 
-class UserValidator
+class UserValidatorService
 {
     public static function validate(array $data): void
     {

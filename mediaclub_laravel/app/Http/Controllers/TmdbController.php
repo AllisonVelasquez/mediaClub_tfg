@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Integrations\Tmdb\TmdbService;
+use App\Services\Apis\TmdbService;
 use Exception;
 use App\Traits\ApiResponse;
 
 
-class MovieController extends Controller
+class TmdbController extends Controller
 {
     use ApiResponse;
 

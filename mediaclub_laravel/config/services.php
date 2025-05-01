@@ -40,4 +40,9 @@ return [
         'base_url' => env('TMDB_BASE_URL'),
     ],
 
+    'omdb' => [
+        'api_key' => env('OMDB_API_KEY'),
+        'base_url' => env('OMDB_BASE_URL'),
+    ],
+
 ];

@@ -2,7 +2,7 @@
 namespace App\Actions\User;
 
 use App\Models\User;
-use App\Services\User\UserValidator;
+use App\Services\User\UserValidatorService;
 use Illuminate\Support\Facades\Hash;
 
 class AddUserAction
@@ -11,7 +11,7 @@ class AddUserAction
     public function execute(array $data): User
     {
 
-        UserValidator::validate($data);
+        UserValidatorService::validate($data);
 
         $user = User::create([
             'id' => $data['id'],
