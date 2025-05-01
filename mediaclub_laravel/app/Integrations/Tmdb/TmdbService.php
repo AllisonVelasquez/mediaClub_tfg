@@ -1,5 +1,5 @@
 <?php
-namespace App\Services;
+namespace App\Integrations\Tmdb;
 
 use Illuminate\Support\Facades\Http;
 
