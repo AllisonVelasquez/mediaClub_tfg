@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Integrations\Tmdb\TmdbService;
 use Exception;
 use App\Traits\ApiResponse;
