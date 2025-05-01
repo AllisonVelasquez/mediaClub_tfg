@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\User\DeleteUserAction;
+use App\Actions\User\FindUserByIdAction;
+use App\Actions\User\GetAllUsersAction;
+use App\Actions\User\UpdateUserAction;
+use App\Actions\User\AddUserAction;
+
 use Illuminate\Http\Request;
 use App\Models\User;
 use Exception;
@@ -9,15 +15,18 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 use App\Traits\ApiResponse;
+use App\Validators\UserValidator;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class userController extends Controller
 {
     use ApiResponse;
 
-    public function index()
+    public function index(GetAllUsersAction $action)
     {
         try {
-            $users = User::all();
+            $users = $action->execute();
 
             if ($users->isEmpty()) {
                 return $this->success('Lista de usuarios vacia');
@@ -28,171 +37,70 @@ class userController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(Request $request, AddUserAction $action)
     {
         try {
-            $validator = Validator::make($request->all(), [
-                'id' => [
-                    'required',
-                    'string',
-                    'max:50',
-                    function ($attribute, $value, $fail) {
-                        if (preg_match('/\s/', $value)) {
-                            $fail('El ID no debe contener espacios.');
-                        }
-                        if ($value !== strtolower($value)) {
-                            $fail('El ID debe estar en minúsculas.');
-                        }
-                    },
-
-                ],
-                'alias' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email|max:255',
-                'passw' => ['required', 'string', Password::min(8)->mixedCase()->numbers()->symbols()],
-            ]);
-
-            if ($validator->fails()) {
-                return $this->error('Error en la validación de datos', 400, $validator->errors());
-            }
-
-            $user = User::create([
-                'id' => $request->id,
-                'alias' => $request->alias,
-                'email' => $request->email,
-                'passw' => Hash::make($request->passw),
-            ]);
-
-            if (!$user) {
-                return $this->error('Error al crear el usuario', 500);
-            }
+            $user = $action->execute($request->all());
 
             return $this->success($user, 'Usuario creado exitosamente', 201);
+        } catch (ValidationException $e) {
+            return $this->error('Error en la validación de datos', 400, $e->errors());
         } catch (Exception $e) {
             return $this->error();
         }
     }
 
-    public function show($id)
+    public function show($id, FindUserByIdAction $action)
     {
         try {
-            $user = User::find($id);
-
-            if (!$user) {
-                return $this->error('Usuario no encontrado', 404);
-            }
+            $user = $action->execute($id);
             return $this->success($user, 'Usuario encontrado');
-        } catch (Exception $e) {
-            return $this->error();
+        } catch (ModelNotFoundException $e) {
+            return $this->error($e->getMessage(), 404);
+        } catch (\Exception $e) {
+            return $this->error('Error inesperado', 500);
         }
     }
 
-    public function delete($id)
+    public function delete($id, DeleteUserAction $action)
     {
         try {
-            $user = User::find($id);
-
-            if (!$user) {
-                return $this->error('Usuario no encontrado', 404);
-            }
-            $user->delete();
-
+            $action->execute($id);
             return $this->success('Usuario eliminado', 200);
-        } catch (Exception $e) {
-            return $this->error();
+        } catch (ModelNotFoundException $e) {
+            return $this->error($e->getMessage(), 404);
+        } catch (\Exception $e) {
+            return $this->error('Error inesperado', 500);
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, UpdateUserAction $action)
     {
         try {
-            $user = User::find($id);
-
-            if (!$user) {
-                return $this->error('Usuario no encontrado', 404);
-            }
-
-            $validator = Validator::make($request->all(), [
-                'id' => [
-                    'required',
-                    'string',
-                    'max:50',
-                    function ($attribute, $value, $fail) {
-                        if (preg_match('/\s/', $value)) {
-                            $fail('El ID no debe contener espacios.');
-                        }
-                        if ($value !== strtolower($value)) {
-                            $fail('El ID debe estar en minúsculas.');
-                        }
-                    },
-
-                ],
-                'alias' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email|max:255',
-                'passw' => ['required', 'string', Password::min(8)->mixedCase()->numbers()->symbols()],
-            ]);
-
-            if ($validator->fails()) {
-                return $this->error('Error en la validación de datos', 400, $validator->errors());
-            }
-
-            $user->id = $request->id;
-            $user->alias = $request->alias;
-            $user->email = $request->email;
-            $user->passw = Hash::make($request->passw);
-
-            $user->save();
+            $user = $action->execute($id, $request->all());
 
             return $this->success($user, 'Usuario actualizado', 200);
-        } catch (Exception $e) {
-            return $this->error();
+        } catch (ModelNotFoundException $e) {
+            return $this->error($e->getMessage(), 404);
+        } catch (ValidationException $e) {
+            return $this->error('Error en la validación de datos', 400, $e->errors());
+        } catch (\Exception $e) {
+            return $this->error('Error inesperado', 500);
         }
     }
 
-    public function updatePartial(Request $request, $id)
+    public function updatePartial(Request $request, $id, UpdateUserAction $action)
     {
         try {
-            $user = User::find($id);
+            $user = $$action->execute($request->all(), $id);
 
-            if (!$user) {
-                return $this->error('Usuario no encontrado', 404);
-            }
-
-            $validator = Validator::make($request->all(), [
-                'id' => [
-                    'string',
-                    'max:50',
-                    function ($attribute, $value, $fail) {
-                        if (preg_match('/\s/', $value)) {
-                            $fail('El ID no debe contener espacios.');
-                        }
-                        if ($value !== strtolower($value)) {
-                            $fail('El ID debe estar en minúsculas.');
-                        }
-                    },
-
-                ],
-                'alias' => 'string|max:255',
-                'email' => 'email|unique:users,email|max:255',
-                'passw' => ['string', Password::min(8)->mixedCase()->numbers()->symbols()],
-            ]);
-
-            if ($validator->fails()) {
-                return $this->error('Error en la validación de datos', 400, $validator->errors());
-            }
-
-            $data = $request->only(['id', 'alias', 'email']);
-
-            if ($request->has('passw')) {
-                $data['passw'] = Hash::make($request->passw);
-            }
-
-            $user->update($data);
-
-            $user->save();
-
-            return $this->success($user, 'Usuario actualizado');
-        } catch (Exception $e) {
-            return $this->error();
+            return $this->success($user, 'Usuario actualizado correctamente', 200);
+        } catch (ModelNotFoundException $e) {
+            return $this->error($e->getMessage(), 404);
+        } catch (ValidationException $e) {
+            return $this->error('Error en la validación de datos', 400, $e->errors());
+        } catch (\Exception $e) {
+            return $this->error($e->getMessage(), 500);
         }
     }
 }
