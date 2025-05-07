@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\User;
 
 use Illuminate\Support\Facades\Validator;
@@ -10,10 +11,10 @@ class UserValidatorService
     public static function validate(array $data): void
     {
         $validator = Validator::make($data, [
-            'id' => [
+            'login_id' => [
                 'required',
                 'string',
-                'max:50',
+                'max:100',
                 function ($attribute, $value, $fail) {
                     if (preg_match('/\s/', $value)) {
                         $fail('El ID no debe contener espacios.');
@@ -23,9 +24,12 @@ class UserValidatorService
                     }
                 },
             ],
+            'correo' => 'required|email|unique:usuario,correo|max:255',
+            'contrasena_hash' => ['required', 'string', Password::min(8)->mixedCase()->numbers()->symbols()],
             'alias' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email|max:255',
-            'passw' => ['required', 'string', Password::min(8)->mixedCase()->numbers()->symbols()],
+            'bio' => 'nullable|string|max:255',
+            'redes' => 'nullable|string|max:255',
+            'foto_perfil' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -36,7 +40,7 @@ class UserValidatorService
     public static function validateUpdatePartial(array $data): void
     {
         $validator = Validator::make($data, [
-            'id' => [
+            'login_id' => [
                 'string',
                 'max:50',
                 function ($attribute, $value, $fail) {
@@ -48,9 +52,12 @@ class UserValidatorService
                     }
                 },
             ],
-            'alias' => 'nullable|string|max:255', // Puede ser nulo
-            'email' => 'nullable|email|unique:users,email|max:255', // Puede ser nulo
-            'passw' => ['nullable', 'string', Password::min(8)->mixedCase()->numbers()->symbols()], // Puede ser nulo
+            'correo' => 'nullable|email|unique:usuario,email|max:255',
+            'contrasena_hash' => ['nullable', 'string', Password::min(8)->mixedCase()->numbers()->symbols()],
+            'alias' => 'nullable|string|max:255',
+            'bio' => 'nullable|string|max:255',
+            'redes' => 'nullable|string|max:255',
+            'foto_perfil' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {

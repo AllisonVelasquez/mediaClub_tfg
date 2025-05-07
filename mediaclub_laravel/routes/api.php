@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 
 //API USERS
-Route::prefix('users')->group(function () {
+Route::prefix('usuarios')->group(function () {
     Route::get('/', [userController::class, 'index']);
     Route::get('/{id}', [userController::class, 'show']);
     Route::post('/', [userController::class, 'store']);

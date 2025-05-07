@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('usuario', function (Blueprint $table) {
+            $table->integer('usuario_id', true);
+            $table->string('login_id', 100)->unique('login_id');
+            $table->string('correo')->unique('correo');
+            $table->string('contrasena_hash');
+            $table->string('alias', 100)->unique('alias');
+            $table->text('bio')->nullable();
+            $table->json('redes')->nullable();
+            $table->string('foto_perfil')->nullable()->default('/images/perfiles/default.png'); //Hay que cambiar la ruta por defecto
+            $table->dateTime('fecha_creacion')->nullable()->useCurrent();
+            $table->dateTime('fecha_ultima_actualizacion')->useCurrentOnUpdate()->nullable()->useCurrent();
+            $table->boolean('confirmado')->nullable()->default(false);
+            $table->boolean('bloqueado')->nullable()->default(false);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('usuario');
+    }
+};

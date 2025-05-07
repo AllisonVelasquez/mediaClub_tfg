@@ -2,20 +2,20 @@
 // app/Actions/User/UpdatePartialUserAction.php
 namespace App\Actions\User;
 
-use App\Models\User;
+use App\Models\Usuario;
 use App\Services\User\UserValidatorService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UpdatePartialUserAction
 {
-    public function execute(array $data, $id): User
+    public function execute(array $data, $id): Usuario
     {
         // Validamos los datos de la solicitud (campos opcionales)
         UserValidatorService::validateUpdatePartial($data);
 
         // Buscamos al usuario por su ID
-        $user = User::find($id);
+        $user = Usuario::find($id);
 
         if (!$user) {
             throw new ModelNotFoundException("Usuario no encontrado");

@@ -1,29 +1,36 @@
 <?php
+
 namespace App\Actions\User;
 
-use App\Models\User;
+use App\Models\Usuario;
 use App\Services\User\UserValidatorService;
 use Illuminate\Support\Facades\Hash;
 
 class AddUserAction
 {
 
-    public function execute(array $data): User
+    public function execute(array $data): Usuario
     {
 
         UserValidatorService::validate($data);
 
-        $user = User::create([
-            'id' => $data['id'],
+        $user = Usuario::create([
+            'login_id' => $data['login_id'],
+            'correo' => $data['correo'],
+            'contrasena_hash' => Hash::make($data['contrasena_hash']),
             'alias' => $data['alias'],
-            'email' => $data['email'],
-            'passw' => Hash::make($data['passw']),
+            'bio' => $data['bio'] ?? null,
+            'redes' => $data['redes'] ?? null,
+            'foto_perfil' => $data['foto_perfil'] ?? null,
+            'fecha_creacion' => now(),
+            'fecha_ultima_actualizacion' => now(),
+            'confirmado' => false,
+            'bloqueado' => false,
         ]);
 
         if (!$user) {
             throw new \Exception("No se pudo crear el usuario");
         }
-
         return $user;
     }
 }

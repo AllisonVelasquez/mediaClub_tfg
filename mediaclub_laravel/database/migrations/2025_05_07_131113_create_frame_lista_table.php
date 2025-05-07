@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->string('alias');
-            $table->string('email');
-            $table->string('passw');
-            $table->timestamps();
+        Schema::create('frame_lista', function (Blueprint $table) {
+            $table->integer('lista_id');
+            $table->integer('frame_id')->index('frame_id');
+
+            $table->primary(['lista_id', 'frame_id']);
         });
     }
 
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('frame_lista');
     }
 };
