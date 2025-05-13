@@ -1,7 +1,7 @@
 import React from "react";
 import "./Menu.css";
 import { NavLink, Link } from "react-router-dom";
-import logo from "./logo.png";
+import logo from "./LOGO.png";
 
 function Menu() {
   return (
