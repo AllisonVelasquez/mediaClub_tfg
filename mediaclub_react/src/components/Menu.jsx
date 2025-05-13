@@ -6,7 +6,9 @@ import logo from "./LOGO.png";
 function Menu() {
   return (
     <nav>
-      <Link to='/'><img src={logo} alt="Logo" className="logo" /></Link>
+      <Link to="/">
+        <img src={logo} alt="Logo" className="logo" />
+      </Link>
       <div className="menu-links">
         <NavLink
           to="/"
@@ -37,6 +39,12 @@ function Menu() {
           className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
         >
           Login
+        </NavLink>
+        <NavLink
+          to="/landing"
+          className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
+        >
+          landing
         </NavLink>
       </div>
     </nav>
