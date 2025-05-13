@@ -169,24 +169,6 @@ const Registro = () => {
               </span>
             )}
           </div>
-          {/* Contraseña */}
-          <div className="registro-field">
-            <label className="registro-label" htmlFor="contraseña">Contraseña</label>
-            <input
-              className="registro-input"
-              type="password"
-              name="contraseña"
-              id="contraseña"
-              value={formData.contraseña}
-              onChange={handleChange}
-              required
-            />
-            {formData.contraseña && (
-              <span className={`registro-icon ${isPassOk ? 'success' : 'error'}`}>
-                {isPassOk ? '✓' : '✗'}
-              </span>
-            )}
-          </div>
           {/* Alias público */}
           <div className="registro-field">
             <label className="registro-label" htmlFor="alias_publico">Alias público</label>
@@ -205,24 +187,6 @@ const Registro = () => {
               </span>
             )}
           </div>
-          {/* Repetir contraseña */}
-          <div className="registro-field">
-            <label className="registro-label" htmlFor="repetirContraseña">Repetir contraseña</label>
-            <input
-              className="registro-input"
-              type="password"
-              name="repetirContraseña"
-              id="repetirContraseña"
-              value={formData.repetirContraseña}
-              onChange={handleChange}
-              required
-            />
-            {formData.repetirContraseña && (
-              <span className={`registro-icon ${isRepeatOk ? 'success' : 'error'}`}>
-                {isRepeatOk ? '✓' : '✗'}
-              </span>
-            )}
-          </div>
           {/* Correo */}
           <div className="registro-field" style={{ gridColumn: "1 / span 1" }}>
             <label className="registro-label" htmlFor="email">Correo</label>
@@ -238,6 +202,42 @@ const Registro = () => {
             {formData.email && (
               <span className={`registro-icon ${isEmailOk ? 'success' : 'error'}`}>
                 {isEmailOk ? '✓' : '✗'}
+              </span>
+            )}
+          </div>
+          {/* Contraseña */}
+          <div className="registro-field">
+            <label className="registro-label" htmlFor="contraseña">Contraseña</label>
+            <input
+              className="registro-input"
+              type="password"
+              name="contraseña"
+              id="contraseña"
+              value={formData.contraseña}
+              onChange={handleChange}
+              required
+            />
+            {formData.contraseña && (
+              <span className={`registro-icon ${isPassOk ? 'success' : 'error'}`}>
+                {isPassOk ? '✓' : '✗'}
+              </span>
+            )}
+          </div>
+          {/* Repetir contraseña */}
+          <div className="registro-field">
+            <label className="registro-label" htmlFor="repetirContraseña">Repetir contraseña</label>
+            <input
+              className="registro-input"
+              type="password"
+              name="repetirContraseña"
+              id="repetirContraseña"
+              value={formData.repetirContraseña}
+              onChange={handleChange}
+              required
+            />
+            {formData.repetirContraseña && (
+              <span className={`registro-icon ${isRepeatOk ? 'success' : 'error'}`}>
+                {isRepeatOk ? '✓' : '✗'}
               </span>
             )}
           </div>
