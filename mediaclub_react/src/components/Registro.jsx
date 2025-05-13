@@ -169,42 +169,6 @@ const Registro = () => {
               </span>
             )}
           </div>
-          {/* Alias público */}
-          <div className="registro-field">
-            <label className="registro-label" htmlFor="alias_publico">Alias público</label>
-            <input
-              className="registro-input"
-              type="text"
-              name="alias_publico"
-              id="alias_publico"
-              value={formData.alias_publico}
-              onChange={handleChange}
-              required
-            />
-            {formData.alias_publico && (
-              <span className={`registro-icon ${isAliasOk ? 'success' : 'error'}`}>
-                {isAliasOk ? '✓' : '✗'}
-              </span>
-            )}
-          </div>
-          {/* Correo */}
-          <div className="registro-field" style={{ gridColumn: "1 / span 1" }}>
-            <label className="registro-label" htmlFor="email">Correo</label>
-            <input
-              className="registro-input"
-              type="email"
-              name="email"
-              id="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            {formData.email && (
-              <span className={`registro-icon ${isEmailOk ? 'success' : 'error'}`}>
-                {isEmailOk ? '✓' : '✗'}
-              </span>
-            )}
-          </div>
           {/* Contraseña */}
           <div className="registro-field">
             <label className="registro-label" htmlFor="contraseña">Contraseña</label>
@@ -223,6 +187,24 @@ const Registro = () => {
               </span>
             )}
           </div>
+          {/* Alias público */}
+          <div className="registro-field">
+            <label className="registro-label" htmlFor="alias_publico">Alias público</label>
+            <input
+              className="registro-input"
+              type="text"
+              name="alias_publico"
+              id="alias_publico"
+              value={formData.alias_publico}
+              onChange={handleChange}
+              required
+            />
+            {formData.alias_publico && (
+              <span className={`registro-icon ${isAliasOk ? 'success' : 'error'}`}>
+                {isAliasOk ? '✓' : '✗'}
+              </span>
+            )}
+          </div>
           {/* Repetir contraseña */}
           <div className="registro-field">
             <label className="registro-label" htmlFor="repetirContraseña">Repetir contraseña</label>
@@ -238,6 +220,24 @@ const Registro = () => {
             {formData.repetirContraseña && (
               <span className={`registro-icon ${isRepeatOk ? 'success' : 'error'}`}>
                 {isRepeatOk ? '✓' : '✗'}
+              </span>
+            )}
+          </div>
+          {/* Correo */}
+          <div className="registro-field" style={{ gridColumn: "1 / span 1" }}>
+            <label className="registro-label" htmlFor="email">Correo</label>
+            <input
+              className="registro-input"
+              type="email"
+              name="email"
+              id="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            {formData.email && (
+              <span className={`registro-icon ${isEmailOk ? 'success' : 'error'}`}>
+                {isEmailOk ? '✓' : '✗'}
               </span>
             )}
           </div>
