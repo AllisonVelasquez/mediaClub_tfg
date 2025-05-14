@@ -10,13 +10,12 @@ const Profile = () => {
       try {
         const response = await getUsuarios();
 
-        // La API devuelve un array con objetos
         const usuarios = Array.isArray(response.data)
           ? response.data[0]?.data?.usuarios
           : response.data?.usuarios;
 
         if (usuarios && usuarios.length > 0) {
-          setProfile(usuarios[0]); // Usamos el primer usuario como ejemplo
+          setProfile(usuarios[0]); 
         }
       } catch (error) {
         console.error("Error al obtener el perfil:", error);

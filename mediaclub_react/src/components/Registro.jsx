@@ -94,52 +94,52 @@
 
 // export default Registro;
 
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Registro.css';
-import logoNombreOscuro from './logo_nombre_oscuro.png';
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import "./Registro.css";
+import logoNombreOscuro from "./logo_nombre_oscuro.png";
 
 const Registro = () => {
   const [formData, setFormData] = useState({
-    nombre: '',
-    email: '',
-    alias_publico: '',
-    contraseña: '',
-    repetirContraseña: ''
+    nombre: "",
+    email: "",
+    alias_publico: "",
+    contraseña: "",
+    repetirContraseña: "",
   });
 
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  //const navigate = useNavigate();
 
   // Validaciones simples
   const isNombreOk = formData.nombre.length > 2;
   const isAliasOk = formData.alias_publico.length > 2;
   const isEmailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email);
   const isPassOk = formData.contraseña.length >= 6;
-  const isRepeatOk = formData.contraseña === formData.repetirContraseña && isPassOk;
+  const isRepeatOk =
+    formData.contraseña === formData.repetirContraseña && isPassOk;
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
     if (!isNombreOk || !isAliasOk || !isEmailOk || !isPassOk || !isRepeatOk) {
-      setError('Por favor, completa todos los campos correctamente.');
+      setError("Por favor, completa todos los campos correctamente.");
       return;
     }
 
-    // Aquí podrías enviar los datos a una API
-    setSuccess('Registro exitoso');
+    setSuccess("Registro exitoso");
     // navigate('/LogIn'); // Si quieres redirigir tras registrar
   };
 
@@ -149,11 +149,17 @@ const Registro = () => {
         <img src={logoNombreOscuro} alt="Muvis Logo" />
       </div>
       <div className="registro-title">Registra una nueva cuenta</div>
-      <form className="registro-container" onSubmit={handleSubmit} autoComplete="off">
+      <form
+        className="registro-container"
+        onSubmit={handleSubmit}
+        autoComplete="off"
+      >
         <div className="registro-form">
           {/* Nombre de usuario */}
           <div className="registro-field">
-            <label className="registro-label" htmlFor="nombre">Nombre de usuario</label>
+            <label className="registro-label" htmlFor="nombre">
+              Nombre de usuario
+            </label>
             <input
               className="registro-input"
               type="text"
@@ -164,14 +170,18 @@ const Registro = () => {
               required
             />
             {formData.nombre && (
-              <span className={`registro-icon ${isNombreOk ? 'success' : 'error'}`}>
-                {isNombreOk ? '✓' : '✗'}
+              <span
+                className={`registro-icon ${isNombreOk ? "success" : "error"}`}
+              >
+                {isNombreOk ? "✓" : "✗"}
               </span>
             )}
           </div>
           {/* Contraseña */}
           <div className="registro-field">
-            <label className="registro-label" htmlFor="contraseña">Contraseña</label>
+            <label className="registro-label" htmlFor="contraseña">
+              Contraseña
+            </label>
             <input
               className="registro-input"
               type="password"
@@ -182,14 +192,18 @@ const Registro = () => {
               required
             />
             {formData.contraseña && (
-              <span className={`registro-icon ${isPassOk ? 'success' : 'error'}`}>
-                {isPassOk ? '✓' : '✗'}
+              <span
+                className={`registro-icon ${isPassOk ? "success" : "error"}`}
+              >
+                {isPassOk ? "✓" : "✗"}
               </span>
             )}
           </div>
           {/* Alias público */}
           <div className="registro-field">
-            <label className="registro-label" htmlFor="alias_publico">Alias público</label>
+            <label className="registro-label" htmlFor="alias_publico">
+              Alias público
+            </label>
             <input
               className="registro-input"
               type="text"
@@ -200,14 +214,18 @@ const Registro = () => {
               required
             />
             {formData.alias_publico && (
-              <span className={`registro-icon ${isAliasOk ? 'success' : 'error'}`}>
-                {isAliasOk ? '✓' : '✗'}
+              <span
+                className={`registro-icon ${isAliasOk ? "success" : "error"}`}
+              >
+                {isAliasOk ? "✓" : "✗"}
               </span>
             )}
           </div>
           {/* Repetir contraseña */}
           <div className="registro-field">
-            <label className="registro-label" htmlFor="repetirContraseña">Repetir contraseña</label>
+            <label className="registro-label" htmlFor="repetirContraseña">
+              Repetir contraseña
+            </label>
             <input
               className="registro-input"
               type="password"
@@ -218,14 +236,18 @@ const Registro = () => {
               required
             />
             {formData.repetirContraseña && (
-              <span className={`registro-icon ${isRepeatOk ? 'success' : 'error'}`}>
-                {isRepeatOk ? '✓' : '✗'}
+              <span
+                className={`registro-icon ${isRepeatOk ? "success" : "error"}`}
+              >
+                {isRepeatOk ? "✓" : "✗"}
               </span>
             )}
           </div>
           {/* Correo */}
           <div className="registro-field" style={{ gridColumn: "1 / span 1" }}>
-            <label className="registro-label" htmlFor="email">Correo</label>
+            <label className="registro-label" htmlFor="email">
+              Correo
+            </label>
             <input
               className="registro-input"
               type="email"
@@ -236,14 +258,18 @@ const Registro = () => {
               required
             />
             {formData.email && (
-              <span className={`registro-icon ${isEmailOk ? 'success' : 'error'}`}>
-                {isEmailOk ? '✓' : '✗'}
+              <span
+                className={`registro-icon ${isEmailOk ? "success" : "error"}`}
+              >
+                {isEmailOk ? "✓" : "✗"}
               </span>
             )}
           </div>
           {/* Botón */}
           <div className="registro-btn-row">
-            <button className="registro-btn" type="submit">Registrarme</button>
+            <button className="registro-btn" type="submit">
+              Registrarme
+            </button>
           </div>
           {/* Mensajes */}
           {error && <div className="error">{error}</div>}
@@ -251,7 +277,14 @@ const Registro = () => {
         </div>
       </form>
       <div className="registro-link">
-        <a href="/LogIn" className='enlace'>Ya tengo una cuenta</a>
+        <Link to="/LogIn" className="enlace">
+          Ya tengo una cuenta
+        </Link>
+      </div>
+      <div className="registro-link">
+        <Link to="/" className="enlace">
+          Volver al inicio
+        </Link>
       </div>
     </div>
   );

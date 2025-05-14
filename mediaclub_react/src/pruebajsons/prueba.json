@@ -23,6 +23,25 @@
           "bloqueado": false
         },
         {
+          "usuario_id": 3,
+          "login_id": "ali",
+          "correo": "ali@a.a",
+          "contrasena_hash": "$2b$10$oa4jvDcFjT0Lcqq4KSgPNeyQiiHd56ZBqMrUqCDl/qnkX1jPtyTlK",
+          "alias": "ali",
+          "bio": "Amante del cine clásico.",
+          "redes": {
+            "facebook": "fb.com/ali",
+            "twitter": "x.com/juan",
+            "instagram": "insta.com/juan",
+            "youtube": "youtube.com/juan"
+          },
+          "fecha_creacion": "2025-01-01T12:00:00",
+          "fecha_ultima_actualizacion": "2025-05-10T09:00:00",
+          "confirmado": true,
+          "foto_perfil": "/images/juan.webp",
+          "bloqueado": false
+        },
+        {
           "usuario_id": 2,
           "login_id": "mariarodriguez",
           "correo": "maria@example.com",

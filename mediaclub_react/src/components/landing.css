@@ -1,43 +1,141 @@
-/* src/components/Peliculas.css */
+.landing-bg {
+  min-height: 100vh;
+  background: #d9e9dc;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0 4rem 2rem 4rem; /* Más espacio en los bordes */
+  box-sizing: border-box;
+}
 
-.peliculas-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 30px;
-    justify-content: center;
-    background-color: #f0f0f0;
-  }
-  
-  .pelicula-card {
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-    text-decoration: none;
-    background-color: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease-in-out;
-    color: #000;
-  }
-  
-  .pelicula-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .poster-img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-  }
-  
-  .pelicula-info {
-    padding: 10px;
-  }
-  
-  .pelicula-info h3 {
-    margin: 0 0 10px;
-    font-size: 1.2em;
-  }
-  
+.landing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5rem 0 0 0; /* Más espacio arriba, sin afectar los lados */
+}
+
+.landing-logo img {
+  height: 3.5rem;
+}
+
+.landing-actions {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.landing-btn {
+  border: none;
+  text-decoration: none;
+  border-radius: 20px;
+  padding: 0.8rem 3rem;
+  font-size: 1.15rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.04);
+  letter-spacing: 0.5px;
+}
+
+.landing-btn.light {
+  background: #f8ffe5;
+  color: #2a3b42;
+}
+
+.landing-btn.dark {
+  background: #2e5135;
+  color: #c1f7cc;
+}
+
+.landing-title {
+  color: #2a3b42;
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-left: 0.2rem;
+  margin-top: 3.2rem;
+  margin-bottom: 4.2rem;
+  line-height: 1.2;
+  max-width: 600px;
+}
+
+/* Carrusel */
+.carousel-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin: 0;
+  width: 100%;
+}
+
+.peliculas-carousel {
+  display: flex;
+  overflow: hidden;
+  width: 1040px; /* 4 películas de 240px + 3*20px gap */
+  gap: 20px;
+  transition: all 0.3s;
+  background: transparent;
+  padding: 0;
+  align-items: flex-end;
+}
+
+.pelicula-card-landing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 240px;
+  flex-shrink: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  margin: 0;
+}
+
+.pelicula-poster-img {
+  width: 100%;
+  aspect-ratio: 9/16;   /* 16:9 vertical */
+  background: #2e5135;
+  border-radius: 0;
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pelicula-nombre {
+  color: #212226;
+  font-size: 1.08rem;
+  margin-left: 0.1rem;
+  margin-top: 0.2rem;
+  font-weight: 500;
+}
+
+/* Flechas del carrusel */
+.carousel-arrow {
+  background: #2e5135;
+  color: #c1f7cc;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.7rem;
+  font-weight: bold;
+  margin: 0 1.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-arrow:disabled {
+  background: #bcd2c2;
+  color: #fff;
+  cursor: not-allowed;
+}

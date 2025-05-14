@@ -1,17 +1,17 @@
 import React from "react";
 import "./Menu.css";
 import { NavLink, Link } from "react-router-dom";
-import logo from "./LOGO.png";
+import logo from "./logo.png";
 
 function Menu() {
   return (
     <nav>
-      <Link to="/">
+      <Link to="/Inicio">
         <img src={logo} alt="Logo" className="logo" />
       </Link>
       <div className="menu-links">
         <NavLink
-          to="/"
+          to="/Inicio"
           className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
         >
           Inicio
@@ -41,10 +41,10 @@ function Menu() {
           Login
         </NavLink>
         <NavLink
-          to="/landing"
+          to="/"
           className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
         >
-          landing
+          Cerrar sesión
         </NavLink>
       </div>
     </nav>
