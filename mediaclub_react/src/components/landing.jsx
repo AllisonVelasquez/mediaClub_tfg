@@ -12,7 +12,6 @@ const Peliculas = () => {
 
   return (
     <div className="peliculas-container">
-      <h1>PELICULAS</h1>
       {peliculas.map((peli) => (
         <Link
           to={`/pelicula/${peli.frame_id}`}

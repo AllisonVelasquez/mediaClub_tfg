@@ -11,7 +11,7 @@ function Menu() {
       </Link>
       <div className="menu-links">
         <NavLink
-          to="/"
+          to="/landing"
           className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
         >
           Inicio
