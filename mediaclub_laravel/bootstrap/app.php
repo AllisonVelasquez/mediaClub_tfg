@@ -15,5 +15,5 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append(HandleCors::class); 
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        
     })->create();

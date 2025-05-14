@@ -2,100 +2,72 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\User\DeleteUserAction;
-use App\Actions\User\FindUserByIdAction;
-use App\Actions\User\GetAllUsersAction;
-use App\Actions\User\UpdateUserAction;
-use App\Actions\User\AddUserAction;
-
-use Illuminate\Http\Request;
-use Exception;
 use App\Traits\ApiResponse;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Repositories\User\UserRepositoryInterface;
+use App\Http\Requests\RegisterUserRequest;
+use App\Http\Requests\UpdateRequest;
+use App\Http\Requests\LoginUserRequest;
+use App\Services\User\AuthService;
 
-class userController extends Controller
+class UserController extends Controller
 {
     use ApiResponse;
 
-    public function index(GetAllUsersAction $action)
-    {
-        try {
-            $users = $action->execute();
+    protected $userRepository;
+    protected $authService;
 
-            if ($users->isEmpty()) {
-                return $this->success('Lista de usuarios vacia');
-            }
-            return $this->success($users, 'Lista cargada');
-        } catch (Exception $e) {
-            return $this->error();
-        }
+    public function __construct(UserRepositoryInterface $userRepository, AuthService $authService)
+    {
+        $this->authService = $authService;
+        $this->userRepository = $userRepository;
     }
 
-    public function store(Request $request, AddUserAction $action)
-    {
-        try {
-            $user = $action->execute($request->all());
+    //Esto se borra despues, ahora es para ver los datos
+    // public function index()
+    // {
+    //     $users = $this->userRepository->all();
+    //     if ($users->isEmpty()) {
+    //         return $this->success('Lista de usuarios vacia');
+    //     }
+    //     return $this->success($users, 'Lista cargada');
+    // }
 
-            return $this->success($user, 'Usuario creado exitosamente', 201);
-        } catch (ValidationException $e) {
-            return $this->error('Error en la validación de datos', 400, $e->errors());
-        } catch (Exception $e) {
-            return $this->error();
-        }
+    // public function totalUsers()
+    // {
+    //     $total = $this->userRepository->count();
+    //     return $this->success($total, 'Total de usuarios');
+    // }
+
+    public function registerUser(RegisterUserRequest $request) 
+    {
+        $validateData = $request->validated();
+        $user = $this->authService->register($validateData);
+        return $this->success($user, 'Usuario creado exitosamente', 201);
     }
 
-    public function show($id, FindUserByIdAction $action)
+    public function loginUser(LoginUserRequest $request)
     {
-        try {
-            $user = $action->execute($id);
-            return $this->success($user, 'Usuario encontrado');
-        } catch (ModelNotFoundException $e) {
-            return $this->error($e->getMessage(), 404);
-        } catch (\Exception $e) {
-            return $this->error('Error inesperado', 500);
-        }
+        $validateData = $request->validated();
+        $user = $this->authService->login($validateData);
+        return $this->success($user, 'Usuario logueado exitosamente', 200);
     }
 
-    public function delete($id, DeleteUserAction $action)
+    public function show($id)
     {
-        try {
-            $action->execute($id);
-            return $this->success('Usuario eliminado', 200);
-        } catch (ModelNotFoundException $e) {
-            return $this->error($e->getMessage(), 404);
-        } catch (\Exception $e) {
-            return $this->error('Error inesperado', 500);
-        }
+        $user = $this->userRepository->find($id);
+        return $this->success($user, 'Usuario encontrado');
     }
 
-    public function update(Request $request, $id, UpdateUserAction $action)
+    public function delete($id) //Hay que confirmar que el user confirme que quiere eliminar su cuenta
     {
-        try {
-            $user = $action->execute($id, $request->all());
-
-            return $this->success($user, 'Usuario actualizado', 200);
-        } catch (ModelNotFoundException $e) {
-            return $this->error($e->getMessage(), 404);
-        } catch (ValidationException $e) {
-            return $this->error('Error en la validación de datos', 400, $e->errors());
-        } catch (\Exception $e) {
-            return $this->error('Error inesperado', 500);
-        }
+        $user = $this->userRepository->delete($id);
+        return $this->success('Usuario eliminado', 200);
     }
 
-    public function updatePartial(Request $request, $id, UpdateUserAction $action)
+    public function update(UpdateRequest $request, $id)
     {
-        try {
-            $user = $$action->execute($request->all(), $id);
-
-            return $this->success($user, 'Usuario actualizado correctamente', 200);
-        } catch (ModelNotFoundException $e) {
-            return $this->error($e->getMessage(), 404);
-        } catch (ValidationException $e) {
-            return $this->error('Error en la validación de datos', 400, $e->errors());
-        } catch (\Exception $e) {
-            return $this->error($e->getMessage(), 500);
-        }
+        $validateData = $request->validated();
+        $user = $this->userRepository->update($id, $validateData);
+        return $this->success($user, 'Usuario actualizado', 200);
     }
 }

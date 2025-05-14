@@ -1,31 +1,27 @@
 <?php
+// app/Actions/User/UpdatePartialUserAction.php
 namespace App\Actions\User;
 
 use App\Models\Usuario;
-use App\Services\User\UserValidatorService;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UpdateUserAction
 {
+   protected $userRepository;
 
-    public function execute($id, array $data): Usuario
-    {
-        UserValidatorService::validate($data);
+   public function __construct($userRepository)
+   {
+      $this->userRepository = $userRepository;
+   }
 
-        $user = Usuario::find($id);
-
-        if (!$user) {
-            throw new ModelNotFoundException("Usuario no encontrado");
-        }
-
-        $user->id = $data['id'];
-        $user->alias = $data['alias'];
-        $user->email = $data['email'];
-        $user->passw = Hash::make($data['passw']);
-
-        $user->save();
-
-        return $user;
-    }
+   public function execute(array $data, $id): Usuario
+   {
+      try {
+         return $this->userRepository->update($id, $data);
+      } catch (ModelNotFoundException $e) {
+         throw new ModelNotFoundException("Usuario no encontrado");
+      }
+   }
 }

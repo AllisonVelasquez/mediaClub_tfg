@@ -2,28 +2,25 @@
 
 use App\Http\Controllers\TmdbController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\userController;
+use App\Http\Controllers\UserController;
 
 //API USERS
 Route::prefix('usuarios')->group(function () {
     //Gets
 
-    Route::get('/', [userController::class, 'index']);
-    Route::get('/{id}', [userController::class, 'show']);
-
-    // Route::middleware('auth:sanctum')->get('/', [userController::class, 'index']);
+    Route::get('/', [UserController::class, 'index']);
+    Route::get('/total', [UserController::class, 'totalUsers']);
+    Route::get('/{id}', [UserController::class, 'show']);
 
     //Post
-    Route::post('/', [userController::class, 'store']);
-
-    //Put
-    Route::put('/{id}', [userController::class, 'update']);
+    Route::post('/registro', [UserController::class, 'registerUser']);
+    Route::post('/login', [UserController::class, 'loginUser']);
 
     //Patch
-    Route::patch('/{id}', [userController::class, 'updatePartial']);
+    Route::patch('/actualizarDato/{id}', [UserController::class, 'update']);
 
     //Delete
-    Route::delete('/{id}', [userController::class, 'delete']);
+    Route::delete('/eliminar/{id}', [UserController::class, 'delete']);
 });
 
 //API TMDB

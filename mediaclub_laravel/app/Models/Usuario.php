@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $usuario_id
  * @property string $login_id
  * @property string $correo
- * @property string $contrasena_hash
+ * @property string $contrasena
  * @property string $alias
  * @property string|null $bio
  * @property string|null $redes
@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool|null $bloqueado
  * 
  * @property Collection|Actividad[] $actividads
+ * @property Collection|Amistad[] $amistads
  * @property Collection|Hilo[] $hilos
  * @property Collection|Listum[] $lista
  * @property Collection|Megustum[] $megusta
@@ -53,7 +54,7 @@ class Usuario extends Model
 	protected $fillable = [
 		'login_id',
 		'correo',
-		'contrasena_hash',
+		'contrasena',
 		'alias',
 		'bio',
 		'redes',
@@ -67,6 +68,11 @@ class Usuario extends Model
 	public function actividads()
 	{
 		return $this->hasMany(Actividad::class);
+	}
+
+	public function amistads()
+	{
+		return $this->hasMany(Amistad::class);
 	}
 
 	public function hilos()
