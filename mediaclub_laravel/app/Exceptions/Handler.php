@@ -69,14 +69,14 @@ class Handler extends ExceptionHandler
 
             // Para AuthenticationException, devolver un error 401
             if ($exception instanceof AuthenticationException) {
-                return $this->error($exception->getMessage(), 401);
+                return $this->error('Usuario no autenticado. Token invalido o no enviado.', 401);
             }
 
             // Manejo de la excepción ValidationException
             if ($exception instanceof ValidationException) {
                 $errors = $exception->validator->errors()->toArray();
                 $firstErrorMessage = collect($errors)->flatten()->first();
-                return $this->error($firstErrorMessage ?? 'Error de validación', 422, $errors);
+                return $this->error($firstErrorMessage ?? 'Error de validación.', 422, $errors);
             }
 
             // Manejo de error en la consulta a la base de datos

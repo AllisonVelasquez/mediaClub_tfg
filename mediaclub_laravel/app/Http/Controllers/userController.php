@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\User\DeleteUserAction;
 use App\Traits\ApiResponse;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Http\Requests\RegisterUserRequest;
 use App\Http\Requests\UpdateRequest;
 use App\Http\Requests\LoginUserRequest;
 use App\Services\User\AuthService;
+use App\Actions\User\RegisterUserAction;
+use App\Actions\User\LoginUserAction;
+use App\Actions\User\LogoutUserAction;
+use App\Actions\User\UpdateUserProfileAction;
+use Illuminate\Http\Request;
+use App\Http\Requests\DeleteUserRequest;
 
 class UserController extends Controller
 {
@@ -22,52 +29,48 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    //Esto se borra despues, ahora es para ver los datos
-    // public function index()
-    // {
-    //     $users = $this->userRepository->all();
-    //     if ($users->isEmpty()) {
-    //         return $this->success('Lista de usuarios vacia');
-    //     }
-    //     return $this->success($users, 'Lista cargada');
-    // }
-
-    // public function totalUsers()
-    // {
-    //     $total = $this->userRepository->count();
-    //     return $this->success($total, 'Total de usuarios');
-    // }
-
-    public function registerUser(RegisterUserRequest $request) 
+    public function registerUser(RegisterUserRequest $request)
     {
-        $validateData = $request->validated();
-        $user = $this->authService->register($validateData);
+        $user = app(RegisterUserAction::class)->execute($request->validated());
         return $this->success($user, 'Usuario creado exitosamente', 201);
     }
 
     public function loginUser(LoginUserRequest $request)
     {
-        $validateData = $request->validated();
-        $user = $this->authService->login($validateData);
-        return $this->success($user, 'Usuario logueado exitosamente', 200);
+        $token = app(LoginUserAction::class)->execute($request->validated());
+        return $this->success($token, 'Usuario logueado exitosamente', 200);
     }
 
-    public function show($id)
+    public function getProfile(Request $request)
     {
-        $user = $this->userRepository->find($id);
+        $user = $request->user()->makeHidden(['contrasena', 'usuario_id', 'login_id','confirmado','bloqueado']);
         return $this->success($user, 'Usuario encontrado');
     }
 
-    public function delete($id) //Hay que confirmar que el user confirme que quiere eliminar su cuenta
+    public function logoutUser(Request $request)
     {
-        $user = $this->userRepository->delete($id);
-        return $this->success('Usuario eliminado', 200);
+        $bool = app(LogoutUserAction::class)->execute($request);
+        if ($bool === true) {
+            return $this->success('Usuario deslogueado exitosamente', 200);
+        }
+        return $this->error('No puedes desloguearte', 403);
+        ;
     }
 
-    public function update(UpdateRequest $request, $id)
+    public function delete(DeleteUserRequest $request) //se pide formulario no para validar sino para confirmar que desea eliminar su cuenta
     {
-        $validateData = $request->validated();
-        $user = $this->userRepository->update($id, $validateData);
+        $bool = app(DeleteUserAction::class)->execute($request->user(), $request->validated());
+
+        if ($bool === true) {
+            return $this->success('Usuario eliminado.', 200);
+        }
+        return $this->error('No puedes eliminar este usuario.', 403);
+    }
+
+    public function update(UpdateRequest $request)
+    {
+        $user = $request->user();
+        $user = app(UpdateUserProfileAction::class)->execute($user, $request->validated());
         return $this->success($user, 'Usuario actualizado', 200);
     }
 }

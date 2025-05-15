@@ -37,28 +37,22 @@ class UserRepository implements UserRepositoryInterface
     public function update(int $id, array $data): ?Usuario
     {
         $user = Usuario::findOrFail($id);
-        if ($user) {
-            if (!empty($data['contrasena'])) {
-                $data['contrasena'] = Hash::make($data['contrasena']);
-            }
-            $user->fill($data);
-            if ($user->isDirty()) { //Verifica si hay cambios
-                $user->save();
-            }
-            return $user;
+        if (!empty($data['contrasena'])) {
+            $data['contrasena'] = Hash::make($data['contrasena']);
         }
-        return null;
+        $user->fill($data);
+        if ($user->isDirty()) { //Verifica si hay cambios
+            $user->save();
+        }
+        return $user;
     }
 
     // Eliminar un usuario
     public function delete(int $id): bool
     {
-        $user = Usuario::find($id);
-        if ($user) {
-            $user->delete();
-            return true;
-        }
-        return false;
+        $user = Usuario::findOrFail($id);
+        $user->delete();
+        return true;
     }
 
     // Contar el número de usuarios

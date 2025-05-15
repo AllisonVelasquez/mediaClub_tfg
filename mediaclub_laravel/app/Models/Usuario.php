@@ -8,7 +8,9 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
 
 /**
  * Class Usuario
@@ -38,8 +40,9 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Usuario extends Model
+class Usuario extends Authenticatable
 {
+	use HasApiTokens;
 	protected $table = 'usuario';
 	protected $primaryKey = 'usuario_id';
 	public $timestamps = false;
@@ -47,7 +50,6 @@ class Usuario extends Model
 	protected $casts = [
 		'fecha_creacion' => 'datetime',
 		'fecha_ultima_actualizacion' => 'datetime',
-		'confirmado' => 'bool',
 		'bloqueado' => 'bool'
 	];
 
@@ -61,7 +63,6 @@ class Usuario extends Model
 		'foto_perfil',
 		'fecha_creacion',
 		'fecha_ultima_actualizacion',
-		'confirmado',
 		'bloqueado'
 	];
 

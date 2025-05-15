@@ -15,14 +15,13 @@ return new class extends Migration
             $table->integer('usuario_id', true);
             $table->string('login_id', 100)->unique('login_id');
             $table->string('correo')->unique('correo');
-            $table->string('contrasena_hash');
+            $table->string('contrasena');
             $table->string('alias', 100)->unique('alias');
             $table->text('bio')->nullable();
             $table->json('redes')->nullable();
             $table->string('foto_perfil')->nullable()->default('/images/perfiles/default.png'); //Hay que cambiar la ruta por defecto
             $table->dateTime('fecha_creacion')->nullable()->useCurrent();
             $table->dateTime('fecha_ultima_actualizacion')->useCurrentOnUpdate()->nullable()->useCurrent();
-            $table->boolean('confirmado')->nullable()->default(false);
             $table->boolean('bloqueado')->nullable()->default(false);
         });
     }

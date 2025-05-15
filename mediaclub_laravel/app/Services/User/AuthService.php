@@ -17,7 +17,6 @@ class AuthService
 
     public function register(array $data)
     {
-        //Añadir el envio del correo y la verificacion de la cuenta
         return $this->userRepository->store($data);
     }
 
@@ -32,10 +31,14 @@ class AuthService
         return $user;
     }
 
-    // Aquí puedes generar un token si usas JWT o Passport
-    // return $user->createToken('YourAppName')->plainTextToken;
+    public function delete($usuario_id)
+    {
 
-    // event(new Login($user));
+        return $this->userRepository->delete($usuario_id);
+    }
 
-    // Si no usas JWT, puedes devolver el usuario o cualquier cosa que necesites.
+    public function update(int $usuario_id, array $data)
+    {
+        return $this->userRepository->update($usuario_id, $data);
+    }
 }
