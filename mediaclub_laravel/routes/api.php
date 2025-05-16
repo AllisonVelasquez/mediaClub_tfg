@@ -19,10 +19,11 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::prefix('usuarios')->group(function () {
-    Route::get('/alias/{alias}', [UserController::class, 'showProfile']);
-    Route::get('/alias/{alias}/listas-publicas', [UserController::class, 'showLists']);
-    Route::get('/alias/{alias}/amigos', [UserController::class, 'showFriends']);
-    Route::get('/alias/{alias}/actividad', [UserController::class, 'activity']);
+    Route::get('/alias/{alias}', [UserController::class, 'getIdByAlias']);
+    Route::get('/{id}', [UserController::class, 'showProfile']);
+    Route::get('/{id}/listas-publicas', [UserController::class, 'showLists']);
+    Route::get('/{id}/amigos', [UserController::class, 'showFriends']);
+    Route::get('/{id}/actividad', [UserController::class, 'activity']);
 });
 
 Route::middleware('auth:sanctum')->prefix('me')->group(function () {
@@ -50,7 +51,7 @@ Route::middleware('auth:sanctum')->prefix('me')->group(function () {
         Route::post('/', [ListController::class, 'addList']);
         Route::put('/{id}', [ListController::class, 'editList']);
         Route::delete('/{id}', [ListController::class, 'deleteList']);
-        Route::post('/{id}/agregar', [ListController::class, 'addContent']);
+        Route::post('/{id}/agregar-frame', [ListController::class, 'addContent']);
         Route::delete('/{id}/quitar/{contenidoId}', [ListController::class, 'removeContent']);
     });
 
@@ -59,7 +60,7 @@ Route::middleware('auth:sanctum')->prefix('me')->group(function () {
         Route::post('/', [ResenaController::class, 'addReview']);
         Route::get('/{id}', [ResenaController::class, 'showReview']);
         Route::delete('/{id}', [ResenaController::class, 'deleteReview']);
-        Route::get('/frame/{id}', [ResenaController::class, 'showFrameReview']);
+        Route::get('/{titulo}/{id}', [ResenaController::class, 'showFrameReview']);
     });
 
     Route::prefix('puntuaciones')->group(function () {
@@ -67,23 +68,23 @@ Route::middleware('auth:sanctum')->prefix('me')->group(function () {
         Route::post('/', [PuntuacionController::class, 'addRating']);
         Route::put('/{id}', [PuntuacionController::class, 'editRating']);
         Route::delete('/{id}', [PuntuacionController::class, 'deleteRating']);
-        Route::get('/frame/{id}', [PuntuacionController::class, 'showFrameRating']);
+        Route::get('/{titulo}/{id}', [PuntuacionController::class, 'showFrameRating']);
     });
 });
 
 
 // Contenido cambiar controllers
 Route::prefix('frames')->group(function () {
+    Route::get('/buscar/{titulo}', [FrameController::class, 'search']);
     Route::get('/peliculas', [TmdbController::class, 'getMovies']);
     Route::get('/series', [TmdbController::class, 'getSeries']);
-    Route::get('/buscar/{titulo}', [FrameController::class, 'search']);
     Route::get('/popular', [TmdbController::class, 'popular']);
     Route::get('/mas-puntuados', [TmdbController::class, 'topRated']);
     Route::get('/proximamente', [TmdbController::class, 'upcoming']);
     Route::get('/tendencia', [TmdbController::class, 'trending']);
-    Route::get('/{id}/similar', [TmdbController::class, 'similarMovies']);
-    Route::get('/{id}', [FrameController::class, 'show']); //Va a mostrar todo
-
+    Route::get('/{id}', [FrameController::class, 'show']);
+    Route::get('/{id}/similar', [TmdbController::class, 'similarMovies']); //Va a mostrar todo TODO
+     
     // Route::post('/sincronizar/{id}', [FrameController::class, 'sincronizar']);
 });
 
