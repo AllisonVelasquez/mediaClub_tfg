@@ -162,70 +162,6 @@
           "fecha_ultima_actualizacion": "2025-05-10T09:30:00"
         },
         {
-          "frame_id": 10,
-          "imdb_id": 10101,
-          "titulo": "El Viaje",
-          "tipo_contenido": "pelicula",
-          "genero": "Aventura",
-          "fecha_lanzamiento": "2024-12-01T00:00:00",
-          "descripcion": "Una aventura épica a través del tiempo.",
-          "duracion": 120,
-          "numero_episodios": null,
-          "poster_url": "/posters/viaje.jpg",
-          "puntuacion_dbs": {
-            "imdb": 7.4
-          },
-          "fecha_ultima_actualizacion": "2025-05-10T09:30:00"
-        },
-        {
-          "frame_id": 10,
-          "imdb_id": 10101,
-          "titulo": "El Viaje",
-          "tipo_contenido": "pelicula",
-          "genero": "Aventura",
-          "fecha_lanzamiento": "2024-12-01T00:00:00",
-          "descripcion": "Una aventura épica a través del tiempo.",
-          "duracion": 120,
-          "numero_episodios": null,
-          "poster_url": "/posters/viaje.jpg",
-          "puntuacion_dbs": {
-            "imdb": 7.4
-          },
-          "fecha_ultima_actualizacion": "2025-05-10T09:30:00"
-        },
-        {
-          "frame_id": 10,
-          "imdb_id": 10101,
-          "titulo": "El Viaje",
-          "tipo_contenido": "pelicula",
-          "genero": "Aventura",
-          "fecha_lanzamiento": "2024-12-01T00:00:00",
-          "descripcion": "Una aventura épica a través del tiempo.",
-          "duracion": 120,
-          "numero_episodios": null,
-          "poster_url": "/posters/viaje.jpg",
-          "puntuacion_dbs": {
-            "imdb": 7.4
-          },
-          "fecha_ultima_actualizacion": "2025-05-10T09:30:00"
-        },
-        {
-          "frame_id": 10,
-          "imdb_id": 10101,
-          "titulo": "El Viaje",
-          "tipo_contenido": "pelicula",
-          "genero": "Aventura",
-          "fecha_lanzamiento": "2024-12-01T00:00:00",
-          "descripcion": "Una aventura épica a través del tiempo.",
-          "duracion": 120,
-          "numero_episodios": null,
-          "poster_url": "/posters/viaje.jpg",
-          "puntuacion_dbs": {
-            "imdb": 7.4
-          },
-          "fecha_ultima_actualizacion": "2025-05-10T09:30:00"
-        },
-        {
           "frame_id": 11,
           "imdb_id": 20202,
           "titulo": "La Caída",
@@ -240,6 +176,149 @@
             "imdb": 8.0
           },
           "fecha_ultima_actualizacion": "2025-05-11T08:45:00"
+        },{
+          "frame_id": 12,
+          "imdb_id": 30303,
+          "titulo": "Alien",
+          "tipo_contenido": "pelicula",
+          "genero": "Ciencia Ficción",
+          "fecha_lanzamiento": "1979-05-25T00:00:00",
+          "descripcion": "La tripulación de una nave espacial se enfrenta a un mortal alienígena.",
+          "duracion": 117,
+          "numero_episodios": null,
+          "poster_url": "/posters/alien.jpg",
+          "puntuacion_dbs": {
+            "imdb": 8.5
+          },
+          "fecha_ultima_actualizacion": "2025-05-12T10:00:00"
+        },
+        {
+          "frame_id": 13,
+          "imdb_id": 40404,
+          "titulo": "Batman",
+          "tipo_contenido": "pelicula",
+          "genero": "Acción",
+          "fecha_lanzamiento": "1989-06-23T00:00:00",
+          "descripcion": "Batman protege Gotham City de su archienemigo el Joker.",
+          "duracion": 126,
+          "numero_episodios": null,
+          "poster_url": "/posters/batman.jpg",
+          "puntuacion_dbs": {
+            "imdb": 7.5
+          },
+          "fecha_ultima_actualizacion": "2025-05-12T10:00:00"
+        },
+        {
+          "frame_id": 14,
+          "imdb_id": 50505,
+          "titulo": "Capitán América",
+          "tipo_contenido": "pelicula",
+          "genero": "Aventura",
+          "fecha_lanzamiento": "2011-07-22T00:00:00",
+          "descripcion": "Steve Rogers se convierte en el Capitán América para luchar en la Segunda Guerra Mundial.",
+          "duracion": 124,
+          "numero_episodios": null,
+          "poster_url": "/posters/capitanamerica.jpg",
+          "puntuacion_dbs": {
+            "imdb": 6.9
+          },
+          "fecha_ultima_actualizacion": "2025-05-12T10:00:00"
+        },
+        {
+          "frame_id": 15,
+          "imdb_id": 60606,
+          "titulo": "Goodfellas",
+          "tipo_contenido": "pelicula",
+          "genero": "Crimen",
+          "fecha_lanzamiento": "1990-09-19T00:00:00",
+          "descripcion": "La vida de Henry Hill y su relación con la mafia.",
+          "duracion": 146,
+          "numero_episodios": null,
+          "poster_url": "/posters/goodfellas.jpg",
+          "puntuacion_dbs": {
+            "imdb": 8.7
+          },
+          "fecha_ultima_actualizacion": "2025-05-12T10:00:00"
+        },
+        {
+          "frame_id": 16,
+          "imdb_id": 70707,
+          "titulo": "Interstellar",
+          "tipo_contenido": "pelicula",
+          "genero": "Ciencia Ficción",
+          "fecha_lanzamiento": "2014-11-07T00:00:00",
+          "descripcion": "Un grupo de exploradores viaja a través de un agujero de gusano en el espacio.",
+          "duracion": 169,
+          "numero_episodios": null,
+          "poster_url": "/posters/interestellar.jpg",
+          "puntuacion_dbs": {
+            "imdb": 8.6
+          },
+          "fecha_ultima_actualizacion": "2025-05-12T10:00:00"
+        },
+        {
+          "frame_id": 17,
+          "imdb_id": 80808,
+          "titulo": "Jurassic Park",
+          "tipo_contenido": "pelicula",
+          "genero": "Aventura",
+          "fecha_lanzamiento": "1993-06-11T00:00:00",
+          "descripcion": "Un parque temático con dinosaurios clonados se convierte en un caos.",
+          "duracion": 127,
+          "numero_episodios": null,
+          "poster_url": "/posters/jurassicpark.jpg",
+          "puntuacion_dbs": {
+            "imdb": 8.2
+          },
+          "fecha_ultima_actualizacion": "2025-05-12T10:00:00"
+        },
+        {
+          "frame_id": 18,
+          "imdb_id": 90909,
+          "titulo": "La La Land",
+          "tipo_contenido": "pelicula",
+          "genero": "Musical",
+          "fecha_lanzamiento": "2016-12-09T00:00:00",
+          "descripcion": "Una historia de amor entre una actriz y un músico en Los Ángeles.",
+          "duracion": 128,
+          "numero_episodios": null,
+          "poster_url": "/posters/lalaland.jpg",
+          "puntuacion_dbs": {
+            "imdb": 8.0
+          },
+          "fecha_ultima_actualizacion": "2025-05-12T10:00:00"
+        },
+        {
+          "frame_id": 19,
+          "imdb_id": 101010,
+          "titulo": "Matrix",
+          "tipo_contenido": "pelicula",
+          "genero": "Ciencia Ficción",
+          "fecha_lanzamiento": "1999-03-31T00:00:00",
+          "descripcion": "Un hacker descubre la verdad sobre su realidad y su papel en la guerra contra sus controladores.",
+          "duracion": 136,
+          "numero_episodios": null,
+          "poster_url": "/posters/matrix.jpg",
+          "puntuacion_dbs": {
+            "imdb": 8.7
+          },
+          "fecha_ultima_actualizacion": "2025-05-12T10:00:00"
+        },
+        {
+          "frame_id": 20,
+          "imdb_id": 111111,
+          "titulo": "Pulp Fiction",
+          "tipo_contenido": "pelicula",
+          "genero": "Crimen",
+          "fecha_lanzamiento": "1994-10-14T00:00:00",
+          "descripcion": "Las vidas de dos sicarios, una esposa de gánster y un boxeador se entrelazan en historias de violencia y redención.",
+          "duracion": 154,
+          "numero_episodios": null,
+          "poster_url": "/posters/pulp.jpg",
+          "puntuacion_dbs": {
+            "imdb": 8.9
+          },
+          "fecha_ultima_actualizacion": "2025-05-12T10:00:00"
         }
       ]
     },
