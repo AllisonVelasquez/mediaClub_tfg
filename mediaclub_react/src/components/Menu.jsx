@@ -10,7 +10,7 @@ function Menu() {
       </Link>
       <div className="menu-links">
         <NavLink
-          to="/"
+          to="/Inicio"
           className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
         >
           Inicio
@@ -26,18 +26,6 @@ function Menu() {
           className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
         >
           Perfil
-        </NavLink>
-        <NavLink
-          to="/Registro"
-          className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
-        >
-          Registro
-        </NavLink>
-        <NavLink
-          to="/Login"
-          className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
-        >
-          Login
         </NavLink>
         <NavLink
           to="/"
