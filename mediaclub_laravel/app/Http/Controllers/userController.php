@@ -41,7 +41,7 @@ class UserController extends Controller
         return $this->success($token, 'Usuario logueado exitosamente', 200);
     }
 
-    public function getProfile(Request $request)
+    public function getProfile(Request $request) //Hay que mejorar esto
     {
         $user = $request->user()->makeHidden(['contrasena', 'usuario_id', 'login_id','confirmado','bloqueado']);
         return $this->success($user, 'Usuario encontrado');
@@ -59,9 +59,11 @@ class UserController extends Controller
 
     public function delete(DeleteUserRequest $request) //se pide formulario no para validar sino para confirmar que desea eliminar su cuenta
     {
-        $bool = app(DeleteUserAction::class)->execute($request->user(), $request->validated());
+        $user = $request->user();
+        $data = $request->validated();
+        $success = app(DeleteUserAction::class)->execute($user, $data);
 
-        if ($bool === true) {
+        if ($success) {
             return $this->success('Usuario eliminado.', 200);
         }
         return $this->error('No puedes eliminar este usuario.', 403);
