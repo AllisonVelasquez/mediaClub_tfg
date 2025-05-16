@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { getUsuarios } from "../services/axios";
 import bcrypt from "bcryptjs";
 import "./LogIn.css";
-import logoNombreOscuro from "./logo_nombre_oscuro.png";
 
 const LogIn = () => {
   const [formData, setFormData] = useState({
@@ -75,7 +74,7 @@ const LogIn = () => {
   return (
     <div className="login-bg">
       <div className="login-header">
-        <img src={logoNombreOscuro} alt="Muvis Logo" />
+        <img src="/logo_nombre_oscuro.png" alt="Muvis Logo" />
       </div>
       <h2 style={{ fontFamily: "Arial, Helvetica, sans-serif", color: "#2a3b42", marginTop: "1.5rem" }}>
         Iniciar sesión

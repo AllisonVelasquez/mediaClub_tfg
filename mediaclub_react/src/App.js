@@ -29,7 +29,7 @@ import Profile from "./components/Perfil";
 import Registro from "./components/Registro";
 import UserManagement from "./components/LogIn";
 import Menu from "./components/Menu";
-import Peliculas from "./components/landing";
+import Peliculas from "./components/landing/landing.jsx";
 import PeliculaDetalle from "./components/PeliculaDetalle";
 
 function App() {

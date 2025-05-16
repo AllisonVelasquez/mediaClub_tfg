@@ -1,10 +1,9 @@
 import { useEffect, useState, useRef } from "react";
-import { getFrames } from "../services/axios";
+import { getFrames } from "../../services/axios";
 import { Link } from "react-router-dom";
-import logoNombreOscuro from "./logo_nombre_oscuro.png";
 import "./landing.css";
 
-const VISIBLE = 4;
+const VISIBLE = 5;
 
 const Landing = () => {
   const [peliculas, setPeliculas] = useState([]);
@@ -31,14 +30,14 @@ const Landing = () => {
     <div className="landing-bg">
       <header className="landing-header">
         <div className="landing-logo">
-          <img src={logoNombreOscuro} alt="Muvis Logo" />
+          <img src="/logo_nombre_oscuro.png" alt="Muvis Logo" />
         </div>
         <div className="landing-actions">
           <Link to="/LogIn" className="landing-btn light">
-            Sign In
+            Entrar
           </Link>
           <Link to="/Registro" className="landing-btn dark">
-            Register
+            Registrarme
           </Link>
         </div>
       </header>

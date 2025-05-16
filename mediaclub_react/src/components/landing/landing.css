@@ -2,7 +2,7 @@
   min-height: 100vh;
   background: #d9e9dc;
   font-family: Arial, Helvetica, sans-serif;
-  padding: 0 4rem 2rem 4rem; /* Más espacio en los bordes */
+  padding: 0 4rem 2rem 4rem; 
   box-sizing: border-box;
 }
 
@@ -10,16 +10,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2.5rem 0 0 0; /* Más espacio arriba, sin afectar los lados */
+  padding: 1rem 0 0 0; 
 }
 
 .landing-logo img {
-  height: 3.5rem;
+  height: 3rem;
 }
 
 .landing-actions {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .landing-btn {
@@ -27,7 +27,7 @@
   text-decoration: none;
   border-radius: 20px;
   padding: 0.8rem 3rem;
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   cursor: pointer;
@@ -60,17 +60,18 @@
 /* Carrusel */
 .carousel-container {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   margin: 0;
   width: 100%;
+  min-height: 420px;
+  gap: 0.5rem; 
 }
-
 .peliculas-carousel {
   display: flex;
   overflow: hidden;
-  width: 1040px; /* 4 películas de 240px + 3*20px gap */
-  gap: 20px;
+  width: 1200px;
+  gap: 28px;
   transition: all 0.3s;
   background: transparent;
   padding: 0;
@@ -81,7 +82,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 240px;
+  width: 220px;
   flex-shrink: 0;
   background: none;
   box-shadow: none;
@@ -91,7 +92,7 @@
 
 .pelicula-poster-img {
   width: 100%;
-  aspect-ratio: 9/16;   /* 16:9 vertical */
+  aspect-ratio: 9/16; 
   background: #2e5135;
   border-radius: 0;
   margin-bottom: 0.7rem;
@@ -118,15 +119,14 @@
 
 /* Flechas del carrusel */
 .carousel-arrow {
-  background: #2e5135;
-  color: #c1f7cc;
+  background: #bcd2c2;
+  color: #fff;
   border: none;
   border-radius: 50%;
   width: 44px;
   height: 44px;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  margin: 0 1.5rem;
   cursor: pointer;
   transition: background 0.2s;
   display: flex;
@@ -134,8 +134,15 @@
   justify-content: center;
 }
 
-.carousel-arrow:disabled {
-  background: #bcd2c2;
-  color: #fff;
-  cursor: not-allowed;
+.carousel-arrow:first-of-type {
+  left: 0;
+}
+
+.carousel-arrow:last-of-type {
+  right: 0;
+}
+
+.carousel-arrow:hover {
+  background: #2e5135;
+  color: #c1f7cc;
 }

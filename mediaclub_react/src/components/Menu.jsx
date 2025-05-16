@@ -1,17 +1,16 @@
 import React from "react";
 import "./Menu.css";
 import { NavLink, Link } from "react-router-dom";
-import logo from "./logo.png";
 
 function Menu() {
   return (
     <nav>
       <Link to="/Inicio">
-        <img src={logo} alt="Logo" className="logo" />
+        <img src="/logo.png" alt="Muvis Logo"  className="logo"/>
       </Link>
       <div className="menu-links">
         <NavLink
-          to="/Inicio"
+          to="/"
           className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
         >
           Inicio
