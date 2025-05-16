@@ -13,6 +13,7 @@ interface UserRepositoryInterface
     public function store(array $data): Usuario;
     public function update(int $id, array $data): ?Usuario;
     public function delete(int $id): bool;
+    public function findByAlias(string $alias): ?Usuario;
     // public function findByField(string $field, string $value): Collection;
     // public function firstWhere(string $field, string $value): ?Usuario;
     public function count(): int;

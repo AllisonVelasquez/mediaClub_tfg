@@ -55,6 +55,11 @@ class UserRepository implements UserRepositoryInterface
         return true;
     }
 
+    public function findByAlias(string $alias): ?Usuario
+    {
+        return Usuario::where('alias', $alias)->firstOrFail();
+    }
+
     // Contar el número de usuarios
     public function count(): int
     {

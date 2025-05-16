@@ -73,4 +73,13 @@ class UserController extends Controller
         $user = app(UpdateUserProfileAction::class)->execute($user, $request->validated());
         return $this->success($user, 'Usuario actualizado', 200);
     }
+
+    public function getIdByAlias($alias)
+    {
+        $user = $this->userRepository->findByAlias($alias);
+        if ($user) {
+            return $this->success($user->usuario_id, 'Usuario encontrado');
+        }
+        return $this->error('Usuario no encontrado', 404);
+    }
 }
