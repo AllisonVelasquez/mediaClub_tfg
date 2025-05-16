@@ -25,7 +25,7 @@
 
 
 import { Routes, Route, useLocation } from "react-router-dom";
-import Profile from "./components/Perfil";
+import Profile from "./components/perfil/Perfil.jsx";
 import Registro from "./components/Registro";
 import UserManagement from "./components/LogIn";
 import Menu from "./components/Menu";
