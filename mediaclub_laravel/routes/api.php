@@ -19,11 +19,10 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::prefix('usuarios')->group(function () {
-    Route::get('/{id}', [UserController::class, 'showProfile']);
-    Route::get('/{id}/listas-publicas', [UserController::class, 'showLists']);
-    Route::get('/{id}/amigos', [UserController::class, 'showFriends']);
-    Route::get('/{id}/actividad', [UserController::class, 'activity']);
-    Route::get('/alias/{alias}', [UserController::class, 'getIdByAlias']);
+    Route::get('/alias/{alias}', [UserController::class, 'showProfile']);
+    Route::get('/alias/{alias}/listas-publicas', [UserController::class, 'showLists']);
+    Route::get('/alias/{alias}/amigos', [UserController::class, 'showFriends']);
+    Route::get('/alias/{alias}/actividad', [UserController::class, 'activity']);
 });
 
 Route::middleware('auth:sanctum')->prefix('me')->group(function () {
