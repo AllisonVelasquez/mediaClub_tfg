@@ -34,15 +34,14 @@ import PeliculaDetalle from "./components/PeliculaDetalle";
 
 function App() {
   const location = useLocation();
-  // Oculta el menú en landing (/), LogIn y Registro
   const hideMenu = ["/", "/LogIn", "/Registro"].includes(location.pathname);
 
   return (
     <>
       {!hideMenu && <Menu />}
       <Routes>
-        <Route path="/" element={<Peliculas />} /> {/* landing es la página principal */}
-        <Route path="/inicio" element={<Peliculas />} /> {/* Inicio ahora es /inicio */}
+        <Route path="/" element={<Peliculas />} /> 
+        <Route path="/inicio" element={<Peliculas />} />
         <Route path="/Perfil" element={<Profile />} />
         <Route path="/Registro" element={<Registro />} />
         <Route path="/LogIn" element={<UserManagement />} />
