@@ -16,12 +16,6 @@ function Menu() {
         >
           Inicio
         </NavLink>
-        {/* <NavLink to="/Explorar" className={({ isActive }) => isActive ? 'opcion-activa' : 'opcion'}>
-        Explorar
-      </NavLink>
-      <NavLink to="/Listas" className={({ isActive }) => isActive ? 'opcion-activa' : 'opcion'}>
-        Listas
-      </NavLink> */}
         <NavLink
           to="/Perfil"
           className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
@@ -41,28 +35,10 @@ function Menu() {
           Login
         </NavLink>
         <NavLink
-          to="/landing"
+          to="/TodasLasListas"
           className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
         >
-          landing
-        </NavLink>
-        <NavLink
-          to="/todas"
-          className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
-        >
-          todas
-        </NavLink>
-        <NavLink
-          to="/perfil"
-          className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
-        >
-          perfil
-        </NavLink>
-        <NavLink
-          to="/prueba"
-          className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
-        >
-          prueba
+          listas
         </NavLink>
       </div>
     </nav>

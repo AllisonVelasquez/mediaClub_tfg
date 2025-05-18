@@ -1,22 +1,25 @@
 import { useState, useEffect } from "react";
 import { getUsuarios } from "../services/Usuarios/CRUD_Usuarios";
 
-
 const Profile = () => {
   const [profile, setProfile] = useState(null);
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchProfile = async () => {
       try {
         const response = await getUsuarios();
 
-        // La API devuelve un array con objetos
-        const usuarios = Array.isArray(response.data)
-          ? response.data[0]?.data?.usuarios
-          : response.data?.usuarios;
+        // Asegúrate de que la respuesta sea un array y toma el primer usuario si lo es
+        const usuario =
+          Array.isArray(response) && response.length > 0
+            ? response[0]
+            : response;
 
-        if (usuarios && usuarios.length > 0) {
-          setProfile(usuarios[0]); // Usamos el primer usuario como ejemplo
+        // Verifica si el usuario es un objeto
+        if (usuario && usuario.usuario_id) {
+          setProfile(usuario);
+        } else {
+          console.error("No se encontró un usuario válido en la respuesta");
         }
       } catch (error) {
         console.error("Error al obtener el perfil:", error);
@@ -26,6 +29,7 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
+  // Mostrar mensaje de carga si el perfil aún no está disponible
   if (!profile) {
     return <div>Cargando...</div>;
   }
@@ -59,42 +63,50 @@ const Profile = () => {
 
           <h3>Redes Sociales:</h3>
           <ul>
-            <li>
-              <a
-                href={profile.redes.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Facebook
-              </a>
-            </li>
-            <li>
-              <a
-                href={profile.redes.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Twitter
-              </a>
-            </li>
-            <li>
-              <a
-                href={profile.redes.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Instagram
-              </a>
-            </li>
-            <li>
-              <a
-                href={profile.redes.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                YouTube
-              </a>
-            </li>
+            {profile.redes?.facebook && (
+              <li>
+                <a
+                  href={profile.redes.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Facebook
+                </a>
+              </li>
+            )}
+            {profile.redes?.twitter && (
+              <li>
+                <a
+                  href={profile.redes.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Twitter
+                </a>
+              </li>
+            )}
+            {profile.redes?.instagram && (
+              <li>
+                <a
+                  href={profile.redes.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Instagram
+                </a>
+              </li>
+            )}
+            {profile.redes?.youtube && (
+              <li>
+                <a
+                  href={profile.redes.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  YouTube
+                </a>
+              </li>
+            )}
           </ul>
 
           <p>

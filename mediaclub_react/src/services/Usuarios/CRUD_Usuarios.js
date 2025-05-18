@@ -3,9 +3,9 @@ import { instance } from "../axios";
 // 1. Obtener todos los usuarios
 export const getUsuarios = async () => {
   try {
-    const response = await instance.get("0/");
+    const response = await instance.get("usuarios/");
     // Accedemos a los usuarios dentro de la estructura 'data'
-    return response.data.data.usuarios;
+    return response.data;
   } catch (error) {
     console.error("Error al obtener Usuarios:", error);
     throw error;
@@ -15,7 +15,7 @@ export const getUsuarios = async () => {
 // 2. Obtener un usuario específico por ID
 export const getUsuario = async (id) => {
   try {
-    const response = await instance.get(`0/`);
+    const response = await instance.get(`usuarios/`);
     // Debería retornar solo el objeto de usuario si existe
     return response.data.data.usuarios.find(
       (usuario) => usuario.usuario_id === id
@@ -26,16 +26,13 @@ export const getUsuario = async (id) => {
   }
 };
 
-// 3. Crear un nuevo usuario
-// 3. Crear un nuevo usuario
 export const crearUsuario = async (usuarioData) => {
   try {
     // Realizamos el POST para crear el nuevo usuario
-    const response = await instance.patch("0/usuarios/", usuarioData);
+    const response = await instance.post("usuarios", usuarioData);
     // Verificamos si la creación fue exitosa y retornamos la respuesta
     if (response.status === 200 || response.status === 201) {
-      console.log("Usuario creado correctamente");
-      return response.data; // Retornamos los datos de la respuesta
+      return response.data; 
     } else {
       console.error("Error al crear usuario:", response.data.message);
       throw new Error("No se pudo crear el usuario.");
@@ -45,7 +42,6 @@ export const crearUsuario = async (usuarioData) => {
     throw error;
   }
 };
-
 
 // 4. Actualizar un usuario existente
 export const actualizarUsuario = async (usuarioId, usuarioData) => {
@@ -63,7 +59,7 @@ export const actualizarUsuario = async (usuarioId, usuarioData) => {
 // 5. Eliminar un usuario
 export const eliminarUsuario = async (usuarioId) => {
   try {
-    const response = await instance.delete(`/usuarios/${usuarioId}`);
+    const response = await instance.delete(`0/usuarios/${usuarioId}`);
     // En este caso retornamos los datos de la respuesta
     return response.data;
   } catch (error) {

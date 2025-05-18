@@ -5,11 +5,8 @@ import UserManagement from "./components/LogIn";
 import Menu from "./components/Menu";
 import Peliculas from "./components/landing";
 import PeliculaDetalle from "./components/PeliculaDetalle";
-import DetalleLista from "./components/pruebas/listas/DetalleListas";
-import TodasLasListas from "./components/pruebas/listas/TodasLasListas";
-import PerfilUsuario from "./components/pruebas/perfil/PerfilUsuario";
-import Prueba from "./components/pruebas/newAxios"
-
+import TodasLasListas from "./components/listas/listas";
+import DetalleLista from "./components/listas/DetallesListas";
 
 function App() {
   return (
@@ -21,16 +18,12 @@ function App() {
         <Route path="/LogIn" element={<UserManagement />} />
         <Route path="/landing" element={<Peliculas />} />
         <Route path="/pelicula/:id" element={<PeliculaDetalle />} />
+        <Route path="/DetalleLista/:id" element={<DetalleLista />} />
 
-        {/* Pruebas */}
-        <Route path="/todas" element={<TodasLasListas />} />
-        <Route path="/perfil/:id" element={<PerfilUsuario />} />
-        <Route path="/lista/:id" element={<DetalleLista />} />
-        <Route path="/prueba" element={<Prueba />} />
+        <Route path="/TodasLasListas" element={<TodasLasListas />} />
       </Routes>
     </>
   );
 }
-
 
 export default App;

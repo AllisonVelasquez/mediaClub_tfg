@@ -146,7 +146,7 @@ const LogIn = () => {
 
     try {
       const response = await getUsuarios();
-      const usuarios = response.data.usuarios;
+      const usuarios = response;
 
       const usuario = usuarios.find(
         (user) => user.login_id === formData.usuario

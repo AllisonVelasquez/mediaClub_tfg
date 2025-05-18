@@ -1,58 +1,130 @@
-// src/components/ListDetail.jsx
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import './styles/DetallesLista.css'
+import { getFramesLista } from "../../services/Listas/CRUD_Listas"; // Asegúrate de tener esta función
 
-const ListDetail = ({ data }) => {
-  const { id } = useParams();
+const ListDetail = () => {
+  const { id } = useParams(); // Obtenemos el id de la lista desde los parámetros de la URL
   const listaId = parseInt(id);
 
-  const listas =
-    data.find((item) => item.message.includes("Listas"))?.data?.listas || [];
-  const frames =
-    data.find((item) => item.message.includes("Frames"))?.data?.frames || [];
-  const puntuaciones =
-    data.find((item) => item.message.includes("Puntuaciones"))?.data
-      ?.puntuaciones || [];
-  const resenas =
-    data.find((item) => item.message.includes("Reseñas"))?.data?.resenas || [];
+  // Estado para almacenar las listas, frames y películas
 
-  const lista = listas.find((l) => l.lista_id === listaId);
-  if (!lista) return <p>Lista no encontrada</p>;
+  const [peliculas, setPeliculas] = useState([]);
 
-  const usuarioId = lista.usuario_id;
+  // Estado para manejar los errores si no se encuentran datos
+  const [error, setError] = useState(null);
+  const handleRemove = async (frameIdToRemove) => {
+    try {
+      // Aquí deberías llamar a tu servicio de eliminación
+      // await removeFrameFromLista(listaId, frameIdToRemove);
 
-  // Buscar frame_ids relacionados con este usuario
-  const frameIds = [
-    ...new Set([
-      ...puntuaciones
-        .filter((p) => p.usuario_id === usuarioId)
-        .map((p) => p.frame_id),
-      ...resenas
-        .filter((r) => r.usuario_id === usuarioId)
-        .map((r) => r.frame_id),
-    ]),
-  ];
+      // Por ahora, solo lo eliminamos del estado local:
+      setPeliculas((prev) =>
+        prev.filter((p) => p.frame_id !== frameIdToRemove)
+      );
+    } catch (error) {
+      console.error("Error al quitar la película:", error);
+      setError("No se pudo quitar la película de la lista.");
+    }
+  };
 
-  const peliculas = frames.filter((f) => frameIds.includes(f.frame_id));
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const resultado = await getFramesLista(listaId);
+
+        if (!resultado || resultado.length === 0) {
+          setError("No se encontraron películas en esta lista.");
+          return;
+        }
+
+        // Aplana el array: [ [pelicula1], [pelicula2], [] ] → [pelicula1, pelicula2]
+        const peliculasPlanas = resultado.flat();
+
+        setPeliculas(peliculasPlanas);
+      } catch (error) {
+        setError("Error al obtener los datos.");
+        console.error("Error al obtener detalles de la lista:", error);
+      }
+    };
+
+    fetchData();
+  }, [listaId]);
+  // Solo se ejecuta cuando cambia el ID de la lista
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <div>
-      <h2>{lista.nombre}</h2>
-      {peliculas.length === 0 ? (
-        <p>Esta lista no tiene películas asociadas.</p>
-      ) : (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
-          {peliculas.map((pelicula) => (
-            <div key={pelicula.frame_id} style={{ width: "150px" }}>
-              <img
-                src={pelicula.poster_url || "/images/default_movie.webp"}
-                alt={pelicula.titulo}
-                style={{ width: "100%", borderRadius: "4px" }}
-              />
-              <h5>{pelicula.titulo}</h5>
-              <p>{pelicula.genero}</p>
-            </div>
-          ))}
-        </div>
+      {error && <p>{error}</p>}
+
+      {!error && (
+        <>
+          <div className="peliculas-grid">
+            {peliculas.map((pelicula) => (
+              <div key={pelicula.frame_id} className="pelicula-card">
+                <img
+                  src={pelicula.poster_url || "/images/default_movie.webp"}
+                  alt={pelicula.titulo}
+                  className="pelicula-img"
+                />
+                <h4>{pelicula.titulo}</h4>
+                <p>
+                  <strong>ID:</strong> {pelicula.frame_id}
+                </p>
+                <p>
+                  <strong>IMDB ID:</strong> {pelicula.imdb_id}
+                </p>
+                <p>
+                  <strong>Tipo:</strong> {pelicula.tipo_contenido}
+                </p>
+                <p>
+                  <strong>Género:</strong> {pelicula.genero}
+                </p>
+                <p>
+                  <strong>Duración:</strong> {pelicula.duracion} min
+                </p>
+                <p>
+                  <strong>Fecha de Lanzamiento:</strong>{" "}
+                  {new Date(pelicula.fecha_lanzamiento).toLocaleDateString()}
+                </p>
+                <p>
+                  <strong>Descripción:</strong> {pelicula.descripcion}
+                </p>
+                <p>
+                  <strong>Episodios:</strong> {pelicula.numero_episodios}
+                </p>
+                <p>
+                  <strong>Última actualización:</strong>{" "}
+                  {new Date(
+                    pelicula.fecha_ultima_actualizacion
+                  ).toLocaleString()}
+                </p>
+                <p>
+                  <strong>Puntuaciones:</strong>
+                </p>
+                <ul>
+                  {pelicula.puntuacion_dbs &&
+                    Object.entries(JSON.parse(pelicula.puntuacion_dbs)).map(
+                      ([key, value]) => (
+                        <li key={key}>
+                          {key}: {value}
+                        </li>
+                      )
+                    )}
+                </ul>
+                <button
+                  onClick={() => handleRemove(pelicula.frame_id)}
+                  className="btn-quitar"
+                >
+                  Quitar
+                </button>
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );
