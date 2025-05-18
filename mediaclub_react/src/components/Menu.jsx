@@ -46,6 +46,24 @@ function Menu() {
         >
           landing
         </NavLink>
+        <NavLink
+          to="/todas"
+          className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
+        >
+          todas
+        </NavLink>
+        <NavLink
+          to="/perfil"
+          className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
+        >
+          perfil
+        </NavLink>
+        <NavLink
+          to="/prueba"
+          className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
+        >
+          prueba
+        </NavLink>
       </div>
     </nav>
   );

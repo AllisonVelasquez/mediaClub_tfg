@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getUsuarios } from "../services/axios";
+import { getUsuarios } from "../services/Usuarios/CRUD_Usuarios";
 
 
 const Profile = () => {

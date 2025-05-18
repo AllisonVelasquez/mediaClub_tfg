@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getFrames } from "../services/axios";
+import { getFrames } from "../services/Frames/CRUD_Frames";
 import "./landing.css";
 
 const Peliculas = () => {

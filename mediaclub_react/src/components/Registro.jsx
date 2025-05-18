@@ -1,104 +1,10 @@
-// import React, { useState } from 'react';
+import React, { useState } from "react";
+import bcrypt from "bcryptjs";
 
-// const Registro = () => {
-//   const [formData, setFormData] = useState({
-//     nombre: '',
-//     email: '',
-//     alias_publico: '',
-//     contraseña: '',
-//     repetirContraseña: ''
-//   });
-
-//   const [error, setError] = useState('');
-//   const [success, setSuccess] = useState('');
-
-//   const handleChange = (e) => {
-//     setFormData({
-//       ...formData,
-//       [e.target.name]: e.target.value
-//     });
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     setError('');
-//     setSuccess('');
-
-//     if (formData.contraseña !== formData.repetirContraseña) {
-//       setError('Las contraseñas no coinciden');
-//       return;
-//     }
-
-//     // Aquí podrías enviar los datos a una API
-//     console.log('Datos enviados:', formData);
-//     setSuccess('Registro exitoso');
-//   };
-
-//   return (
-//     <div>
-//       <h2>Registro</h2>
-//       <form onSubmit={handleSubmit}>
-//         <input
-//           type="text"
-//           name="nombre"
-//           placeholder="Nombre"
-//           value={formData.nombre}
-//           onChange={handleChange}
-//           required
-//         /><br />
-
-//         <input
-//           type="email"
-//           name="email"
-//           placeholder="Correo electrónico"
-//           value={formData.email}
-//           onChange={handleChange}
-//           required
-//         /><br />
-
-//         <input
-//           type="text"
-//           name="alias_publico"
-//           placeholder="Alias público"
-//           value={formData.alias_publico}
-//           onChange={handleChange}
-//           required
-//         /><br />
-
-//         <input
-//           type="password"
-//           name="contraseña"
-//           placeholder="Contraseña"
-//           value={formData.contraseña}
-//           onChange={handleChange}
-//           required
-//         /><br />
-
-//         <input
-//           type="password"
-//           name="repetirContraseña"
-//           placeholder="Repetir contraseña"
-//           value={formData.repetirContraseña}
-//           onChange={handleChange}
-//           required
-//         /><br />
-
-//         <button type="submit">Registrarse</button>
-
-//         {error && <p style={{ color: 'red' }}>{error}</p>}
-//         {success && <p style={{ color: 'green' }}>{success}</p>}
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default Registro;
-
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Registro.css';
 import logoNombreOscuro from './logo_nombre_oscuro.png';
-
+import { crearUsuario,getUsuarios,getUsuario } from "../services/Usuarios/CRUD_Usuarios";
 const Registro = () => {
   const [formData, setFormData] = useState({
     nombre: '',
@@ -128,21 +34,71 @@ const Registro = () => {
     setSuccess('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+
+    
     e.preventDefault();
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
     if (!isNombreOk || !isAliasOk || !isEmailOk || !isPassOk || !isRepeatOk) {
-      setError('Por favor, completa todos los campos correctamente.');
+      setError("Por favor, completa todos los campos correctamente.");
       return;
     }
 
-    // Aquí podrías enviar los datos a una API
-    setSuccess('Registro exitoso');
-    // navigate('/LogIn'); // Si quieres redirigir tras registrar
+    try {
+      const usuarios = await getUsuarios();
+  // Validaciones de duplicado
+  const emailExiste =usuarios.some((u) => u.correo === formData.email);
+  const aliasExiste =usuarios.some((u) => u.alias === formData.alias_publico);
+  const loginExiste =usuarios.some((u) => u.login_id === formData.nombre);
+
+  if (emailExiste) {
+    setError("El correo ya está registrado.");
+    return;
+  }
+  if (aliasExiste) {
+    setError("El alias público ya está en uso.");
+    return;
+  }
+  if (loginExiste) {
+    setError("El nombre de usuario ya está en uso.");
+    return;
+  }
+
+  // Simula hash y datos para crear usuario
+  const salt = bcrypt.genSaltSync(10);
+  const hashedPassword = bcrypt.hashSync(formData.contraseña, salt);
+
+  const nuevoUsuario = {
+    login_id: formData.nombre,
+    correo: formData.email,
+    contrasena_hash: hashedPassword,
+    alias: formData.alias_publico,
+    bio: "",
+    redes: {
+      facebook: "",
+      twitter: "",
+      instagram: "",
+      youtube: "",
+    },
+    confirmado: false,
+    bloqueado: false,
+    fecha_creacion: new Date().toISOString(),
+    fecha_ultima_actualizacion: new Date().toISOString(),
+    foto_perfil: "/images/default.webp",
   };
 
+  await crearUsuario(nuevoUsuario);
+  setSuccess("Registro exitoso");
+  // navigate('/LogIn'); // si quieres redirigir
+      
+    } catch (err) {
+      console.error(err);
+      setError("Error al registrar usuario. Intenta más tarde.");
+    }
+  };
+  
   return (
     <div className="registro-bg">
       <div className="registro-header">

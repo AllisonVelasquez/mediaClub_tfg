@@ -116,7 +116,7 @@
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUsuarios } from "../services/axios";
+import { getUsuarios } from "../services/Usuarios/CRUD_Usuarios";
 import bcrypt from "bcryptjs";
 import "./LogIn.css";
 import logoNombreOscuro from "./logo_nombre_oscuro.png";

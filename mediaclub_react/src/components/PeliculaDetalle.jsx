@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getFrameById } from "../services/axios";
+import { getFrameById } from "../services/Frames/CRUD_Frames";
 import "./PeliculaDetalle.css";
 
 const PeliculaDetalle = () => {
