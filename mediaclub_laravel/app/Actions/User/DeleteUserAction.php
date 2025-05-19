@@ -2,26 +2,21 @@
 
 namespace App\Actions\User;
 
-use App\Services\User\AuthService;
+use App\Application\UseCases\User\DeleteUserUseCase;
 use App\Models\Usuario;
-use Illuminate\Support\Facades\Hash;
+use App\Traits\ApiResponse;
 
 class DeleteUserAction
 {
-   
-    public function execute(Usuario $user, array $data): bool
-{
-    $loginCoincide = $user->login_id === $data['login_id'];
-    $claveCorrecta = Hash::check($data['contrasena'], $user->contrasena);
 
-    if (!($loginCoincide && $claveCorrecta)) {
-        return false;
+    use ApiResponse;
+    
+    public function execute(Usuario $user, array $data)
+    {
+
+        if (app(DeleteUserUseCase::class)->execute($user, $data)) {
+            return $this->success('Usuario eliminado.', 200);
+        }
+        return $this->error('No puedes eliminar este usuario.', 403);
     }
-
-    $user->tokens()->delete();
-
-    return app(AuthService::class)->delete($user->usuario_id);
-}
-
-
 }

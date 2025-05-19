@@ -38,11 +38,11 @@ class UpdateRequest extends FormRequest
                 },
             ],
             'correo' => 'sometimes|email|unique:usuario,correo|max:255',
-            'contrasena' => ['sometimes', 'string', Password::min(8)->mixedCase()->numbers()->symbols()],
             'alias' => 'sometimes|string|unique:usuario,alias|max:255',
             'bio' => 'sometimes|string|max:255',
             'redes' => 'sometimes|string|max:255',
             'foto_perfil' => 'sometimes|string|max:255',
+            'contrasena' => ['required', 'string', Password::min(8)->mixedCase()->numbers()->symbols()]
         ];
     }
 
@@ -52,6 +52,7 @@ class UpdateRequest extends FormRequest
             'login_id.unique' => 'El ID ya está en uso.',
             'correo.unique' => 'El correo ya está en uso.',
             'alias.unique' => 'El alias ya está en uso.',
+            'contrasena.required' => 'La contraseña es obligatoria',
             'contrasena.min' => 'La contraseña debe tener al menos 8 caracteres.',
             'contrasena.mixedCase' => 'La contraseña debe contener al menos una letra mayúscula y una minúscula.',
             'contrasena.numbers' => 'La contraseña debe contener al menos un número.',

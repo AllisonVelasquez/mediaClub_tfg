@@ -14,16 +14,21 @@ class UserRepository implements UserRepositoryInterface
         return Usuario::all();
     }
 
-    // Buscar usuarios por un campo
-    public function findByLoginId(string $login_id): ?Usuario
-    {
-        return Usuario::where('login_id', $login_id)->firstOrFail();
-    }
-
     // Obtener un usuario por su ID
     public function find(int $id): ?Usuario
     {
         return Usuario::findOrFail($id);
+    }
+
+    public function findByAlias(string $alias): ?Usuario
+    {
+        return Usuario::where('alias', $alias)->firstOrFail();
+    }
+
+     // Buscar usuarios por un campo
+    public function findByLoginId(string $login_id): ?Usuario
+    {
+        return Usuario::where('login_id', $login_id)->firstOrFail();
     }
 
     // Crear un nuevo usuario
@@ -34,7 +39,7 @@ class UserRepository implements UserRepositoryInterface
     }
 
     // Actualizar un usuario
-    public function update(int $id, array $data): ?Usuario
+    public function update(int $id, array $data): bool
     {
         $user = Usuario::findOrFail($id);
         if (!empty($data['contrasena'])) {
@@ -44,7 +49,7 @@ class UserRepository implements UserRepositoryInterface
         if ($user->isDirty()) { //Verifica si hay cambios
             $user->save();
         }
-        return $user;
+        return true;
     }
 
     // Eliminar un usuario
@@ -55,20 +60,10 @@ class UserRepository implements UserRepositoryInterface
         return true;
     }
 
-    public function findByAlias(string $alias): ?Usuario
-    {
-        return Usuario::where('alias', $alias)->firstOrFail();
-    }
-
     // Contar el número de usuarios
     public function count(): int
     {
         return Usuario::count();
     }
 
-    // Verificar si un usuario con un ID existe
-    public function exists(int $id): bool
-    {
-        return Usuario::where('id', $id)->exists();
-    }
 }

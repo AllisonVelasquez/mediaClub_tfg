@@ -2,16 +2,18 @@
 
 namespace App\Actions\User;
 
+use App\Application\UseCases\User\LogoutUserUseCase;
+use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
+
 class LogoutUserAction
 {
-
+    use ApiResponse;
     public function execute(Request $request)
     {
-        if (!$request->user()) {
-            return false;
-        }    
-        $request->user()->currentAccessToken()->delete();
-        return true;
+        if (app(LogoutUserUseCase::class)->execute($request->user())) {
+            return $this->success('Sesión finalizada', 200);
+        }
+        return $this->error('Ha ocurrido un error al cerrar la sesión', 403);
     }
 }

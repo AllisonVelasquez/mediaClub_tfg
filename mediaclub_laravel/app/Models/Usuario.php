@@ -50,7 +50,7 @@ class Usuario extends Authenticatable
 	protected $casts = [
 		'fecha_creacion' => 'datetime',
 		'fecha_ultima_actualizacion' => 'datetime',
-		'bloqueado' => 'bool'
+		'confirmado' => 'boolean'
 	];
 
 	protected $fillable = [
@@ -63,7 +63,7 @@ class Usuario extends Authenticatable
 		'foto_perfil',
 		'fecha_creacion',
 		'fecha_ultima_actualizacion',
-		'bloqueado'
+		'confirmado'
 	];
 
 	public function actividads()

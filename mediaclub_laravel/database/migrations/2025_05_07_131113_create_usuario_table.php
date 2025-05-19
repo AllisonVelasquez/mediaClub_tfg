@@ -20,9 +20,9 @@ return new class extends Migration
             $table->text('bio')->nullable();
             $table->json('redes')->nullable();
             $table->string('foto_perfil')->nullable()->default('/images/perfiles/default.png'); //Hay que cambiar la ruta por defecto
-            $table->dateTime('fecha_creacion')->nullable()->useCurrent();
+            $table->dateTime('fecha_creacion')->useCurrent();
             $table->dateTime('fecha_ultima_actualizacion')->useCurrentOnUpdate()->nullable()->useCurrent();
-            $table->boolean('bloqueado')->nullable()->default(false);
+            $table->boolean('confirmado')->default(false);
         });
     }
 

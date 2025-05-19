@@ -19,27 +19,26 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::prefix('usuarios')->group(function () {
-    Route::get('/alias/{alias}', [UserController::class, 'getIdByAlias']);
-    Route::get('/{id}/perfil', [UserController::class, 'showProfile']);
-    Route::get('/{id}/listas-publicas', [UserController::class, 'showLists']);
-    Route::get('/{id}/amigos', [UserController::class, 'showFriends']);
-    Route::get('/{id}/actividad', [UserController::class, 'activity']);
+    Route::get('/{alias}/perfil', [UserController::class, 'showProfile']);
+    Route::get('/{alias}/listas-publicas', [UserController::class, 'showLists']);
+    Route::get('/{alias}/amigos', [UserController::class, 'showFriends']);
+    Route::get('/{alias}/actividad', [UserController::class, 'activity']);
 });
 
 Route::middleware('auth:sanctum')->prefix('me')->group(function () {
     Route::get('/perfil', [UserController::class, 'myProfile']);
-    Route::put('/actualizar-datos', [UserController::class, 'updateProfile']);
+    Route::patch('/actualizar-datos', [UserController::class, 'updateProfile']);
     Route::delete('/borrar-cuenta', [UserController::class, 'deleteUser']);
     Route::get('/amigos', [UserController::class, 'myFriends']);
-    Route::delete('/amigos/eliminar/{id}', [UserController::class, 'removeFriend']);
+    Route::delete('/amigos/eliminar/{alias}', [UserController::class, 'removeFriend']);
     Route::get('/actividad', [UserController::class, 'myActivity']);
 
     // Agrupar bajo autenticación
     Route::prefix('amistad')->group(function () {
-        Route::post('/solicitar/{id}', [FriendshipController::class, 'sendRequest']);
-        Route::delete('/cancelar-solicitud/{id}', [FriendshipController::class, 'cancelRequest']);
-        Route::post('/aceptar-solicitud/{id}', [FriendshipController::class, 'acceptRequest']);
-        Route::post('/rechazar-solicitud/{id}', [FriendshipController::class, 'rejectRequest']);
+        Route::post('/solicitar/{alias}', [FriendshipController::class, 'sendRequest']);
+        Route::delete('/cancelar-solicitud/{alias}', [FriendshipController::class, 'cancelRequest']);
+        Route::post('/aceptar-solicitud/{alias}', [FriendshipController::class, 'acceptRequest']);
+        Route::post('/rechazar-solicitud/{alias}', [FriendshipController::class, 'rejectRequest']);
         Route::get('/solicitudes-recibidas', [FriendshipController::class, 'viewRequests']);
         Route::get('/solicitudes-enviadas', [FriendshipController::class, 'viewSentRequests']);
     });
@@ -48,7 +47,7 @@ Route::middleware('auth:sanctum')->prefix('me')->group(function () {
     Route::prefix('listas')->group(function () {
         Route::get('/ver-todas', [ListController::class, 'myLists']);
         Route::post('/crear', [ListController::class, 'addList']);
-        Route::put('/editar/{id}', [ListController::class, 'editList']);
+        Route::patch('/editar/{id}', [ListController::class, 'editList']);
         Route::delete('/borrar/{id}', [ListController::class, 'deleteList']);
         Route::get('/{id}/detalles', [ListController::class, 'showList']);
         Route::post('/{id}/anadir/{frameid}', [ListController::class, 'addContent']);
@@ -65,7 +64,7 @@ Route::middleware('auth:sanctum')->prefix('me')->group(function () {
     Route::prefix('puntuaciones')->group(function () {
         Route::get('/ver-todas', [PuntuacionController::class, 'getRating']);
         Route::post('/crear', [PuntuacionController::class, 'addRating']);
-        Route::put('/editar/{id}', [PuntuacionController::class, 'editRating']);
+        Route::patch('/editar/{id}', [PuntuacionController::class, 'editRating']);
         Route::delete('/borrar/{id}', [PuntuacionController::class, 'deleteRating']);
         Route::get('/titulo/{Frameid}', [PuntuacionController::class, 'showFrameRating']);
     });

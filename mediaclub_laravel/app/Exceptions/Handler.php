@@ -29,7 +29,7 @@ class Handler extends ExceptionHandler
         AuthorizationException::class,
         // ModelNotFoundException::class,
         // NotFoundHttpException::class,
-        TokenMismatchException::class,
+        // TokenMismatchException::class,
     ];
 
     /**
@@ -82,6 +82,10 @@ class Handler extends ExceptionHandler
             // Manejo de error en la consulta a la base de datos
             if ($exception instanceof QueryException) {
                 return $this->error('Error en la consulta a la base de datos.', 500);
+            }
+
+            if ($exception instanceof AuthenticationException) {
+                return $this->error('Error de autenticación', 401);
             }
 
             // Si ninguna de las excepciones anteriores se maneja, devolvemos un error genérico

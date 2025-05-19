@@ -2,16 +2,15 @@
 
 namespace App\Actions\User;
 
-use App\Services\User\AuthService;
+use App\Traits\ApiResponse;
+use App\Application\UseCases\User\RegisterUserUseCase;
 
 class RegisterUserAction
 {
-
+    use ApiResponse;
     public function execute(array $data)
     {
-        //Hay que ver si se puede hacer el envio por correo de bienvenido a la pagina al correo
-        $user = app(AuthService::class)->register($data);
-
-        return $user;
+        $user = app(RegisterUserUseCase::class)->execute($data);
+        return $this->success('Usuario creado exitosamente', 201, $user);
     }
 }

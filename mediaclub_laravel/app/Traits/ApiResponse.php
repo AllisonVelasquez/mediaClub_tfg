@@ -3,21 +3,23 @@ namespace App\Traits;
 
 trait ApiResponse
 {
-    public function success($data=null, $message = 'OK', $status = 200 )
+    public function success($message = 'OK', $code = 200, $contenido=null)
     {
         return response()->json([
+            'status' => 'success',
             'message' => $message,
-            'data' => $data,
-            'status' => $status
-        ], $status);
+            'contenido' => $contenido,
+            'code' => $code,
+        ], $code);
     }
 
-    public function error($message = 'Error del servidor (db)', $status = 500, $data = null)
+    public function error($message = 'Error del servidor (db)', $code = 500, $contenido = null)
     {
         return response()->json([
+            'status' => 'error',
             'message' => $message,
-            'data' => $data,
-            'status' => $status,
-        ], $status);
+            'contenido' => $contenido,
+            'code' => $code,
+        ], $code);
     }
 }
