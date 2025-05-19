@@ -8,9 +8,15 @@ use App\Application\UseCases\User\RegisterUserUseCase;
 class RegisterUserAction
 {
     use ApiResponse;
+    protected $registerUserUseCase;
+    public function __construct(RegisterUserUseCase $registerUserUseCase)
+    {
+        $this->registerUserUseCase = $registerUserUseCase;
+    }
+
     public function execute(array $data)
     {
-        $user = app(RegisterUserUseCase::class)->execute($data);
+        $user = $this->registerUserUseCase->execute($data);
         return $this->success('Usuario creado exitosamente', 201, $user);
     }
 }

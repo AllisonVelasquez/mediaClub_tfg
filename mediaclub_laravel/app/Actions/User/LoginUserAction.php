@@ -8,9 +8,15 @@ use App\Application\UseCases\User\LoginUserUseCase;
 class LoginUserAction
 {
     use ApiResponse;
+    protected $loginUserUseCase;
+    public function __construct(LoginUserUseCase $loginUserUseCase)
+    {
+        $this->loginUserUseCase = $$loginUserUseCase;
+    }
+
     public function execute(array $data)
     {
-        $userToken = app(LoginUserUseCase::class)->execute($data);
-        return $this->success('Usuario logueado exitosamente', 200, $userToken);  
+        $userToken = $this->loginUserUseCase->execute($data);
+        return $this->success('Usuario logueado exitosamente', 200, $userToken);
     }
 }

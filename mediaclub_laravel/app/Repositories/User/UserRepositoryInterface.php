@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface UserRepositoryInterface
 {
-    public function all(): Collection;
-    public function find(int $id): ?Usuario;
+    // public function find(int $id): ?Usuario;
     public function findByLoginId(string $login_id): ?Usuario;
     public function store(array $data): Usuario;
     public function update(int $id, array $data): bool;

@@ -8,9 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Usuario
@@ -23,10 +21,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string|null $bio
  * @property string|null $redes
  * @property string|null $foto_perfil
- * @property Carbon|null $fecha_creacion
+ * @property Carbon $fecha_creacion
  * @property Carbon|null $fecha_ultima_actualizacion
- * @property bool|null $confirmado
- * @property bool|null $bloqueado
+ * @property bool $confirmado
  * 
  * @property Collection|Actividad[] $actividads
  * @property Collection|Amistad[] $amistads
@@ -36,13 +33,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Collection|Puntuacion[] $puntuacions
  * @property Collection|Resena[] $resenas
  * @property Collection|RespuestaHilo[] $respuesta_hilos
- * @property Collection|SesionUsuario[] $sesion_usuarios
+ * @property Collection|Solicitud[] $solicituds
  *
  * @package App\Models
  */
-class Usuario extends Authenticatable
+class Usuario extends Model
 {
-	use HasApiTokens;
 	protected $table = 'usuario';
 	protected $primaryKey = 'usuario_id';
 	public $timestamps = false;
@@ -50,7 +46,7 @@ class Usuario extends Authenticatable
 	protected $casts = [
 		'fecha_creacion' => 'datetime',
 		'fecha_ultima_actualizacion' => 'datetime',
-		'confirmado' => 'boolean'
+		'confirmado' => 'bool'
 	];
 
 	protected $fillable = [
@@ -106,8 +102,8 @@ class Usuario extends Authenticatable
 		return $this->hasMany(RespuestaHilo::class);
 	}
 
-	public function sesion_usuarios()
+	public function solicituds()
 	{
-		return $this->hasMany(SesionUsuario::class);
+		return $this->hasMany(Solicitud::class, 'destinatario_id');
 	}
 }

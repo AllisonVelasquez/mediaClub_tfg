@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetIdByAliasRequest extends FormRequest
+class FriendRequestRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,15 +22,15 @@ class GetIdByAliasRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'alias' => 'required|string|max:255|exists:usuarios,alias',
+            'alias' => ['required', 'exists:usuarios,id']
         ];
     }
-    public function messages()
+
+    public function messages(): array
     {
         return [
-            'alias.required' => 'El alias es obligatorio.',
-            'alias.string' => 'El alias debe ser una cadena de texto.',
-            'alias.max' => 'El alias no puede tener más de 255 caracteres.',
-        ];
+        'alias.required'   => 'El destinatario es obligatorio.',
+        'alias.exists'     => 'El destinatario no existe.'
+    ];
     }
 }

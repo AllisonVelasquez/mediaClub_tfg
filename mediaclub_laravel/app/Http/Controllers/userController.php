@@ -13,7 +13,7 @@ use App\Actions\User\LogoutUserAction;
 use App\Actions\User\UpdateUserAction;
 use Illuminate\Http\Request;
 use App\Http\Requests\DeleteUserRequest;
-use App\Http\Requests\GetIdByAliasRequest;
+use App\Http\Requests\FindIdByAliasRequest;
 
 class UserController extends Controller
 {
@@ -33,7 +33,7 @@ class UserController extends Controller
         return $request->user()->makeHidden(['contrasena', 'usuario_id', 'login_id','confirmado']);
     }
 
-    public function showProfile(GetIdByAliasRequest $request)
+    public function showProfile(FindIdByAliasRequest $request)
     {
         return app(GetUserProfileAction::class)->execute($request->validated());
     }
@@ -43,14 +43,14 @@ class UserController extends Controller
         return app(LogoutUserAction::class)->execute($request);
     }
 
-    public function delete(DeleteUserRequest $request) //se pide formulario no para validar sino para confirmar que desea eliminar su cuenta
+    public function deleteUser(DeleteUserRequest $request) //se pide formulario no para validar sino para confirmar que desea eliminar su cuenta
     {
         $user = $request->user();
         $data = $request->validated();
         return app(DeleteUserAction::class)->execute($user, $data);
     }
 
-    public function update(UpdateRequest $request)
+    public function updateUser(UpdateRequest $request)
     {
         $user = $request->user();
         return app(UpdateUserAction::class)->execute($user, $request->validated());

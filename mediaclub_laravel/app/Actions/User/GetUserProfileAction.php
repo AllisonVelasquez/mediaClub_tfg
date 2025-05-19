@@ -8,10 +8,15 @@ use App\Application\UseCases\User\GetUserProfileUseCase;
 class GetUserProfileAction
 {
     use ApiResponse;
+    protected $getUserProfileUseCase;
+    public function __construct(GetUserProfileUseCase $getUserProfileUseCase)
+    {
+        $this->getUserProfileUseCase = $$getUserProfileUseCase;
+    }
+
     public function execute(array $data)
     {
-        $userProfileData = app(GetUserProfileUseCase::class)->execute($data['alias']);
-        return $this->success('Usuario encontrado', 200, $userProfileData);  
+        $userProfileData = $this->getUserProfileUseCase->execute($data['alias']);
+        return $this->success('Usuario encontrado', 200, $userProfileData);
     }
-}        
-
+}
