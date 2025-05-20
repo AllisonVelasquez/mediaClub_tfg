@@ -11,7 +11,7 @@ class LoginUserAction
     protected $loginUserUseCase;
     public function __construct(LoginUserUseCase $loginUserUseCase)
     {
-        $this->loginUserUseCase = $$loginUserUseCase;
+        $this->loginUserUseCase = $loginUserUseCase;
     }
 
     public function execute(array $data)

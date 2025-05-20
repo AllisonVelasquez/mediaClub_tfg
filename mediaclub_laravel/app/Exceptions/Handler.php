@@ -84,9 +84,9 @@ class Handler extends ExceptionHandler
                 return $this->error('Error en la consulta a la base de datos.', 500);
             }
 
-            if ($exception instanceof AuthenticationException) {
-                return $this->error('Error de autenticación', 401);
-            }
+            // if ($exception instanceof AuthenticationException) {
+            //     return $this->error('Error de autenticación', 401);
+            // }
 
             // Si ninguna de las excepciones anteriores se maneja, devolvemos un error genérico
             return $this->error('Error inesperado', 500, $exception->getMessage());

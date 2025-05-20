@@ -21,6 +21,7 @@ Route::prefix('auth')->group(function () {
 Route::prefix('usuarios')->group(function () {
     Route::get('/{alias}/perfil', [UserController::class, 'showProfile']); //
     Route::get('/{alias}/listas-publicas', [UserController::class, 'showLists']);
+    Route::get('/{alias}/lista-publica/contenido', [UserController::class, 'showLists']); //ListController
     Route::get('/{alias}/amigos', [UserController::class, 'showFriends']); //friendship controller
     Route::get('/{alias}/actividad', [UserController::class, 'activity']);
 });
@@ -30,7 +31,7 @@ Route::middleware('auth:sanctum')->prefix('me')->group(function () {
     Route::patch('/actualizar-datos', [UserController::class, 'updateUser']); //
     Route::delete('/borrar-cuenta', [UserController::class, 'deleteUser']); //
     Route::get('/amigos', [UserController::class, 'myFriends']); //friendship controller
-    Route::delete('/amigos/eliminar/{alias}', [UserController::class, 'removeFriend']);
+    Route::delete('/amigos/eliminar/{alias}', [UserController::class, 'removeFriend']); //Friendship controller
     Route::get('/actividad', [UserController::class, 'myActivity']);
 
     // Agrupar bajo autenticación

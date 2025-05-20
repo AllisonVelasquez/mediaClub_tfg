@@ -9,6 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * Class Usuario
@@ -39,6 +40,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Usuario extends Model
 {
+	//Para poder generar tokens de sesion.
+	use HasApiTokens;
+
 	protected $table = 'usuario';
 	protected $primaryKey = 'usuario_id';
 	public $timestamps = false;
