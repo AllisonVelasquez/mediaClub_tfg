@@ -20,8 +20,8 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('usuarios')->group(function () {
     Route::get('/{alias}/perfil', [UserController::class, 'showProfile']); //
-    Route::get('/{alias}/listas-publicas', [UserController::class, 'showLists']);
-    Route::get('/{alias}/lista-publica/contenido', [UserController::class, 'showLists']); //ListController
+    Route::get('/{alias}/listas-publicas', [UserController::class, 'showLists']); //ListController
+    Route::get('/{alias}/listas-publicas/{nombre}', [UserController::class, 'showListContent']); //ListController
     Route::get('/{alias}/amigos', [UserController::class, 'showFriends']); //friendship controller
     Route::get('/{alias}/actividad', [UserController::class, 'activity']);
 });
@@ -58,7 +58,7 @@ Route::middleware('auth:sanctum')->prefix('me')->group(function () {
     Route::prefix('resenas')->group(function () {
         Route::get('/ver-todas', [ResenaController::class, 'getReviews']);
         Route::post('/crear', [ResenaController::class, 'addReview']);
-        Route::delete('/borrar/{id}', [ResenaController::class, 'deleteReview']);
+        Route::delete('/borrar/{frameid}', [ResenaController::class, 'deleteReview']);
         Route::get('/titulo/{Frameid}', [ResenaController::class, 'showFrameReview']);
     });
 

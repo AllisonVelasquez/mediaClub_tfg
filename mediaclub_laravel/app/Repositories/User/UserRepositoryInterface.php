@@ -13,5 +13,5 @@ interface UserRepositoryInterface
     public function update(int $id, array $data): bool;
     public function delete(int $id): bool;
     public function findByAlias(string $alias): ?Usuario;
-    public function count(): int;
+    public function listFriends(int $id): Collection;
 }

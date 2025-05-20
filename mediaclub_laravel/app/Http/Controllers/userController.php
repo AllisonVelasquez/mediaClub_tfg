@@ -4,16 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Actions\User\DeleteUserAction;
 use App\Actions\User\GetUserProfileAction;
-use App\Http\Requests\RegisterUserRequest;
-use App\Http\Requests\UpdateRequest;
-use App\Http\Requests\LoginUserRequest;
 use App\Actions\User\RegisterUserAction;
 use App\Actions\User\LoginUserAction;
 use App\Actions\User\LogoutUserAction;
 use App\Actions\User\UpdateUserAction;
-use Illuminate\Http\Request;
+
+use App\Http\Requests\RegisterUserRequest;
+use App\Http\Requests\UpdateRequest;
+use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\DeleteUserRequest;
 use App\Http\Requests\FindIdByAliasRequest;
+
+use App\Actions\Friendship\GetMyFriendsListAction;
+use App\Actions\Friendship\GetUserFriendsListAction;
+
+use Illuminate\Http\Request;
+
+
 
 class UserController extends Controller
 {
@@ -30,7 +37,7 @@ class UserController extends Controller
 
     public function myProfile(Request $request) 
     {
-        return $request->user()->makeHidden(['contrasena', 'usuario_id', 'login_id','confirmado']);
+        return $request->user()->makeHidden(['contrasena', 'usuario_id', 'login_id','confirmado']); 
     }
 
     public function showProfile(FindIdByAliasRequest $request)
@@ -57,5 +64,19 @@ class UserController extends Controller
         
     }
 
+    //Friends
+    public function myFriends(Request $request){
+        return app(GetUserFriendsListAction::class)->execute($request->user());
+
+
+    }
+
+    public function showFriends(Request $request){
+        return app(GetUserFriendsListAction::class)->execute($request->validated());
+
+    }
     
+    //Lists
+
+    //Threads
 }

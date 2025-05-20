@@ -4,11 +4,23 @@ namespace App\Repositories\FriendRequest;
 
 use App\Repositories\FriendRequest\FriendRequestRepositoryInterface;
 use App\Models\Solicitud;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
+use App\Models\Amistad;
 
 class FriendRequestRepository implements FriendRequestRepositoryInterface
 {
     public function createRequest(int $fromUserId, int $toUserId): Solicitud
     {
+        if ($fromUserId === $toUserId) throw new Exception('No puedes enviarte solicitudes a ti mismo',400);
+
+        if(Solicitud::where('remitente_id', $fromUserId)
+            ->where('destinatario_id', $toUserId)
+            ->where('estado', 'pendiente')
+            ->exists()) throw new Exception('Solicitud pendiente ya existe',409);
+
+        if(Amistad::entre($fromUserId, $toUserId)->exists())throw new Exception('Ya existe una amistad',409);
+
         return Solicitud::create([
             'remitente_id' => $fromUserId,
             'destinatario_id' => $toUserId,
@@ -43,38 +55,36 @@ class FriendRequestRepository implements FriendRequestRepositoryInterface
         return $rejected > 0;
     }
 
-    public function getReceivedRequests(int $userId): array
+    public function getReceivedRequests(int $userId): Collection
     {
-        return Solicitud::with('remitente')
+        $recibidas = Solicitud::with('remitente')
             ->where('destinatario_id', $userId)
             ->where('estado', 'pendiente')
             ->get()
-            ->toArray();
+            ->map(function ($solicitud) {
+                return [
+                    'alias' => $solicitud->remitente->alias,
+                    'foto_perfil' => $solicitud->remitente->foto_perfil,
+                    'fecha' => $solicitud->fecha_solicitud->toDateTimeString()
+                ];
+            });
+        return $recibidas;
     }
 
-    public function getSentRequests(int $userId): array
+    public function getSentRequests(int $userId): Collection
     {
-        return Solicitud::with('destinatario')
+        $enviadas = Solicitud::with('usuario')
             ->where('remitente_id', $userId)
             ->where('estado', 'pendiente')
             ->get()
-            ->toArray();
+            ->map(function ($solicitud) {
+                return [
+                    'alias' => $solicitud->remitente->alias,
+                    'foto_perfil' => $solicitud->remitente->foto_perfil,
+                    'fecha' => $solicitud->created_at->toDateTimeString()
+                ];
+            });
+        return $enviadas;
     }
 
-    // public function requestExists(int $fromUserId, int $toUserId): bool
-    // {
-    //     return Solicitud::where('remitente_id', $fromUserId)
-    //                      ->where('destinatario_id', $toUserId)
-    //                      ->where('estado', 'pendiente')
-    //                      ->exists();
-    // }
-
-    // public function areFriends(int $userIdA, int $userIdB): bool
-    // {
-    //     return Solicitud::where(function ($q) use ($userIdA, $userIdB) {
-    //                 $q->where('remitente_id', $userIdA)->where('destinatario_id', $userIdB);
-    //             })->orWhere(function ($q) use ($userIdA, $userIdB) {
-    //                 $q->where('remitente_id', $userIdB)->where('destinatario_id', $userIdA);
-    //             })->where('estado', 'accepted')->exists();
-    // }
 }

@@ -3,22 +3,17 @@
 namespace App\Repositories\User;
 
 use App\Models\Usuario;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserRepositoryInterface
 {
-    // Obtener un usuario por su ID
-    // public function find(int $id): ?Usuario
-    // {
-    //     return Usuario::findOrFail($id);
-    // }
-
     public function findByAlias(string $alias): ?Usuario
     {
         return Usuario::where('alias', $alias)->firstOrFail();
     }
 
-     // Buscar usuarios por un campo
+    // Buscar usuarios por un campo
     public function findByLoginId(string $login_id): ?Usuario
     {
         return Usuario::where('login_id', $login_id)->firstOrFail();
@@ -54,9 +49,9 @@ class UserRepository implements UserRepositoryInterface
     }
 
     // Contar el número de usuarios
-    public function count(): int
+    public function listFriends($id): Collection
     {
-        return Usuario::count();
+        $user = Usuario::findOrFail($id);
+        return $user->amigos();
     }
-
 }

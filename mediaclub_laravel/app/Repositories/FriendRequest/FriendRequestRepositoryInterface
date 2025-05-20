@@ -3,6 +3,8 @@
 namespace App\Repositories\FriendRequest;
 
 use App\Models\Solicitud;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 
 interface FriendRequestRepositoryInterface
 {
@@ -16,9 +18,9 @@ interface FriendRequestRepositoryInterface
 
     // public function requestExists(int $fromUserId, int $toUserId): bool;
 
-    public function getReceivedRequests(int $userId): array;
+    public function getReceivedRequests(int $userId): Collection;
 
-    public function getSentRequests(int $userId): array;
+    public function getSentRequests(int $userId): Collection;
 
     // public function areFriends(int $userIdA, int $userIdB): bool;
 }

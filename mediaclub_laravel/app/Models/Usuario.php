@@ -71,11 +71,6 @@ class Usuario extends Model
 		return $this->hasMany(Actividad::class);
 	}
 
-	public function amistads()
-	{
-		return $this->hasMany(Amistad::class);
-	}
-
 	public function hilos()
 	{
 		return $this->hasMany(Hilo::class);
@@ -106,8 +101,21 @@ class Usuario extends Model
 		return $this->hasMany(RespuestaHilo::class);
 	}
 
-	public function solicituds()
+	public function solicituds_recibidas()
 	{
 		return $this->hasMany(Solicitud::class, 'destinatario_id');
+	}
+	public function solicituds_enviadas()
+	{
+		return $this->hasMany(Solicitud::class, 'remitente_id');
+	}
+
+	public function amigos() : Collection
+	{
+		$amistades = Amistad::deUsuario($this->usuario_id)->get();
+		$amigosIds = $amistades->map(function ($amistad) {
+			return $amistad->user_id == $this->usuario_id ? $amistad->amigo_id : $amistad->usuario_id;
+		});
+		return Usuario::whereIn('usuario_id', $amigosIds)->get();
 	}
 }
