@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Application\UseCases\Friendship;
+namespace App\UseCases\Friendship;
 
 use App\Repositories\User\UserRepositoryInterface;
 
-class GetUserFriendsListUseCaseUse
+class GetMyFriendsListUseCase
 {
     protected UserRepositoryInterface $userRepository;
 
@@ -15,6 +15,6 @@ class GetUserFriendsListUseCaseUse
 
     public function execute(int $id)
     {
-        return $this->userRepository->listFriends($id);
+        return $this->userRepository->listMyFriends($id);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Actions\User;
 
-use App\Application\UseCases\User\UpdateUserUseCase;
+use App\UseCases\User\UpdateUserUseCase;
 use App\Models\Usuario;
 use App\Traits\ApiResponse;
 

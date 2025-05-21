@@ -48,6 +48,7 @@ class Amistad extends Model
 			$q->where('usuario_id', $id2)->where('amigo_id', $id1);
 		});
 	}
+	
 	//lista de amigos de un user
 	public function scopeAmigosDe($query, $id1)
 	{

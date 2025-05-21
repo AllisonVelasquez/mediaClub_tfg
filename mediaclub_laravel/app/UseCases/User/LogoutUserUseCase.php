@@ -1,5 +1,5 @@
 <?php
-namespace App\Application\UseCases\User;
+namespace App\UseCases\User;
 
 class LogoutUserUseCase
 {

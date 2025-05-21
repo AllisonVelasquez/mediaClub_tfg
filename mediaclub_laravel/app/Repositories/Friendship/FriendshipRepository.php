@@ -12,9 +12,6 @@ class FriendshipRepository implements FriendshipRepositoryInterface
     }
     public function delete(int $userid, int $friendid): bool
     {
-        $deleteFriend = Amistad::where('usuario_id', $userid)
-            ->where('amigo_id', $friendid)
-            ->delete();
-        return $deleteFriend > 0;
+        return Amistad::entre($userid, $friendid)->delete();
     }
 }

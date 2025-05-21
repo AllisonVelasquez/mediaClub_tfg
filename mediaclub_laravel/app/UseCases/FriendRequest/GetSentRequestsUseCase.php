@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Application\UseCases\FriendRequest;
+namespace App\UseCases\FriendRequest;
 
 use App\Repositories\FriendRequest\FriendRequestRepositoryInterface;
 use App\Models\Usuario;
 use App\Repositories\User\UserRepositoryInterface;
 
-class RejectFriendRequestUseCase
+class GetSentRequestsUseCase
 {
     protected FriendRequestRepositoryInterface $requestRepository;
     protected UserRepositoryInterface $userRepository;
@@ -17,12 +17,9 @@ class RejectFriendRequestUseCase
         $this->userRepository = $userRepository;
     }
 
-    public function execute(Usuario $user, array $data)
+    public function execute(Usuario $user)
     {
-        $rem = $user->usuario_id;
-
-        $dest = $this->userRepository->findByAlias($data['alias'])->usuario_id;
-
-        return $this->requestRepository->rejectRequest($rem, $dest);
+        $user = $user->usuario_id;
+        return $this->requestRepository->getSentRequests($user);
     }
 }

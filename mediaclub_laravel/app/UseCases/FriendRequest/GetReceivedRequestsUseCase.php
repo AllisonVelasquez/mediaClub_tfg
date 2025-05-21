@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Application\UseCases\FriendRequest;
+namespace App\UseCases\FriendRequest;
 
 use App\Repositories\FriendRequest\FriendRequestRepositoryInterface;
 use App\Models\Usuario;
 use App\Repositories\User\UserRepositoryInterface;
 
-class GetSentRequestsUseCase
+class GetReceivedRequestsUseCase
 {
     protected FriendRequestRepositoryInterface $requestRepository;
     protected UserRepositoryInterface $userRepository;
@@ -20,6 +20,6 @@ class GetSentRequestsUseCase
     public function execute(Usuario $user)
     {
         $user = $user->usuario_id;
-        return $this->requestRepository->getSentRequests($user);
+        return $this->requestRepository->getReceivedRequests($user);
     }
 }

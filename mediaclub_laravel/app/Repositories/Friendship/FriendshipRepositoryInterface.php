@@ -3,7 +3,6 @@
 namespace App\Repositories\Friendship;
 
 use App\Models\Amistad;
-use Illuminate\Http\JsonResponse;
 
 interface FriendshipRepositoryInterface
 {

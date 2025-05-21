@@ -8,14 +8,16 @@ use App\Actions\User\RegisterUserAction;
 use App\Actions\User\LoginUserAction;
 use App\Actions\User\LogoutUserAction;
 use App\Actions\User\UpdateUserAction;
+use App\Actions\Friendship\DeleteFriendAction;
 
 use App\Http\Requests\RegisterUserRequest;
 use App\Http\Requests\UpdateRequest;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\DeleteUserRequest;
 use App\Http\Requests\FindIdByAliasRequest;
+use App\Http\Requests\DeleteFriendRequest;
+use App\Http\Requests\ShowFriendsRequest;
 
-use App\Actions\Friendship\GetMyFriendsListAction;
 use App\Actions\Friendship\GetUserFriendsListAction;
 
 use Illuminate\Http\Request;
@@ -47,7 +49,8 @@ class UserController extends Controller
 
     public function logoutUser(Request $request)
     {
-        return app(LogoutUserAction::class)->execute($request);
+        $user = $request->user();
+        return app(LogoutUserAction::class)->execute($user);
     }
 
     public function deleteUser(DeleteUserRequest $request) //se pide formulario no para validar sino para confirmar que desea eliminar su cuenta
@@ -71,11 +74,15 @@ class UserController extends Controller
 
     }
 
-    public function showFriends(Request $request){
+    public function showFriends(ShowFriendsRequest $request){
         return app(GetUserFriendsListAction::class)->execute($request->validated());
-
     }
     
+    public function deleteFriend(DeleteFriendRequest $request){
+        $user = $request->user();
+        $friend= $request->validated();
+        return app(DeleteFriendAction::class)->execute($user,$friend);
+    }
     //Lists
 
     //Threads

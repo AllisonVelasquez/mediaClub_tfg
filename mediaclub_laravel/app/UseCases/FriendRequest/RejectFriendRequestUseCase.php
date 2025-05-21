@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Application\UseCases\FriendRequest;
+namespace App\UseCases\FriendRequest;
 
 use App\Repositories\FriendRequest\FriendRequestRepositoryInterface;
 use App\Models\Usuario;
 use App\Repositories\User\UserRepositoryInterface;
 
-class SendFriendRequestUseCase
+class RejectFriendRequestUseCase
 {
     protected FriendRequestRepositoryInterface $requestRepository;
     protected UserRepositoryInterface $userRepository;
@@ -23,7 +23,6 @@ class SendFriendRequestUseCase
 
         $dest = $this->userRepository->findByAlias($data['alias'])->usuario_id;
 
-        return $this->requestRepository->createRequest($rem,$dest);
+        return $this->requestRepository->rejectRequest($rem, $dest);
     }
 }
-

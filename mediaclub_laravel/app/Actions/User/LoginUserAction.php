@@ -3,7 +3,7 @@
 namespace App\Actions\User;
 
 use App\Traits\ApiResponse;
-use App\Application\UseCases\User\LoginUserUseCase;
+use App\UseCases\User\LoginUserUseCase;
 
 class LoginUserAction
 {

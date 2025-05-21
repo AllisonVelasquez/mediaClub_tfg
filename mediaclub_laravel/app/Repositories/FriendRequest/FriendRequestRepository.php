@@ -37,7 +37,7 @@ class FriendRequestRepository implements FriendRequestRepositoryInterface
         return $canceled > 0;
     }
 
-    public function acceptRequest(int $fromUserId, int $toUserId): bool
+    public function acceptRequest(int $toUserId, int $fromUserId): bool
     {
         $accepted = Solicitud::where('remitente_id', $fromUserId)
             ->where('destinatario_id', $toUserId)
@@ -46,7 +46,7 @@ class FriendRequestRepository implements FriendRequestRepositoryInterface
         return $accepted > 0;
     }
 
-    public function rejectRequest(int $fromUserId, int $toUserId): bool
+    public function rejectRequest(int $toUserId, int $fromUserId): bool
     {
         $rejected = Solicitud::where('remitente_id', $fromUserId)
             ->where('destinatario_id', $toUserId)

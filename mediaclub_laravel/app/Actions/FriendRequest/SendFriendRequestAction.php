@@ -3,7 +3,7 @@
 namespace App\Actions\FriendRequest;
 
 use App\Traits\ApiResponse;
-use App\Application\UseCases\FriendRequest\SendFriendRequestUseCase;
+use App\UseCases\FriendRequest\SendFriendRequestUseCase;
 use App\Models\Usuario;
 
 class SendFriendRequestAction

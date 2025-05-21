@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Application\UseCases\User;
+namespace App\UseCases\User;
 
 use App\Repositories\User\UserRepositoryInterface;
-
+use App\Models\Usuario;
 
 class GetUserProfileUseCase
 {
@@ -14,7 +14,7 @@ class GetUserProfileUseCase
         $this->userRepository = $userRepository;
     }
 
-    public function execute(string $alias)
+    public function execute(string $alias): Usuario
     {
         $user = $this->userRepository->findByAlias($alias);
 

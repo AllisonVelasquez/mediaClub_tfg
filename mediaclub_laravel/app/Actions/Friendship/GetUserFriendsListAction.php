@@ -1,22 +1,28 @@
 <?php
+
 namespace App\Actions\Friendship;
 
-use App\Application\UseCases\Friendship\GetUserFriendsListUseCaseUse;
+use App\UseCases\Friendship\GetUserFriendsListUseCase;
 use App\Traits\ApiResponse;
-use App\Models\Usuario;
 
-class GetUserFriendsListAction{
-use ApiResponse;
+use function PHPUnit\Framework\isEmpty;
+
+class GetUserFriendsListAction
+{
+    use ApiResponse;
     protected $getUserFriendsListUseCase;
 
-    public function __construct(GetUserFriendsListUseCaseUse $getUserFriendsListUseCase) {
+    public function __construct(GetUserFriendsListUseCase $getUserFriendsListUseCase)
+    {
         $this->getUserFriendsListUseCase = $getUserFriendsListUseCase;
     }
-    //fatltaaaaaa
-    public function execute(Usuario $user){
-        $userid = $user->usuario_id;
-        return response()->json($this->getUserFriendsListUseCase->execute($userid));
 
+    public function execute(array $user) 
+    {
+        $alias = $user['alias'];
+        $friends = $this->getUserFriendsListUseCase->execute($alias);
+
+        if(isEmpty($friends)) return $this->success('Lista de amigos vacía',200);
+        return $this->success('Lista de amigos cargada',200,$friends);
     }
-   
 }

@@ -3,7 +3,7 @@
 namespace App\Actions\User;
 
 use App\Traits\ApiResponse;
-use App\Application\UseCases\User\RegisterUserUseCase;
+use App\UseCases\User\RegisterUserUseCase;
 
 class RegisterUserAction
 {

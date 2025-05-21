@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Application\UseCases\User;
+namespace App\UseCases\User;
 
 use App\Repositories\User\UserRepositoryInterface;
-use  App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
+use  App\Models\Usuario;
 
-class UpdateUserUseCase
+class DeleteUserUseCase
 {
     protected UserRepositoryInterface $userRepository;
 
@@ -17,10 +17,12 @@ class UpdateUserUseCase
 
     public function execute(Usuario $user, array $data)
     {
+        $loginCoincide = $user->login_id === $data['login_id'];
         $claveCorrecta = Hash::check($data['contrasena'], $user->contrasena);
-        if (!$claveCorrecta) {
+        if (!($loginCoincide && $claveCorrecta)) {
             return false;
         }
-        return $this->userRepository->update($user->usuario_id,$data);
+        $user->tokens()->delete();
+        return $this->userRepository->delete($user->usuario_id);
     }
 }

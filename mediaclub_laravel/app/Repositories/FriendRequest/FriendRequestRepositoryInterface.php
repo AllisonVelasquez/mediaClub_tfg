@@ -4,7 +4,6 @@ namespace App\Repositories\FriendRequest;
 
 use App\Models\Solicitud;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\JsonResponse;
 
 interface FriendRequestRepositoryInterface
 {

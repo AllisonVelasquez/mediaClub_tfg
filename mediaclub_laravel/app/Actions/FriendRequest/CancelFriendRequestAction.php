@@ -3,7 +3,7 @@
 namespace App\Actions\FriendRequest;
 
 use App\Traits\ApiResponse;
-use App\Application\UseCases\FriendRequest\CancelFriendRequestUseCase;
+use App\UseCases\FriendRequest\CancelFriendRequestUseCase;
 use App\Models\Usuario;
 
 class CancelFriendRequestAction

@@ -2,7 +2,7 @@
 
 namespace App\Actions\User;
 
-use App\Application\UseCases\User\DeleteUserUseCase;
+use App\UseCases\User\DeleteUserUseCase;
 use App\Models\Usuario;
 use App\Traits\ApiResponse;
 

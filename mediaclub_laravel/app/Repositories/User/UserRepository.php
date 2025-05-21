@@ -49,9 +49,15 @@ class UserRepository implements UserRepositoryInterface
     }
 
     // Contar el número de usuarios
-    public function listFriends($id): Collection
+    public function listMyFriends($id): Collection
     {
         $user = Usuario::findOrFail($id);
+        return $user->amigos();
+    }
+
+    public function listFriends($alias): Collection
+    {
+        $user = Usuario::where('alias', $alias)->firstOrFail();
         return $user->amigos();
     }
 }
