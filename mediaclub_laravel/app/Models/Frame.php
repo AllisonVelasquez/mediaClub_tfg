@@ -65,10 +65,11 @@ class Frame extends Model
 		return $this->belongsToMany(Genero::class);
 	}
 
-	public function frame_lista()
-	{
-		return $this->hasMany(FrameListum::class);
-	}
+	public function listums()
+{
+    return $this->belongsToMany(Listum::class, 'frame_listum', 'frame_id', 'lista_id')->withTimestamps();
+}
+
 
 	public function hilos()
 	{

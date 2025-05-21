@@ -20,9 +20,9 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('usuarios')->group(function () {
     Route::get('/{alias}/perfil', [UserController::class, 'showProfile']); //
-    Route::get('/{alias}/listas-publicas', [UserController::class, 'showLists']); //ListController
-    Route::get('/{alias}/listas-publicas/{nombre}', [UserController::class, 'showListContent']); //ListController
-    Route::get('/{alias}/amigos', [UserController::class, 'showFriends']); //friendship controller
+    Route::get('/{alias}/listas-publicas', [ListController::class, 'showPublicUserLists']); //ListController
+    Route::get('/{alias}/listas-publicas/{id}', [ListController::class, 'showUserListContent']); //ListController
+    Route::get('/{alias}/amigos', [UserController::class, 'showFriends']); //
     Route::get('/{alias}/actividad', [UserController::class, 'activity']);
 });
 
@@ -30,9 +30,9 @@ Route::middleware('auth:sanctum')->prefix('me')->group(function () {
     Route::get('/perfil', [UserController::class, 'myProfile']); //
     Route::patch('/actualizar-datos', [UserController::class, 'updateUser']); //
     Route::delete('/borrar-cuenta', [UserController::class, 'deleteUser']); //
-    Route::get('/amigos', [UserController::class, 'myFriends']); //friendship controller
-    Route::delete('/amigos/eliminar/{alias}', [UserController::class, 'removeFriend']); //Friendship controller
-    Route::get('/actividad', [UserController::class, 'myActivity']);
+    Route::get('/amigos', [UserController::class, 'myFriends']); //
+    Route::delete('/amigos/eliminar/{alias}', [UserController::class, 'removeFriend']); //
+    Route::get('/actividad', [UserController::class, 'myActivity']); 
 
     // Agrupar bajo autenticación
     Route::prefix('amistad')->group(function () {
@@ -47,12 +47,12 @@ Route::middleware('auth:sanctum')->prefix('me')->group(function () {
 
     Route::prefix('listas')->group(function () {
         Route::get('/ver-todas', [ListController::class, 'myLists']);
-        Route::post('/crear', [ListController::class, 'addList']);
+        Route::post('/crear', [ListController::class, 'createList']);
         Route::patch('/editar/{id}', [ListController::class, 'editList']);
         Route::delete('/borrar/{id}', [ListController::class, 'deleteList']);
         Route::get('/{id}/detalles', [ListController::class, 'showList']);
-        Route::post('/{id}/anadir/{frameid}', [ListController::class, 'addContent']);
-        Route::delete('/{id}/quitar/{frameid}', [ListController::class, 'removeContent']);
+        Route::post('/{id}/anadir/{frameid}', [ListController::class, 'addFrame']);
+        Route::delete('/{id}/quitar/{frameid}', [ListController::class, 'removeFrame']);
     });
 
     Route::prefix('resenas')->group(function () {

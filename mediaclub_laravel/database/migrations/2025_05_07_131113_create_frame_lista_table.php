@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('frame_id')->index('frame_id');
 
             $table->primary(['lista_id', 'frame_id']);
+            $table->timestamps();
         });
     }
 
