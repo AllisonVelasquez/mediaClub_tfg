@@ -15,8 +15,6 @@ interface ListRepositoryInterface
 
     public function delete(int $id): bool;
 
-    // public function find(int $id): mixed;
-
     public function addFrame(int $listId, int $frameId): void;
 
     public function removeFrame(int $listId, int $frameId): void;

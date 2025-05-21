@@ -30,11 +30,6 @@ class ListRepository implements ListRepositoryInterface
         return $lista->delete();
     }
 
-    // public function find(int $id): mixed
-    // {
-    //     return Listum::findOrFail($id);
-    // }
-
     public function addFrame(int $listId, int $frameId): void
     {
         $lista = Listum::findOrFail($listId);
