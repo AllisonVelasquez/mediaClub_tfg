@@ -1,0 +1,196 @@
+.landing-bg {
+  min-height: 100vh;
+  background: #f1f5f3; /* Fondo más suave */
+  font-family: 'Roboto', sans-serif; /* Fuente general más moderna */
+  padding: 0 4rem 2rem 4rem;
+  box-sizing: border-box;
+}
+
+.landing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0 0 0;
+}
+
+.landing-logo img {
+  height: 3rem;
+}
+
+.landing-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.landing-btn {
+  border: none;
+  text-decoration: none;
+  border-radius: 20px;
+  padding: 0.8rem 3rem;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 12px rgba(44, 62, 80, 0.15);
+  letter-spacing: 0.5px;
+}
+
+.landing-btn.light {
+  background: #f8ffe5;
+  color: #2a3b42;
+}
+
+.landing-btn.dark {
+  background: #2e5135;
+  color: #c1f7cc;
+}
+
+.landing-title {
+  color: #2a3b42;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-left: 0.2rem;
+  margin-top: 3.2rem;
+  margin-bottom: 4.2rem;
+  line-height: 1.3;
+  max-width: 650px;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 1px;
+}
+
+/* Carrusel */
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  width: 100%;
+  min-height: 420px;
+  gap: 0.5rem;
+}
+
+.peliculas-carousel {
+  display: flex;
+  overflow: hidden;
+  width: 1200px;
+  gap: 28px;
+  transition: all 0.3s;
+  background: transparent;
+  padding: 0;
+  align-items: flex-end;
+}
+
+.pelicula-card-landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+  flex-shrink: 0;
+  background: #86d6aa;
+  border-radius: 15px; /* Bordes redondeados para la card */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  transition: transform 0.2s, box-shadow 0.2s;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.pelicula-card-landing:hover {
+  transform: translateY(-10px); /* Efecto de hover */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada al pasar el mouse */
+}
+
+.pelicula-poster-img {
+  width: 100%;
+  aspect-ratio: 2/3;
+  background: #2e5135;
+  border-radius: 12px;
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pelicula-nombre {
+  color: #212226;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 10px 0;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+}
+
+.pelicula-genero {
+  font-size: 0.95rem;
+  color: #2a3b42;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.pelicula-fecha-lanzamiento {
+  font-size: 0.85rem;
+  color: #7a7a7a;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.pelicula-descripcion {
+  font-size: 0.9rem;
+  color: #5e5e5e;
+  text-align: justify;
+  margin-bottom: 10px;
+}
+
+.pelicula-puntuacion {
+  font-size: 1.1rem;
+  color: #f39c12; /* Color dorado para las estrellas */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pelicula-puntuacion .puntuacion-text {
+  font-size: 0.9rem;
+  color: #333;
+  margin-left: 5px;
+}
+
+/* Flechas del carrusel */
+.carousel-arrow {
+  background: #bcd2c2;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-arrow:first-of-type {
+  left: 0;
+}
+
+.carousel-arrow:last-of-type {
+  right: 0;
+}
+
+.carousel-arrow:hover {
+  background: #2e5135;
+  color: #c1f7cc;
+}

@@ -1,0 +1,31 @@
+.buscador-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+    width: fit-content;
+    background-color: #fff;
+  }
+  
+  .buscador-input {
+    border: none;
+    padding: 8px 10px;
+    font-size: 14px;
+    outline: none;
+    width: 180px;
+  }
+  
+  .buscador-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .buscador-btn:hover {
+    background-color: #0056b3;
+  }
+  
