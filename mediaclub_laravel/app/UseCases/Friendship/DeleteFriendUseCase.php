@@ -2,24 +2,22 @@
 namespace App\UseCases\Friendship;
 
 use App\Repositories\Friendship\FriendshipRepositoryInterface;
-use App\Repositories\User\UserRepositoryInterface;
-
+use App\Models\Usuario;
 
 class DeleteFriendUseCase
 {
     protected $friendshipRepository;
-    protected $userRepository;
 
-    public function __construct( UserRepositoryInterface $userRepository,FriendshipRepositoryInterface $friendshipRepository)
+    public function __construct( FriendshipRepositoryInterface $friendshipRepository)
     {
-        $this->userRepository = $userRepository;
         $this->friendshipRepository = $friendshipRepository;
     }
 
-    public function execute(int $userId, string $friendalias): bool
+    public function execute(Usuario $user, Usuario $friend): bool
     {
-        $friendid= $this->userRepository->findByAlias($friendalias)->usuario_id;
-        $this->friendshipRepository->delete($userId, $friendid);
+        $userid = $user->usuario_id;
+        $friendid = $friend->usuario_id;
+        $this->friendshipRepository->delete($userid, $friendid);
         return true;
     }
 }

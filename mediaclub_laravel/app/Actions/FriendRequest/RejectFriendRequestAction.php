@@ -14,9 +14,9 @@ class RejectFriendRequestAction
     public function __construct(RejectFriendRequestUseCase $rejectFriendRequestUseCase) {
         $this->rejectFriendRequestUseCase = $rejectFriendRequestUseCase;
     }
-    public function execute(Usuario $user,array $data)
+    public function execute(Usuario $user,Usuario $from)
     {
-        $request = $this->rejectFriendRequestUseCase->execute($user, $data);
+        $request = $this->rejectFriendRequestUseCase->execute($user, $from);
         return $this->success('Solicitud de amistad rechazada', 200, $request);
     }
 }

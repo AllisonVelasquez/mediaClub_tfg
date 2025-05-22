@@ -1,0 +1,20 @@
+<?php
+namespace App\UseCases\List;
+
+use App\Models\Listum;
+use App\Models\Usuario;
+use App\Repositories\List\ListRepositoryInterface;
+use App\Models\Frame;
+
+class AddFrameToListUseCase
+{
+    protected $listRepository;
+
+    public function __construct(ListRepositoryInterface $listRepository) {
+        $this->listRepository = $listRepository;
+    }
+    public function execute(Usuario $user,Listum $list, Frame $frame): bool
+    {
+        return $this->listRepository->addFrame($user->usuario_id, $list->lista_id, $frame->frame_id);
+    }
+}

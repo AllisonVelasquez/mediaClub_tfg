@@ -4,25 +4,18 @@ namespace App\UseCases\FriendRequest;
 
 use App\Repositories\FriendRequest\FriendRequestRepositoryInterface;
 use App\Models\Usuario;
-use App\Repositories\User\UserRepositoryInterface;
 
 class CancelFriendRequestUseCase
 {
     protected FriendRequestRepositoryInterface $requestRepository;
-    protected UserRepositoryInterface $userRepository;
 
-    public function __construct(FriendRequestRepositoryInterface $requestRepository, UserRepositoryInterface $userRepository)
+    public function __construct(FriendRequestRepositoryInterface $requestRepository)
     {
         $this->requestRepository = $requestRepository;
-        $this->userRepository = $userRepository;
     }
 
-    public function execute(Usuario $user, array $data)
+    public function execute(Usuario $me, Usuario $to)
     {
-        $rem = $user->usuario_id;
-
-        $dest = $this->userRepository->findByAlias($data['alias'])->usuario_id;
-
-        return $this->requestRepository->cancelRequest($rem, $dest);
+        return $this->requestRepository->cancelRequest($me->usuario_id, $to->usuario_id);
     }
 }

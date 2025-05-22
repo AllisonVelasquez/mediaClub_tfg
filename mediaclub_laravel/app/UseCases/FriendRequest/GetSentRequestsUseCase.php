@@ -9,17 +9,14 @@ use App\Repositories\User\UserRepositoryInterface;
 class GetSentRequestsUseCase
 {
     protected FriendRequestRepositoryInterface $requestRepository;
-    protected UserRepositoryInterface $userRepository;
 
-    public function __construct(FriendRequestRepositoryInterface $requestRepository, UserRepositoryInterface $userRepository)
+    public function __construct(FriendRequestRepositoryInterface $requestRepository)
     {
         $this->requestRepository = $requestRepository;
-        $this->userRepository = $userRepository;
     }
 
     public function execute(Usuario $user)
     {
-        $user = $user->usuario_id;
-        return $this->requestRepository->getSentRequests($user);
+        return $this->requestRepository->getSentRequests($user->usuario_id);
     }
 }

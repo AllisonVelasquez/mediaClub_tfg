@@ -14,11 +14,9 @@ class AcceptFriendRequestAction
     public function __construct(AcceptFriendRequestUseCase $acceptFriendRequestUseCase) {
         $this->acceptFriendRequestUseCase = $acceptFriendRequestUseCase;
     }
-    public function execute(Usuario $user,array $data)
+    public function execute(Usuario $me,Usuario $from)
     {
-        $me = $user->usuario_id;
-        $user2 = $data['alias'];
-        $this->acceptFriendRequestUseCase->execute($me, $user2);
+        $this->acceptFriendRequestUseCase->execute($me, $from);
         return $this->success('Solicitud de amistad aceptada', 201);
     }
 }

@@ -11,7 +11,7 @@ class CreateListRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,18 @@ class CreateListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre_lista' => 'required|string|max:255',
+            'publica' => 'required|boolean'
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'publica.required' => 'El campo "publica" es obligatorio.',
+            'publica.boolean'  => 'El campo "publica" debe ser verdadero o falso.',
+            'nombre_lista.required' => 'El nombre de la lista es obligatorio.',
+            'nombre_lista.string'   => 'El nombre de la lista debe ser una cadena de texto.',
+            'nombre_lista.max'      => 'El nombre de la lista no puede tener más de 255 caracteres.',
         ];
     }
 }

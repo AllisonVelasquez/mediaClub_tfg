@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserRepositoryInterface
 {
-    public function findByAlias(string $alias): ?Usuario
-    {
-        return Usuario::where('alias', $alias)->firstOrFail();
-    }
-
     // Buscar usuarios por un campo
     public function findByLoginId(string $login_id): ?Usuario
     {
@@ -44,20 +39,13 @@ class UserRepository implements UserRepositoryInterface
     public function delete(int $id): bool
     {
         $user = Usuario::findOrFail($id);
-        $user->delete();
-        return true;
+        return $user->delete();
     }
 
-    // Contar el número de usuarios
-    public function listMyFriends($id): Collection
+
+    public function listFriends(int $id): Collection
     {
         $user = Usuario::findOrFail($id);
-        return $user->amigos();
-    }
-
-    public function listFriends($alias): Collection
-    {
-        $user = Usuario::where('alias', $alias)->firstOrFail();
         return $user->amigos();
     }
 }

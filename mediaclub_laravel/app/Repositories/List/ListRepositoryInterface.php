@@ -7,19 +7,21 @@ use Illuminate\Support\Collection;
 
 interface ListRepositoryInterface
 {
-     public function getByUserId(int $userId): Collection;
+    public function getMyLists(int $userId): Collection;
 
-    public function create(array $data): mixed;
+    public function getMyListContent(int $userId, int $id): Listum;
 
-    public function update(int $id, array $data): bool;
+    public function create(array $data): Listum;
 
-    public function delete(int $id): bool;
+    public function update(int $userid, int $id, array $data): bool;
 
-    public function addFrame(int $listId, int $frameId): void;
+    public function delete(int $userid, int $id): bool;
 
-    public function removeFrame(int $listId, int $frameId): void;
+    public function addFrame(int $userid, int $listId, int $frameId): bool;
+
+    public function removeFrame(int $userid, int $listId, int $frameId): bool;
 
     public function getPublicListsForUser(int $userId): Collection;
 
-    public function getPublicListContentForUser(int $userId, int $listId): mixed;
+    public function getPublicListContentForUser(int $userId, int $listId): Collection;
 }

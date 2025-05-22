@@ -11,7 +11,7 @@ class EditListRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,16 @@ class EditListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'publica' => 'simetimes|boolean',
+            'nombre_lista' => 'simetimes|string|max:255'
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'publica.boolean' => 'El campo "publica" debe ser verdadero o falso.',
+            'nombre_lista.string' => 'El nombre de la lista debe ser una cadena de texto.',
+            'nombre_lista.max' => 'El nombre de la lista no puede tener más de 255 caracteres.',
         ];
     }
 }

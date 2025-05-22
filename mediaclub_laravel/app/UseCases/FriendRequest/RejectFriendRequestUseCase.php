@@ -4,25 +4,18 @@ namespace App\UseCases\FriendRequest;
 
 use App\Repositories\FriendRequest\FriendRequestRepositoryInterface;
 use App\Models\Usuario;
-use App\Repositories\User\UserRepositoryInterface;
 
 class RejectFriendRequestUseCase
 {
     protected FriendRequestRepositoryInterface $requestRepository;
-    protected UserRepositoryInterface $userRepository;
 
-    public function __construct(FriendRequestRepositoryInterface $requestRepository, UserRepositoryInterface $userRepository)
+    public function __construct(FriendRequestRepositoryInterface $requestRepository)
     {
         $this->requestRepository = $requestRepository;
-        $this->userRepository = $userRepository;
     }
 
-    public function execute(Usuario $user, array $data)
+    public function execute(Usuario $me, Usuario $from)
     {
-        $rem = $user->usuario_id;
-
-        $dest = $this->userRepository->findByAlias($data['alias'])->usuario_id;
-
-        return $this->requestRepository->rejectRequest($rem, $dest);
+        return $this->requestRepository->rejectRequest($me->usuario_id, $from->usuario_id);
     }
 }

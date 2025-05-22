@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 
 use App\Actions\FriendRequest\AcceptFriendRequestAction;
 use App\Actions\FriendRequest\CancelFriendRequestAction;
@@ -8,34 +9,30 @@ use App\Actions\FriendRequest\GetReceivedRequestsAction;
 use App\Actions\FriendRequest\GetSentRequestsAction;
 use App\Actions\FriendRequest\RejectFriendRequestAction;
 use App\Actions\FriendRequest\SendFriendRequestAction;
-use App\Http\Requests\FriendRequestRequest;
-use Illuminate\Http\Request;
+
+use App\Models\Usuario;
 
 class FriendRequestController extends Controller
 {
-    public function sendFriendRequest (FriendRequestRequest $request)
+    public function sendFriendRequest (Request $request, Usuario $to)
     {
         $from = $request->user();
-        $to = $request->validated();
         return app(SendFriendRequestAction::class)->execute($from,$to);
     }
-    public function acceptFriendRequest (FriendRequestRequest $request)
+    public function acceptFriendRequest (Request $request, Usuario $from)
     {
-        $from = $request->user();
-        $to = $request->validated();
-        return app(AcceptFriendRequestAction::class)->execute($from,$to);
+        $me = $request->user();
+        return app(AcceptFriendRequestAction::class)->execute($me,$from);
     }
-    public function rejectFriendRequest (FriendRequestRequest $request)
+    public function rejectFriendRequest (Request $request, Usuario $from)
     {
-        $from = $request->user();
-        $to = $request->validated();
-        return app(RejectFriendRequestAction::class)->execute($from,$to);
+        $me = $request->user();
+        return app(RejectFriendRequestAction::class)->execute($me,$from);
     }
-    public function cancelFriendRequest (FriendRequestRequest $request)
+    public function cancelFriendRequest (Request $request, Usuario $to)
     {
-        $from = $request->user();
-        $to = $request->validated();
-        return app(CancelFriendRequestAction::class)->execute($from,$to);
+        $me = $request->user();
+        return app(CancelFriendRequestAction::class)->execute($me,$to);
     }
     public function getSentFriendRequests (Request $request)
     {

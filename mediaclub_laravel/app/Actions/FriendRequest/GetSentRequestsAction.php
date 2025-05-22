@@ -16,7 +16,6 @@ class GetSentRequestsAction
     }
     public function execute(Usuario $user)
     {
-        //falta crear la amistad
         $request = $this->getSentRequestsUseCase->execute($user);
         return $this->success('Lista de solicitudes enviadas', 200, $request);
     }

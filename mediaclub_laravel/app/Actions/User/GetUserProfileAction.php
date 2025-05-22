@@ -2,21 +2,16 @@
 
 namespace App\Actions\User;
 
+use App\Models\Usuario;
 use App\Traits\ApiResponse;
-use App\UseCases\User\GetUserProfileUseCase;
 
 class GetUserProfileAction
 {
     use ApiResponse;
-    protected $getUserProfileUseCase;
-    public function __construct(GetUserProfileUseCase $getUserProfileUseCase)
-    {
-        $this->getUserProfileUseCase = $$getUserProfileUseCase;
-    }
 
-    public function execute(array $data)
+    public function execute(Usuario $user)
     {
-        $userProfileData = $this->getUserProfileUseCase->execute($data['alias']);
+        $userProfileData = $user->makeHidden(['contrasena', 'usuario_id', 'login_id','confirmado']); 
         return $this->success('Usuario encontrado', 200, $userProfileData);
     }
 }

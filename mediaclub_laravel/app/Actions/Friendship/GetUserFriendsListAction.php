@@ -4,7 +4,7 @@ namespace App\Actions\Friendship;
 
 use App\UseCases\Friendship\GetUserFriendsListUseCase;
 use App\Traits\ApiResponse;
-
+use App\Models\Usuario;
 use function PHPUnit\Framework\isEmpty;
 
 class GetUserFriendsListAction
@@ -17,10 +17,9 @@ class GetUserFriendsListAction
         $this->getUserFriendsListUseCase = $getUserFriendsListUseCase;
     }
 
-    public function execute(array $user) 
+    public function execute(Usuario $user) 
     {
-        $alias = $user['alias'];
-        $friends = $this->getUserFriendsListUseCase->execute($alias);
+        $friends = $this->getUserFriendsListUseCase->execute($user);
 
         if(isEmpty($friends)) return $this->success('Lista de amigos vacía',200);
         return $this->success('Lista de amigos cargada',200,$friends);

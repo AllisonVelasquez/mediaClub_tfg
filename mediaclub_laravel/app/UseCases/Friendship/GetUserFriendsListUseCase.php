@@ -3,6 +3,7 @@
 namespace App\UseCases\Friendship;
 
 use App\Repositories\User\UserRepositoryInterface;
+use App\Models\Usuario;
 
 class GetUserFriendsListUseCase
 {
@@ -13,9 +14,8 @@ class GetUserFriendsListUseCase
         $this->userRepository = $userRepository;
     }
 
-    public function execute(string $alias)
+    public function execute(Usuario $user)
     {
-        $userid = $this->userRepository->findByAlias($alias)->usuario_id;
-        return $this->userRepository->listFriends($userid);
+        return $this->userRepository->listFriends($user->userid);
     }
 }

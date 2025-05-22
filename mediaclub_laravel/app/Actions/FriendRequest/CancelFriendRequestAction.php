@@ -14,10 +14,9 @@ class CancelFriendRequestAction
     public function __construct(CancelFriendRequestUseCase $cancelFriendRequestUseCase) {
         $this->cancelFriendRequestUseCase = $cancelFriendRequestUseCase;
     }
-    public function execute(Usuario $user,array $data)
+    public function execute(Usuario $user,Usuario $to)
     {
-        //falta crear la amistad
-        $request = $this->cancelFriendRequestUseCase->execute($user, $data);
+        $request = $this->cancelFriendRequestUseCase->execute($user, $to);
         return $this->success('Solicitud de amistad cancelada', 200, $request);
     }
 }

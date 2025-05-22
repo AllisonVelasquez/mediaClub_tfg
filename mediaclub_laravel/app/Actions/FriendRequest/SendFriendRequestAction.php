@@ -14,9 +14,9 @@ class SendFriendRequestAction
     public function __construct(SendFriendRequestUseCase $sendRequestUseCase) {
         $this->sendRequestUseCase = $sendRequestUseCase;
     }
-    public function execute(Usuario $user,array $data)
+    public function execute(Usuario $user,Usuario $to)
     {
-        $request = $this->sendRequestUseCase->execute($user, $data);
+        $request = $this->sendRequestUseCase->execute($user, $to);
         return $this->success('Solicitud de amistad enviada', 200, $request);
     }
 }
