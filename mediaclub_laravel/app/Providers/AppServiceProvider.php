@@ -15,7 +15,8 @@ use App\Exceptions\Handler;
 use App\Repositories\FriendRequest\FriendRequestRepository;
 use App\Repositories\Friendship\FriendshipRepository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-
+use App\Repositories\Rate\RateRepository;
+use App\Repositories\Rate\RateRepositoryInterface;
 class AppServiceProvider extends ServiceProvider
 {
     public function register()
