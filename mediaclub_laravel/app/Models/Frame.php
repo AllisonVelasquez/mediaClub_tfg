@@ -83,6 +83,6 @@ class Frame extends Model
 
 	public function resenas()
 	{
-		return $this->hasMany(Resena::class);
+		return $this->hasMany(Resena::class, 'frame_id','frame_id');
 	}
 }

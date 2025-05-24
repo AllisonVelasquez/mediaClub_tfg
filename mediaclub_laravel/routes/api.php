@@ -8,8 +8,8 @@ use App\Http\Controllers\FrameController;
 use App\Http\Controllers\GeneroController;
 use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\FriendShipController;
-use App\Http\Controllers\ResenaController;
-use App\Http\Controllers\PuntuacionController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\RateController;
 
 //USERS
 
@@ -59,33 +59,39 @@ Route::middleware('auth:sanctum')->prefix('me')->group(function () {
     });
 
     Route::prefix('resenas')->group(function () {
-        Route::get('/ver-todas', [ResenaController::class, 'getReviews']);
-        Route::post('/crear', [ResenaController::class, 'addReview']);
-        Route::delete('/borrar/{frame:frame_id}', [ResenaController::class, 'deleteReview']);
-        Route::get('/{Frameid}', [ResenaController::class, 'showFrameReview']);
+        Route::get('/ver-todas', [ReviewController::class, 'getMyReviews']); //
+        Route::get('/{resena:resena_id}/ver', [ReviewController::class, 'getReview']); //
+        Route::delete('/{resena:resena_id}/borrar', [ReviewController::class, 'deleteReview']); //
+        Route::get('/{frame:frame_id}', [ReviewController::class, 'getMyReviewsByFrame']); //
     });
 
     Route::prefix('puntuaciones')->group(function () {
-        Route::get('/ver-todas', [PuntuacionController::class, 'getRating']);
-        Route::post('/crear', [PuntuacionController::class, 'addRating']);
-        Route::patch('/editar/{puntuacion:puntuacion_id}', [PuntuacionController::class, 'editRating']);
-        Route::delete('/borrar/{puntuacion:puntuacion_id}', [PuntuacionController::class, 'deleteRating']);
-        Route::get('/{Frameid}', [PuntuacionController::class, 'showFrameRating']);
+        Route::get('/ver-todas', [RateController::class, 'getMyRates']);
+        Route::patch('/editar/{puntuacion:puntuacion_id}', [RateController::class, 'editRate']);
+        Route::delete('/borrar/{puntuacion:puntuacion_id}', [RateController::class, 'deleteRate']);
     });
 });
 
+//FRAMES
 
-// Contenido cambiar controllers
 Route::prefix('frames')->group(function () {
     Route::get('/buscar/{titulo}', [FrameController::class, 'searchByTitle']);
+
     Route::get('/peliculas', [TmdbController::class, 'getMovies']);
     Route::get('/series', [TmdbController::class, 'getSeries']);
     Route::get('/popular', [TmdbController::class, 'popular']);
     Route::get('/mas-puntuados', [TmdbController::class, 'topRated']);
     Route::get('/proximamente', [TmdbController::class, 'upcoming']);
     Route::get('/tendencia', [TmdbController::class, 'trending']);
-    Route::get('/{id}', [FrameController::class, 'show']);
-    Route::get('/{id}/similar', [TmdbController::class, 'similarMovies']); //Va a mostrar todo TODO
+
+    Route::get('/{frame:frame_id}', [FrameController::class, 'show']);
+    Route::get('/{frame:frame_id}/resenas', [ReviewController::class, 'getReviewsByFrame']); //
+    Route::post('{frame:frame_id}/anadir-resena', [ReviewController::class, 'addReview'])->middleware('auth:sanctum'); //
+    Route::get('/{frame:frame_id}/puntuacion', [RateController::class, 'getRateAverage']);
+    Route::post('{frame:frame_id}/anadir-puntuacion', [RateController::class, 'addRate'])->middleware('auth:sanctum');
+    Route::get('/{frame:frame_id}/listas', [ListController::class, 'getListas']); //List controller para buscar publicas donde este el frame
+    Route::get('/{frame:frame_id}/similar', [TmdbController::class, 'similarMovies']); 
+
     // Route::post('/sincronizar/{id}', [FrameController::class, 'sincronizar']);
 });
 

@@ -9,7 +9,8 @@ use App\Repositories\List\ListRepositoryInterface;
 use App\Repositories\List\ListRepository;
 use App\Repositories\FriendRequest\FriendRequestRepositoryInterface;
 use App\Repositories\Friendship\FriendshipRepositoryInterface;
-
+use App\Repositories\Review\ReviewRepositoryInterface;
+use App\Repositories\Review\ReviewRepository;
 use App\Exceptions\Handler;
 use App\Repositories\FriendRequest\FriendRequestRepository;
 use App\Repositories\Friendship\FriendshipRepository;
@@ -24,7 +25,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(FriendRequestRepositoryInterface::class, FriendRequestRepository::class);
         $this->app->bind(FriendshipRepositoryInterface::class, FriendshipRepository::class);
         $this->app->bind(ListRepositoryInterface::class, ListRepository::class);
-
+        $this->app->bind(ReviewRepositoryInterface::class, ReviewRepository::class);
+        $this->app->bind(RateRepositoryInterface::class, RateRepository::class);
     }
 
     public function boot()
