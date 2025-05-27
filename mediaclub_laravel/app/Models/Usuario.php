@@ -9,7 +9,6 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Sanctum\HasApiTokens;
 
 /**
  * Class Usuario
@@ -40,9 +39,6 @@ use Laravel\Sanctum\HasApiTokens;
  */
 class Usuario extends Model
 {
-	//Para poder generar tokens de sesion.
-	use HasApiTokens;
-
 	protected $table = 'usuario';
 	protected $primaryKey = 'usuario_id';
 	public $timestamps = false;
@@ -69,6 +65,11 @@ class Usuario extends Model
 	public function actividads()
 	{
 		return $this->hasMany(Actividad::class);
+	}
+
+	public function amistads()
+	{
+		return $this->hasMany(Amistad::class);
 	}
 
 	public function hilos()
@@ -101,21 +102,8 @@ class Usuario extends Model
 		return $this->hasMany(RespuestaHilo::class);
 	}
 
-	public function solicituds_recibidas()
+	public function solicituds()
 	{
 		return $this->hasMany(Solicitud::class, 'destinatario_id');
-	}
-	public function solicituds_enviadas()
-	{
-		return $this->hasMany(Solicitud::class, 'remitente_id');
-	}
-
-	public function amigos() : Collection
-	{
-		$amistades = Amistad::deUsuario($this->usuario_id)->get();
-		$amigosIds = $amistades->map(function ($amistad) {
-			return $amistad->user_id == $this->usuario_id ? $amistad->amigo_id : $amistad->usuario_id;
-		});
-		return Usuario::whereIn('usuario_id', $amigosIds)->get();
 	}
 }

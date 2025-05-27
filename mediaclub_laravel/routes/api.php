@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\TmdbController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ListController;
@@ -65,10 +64,10 @@ Route::middleware('auth:sanctum')->prefix('me')->group(function () {
         Route::get('/{frame:frame_id}', [ReviewController::class, 'getMyReviewsByFrame']); //
     });
 
-    Route::prefix('puntuaciones')->group(function () {
-        Route::get('/ver-todas', [RateController::class, 'getMyRates']);
-        Route::patch('/editar/{puntuacion:puntuacion_id}', [RateController::class, 'editRate']);
-        Route::delete('/borrar/{puntuacion:puntuacion_id}', [RateController::class, 'deleteRate']);
+    Route::prefix('puntuaciones')->group(function () { //
+        Route::get('/ver-todas', [RateController::class, 'getMyRates']); //
+        Route::patch('/editar/{puntuacion:puntuacion_id}', [RateController::class, 'editRate']); //
+        Route::delete('/borrar/{puntuacion:puntuacion_id}', [RateController::class, 'deleteRate']); //
     });
 });
 
@@ -77,20 +76,20 @@ Route::middleware('auth:sanctum')->prefix('me')->group(function () {
 Route::prefix('frames')->group(function () {
     Route::get('/buscar/{titulo}', [FrameController::class, 'searchByTitle']);
 
-    Route::get('/peliculas', [TmdbController::class, 'getMovies']);
-    Route::get('/series', [TmdbController::class, 'getSeries']);
-    Route::get('/popular', [TmdbController::class, 'popular']);
-    Route::get('/mas-puntuados', [TmdbController::class, 'topRated']);
-    Route::get('/proximamente', [TmdbController::class, 'upcoming']);
-    Route::get('/tendencia', [TmdbController::class, 'trending']);
+    Route::get('/peliculas', [FrameController::class, 'getMovies']);
+    Route::get('/series', [FrameController::class, 'getSeries']);
+    Route::get('/popular', [FrameController::class, 'popular']);
+    Route::get('/mas-puntuados', [FrameController::class, 'topRated']);
+    Route::get('/proximamente', [FrameController::class, 'upcoming']);
+    Route::get('/tendencia', [FrameController::class, 'trending']);
 
     Route::get('/{frame:frame_id}', [FrameController::class, 'show']);
     Route::get('/{frame:frame_id}/resenas', [ReviewController::class, 'getReviewsByFrame']); //
     Route::post('{frame:frame_id}/anadir-resena', [ReviewController::class, 'addReview'])->middleware('auth:sanctum'); //
     Route::get('/{frame:frame_id}/puntuacion', [RateController::class, 'getRateAverage']);
     Route::post('{frame:frame_id}/anadir-puntuacion', [RateController::class, 'addRate'])->middleware('auth:sanctum');
-    Route::get('/{frame:frame_id}/listas', [ListController::class, 'getListas']); //List controller para buscar publicas donde este el frame
-    Route::get('/{frame:frame_id}/similar', [TmdbController::class, 'similarMovies']); 
+    Route::get('/{frame:frame_id}/listas', [ListController::class, 'getListas']); //List controller para buscar publicas donde este el frame FALTA
+    Route::get('/{frame:frame_id}/similar', [FrameController::class, 'similarMovies']); 
 
     // Route::post('/sincronizar/{id}', [FrameController::class, 'sincronizar']);
 });

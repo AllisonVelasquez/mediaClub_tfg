@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $personajes
  * 
  * @property Collection|Actividad[] $actividads
+ * @property Collection|Actor[] $actors
  * @property Collection|Genero[] $generos
  * @property Collection|FrameListum[] $frame_lista
  * @property Collection|Hilo[] $hilos
@@ -60,16 +61,21 @@ class Frame extends Model
 		return $this->hasMany(Actividad::class);
 	}
 
+	public function actors()
+	{
+		return $this->belongsToMany(Actor::class, 'actor_frame')
+			->withPivot('personaje', 'orden');
+	}
+
 	public function generos()
 	{
 		return $this->belongsToMany(Genero::class);
 	}
 
-	public function listums()
-{
-    return $this->belongsToMany(Listum::class, 'frame_listum', 'frame_id', 'lista_id')->withTimestamps();
-}
-
+	public function listas()
+	{
+		return $this->belongsToMany(Listum::class, 'frame_lista', 'frame_id', 'lista_id');
+	}
 
 	public function hilos()
 	{
@@ -83,6 +89,6 @@ class Frame extends Model
 
 	public function resenas()
 	{
-		return $this->hasMany(Resena::class, 'frame_id','frame_id');
+		return $this->hasMany(Resena::class);
 	}
 }

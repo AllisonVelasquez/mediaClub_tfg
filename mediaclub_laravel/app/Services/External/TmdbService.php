@@ -14,7 +14,7 @@ class TmdbService
         $this->apiKey = config('services.tmdb.api_key'); 
     }
 
-    public function getMovie(int $tmdbId): array
+    public function getMovie(int $id): array
     {
         $response = Http::get("{$this->baseUrl}/movie/{$tmdbId}", [
             'api_key' => $this->apiKey,

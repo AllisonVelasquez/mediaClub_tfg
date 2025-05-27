@@ -47,11 +47,11 @@ class Resena extends Model
 
 	public function usuario()
 	{
-		return $this->belongsTo(Usuario::class,'usuario_id','usuario_id');
+		return $this->belongsTo(Usuario::class);
 	}
 
 	public function frame()
 	{
-		return $this->belongsTo(Frame::class, 'frame_id', 'frame_id');
+		return $this->belongsTo(Frame::class);
 	}
 }

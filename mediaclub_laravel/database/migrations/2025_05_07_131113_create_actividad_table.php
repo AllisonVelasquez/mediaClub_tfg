@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('actividad', function (Blueprint $table) {
             $table->integer('actividad_id', true);
             $table->integer('usuario_id')->index('usuario_id');
-            $table->integer('frame_id')->index('frame_id');
+            $table->unsignedBigInteger('frame_id')->index('frame_id');
             $table->dateTime('fecha');
             $table->enum('tipo', ['pendiente', 'en_curso', 'visto', 'resenar', 'megusta']);
         });

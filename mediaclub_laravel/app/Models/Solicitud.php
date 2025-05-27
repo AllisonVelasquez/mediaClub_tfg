@@ -40,14 +40,8 @@ class Solicitud extends Model
 		'fecha_solicitud'
 	];
 
-
-	public function destinatario()
+	public function usuario()
 	{
 		return $this->belongsTo(Usuario::class, 'destinatario_id');
-	}
-
-	public function remitente()
-	{
-		return $this->belongsTo(Usuario::class, 'remitente_id');
 	}
 }

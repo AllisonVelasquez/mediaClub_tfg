@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('frame_lista', function (Blueprint $table) {
-            $table->integer('lista_id');
+        Schema::create('actor_frame', function (Blueprint $table) {
+            $table->unsignedBigInteger('actor_id');
             $table->unsignedBigInteger('frame_id');
-            $table->primary(['lista_id', 'frame_id']);
-            $table->timestamps();
+            $table->string('personaje')->nullable();
+            $table->integer('orden')->nullable();
+
+            $table->primary(['actor_id', 'frame_id']);
         });
     }
 
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('frame_lista');
+        Schema::dropIfExists('actor_frame');
     }
 };
