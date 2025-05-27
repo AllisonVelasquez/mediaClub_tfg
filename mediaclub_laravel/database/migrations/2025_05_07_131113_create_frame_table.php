@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('frame', function (Blueprint $table) {
             $table->unsignedBigInteger('frame_id')->primary();
             $table->string('titulo');
+            $table->text('descripcion')->nullable();
             $table->enum('tipo_contenido', ['pelicula', 'serie']);
             $table->date('fecha_lanzamiento')->nullable();
             $table->integer('duracion')->nullable();

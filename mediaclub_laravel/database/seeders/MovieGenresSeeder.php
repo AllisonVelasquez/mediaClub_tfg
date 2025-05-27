@@ -4,10 +4,9 @@ namespace Database\Seeders;
 
 use App\Repositories\Genre\GenreRepository;
 use App\Services\External\TmdbService;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class GenresSeeder extends Seeder
+class MovieGenresSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,10 +15,10 @@ class GenresSeeder extends Seeder
     {
 
         $tmdb = app(TmdbService::class);
-        $genres = $tmdb->getGenres();
+        $genres = $tmdb->getMovieGenres();
 
         foreach ($genres as $genreData) {
-            app(GenreRepository::class)->add($genreData['tmdb_id'],$genreData['name']);
+            app(GenreRepository::class)->addMovieGenre($genreData['id'],$genreData['name']);
         }
     }
 }

@@ -7,15 +7,28 @@ use Illuminate\Database\Eloquent\Collection;
 
 class GenreRepository implements GenreRepositoryInterface
 {
-    public function add(int $tmdbid, string $nombre): Genero
+    public function addMovieGenre(int $tmdbid, string $nombre): Genero
     {
         return Genero::updateOrCreate(
-            ['tmdb_id' => $tmdbid],
-            ['nombre' => $nombre]
+            ['genero_id' => $tmdbid],
+            [
+                'nombre' => $nombre,
+                'tipo_contenido' => 'pelicula'
+            ]
         );
     }
 
-    public function getAll() : Collection
+    public function addSerieGenre(int $tmdbid, string $nombre): Genero
+    {
+        return Genero::updateOrCreate(
+            ['genero_id' => $tmdbid],
+            [
+                'nombre' => $nombre,
+                'tipo_contenido' => 'serie'
+            ]
+        );
+    }
+    public function getAll(): Collection
     {
         return Genero::paginate(15);
     }

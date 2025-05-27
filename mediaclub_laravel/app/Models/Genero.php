@@ -26,11 +26,12 @@ class Genero extends Model
 	public $timestamps = false;
 
 	protected $fillable = [
-		'nombre'
+		'nombre',
+		'tipo_contenido'
 	];
 
 	public function frames()
 	{
-		return $this->belongsToMany(Frame::class);
+		return $this->belongsToMany(Frame::class,'frame_genero','genero_id','frame_id','genero_id','frame_id');
 	}
 }

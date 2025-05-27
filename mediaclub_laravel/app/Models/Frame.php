@@ -60,7 +60,7 @@ class Frame extends Model
 		return $this->hasMany(Actividad::class);
 	}
 
-	public function actors()
+	public function actores()
 	{
 		return $this->belongsToMany(Actor::class, 'actor_frame')
 			->withPivot('personaje', 'orden');
@@ -68,7 +68,7 @@ class Frame extends Model
 
 	public function generos()
 	{
-		return $this->belongsToMany(Genero::class);
+		return $this->belongsToMany(Genero::class,'frame_genero','frame_id','genero_id','frame_id','genero_id');
 	}
 
 	public function listas()

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('genero', function (Blueprint $table) {
             $table->unsignedBigInteger('genero_id')->primary();
             $table->string('nombre', 100)->unique('nombre');
+            $table->enum('tipo_contenido', ['pelicula', 'serie']);
         });
     }
 
