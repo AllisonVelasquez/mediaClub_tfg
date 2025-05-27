@@ -17,7 +17,6 @@ return new class extends Migration
             $table->text('descripcion')->nullable();
             $table->enum('tipo_contenido', ['pelicula', 'serie']);
             $table->date('fecha_lanzamiento')->nullable();
-            $table->integer('duracion')->nullable();
             $table->integer('numero_episodios')->nullable();
             $table->string('poster_url')->nullable();
             $table->json('puntuacion_dbs')->nullable();

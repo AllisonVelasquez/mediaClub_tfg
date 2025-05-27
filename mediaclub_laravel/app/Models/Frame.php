@@ -44,7 +44,6 @@ class Frame extends Model
 
 	protected $casts = [
 		'fecha_lanzamiento' => 'datetime',
-		'duracion' => 'int',
 		'numero_episodios' => 'int'
 	];
 
@@ -54,7 +53,6 @@ class Frame extends Model
 		'descripcion',
 		'tipo_contenido',
 		'fecha_lanzamiento',
-		'duracion',
 		'numero_episodios',
 		'poster_url',
 		'puntuacion_dbs',

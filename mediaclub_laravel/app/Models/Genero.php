@@ -24,6 +24,8 @@ class Genero extends Model
 	protected $table = 'genero';
 	protected $primaryKey = 'genero_id';
 	public $timestamps = false;
+	public $incrementing = false;
+
 
 	protected $fillable = [
 		'nombre',

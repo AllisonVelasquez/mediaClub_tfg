@@ -30,7 +30,7 @@ class ImportTmdbMoviesPageJob implements ShouldQueue
     public function handle(): void
     {
 
-        $moviesData = $this->tmdb->getPopular($this->page);
+        $moviesData = $this->tmdb->getMovies($this->page);
 
         foreach ($moviesData as $movieData) {
 

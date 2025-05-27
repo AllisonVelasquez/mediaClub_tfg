@@ -56,7 +56,7 @@ class TmdbService
         return $response->json('genres', []);
     }
 
-    public function getPopular(int $page = 1)
+    public function getMovies(int $page = 1)
     {
         $response = Http::get("{$this->baseUrl}/movie/popular", [
             'api_key' => $this->apiKey,
@@ -65,7 +65,21 @@ class TmdbService
         ]);
 
         if (!$response->successful()) {
-            throw new Exception('Error al obtener los frames ' . $response->body());
+            throw new Exception('Error al obtener las peliculas' . $response->body());
+        }
+        return $response->json('results', []);
+    }
+
+    public function getSeries(int $page = 1)
+    {
+        $response = Http::get("{$this->baseUrl}/tv/popular", [
+            'api_key' => $this->apiKey,
+            'language' => 'es-ES',
+            'page' => $page,
+        ]);
+
+        if (!$response->successful()) {
+            throw new Exception('Error al obtener las series ' . $response->body());
         }
         return $response->json('results', []);
     }
