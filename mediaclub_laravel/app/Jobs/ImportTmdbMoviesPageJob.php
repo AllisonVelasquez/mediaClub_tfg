@@ -4,9 +4,14 @@ namespace App\Jobs;
 use App\Models\Frame;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Services\External\TmdbService;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Bus\Queueable;
 
-class ImportTmdbFramesPageJob implements ShouldQueue
+class ImportTmdbMoviesPageJob implements ShouldQueue
 {
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected int $page;
     protected TmdbService $tmdb;
 
@@ -38,7 +43,7 @@ class ImportTmdbFramesPageJob implements ShouldQueue
                     'fecha_lanzamiento' => $movieData['release_date'] ?? null,
                     'descripcion' => $movieData['overview'] ?? null,
                     'duracion' => $movieData['runtime'] ?? null,
-                    'puntuaciones' =>json_encode([
+                    'puntuacion_dbs' =>json_encode([
                         'tmdb' => $movieData['vote_average'] ?? null,
                         'vote_count' => $movieData['vote_count'] ?? null,
                     ])

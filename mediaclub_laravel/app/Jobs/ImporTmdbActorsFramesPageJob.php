@@ -5,14 +5,17 @@ namespace App\Jobs;
 use App\Models\Actor;
 use App\Models\Frame;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
 use App\Services\External\TmdbService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Bus\Queueable;
 
 
 class ImporTmdbActorsFramesPageJob implements ShouldQueue
 {
-    use Queueable;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     protected TmdbService $tmdb;
     protected $frameId;
     /**

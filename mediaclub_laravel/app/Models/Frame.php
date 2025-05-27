@@ -38,6 +38,9 @@ class Frame extends Model
 	protected $table = 'frame';
 	protected $primaryKey = 'frame_id';
 	public $timestamps = false;
+	public $incrementing = false;
+
+	
 
 	protected $casts = [
 		'fecha_lanzamiento' => 'datetime',
@@ -46,7 +49,9 @@ class Frame extends Model
 	];
 
 	protected $fillable = [
+		'frame_id',
 		'titulo',
+		'descripcion',
 		'tipo_contenido',
 		'fecha_lanzamiento',
 		'duracion',
