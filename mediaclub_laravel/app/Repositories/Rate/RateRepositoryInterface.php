@@ -7,12 +7,9 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface RateRepositoryInterface
 {
-    public function getReviewsByUser(int $userId):Collection;
-    public function getReview(int $resenaId):Puntuacion;
-    public function addReview(array $data):Puntuacion;
-    public function deleteReview(int $userId, int $resenaId):bool;
-    public function getMyReviewsByFrame(int $userId, int $frameId):Collection;
-    public function getReviewsByFrame(int $frameId):Collection;
-
+    public function getMyRates(int $userId): Collection;
+    public function addRate(array $data): Puntuacion;
+    public function editRate(int $rateId, int $userId, float $rate): bool;
+    public function deleteRate(int $userId, int $rateId): bool;
+    public function getRateAverage(int $frameId): float;
 }
-
