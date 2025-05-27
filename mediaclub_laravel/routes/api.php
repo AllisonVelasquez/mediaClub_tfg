@@ -98,7 +98,7 @@ Route::prefix('frames')->group(function () {
     Route::post('{frame:frame_id}/anadir-puntuacion', [RateController::class, 'addRate'])->middleware('auth:sanctum');
 
     Route::get('/{frame:frame_id}/listas', [ListController::class, 'getListas']); //List controller para buscar publicas donde este el frame FALTA
-    Route::get('/{frame:frame_id}/similar', [FrameController::class, 'similarMovies']); 
+    Route::get('/{frame:frame_id}/similar', [FrameController::class, 'similar']); 
 
     Route::get('/generos', [FrameController::class, 'getAllGenres']);
 });
