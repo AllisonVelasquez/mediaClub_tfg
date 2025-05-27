@@ -53,7 +53,6 @@ class Frame extends Model
 		'numero_episodios',
 		'poster_url',
 		'puntuacion_dbs',
-		'personajes'
 	];
 
 	public function actividads()

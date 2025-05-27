@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('numero_episodios')->nullable();
             $table->string('poster_url')->nullable();
             $table->json('puntuacion_dbs')->nullable();
-            $table->json('personajes')->nullable();
         });
     }
 

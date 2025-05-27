@@ -16,7 +16,7 @@ class TmdbService
 
     public function getMovie(int $id): array
     {
-        $response = Http::get("{$this->baseUrl}/movie/{$tmdbId}", [
+        $response = Http::get("{$this->baseUrl}/movie/{$id}", [
             'api_key' => $this->apiKey,
             'language' => 'es-ES',
         ]);
@@ -26,5 +26,18 @@ class TmdbService
         }
 
         return $response->json();
+    }
+    public function getGenres(){
+
+        $response = Http::get("{$this->baseUrl}/genre/movie/list", [
+            'api_key' => $this->apiKey,
+            'language' => 'es-ES', 
+        ]);
+
+        if (!$response->successful()) {
+            throw new \Exception("Error al obtener los generos");
+
+        }
+        return $response->json('genres', []);
     }
 }

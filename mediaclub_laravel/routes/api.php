@@ -92,7 +92,7 @@ Route::prefix('frames')->group(function () {
     Route::get('/{frame:frame_id}/similar', [FrameController::class, 'similarMovies']); 
 
     // Route::post('/sincronizar/{id}', [FrameController::class, 'sincronizar']);
+    Route::get('/generos', [FrameController::class, 'getAllGenres']);
 });
 
-// Géneros
-Route::get('/generos', [GeneroController::class, 'index']);
+
