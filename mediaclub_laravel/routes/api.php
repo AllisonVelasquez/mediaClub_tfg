@@ -1,14 +1,21 @@
 <?php
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\FrameController;
-use App\Http\Controllers\GeneroController;
 use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\FriendShipController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RateController;
+
+
+// Route::get('/test-db-cache', function () {
+//     Cache::put('cache_prueba', 'Laravel usando cache en la DB!', now()->addHours(24));
+//     $mensaje = Cache::get('cache_prueba');
+//     return response()->json(['mensaje' => $mensaje]);
+// });
 
 //USERS
 
@@ -76,22 +83,23 @@ Route::middleware('auth:sanctum')->prefix('me')->group(function () {
 Route::prefix('frames')->group(function () {
     Route::get('/buscar/{titulo}', [FrameController::class, 'searchByTitle']);
 
-    Route::get('/peliculas', [FrameController::class, 'getMovies']);
-    Route::get('/series', [FrameController::class, 'getSeries']);
+    // Route::get('/peliculas', [FrameController::class, 'getMovies']);
+    // Route::get('/series', [FrameController::class, 'getSeries']);
     Route::get('/popular', [FrameController::class, 'popular']);
     Route::get('/mas-puntuados', [FrameController::class, 'topRated']);
     Route::get('/proximamente', [FrameController::class, 'upcoming']);
     Route::get('/tendencia', [FrameController::class, 'trending']);
 
-    Route::get('/{frame:frame_id}', [FrameController::class, 'show']);
+    Route::get('/{frame:frame_id}', [FrameController::class, 'showFrameDetails']);
+
     Route::get('/{frame:frame_id}/resenas', [ReviewController::class, 'getReviewsByFrame']); //
     Route::post('{frame:frame_id}/anadir-resena', [ReviewController::class, 'addReview'])->middleware('auth:sanctum'); //
     Route::get('/{frame:frame_id}/puntuacion', [RateController::class, 'getRateAverage']);
     Route::post('{frame:frame_id}/anadir-puntuacion', [RateController::class, 'addRate'])->middleware('auth:sanctum');
+
     Route::get('/{frame:frame_id}/listas', [ListController::class, 'getListas']); //List controller para buscar publicas donde este el frame FALTA
     Route::get('/{frame:frame_id}/similar', [FrameController::class, 'similarMovies']); 
 
-    // Route::post('/sincronizar/{id}', [FrameController::class, 'sincronizar']);
     Route::get('/generos', [FrameController::class, 'getAllGenres']);
 });
 
