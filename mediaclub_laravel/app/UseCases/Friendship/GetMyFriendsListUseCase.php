@@ -15,6 +15,6 @@ class GetMyFriendsListUseCase
 
     public function execute(int $id)
     {
-        return $this->userRepository->listMyFriends($id);
+        return $this->userRepository->listFriends($id);
     }
 }

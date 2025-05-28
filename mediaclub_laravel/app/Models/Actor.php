@@ -50,7 +50,7 @@ class Actor extends Model
 
 	public function frames()
 	{
-		return $this->belongsToMany(Frame::class, 'actor_frame')
-					->withPivot('personaje', 'orden');
+		return $this->belongsToMany(Frame::class)
+			->withPivot('personaje', 'orden');
 	}
 }

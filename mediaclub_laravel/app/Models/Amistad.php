@@ -31,6 +31,27 @@ class Amistad extends Model
 
 	public function usuario()
 	{
-		return $this->belongsTo(Usuario::class);
+		return $this->belongsTo(Usuario::class, 'usuario_id');
+	}
+
+	public function amigo()
+	{
+		return $this->belongsTo(Usuario::class, 'amigo_id');
+	}
+
+	//scope para ver si son amigos ya
+	public function scopeEntre($query, $id1, $id2)
+	{
+		return $query->where(function ($q) use ($id1, $id2) {
+			$q->where('usuario_id', $id1)->where('amigo_id', $id2);
+		})->orWhere(function ($q) use ($id1, $id2) {
+			$q->where('usuario_id', $id2)->where('amigo_id', $id1);
+		});
+	}
+	//lista de amigos de un user
+	public function scopeAmigosDe($query, $id1)
+	{
+		return $query->where('user_id', $id1)
+			->orWhere('amigo_id', $id1);
 	}
 }

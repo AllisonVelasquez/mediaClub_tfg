@@ -23,13 +23,15 @@ class Genero extends Model
 {
 	protected $table = 'genero';
 	protected $primaryKey = 'genero_id';
-	public $timestamps = false;
 	public $incrementing = false;
+	public $timestamps = false;
 
+	protected $casts = [
+		'genero_id' => 'int'
+	];
 
 	protected $fillable = [
-		'nombre',
-		'tipo_contenido'
+		'nombre'
 	];
 
 	public function frames()

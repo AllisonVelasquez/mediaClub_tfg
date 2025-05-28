@@ -14,12 +14,20 @@ return new class extends Migration
         Schema::create('frame', function (Blueprint $table) {
             $table->unsignedBigInteger('frame_id')->primary();
             $table->string('titulo');
+            $table->string('titulo_original')->nullable();
             $table->text('descripcion')->nullable();
-            $table->enum('tipo_contenido', ['pelicula', 'serie']);
-            $table->date('fecha_lanzamiento')->nullable();
-            $table->integer('numero_episodios')->nullable();
+            $table->date('fecha_estreno')->nullable();
             $table->string('poster_url')->nullable();
-            $table->json('puntuacion_dbs')->nullable();
+            $table->string('fondo_url')->nullable();
+            $table->integer('duracion')->unsigned()->nullable();
+            $table->decimal('promedio_votos_tmdb', 3, 1)->nullable();
+            $table->unsignedInteger('cantidad_votos')->nullable();
+            $table->decimal('popularidad', 6, 2)->nullable();
+            $table->string('estado')->nullable();
+            $table->bigInteger('presupuesto')->nullable();
+            $table->bigInteger('ingresos')->nullable();
+            $table->string('eslogan')->nullable();
+            $table->string('pagina_oficial')->nullable();
         });
     }
 

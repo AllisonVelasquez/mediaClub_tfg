@@ -7,10 +7,11 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * Class Usuario
@@ -39,10 +40,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @package App\Models
  */
-class Usuario extends Authenticatable 
+class Usuario extends Authenticatable
 {
 	use HasApiTokens;
-	
+
 	protected $table = 'usuario';
 	protected $primaryKey = 'usuario_id';
 	public $timestamps = false;
@@ -68,46 +69,54 @@ class Usuario extends Authenticatable
 
 	public function actividads()
 	{
-		return $this->hasMany(Actividad::class);
-	}
-
-	public function amistads()
-	{
-		return $this->hasMany(Amistad::class);
+		return $this->hasMany(Actividad::class, 'usuario_id', 'usuario_id');
 	}
 
 	public function hilos()
 	{
-		return $this->hasMany(Hilo::class);
+		return $this->hasMany(Hilo::class, 'usuario_id', 'usuario_id');
 	}
 
 	public function lista()
 	{
-		return $this->hasMany(Listum::class);
+		return $this->hasMany(Listum::class, 'usuario_id', 'usuario_id');
 	}
 
 	public function megusta()
 	{
-		return $this->hasMany(Megustum::class);
+		return $this->hasMany(Megustum::class, 'usuario_id', 'usuario_id');
 	}
 
 	public function puntuacions()
 	{
-		return $this->hasMany(Puntuacion::class);
+		return $this->hasMany(Puntuacion::class, 'usuario_id', 'usuario_id');
 	}
 
 	public function resenas()
 	{
-		return $this->hasMany(Resena::class);
+		return $this->hasMany(Resena::class, 'usuario_id', 'usuario_id');
 	}
 
 	public function respuesta_hilos()
 	{
-		return $this->hasMany(RespuestaHilo::class);
+		return $this->hasMany(RespuestaHilo::class, 'usuario_id', 'usuario_id');
 	}
 
-	public function solicituds()
+	public function solicitudes_recibidas()
 	{
 		return $this->hasMany(Solicitud::class, 'destinatario_id');
+	}
+	public function solicituds_enviadas()
+	{
+		return $this->hasMany(Solicitud::class, 'remitente_id');
+	}
+
+	public function amigos(): Collection
+	{
+		$amistades = Amistad::deUsuario($this->usuario_id)->get();
+		$amigosIds = $amistades->map(function ($amistad) {
+			return $amistad->user_id == $this->usuario_id ? $amistad->amigo_id : $amistad->usuario_id;
+		});
+		return Usuario::whereIn('usuario_id', $amigosIds)->get();
 	}
 }

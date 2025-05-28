@@ -15,13 +15,20 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $frame_id
  * @property string $titulo
- * @property string $tipo_contenido
- * @property Carbon|null $fecha_lanzamiento
- * @property int|null $duracion
- * @property int|null $numero_episodios
+ * @property string|null $titulo_original
+ * @property string|null $descripcion
+ * @property Carbon|null $fecha_estreno
  * @property string|null $poster_url
- * @property string|null $puntuacion_dbs
- * @property string|null $personajes
+ * @property string|null $fondo_url
+ * @property int|null $duracion
+ * @property float|null $promedio_votos_tmdb
+ * @property int|null $cantidad_votos
+ * @property float|null $popularidad
+ * @property string|null $estado
+ * @property int|null $presupuesto
+ * @property int|null $ingresos
+ * @property string|null $eslogan
+ * @property string|null $pagina_oficial
  * 
  * @property Collection|Actividad[] $actividads
  * @property Collection|Actor[] $actors
@@ -37,25 +44,36 @@ class Frame extends Model
 {
 	protected $table = 'frame';
 	protected $primaryKey = 'frame_id';
-	public $timestamps = false;
 	public $incrementing = false;
-
-	
+	public $timestamps = false;
 
 	protected $casts = [
-		'fecha_lanzamiento' => 'datetime',
-		'numero_episodios' => 'int'
+		'frame_id' => 'int',
+		'fecha_estreno' => 'datetime',
+		'duracion' => 'int',
+		'promedio_votos_tmdb' => 'float',
+		'cantidad_votos' => 'int',
+		'popularidad' => 'float',
+		'presupuesto' => 'int',
+		'ingresos' => 'int'
 	];
 
 	protected $fillable = [
-		'frame_id',
 		'titulo',
+		'titulo_original',
 		'descripcion',
-		'tipo_contenido',
-		'fecha_lanzamiento',
-		'numero_episodios',
+		'fecha_estreno',
 		'poster_url',
-		'puntuacion_dbs',
+		'fondo_url',
+		'duracion',
+		'promedio_votos_tmdb',
+		'cantidad_votos',
+		'popularidad',
+		'estado',
+		'presupuesto',
+		'ingresos',
+		'eslogan',
+		'pagina_oficial'
 	];
 
 	public function actividads()
@@ -63,10 +81,10 @@ class Frame extends Model
 		return $this->hasMany(Actividad::class);
 	}
 
-	public function actores()
+	public function actors()
 	{
-		return $this->belongsToMany(Actor::class, 'actor_frame')
-			->withPivot('personaje', 'orden');
+		return $this->belongsToMany(Actor::class)
+					->withPivot('personaje', 'orden');
 	}
 
 	public function generos()
@@ -74,9 +92,9 @@ class Frame extends Model
 		return $this->belongsToMany(Genero::class,'frame_genero','frame_id','genero_id','frame_id','genero_id');
 	}
 
-	public function listas()
+	public function frame_lista()
 	{
-		return $this->belongsToMany(Listum::class, 'frame_lista', 'frame_id', 'lista_id');
+		return $this->hasMany(FrameListum::class);
 	}
 
 	public function hilos()

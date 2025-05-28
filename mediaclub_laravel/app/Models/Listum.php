@@ -48,8 +48,8 @@ class Listum extends Model
 		return $this->belongsTo(Usuario::class);
 	}
 
-	public function frames()
+	public function frame_lista()
 	{
-		return $this->belongsToMany(Frame::class, 'frame_lista','lista_id', 'frame_id');
+		return $this->hasMany(FrameListum::class, 'lista_id');
 	}
 }

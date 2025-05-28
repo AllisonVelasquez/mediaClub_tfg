@@ -8,6 +8,7 @@ use App\Services\External\TmdbService;
 
 class FrameController extends Controller
 {
+    //FALTA TOODO ESTO
     public function getAllGenres()
     {
         return app(GetAllGenresAction::class)->execute();
