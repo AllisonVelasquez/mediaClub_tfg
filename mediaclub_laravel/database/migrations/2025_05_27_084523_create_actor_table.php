@@ -14,10 +14,7 @@ return new class extends Migration
         Schema::create('actor', function (Blueprint $table) {
             $table->unsignedBigInteger('actor_id')->primary();
             $table->string('nombre', 100);
-            $table->string('conocido_como')->nullable();
             $table->string('imagen_url')->nullable();
-            $table->date('fecha_nacimiento')->nullable();
-            $table->integer('edad')->nullable();
             $table->decimal('popularidad', 5)->nullable();
         });
     }

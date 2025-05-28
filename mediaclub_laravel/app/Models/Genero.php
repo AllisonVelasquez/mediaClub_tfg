@@ -31,6 +31,7 @@ class Genero extends Model
 	];
 
 	protected $fillable = [
+		'genero_id',
 		'nombre'
 	];
 

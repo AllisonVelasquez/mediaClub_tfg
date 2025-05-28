@@ -59,6 +59,7 @@ class Frame extends Model
 	];
 
 	protected $fillable = [
+		'frame_id',
 		'titulo',
 		'titulo_original',
 		'descripcion',
@@ -83,7 +84,7 @@ class Frame extends Model
 
 	public function actors()
 	{
-		return $this->belongsToMany(Actor::class)
+		return $this->belongsToMany(Actor::class,'actor_frame','frame_id','actor_id')
 					->withPivot('personaje', 'orden');
 	}
 

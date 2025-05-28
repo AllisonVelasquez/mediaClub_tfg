@@ -40,6 +40,7 @@ class Actor extends Model
 	];
 
 	protected $fillable = [
+		'actor_id',
 		'nombre',
 		'conocido_como',
 		'imagen_url',
