@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('frame_lista', function (Blueprint $table) {
-            $table->integer('lista_id');
+            $table->unsignedBigInteger('lista_id');
             $table->unsignedBigInteger('frame_id');
+            $table->dateTime('fecha')->useCurrent();
+
             $table->primary(['lista_id', 'frame_id']);
-            $table->timestamps();
         });
     }
 

@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lista', function (Blueprint $table) {
-            $table->integer('lista_id', true);
-            $table->integer('usuario_id')->index('usuario_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('usuario_id');
             $table->string('nombre_lista');
-            $table->dateTime('fecha_creacion')->nullable()->useCurrent();
-            $table->boolean('publica')->nullable()->default(false);
+            $table->boolean('publica')->default(false);
+            $table->timestamps();
         });
     }
 

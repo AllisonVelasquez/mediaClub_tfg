@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Megustum
  * 
- * @property int $megusta_id
+ * @property int id
  * @property int $usuario_id
  * @property int $entidad_id
  * @property string $tipo_entidad
@@ -25,7 +25,8 @@ use Illuminate\Database\Eloquent\Model;
 class Megustum extends Model
 {
 	protected $table = 'megusta';
-	protected $primaryKey = 'megusta_id';
+	protected $primaryKey = 'id';
+
 	public $timestamps = false;
 
 	protected $casts = [

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('actor', function (Blueprint $table) {
-            $table->unsignedBigInteger('actor_id')->primary();
-            $table->string('nombre', 100);
+            $table->unsignedBigInteger('id')->primary();
+            $table->string('nombre', 100)->unique();
             $table->string('imagen_url')->nullable();
             $table->decimal('popularidad', 5)->nullable();
         });

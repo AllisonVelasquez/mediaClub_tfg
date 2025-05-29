@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('actividad', function (Blueprint $table) {
-            $table->integer('actividad_id', true);
-            $table->integer('usuario_id')->index('usuario_id');
-            $table->unsignedBigInteger('frame_id')->index('frame_id');
-            $table->dateTime('fecha');
-            $table->enum('tipo', ['pendiente', 'en_curso', 'visto', 'resenar', 'megusta']);
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('usuario_id');
+            $table->unsignedBigInteger('frame_id');
+            $table->dateTime('fecha')->useCurrent();
+            $table->enum('tipo', ['pendiente', 'visto', 'resenar', 'megusta']);
         });
     }
 

@@ -25,19 +25,17 @@ use Illuminate\Database\Eloquent\Model;
 class Solicitud extends Model
 {
 	protected $table = 'solicitud';
-	public $timestamps = false;
+	protected $primaryKey = 'id';
 
 	protected $casts = [
 		'remitente_id' => 'int',
 		'destinatario_id' => 'int',
-		'fecha_solicitud' => 'datetime'
 	];
 
 	protected $fillable = [
 		'remitente_id',
 		'destinatario_id',
 		'estado',
-		'fecha_solicitud'
 	];
 
 	public function destinatario()

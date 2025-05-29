@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
 class Amistad extends Model
 {
 	protected $table = 'amistad';
+
 	public $incrementing = false;
 	public $timestamps = false;
 
@@ -51,7 +52,7 @@ class Amistad extends Model
 	//lista de amigos de un user
 	public function scopeDeUsuario($query, $id1)
 	{
-		return $query->where('user_id', $id1)
+		return $query->where('usuario_id', $id1)
 			->orWhere('amigo_id', $id1);
 	}
 }

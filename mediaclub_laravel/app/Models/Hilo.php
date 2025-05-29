@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Hilo
  * 
- * @property int $hilo_id
+ * @property int $id
  * @property int $usuario_id
  * @property int $frame_id
  * @property string $titulo
@@ -29,13 +29,11 @@ use Illuminate\Database\Eloquent\Model;
 class Hilo extends Model
 {
 	protected $table = 'hilo';
-	protected $primaryKey = 'hilo_id';
-	public $timestamps = false;
+	protected $primaryKey = 'id';
 
 	protected $casts = [
 		'usuario_id' => 'int',
 		'frame_id' => 'int',
-		'fecha_creacion' => 'datetime'
 	];
 
 	protected $fillable = [
@@ -43,7 +41,6 @@ class Hilo extends Model
 		'frame_id',
 		'titulo',
 		'contenido',
-		'fecha_creacion'
 	];
 
 	public function usuario()

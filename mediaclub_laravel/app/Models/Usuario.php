@@ -45,12 +45,9 @@ class Usuario extends Authenticatable
 	use HasApiTokens;
 
 	protected $table = 'usuario';
-	protected $primaryKey = 'usuario_id';
-	public $timestamps = false;
+	protected $primaryKey = 'id';
 
 	protected $casts = [
-		'fecha_creacion' => 'datetime',
-		'fecha_ultima_actualizacion' => 'datetime',
 		'confirmado' => 'bool'
 	];
 
@@ -62,44 +59,42 @@ class Usuario extends Authenticatable
 		'bio',
 		'redes',
 		'foto_perfil',
-		'fecha_creacion',
-		'fecha_ultima_actualizacion',
 		'confirmado'
 	];
 
-	public function actividads()
+	public function actividades()
 	{
-		return $this->hasMany(Actividad::class, 'usuario_id', 'usuario_id');
+		return $this->hasMany(Actividad::class);
 	}
 
 	public function hilos()
 	{
-		return $this->hasMany(Hilo::class, 'usuario_id', 'usuario_id');
+		return $this->hasMany(Hilo::class);
 	}
 
 	public function lista()
 	{
-		return $this->hasMany(Listum::class, 'usuario_id', 'usuario_id');
+		return $this->hasMany(Listum::class);
 	}
 
 	public function megusta()
 	{
-		return $this->hasMany(Megustum::class, 'usuario_id', 'usuario_id');
+		return $this->hasMany(Megustum::class);
 	}
 
-	public function puntuacions()
+	public function puntuaciones()
 	{
-		return $this->hasMany(Puntuacion::class, 'usuario_id', 'usuario_id');
+		return $this->hasMany(Puntuacion::class);
 	}
 
 	public function resenas()
 	{
-		return $this->hasMany(Resena::class, 'usuario_id', 'usuario_id');
+		return $this->hasMany(Resena::class);
 	}
 
 	public function respuesta_hilos()
 	{
-		return $this->hasMany(RespuestaHilo::class, 'usuario_id', 'usuario_id');
+		return $this->hasMany(RespuestaHilo::class);
 	}
 
 	public function solicitudes_recibidas()
@@ -113,10 +108,10 @@ class Usuario extends Authenticatable
 
 	public function amigos(): Collection
 	{
-		$amistades = Amistad::deUsuario($this->usuario_id)->get();
+		$amistades = Amistad::deUsuario($this->id)->get();
 		$amigosIds = $amistades->map(function ($amistad) {
-			return $amistad->user_id == $this->usuario_id ? $amistad->amigo_id : $amistad->usuario_id;
+			return $amistad->usuario_id == $this->id ? $amistad->amigo_id : $amistad->usuario_id;
 		});
-		return Usuario::whereIn('usuario_id', $amigosIds)->get();
+		return Usuario::whereIn('id', $amigosIds)->get();
 	}
 }

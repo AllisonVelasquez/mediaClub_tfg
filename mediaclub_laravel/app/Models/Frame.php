@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Frame
  * 
- * @property int $frame_id
+ * @property int $id
  * @property string $titulo
  * @property string|null $titulo_original
  * @property string|null $descripcion
@@ -43,7 +43,8 @@ use Illuminate\Database\Eloquent\Model;
 class Frame extends Model
 {
 	protected $table = 'frame';
-	protected $primaryKey = 'frame_id';
+	protected $primaryKey = 'id';
+
 	public $incrementing = false;
 	public $timestamps = false;
 
@@ -52,7 +53,9 @@ class Frame extends Model
 		'fecha_estreno' => 'datetime',
 		'duracion' => 'int',
 		'promedio_votos_tmdb' => 'float',
-		'cantidad_votos' => 'int',
+		'cantidad_votos_tmdb' => 'int',
+		'promedio_votos_muvis' => 'float',
+		'cantidad_votos_muvis' => 'int',
 		'popularidad' => 'float',
 		'presupuesto' => 'int',
 		'ingresos' => 'int'
@@ -68,7 +71,9 @@ class Frame extends Model
 		'fondo_url',
 		'duracion',
 		'promedio_votos_tmdb',
-		'cantidad_votos',
+		'cantidad_votos_tmdb',
+		'promedio_votos_muvis',
+		'cantidad_votos_muvis',
 		'popularidad',
 		'estado',
 		'presupuesto',
@@ -77,25 +82,25 @@ class Frame extends Model
 		'pagina_oficial'
 	];
 
-	public function actividads()
+	public function actividades()
 	{
 		return $this->hasMany(Actividad::class);
 	}
 
-	public function actors()
+	public function actores()
 	{
-		return $this->belongsToMany(Actor::class,'actor_frame','frame_id','actor_id')
-					->withPivot('personaje', 'orden');
+		return $this->belongsToMany(Actor::class)
+			->withPivot('personaje', 'orden');
 	}
 
 	public function generos()
 	{
-		return $this->belongsToMany(Genero::class,'frame_genero','frame_id','genero_id','frame_id','genero_id');
+		return $this->belongsToMany(Genero::class);
 	}
 
-	public function frame_lista()
+	public function listas()
 	{
-		return $this->hasMany(FrameListum::class);
+		return $this->belongsToMany(Listum::class);
 	}
 
 	public function hilos()
@@ -103,7 +108,7 @@ class Frame extends Model
 		return $this->hasMany(Hilo::class);
 	}
 
-	public function puntuacions()
+	public function puntuaciones()
 	{
 		return $this->hasMany(Puntuacion::class);
 	}

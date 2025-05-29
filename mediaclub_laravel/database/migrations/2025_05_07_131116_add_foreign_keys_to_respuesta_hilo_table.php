@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('respuesta_hilo', function (Blueprint $table) {
-            $table->foreign(['hilo_id'], 'respuesta_hilo_ibfk_1')->references(['hilo_id'])->on('hilo')->onUpdate('restrict')->onDelete('cascade');
-            $table->foreign(['usuario_id'], 'respuesta_hilo_ibfk_2')->references(['usuario_id'])->on('usuario')->onUpdate('restrict')->onDelete('cascade');
-            $table->foreign(['respuesta_a'], 'respuesta_hilo_ibfk_3')->references(['respuesta_hilo_id'])->on('respuesta_hilo')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign('hilo_id', 'respuesta_hilo_hilo_id_fk')->references('id')->on('hilo')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign('usuario_id', 'respuesta_hilo_usuario_id_fk')->references('id')->on('usuario')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign('respuesta_a', 'respuesta_hilo_respuesta_a_id_fk')->references('id')->on('respuesta_hilo')->onUpdate('restrict')->onDelete('cascade');
         });
     }
 
@@ -24,9 +24,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('respuesta_hilo', function (Blueprint $table) {
-            $table->dropForeign('respuesta_hilo_ibfk_1');
-            $table->dropForeign('respuesta_hilo_ibfk_2');
-            $table->dropForeign('respuesta_hilo_ibfk_3');
+            $table->dropForeign('respuesta_hilo_hilo_id_fk');
+            $table->dropForeign('respuesta_hilo_usuario_id_fk');
+            $table->dropForeign('respuesta_hilo_respuesta_a_id_fk');
         });
     }
 };

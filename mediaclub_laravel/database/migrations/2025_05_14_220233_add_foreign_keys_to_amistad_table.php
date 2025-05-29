@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('amistad', function (Blueprint $table) {
-            $table->foreign(['amigo_id'], 'fk_friend')->references(['usuario_id'])->on('usuario')->onUpdate('restrict')->onDelete('cascade');
-            $table->foreign(['usuario_id'], 'fk_user')->references(['usuario_id'])->on('usuario')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign('amigo_id', 'amistad_amigo_id_fk')->references('id')->on('usuario')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign('usuario_id', 'amistad_usuario_id_fk')->references('id')->on('usuario')->onUpdate('restrict')->onDelete('cascade');
         });
     }
 
@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('amistad', function (Blueprint $table) {
-            $table->dropForeign('fk_friend');
-            $table->dropForeign('fk_user');
+            $table->dropForeign('amistad_amigo_id_fk');
+            $table->dropForeign('amistad_usuario_id_fk');
         });
     }
 };

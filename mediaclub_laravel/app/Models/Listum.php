@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Listum
  * 
- * @property int $lista_id
+ * @property int $id
  * @property int $usuario_id
  * @property string $nombre_lista
  * @property Carbon|null $fecha_creacion
@@ -27,19 +27,16 @@ use Illuminate\Database\Eloquent\Model;
 class Listum extends Model
 {
 	protected $table = 'lista';
-	protected $primaryKey = 'lista_id';
-	public $timestamps = false;
+	protected $primaryKey = 'id';
 
 	protected $casts = [
 		'usuario_id' => 'int',
-		'fecha_creacion' => 'datetime',
 		'publica' => 'bool'
 	];
 
 	protected $fillable = [
 		'usuario_id',
 		'nombre_lista',
-		'fecha_creacion',
 		'publica'
 	];
 
@@ -48,8 +45,8 @@ class Listum extends Model
 		return $this->belongsTo(Usuario::class);
 	}
 
-	public function frame_lista()
+	public function frames()
 	{
-		return $this->hasMany(FrameListum::class, 'lista_id');
+		return $this->belongsToMany(Frame::class);
 	}
 }

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('solicitud', function (Blueprint $table) {
-            $table->foreign(['remitente_id'], 'solicitud_ibfk_1')->references(['usuario_id'])->on('usuario')->onUpdate('restrict')->onDelete('restrict');
-            $table->foreign(['destinatario_id'], 'solicitud_ibfk_2')->references(['usuario_id'])->on('usuario')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreign('remitente_id', 'solicitud_remitente_id_fk')->references('id')->on('usuario')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreign('destinatario_id', 'solicitud_destinatario_id_fk')->references('id')->on('usuario')->onUpdate('restrict')->onDelete('restrict');
         });
     }
 
@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('solicitud', function (Blueprint $table) {
-            $table->dropForeign('solicitud_ibfk_1');
-            $table->dropForeign('solicitud_ibfk_2');
+            $table->dropForeign('solicitud_remitente_id_fk');
+            $table->dropForeign('solicitud_destinatario_id_fk');
         });
     }
 };

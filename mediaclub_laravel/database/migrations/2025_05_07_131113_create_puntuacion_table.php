@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('puntuacion', function (Blueprint $table) {
-            $table->integer('puntuacion_id', true);
-            $table->integer('usuario_id');
-            $table->unsignedBigInteger('frame_id')->index('frame_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('usuario_id');
+            $table->unsignedBigInteger('frame_id');
             $table->decimal('puntuacion', 3, 1);
-            $table->dateTime('fecha')->nullable()->useCurrent();
+            $table->timestamps();
 
             $table->unique(['usuario_id', 'frame_id'], 'usuario_id');
         });

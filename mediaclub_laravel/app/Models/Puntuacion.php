@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Puntuacion
  * 
- * @property int $puntuacion_id
+ * @property int $id
  * @property int $usuario_id
  * @property int $frame_id
  * @property float $puntuacion
@@ -26,21 +26,18 @@ use Illuminate\Database\Eloquent\Model;
 class Puntuacion extends Model
 {
 	protected $table = 'puntuacion';
-	protected $primaryKey = 'puntuacion_id';
-	public $timestamps = false;
+	protected $primaryKey = 'id';
 
 	protected $casts = [
 		'usuario_id' => 'int',
 		'frame_id' => 'int',
 		'puntuacion' => 'float',
-		'fecha' => 'datetime'
 	];
 
 	protected $fillable = [
 		'usuario_id',
 		'frame_id',
 		'puntuacion',
-		'fecha'
 	];
 
 	public function usuario()

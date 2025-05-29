@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('puntuacion', function (Blueprint $table) {
-            $table->foreign(['usuario_id'], 'puntuacion_ibfk_1')->references(['usuario_id'])->on('usuario')->onUpdate('restrict')->onDelete('cascade');
-            $table->foreign(['frame_id'], 'puntuacion_ibfk_2')->references(['frame_id'])->on('frame')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign('usuario_id', 'puntuacion_usuario_id_fk')->references('id')->on('usuario')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign('frame_id', 'puntuacion_frame_id_fk')->references('id')->on('frame')->onUpdate('restrict')->onDelete('cascade');
         });
     }
 
@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('puntuacion', function (Blueprint $table) {
-            $table->dropForeign('puntuacion_ibfk_1');
-            $table->dropForeign('puntuacion_ibfk_2');
+            $table->dropForeign('puntuacion_usuario_id_fk');
+            $table->dropForeign('puntuacion_frame_id_fk');
         });
     }
 };

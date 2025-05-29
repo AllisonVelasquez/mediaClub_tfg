@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('resena', function (Blueprint $table) {
-            $table->integer('resena_id', true);
-            $table->integer('usuario_id')->index('usuario_id');
-            $table->unsignedBigInteger('frame_id')->index('frame_id');
-            $table->dateTime('fecha')->nullable()->useCurrent();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('usuario_id');
+            $table->unsignedBigInteger('frame_id');
+            $table->dateTime('fecha')->useCurrent();
             $table->text('contenido');
-            $table->boolean('spoiler')->nullable()->default(false);
+            $table->boolean('spoiler')->default(false);
         });
     }
 

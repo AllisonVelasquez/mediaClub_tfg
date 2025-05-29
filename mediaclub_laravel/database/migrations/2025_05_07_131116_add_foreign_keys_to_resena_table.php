@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('resena', function (Blueprint $table) {
-            $table->foreign(['usuario_id'], 'resena_ibfk_1')->references(['usuario_id'])->on('usuario')->onUpdate('restrict')->onDelete('cascade');
-            $table->foreign(['frame_id'], 'resena_ibfk_2')->references(['frame_id'])->on('frame')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign('usuario_id', 'resena_usuario_id_fk')->references('id')->on('usuario')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign('frame_id', 'resena_frame_id_fk')->references('id')->on('frame')->onUpdate('restrict')->onDelete('cascade');
         });
     }
 
@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('resena', function (Blueprint $table) {
-            $table->dropForeign('resena_ibfk_1');
-            $table->dropForeign('resena_ibfk_2');
+            $table->dropForeign('resena_usuario_id_fk');
+            $table->dropForeign('resena_frame_id_fk');
         });
     }
 };

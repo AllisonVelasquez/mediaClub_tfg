@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('frame_lista', function (Blueprint $table) {
-            $table->foreign(['lista_id'], 'frame_lista_ibfk_1')->references(['lista_id'])->on('lista')->onUpdate('restrict')->onDelete('cascade');
-            $table->foreign(['frame_id'], 'frame_lista_ibfk_2')->references(['frame_id'])->on('frame')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign('lista_id', 'frame_lista_lista_id_fk')->references('id')->on('lista')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign('frame_id', 'frame_lista_frame_id_fk')->references('id')->on('frame')->onUpdate('restrict')->onDelete('cascade');
         });
     }
 
@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('frame_lista', function (Blueprint $table) {
-            $table->dropForeign('frame_lista_ibfk_1');
-            $table->dropForeign('frame_lista_ibfk_2');
+            $table->dropForeign('frame_lista_lista_id_fk');
+            $table->dropForeign('frame_lista_frame_id_fk');
         });
     }
 };

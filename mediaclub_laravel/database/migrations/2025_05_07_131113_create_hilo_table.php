@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('hilo', function (Blueprint $table) {
-            $table->integer('hilo_id', true);
-            $table->integer('usuario_id')->index('usuario_id');
-            $table->unsignedBigInteger('frame_id')->index('frame_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('usuario_id');
+            $table->unsignedBigInteger('frame_id');
             $table->string('titulo');
             $table->text('contenido');
-            $table->dateTime('fecha_creacion');
+            $table->timestamps();
         });
     }
 

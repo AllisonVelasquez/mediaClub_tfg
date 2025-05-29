@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('frame', function (Blueprint $table) {
-            $table->unsignedBigInteger('frame_id')->primary();
-            $table->string('titulo');
+            $table->unsignedBigInteger('id')->primary();
+            $table->string('titulo')->index('titulo');
             $table->string('titulo_original')->nullable();
             $table->text('descripcion')->nullable();
             $table->date('fecha_estreno')->nullable();
@@ -21,11 +21,13 @@ return new class extends Migration
             $table->string('fondo_url')->nullable();
             $table->integer('duracion')->unsigned()->nullable();
             $table->decimal('promedio_votos_tmdb', 3, 1)->nullable();
-            $table->unsignedInteger('cantidad_votos')->nullable();
+            $table->unsignedInteger('cantidad_votos_tmdb')->nullable();
+            $table->decimal('promedio_votos_muvis', 3, 1)->nullable();
+            $table->unsignedInteger('cantidad_votos_muvis')->nullable();
             $table->decimal('popularidad', 6, 2)->nullable();
             $table->string('estado')->nullable();
-            $table->bigInteger('presupuesto')->nullable();
-            $table->bigInteger('ingresos')->nullable();
+            $table->unsignedBigInteger('presupuesto')->nullable();
+            $table->unsignedBigInteger('ingresos')->nullable();
             $table->string('eslogan')->nullable();
             $table->string('pagina_oficial')->nullable();
         });

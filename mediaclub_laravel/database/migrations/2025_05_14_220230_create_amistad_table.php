@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('amistad', function (Blueprint $table) {
-            $table->integer('usuario_id');
-            $table->integer('amigo_id')->index('fk_friend');
+            $table->unsignedBigInteger('usuario_id');
+            $table->unsignedBigInteger('amigo_id');
 
             $table->primary(['usuario_id', 'amigo_id']);
         });

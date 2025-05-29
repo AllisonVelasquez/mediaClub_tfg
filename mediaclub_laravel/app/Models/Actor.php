@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Actor
  * 
- * @property int $actor_id
+ * @property int $id
  * @property string $nombre
  * @property string|null $conocido_como
  * @property string|null $imagen_url
@@ -28,24 +28,20 @@ use Illuminate\Database\Eloquent\Model;
 class Actor extends Model
 {
 	protected $table = 'actor';
-	protected $primaryKey = 'actor_id';
+	protected $primaryKey = 'id';
+	
 	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [
-		'actor_id' => 'int',
-		'fecha_nacimiento' => 'datetime',
-		'edad' => 'int',
+		'id' => 'int',
 		'popularidad' => 'float'
 	];
 
 	protected $fillable = [
-		'actor_id',
+		'id',
 		'nombre',
-		'conocido_como',
 		'imagen_url',
-		'fecha_nacimiento',
-		'edad',
 		'popularidad'
 	];
 

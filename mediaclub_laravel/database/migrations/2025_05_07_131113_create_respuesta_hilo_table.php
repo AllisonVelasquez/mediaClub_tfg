@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('respuesta_hilo', function (Blueprint $table) {
-            $table->integer('respuesta_hilo_id', true);
-            $table->integer('hilo_id')->index('hilo_id');
-            $table->integer('usuario_id')->index('usuario_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('hilo_id');
+            $table->unsignedBigInteger('usuario_id');
             $table->text('contenido');
-            $table->dateTime('fecha');
-            $table->integer('respuesta_a')->nullable()->index('respuesta_a');
+            $table->unsignedBigInteger('respuesta_a')->index('respuesta_a');
+            $table->timestamps();
         });
     }
 

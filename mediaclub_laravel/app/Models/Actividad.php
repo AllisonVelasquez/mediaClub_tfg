@@ -26,7 +26,8 @@ use Illuminate\Database\Eloquent\Model;
 class Actividad extends Model
 {
 	protected $table = 'actividad';
-	protected $primaryKey = 'actividad_id';
+	protected $primaryKey = 'id';
+	
 	public $timestamps = false;
 
 	protected $casts = [

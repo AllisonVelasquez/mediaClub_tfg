@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('solicitud', function (Blueprint $table) {
-            $table->integer('id', true);
-            $table->integer('remitente_id')->index('remitente_id');
-            $table->integer('destinatario_id')->index('destinatario_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('remitente_id');
+            $table->unsignedBigInteger('destinatario_id');
             $table->enum('estado', ['pendiente', 'aceptada', 'rechazada'])->default('pendiente');
-            $table->dateTime('fecha_solicitud')->nullable()->useCurrent();
+            $table->timestamps();
 
             $table->unique(['remitente_id', 'destinatario_id'], 'unique_solicitud');
         });

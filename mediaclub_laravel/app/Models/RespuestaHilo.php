@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class RespuestaHilo
  * 
- * @property int $respuesta_hilo_id
+ * @property int $id
  * @property int $hilo_id
  * @property int $usuario_id
  * @property string $contenido
@@ -30,13 +30,12 @@ use Illuminate\Database\Eloquent\Model;
 class RespuestaHilo extends Model
 {
 	protected $table = 'respuesta_hilo';
-	protected $primaryKey = 'respuesta_hilo_id';
-	public $timestamps = false;
+	protected $primaryKey = 'id';
+
 
 	protected $casts = [
 		'hilo_id' => 'int',
 		'usuario_id' => 'int',
-		'fecha' => 'datetime',
 		'respuesta_a' => 'int'
 	];
 
@@ -44,7 +43,6 @@ class RespuestaHilo extends Model
 		'hilo_id',
 		'usuario_id',
 		'contenido',
-		'fecha',
 		'respuesta_a'
 	];
 

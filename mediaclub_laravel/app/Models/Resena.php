@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Resena
  * 
- * @property int $resena_id
+ * @property int $id
  * @property int $usuario_id
  * @property int $frame_id
  * @property Carbon|null $fecha
@@ -27,7 +27,8 @@ use Illuminate\Database\Eloquent\Model;
 class Resena extends Model
 {
 	protected $table = 'resena';
-	protected $primaryKey = 'resena_id';
+	protected $primaryKey = 'id';
+	
 	public $timestamps = false;
 
 	protected $casts = [

@@ -12,17 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('usuario', function (Blueprint $table) {
-            $table->integer('usuario_id', true);
+            $table->bigIncrements('id');
             $table->string('login_id', 100)->unique('login_id');
             $table->string('correo')->unique('correo');
             $table->string('contrasena');
             $table->string('alias', 100)->unique('alias');
             $table->text('bio')->nullable();
             $table->json('redes')->nullable();
-            $table->string('foto_perfil')->nullable()->default('/images/perfiles/default.png'); //Hay que cambiar la ruta por defecto
-            $table->dateTime('fecha_creacion')->useCurrent();
-            $table->dateTime('fecha_ultima_actualizacion')->useCurrentOnUpdate()->nullable()->useCurrent();
+            $table->string('foto_perfil')->default('/images/perfiles/default.png'); //Hay que cambiar la ruta por defecto
             $table->boolean('confirmado')->default(false);
+            $table->timestamps();
         });
     }
 

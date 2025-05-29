@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('megusta', function (Blueprint $table) {
-            $table->integer('megusta_id', true);
-            $table->integer('usuario_id');
-            $table->integer('entidad_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('usuario_id');
+            $table->unsignedBigInteger('entidad_id');
             $table->enum('tipo_entidad', ['resena', 'mensaje']);
-            $table->dateTime('fecha')->nullable()->useCurrent();
+            $table->dateTime('fecha')->useCurrent();
 
             $table->unique(['usuario_id', 'entidad_id', 'tipo_entidad'], 'usuario_id');
         });

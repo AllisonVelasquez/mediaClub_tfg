@@ -22,21 +22,22 @@ use Illuminate\Database\Eloquent\Model;
 class Genero extends Model
 {
 	protected $table = 'genero';
-	protected $primaryKey = 'genero_id';
+	protected $primaryKey = 'id';
+
 	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [
-		'genero_id' => 'int'
+		'id' => 'int'
 	];
 
 	protected $fillable = [
-		'genero_id',
+		'id',
 		'nombre'
 	];
 
 	public function frames()
 	{
-		return $this->belongsToMany(Frame::class,'frame_genero','genero_id','frame_id','genero_id','frame_id');
+		return $this->belongsToMany(Frame::class);
 	}
 }

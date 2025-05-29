@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('frame_genero', function (Blueprint $table) {
-            $table->unsignedBigInteger('frame_id')->index('frame_id');
-            $table->unsignedBigInteger('genero_id')->index('genero_id');
+            $table->unsignedBigInteger('frame_id');
+            $table->unsignedBigInteger('genero_id');
 
             $table->primary(['frame_id', 'genero_id']);
         });
