@@ -3,7 +3,7 @@ namespace App\UseCases\List;
 
 use App\Models\Usuario;
 use App\Repositories\List\ListRepositoryInterface;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class GetMyListsUseCase
 {
@@ -12,8 +12,8 @@ class GetMyListsUseCase
     public function __construct(ListRepositoryInterface $listRepository) {
         $this->listRepository = $listRepository;
     }
-    public function execute(Usuario $me):Collection
+    public function execute(Usuario $me): LengthAwarePaginator
     {
-        return $this->listRepository->getMyLists($me->usuario_id);
+        return $this->listRepository->getMyLists($me->id);
     }
 }

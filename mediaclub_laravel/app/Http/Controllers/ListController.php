@@ -18,7 +18,7 @@ use App\Actions\List\GetUserPublicListsAction;
 use App\Actions\List\RemoveFrameFromListAction;
 
 use App\Models\Frame;
-use App\Models\Listum;
+use App\Models\Lista;
 use App\Models\Usuario;
 
 class ListController extends Controller
@@ -28,12 +28,12 @@ class ListController extends Controller
         $me = $request->user();
         return app(CreateListAction::class)->execute($me, $request->validated());
     }
-    public function editList(EditListRequest $request, Listum $list)
+    public function editList(EditListRequest $request, Lista $list)
     {
         $me = $request->user();
         return app(UpdateListAction::class)->execute($me, $list, $request->validated());
     }
-    public function deleteList(Request $request, Listum $list)
+    public function deleteList(Request $request, Lista $list)
     {
         $me = $request->user();
         return app(DeleteListAction::class)->execute($me, $list);
@@ -42,18 +42,18 @@ class ListController extends Controller
     {
         return app(GetMyListsAction::class)->execute($request->user());
     }
-    public function showMyListContent(Request $request, Listum $list)
+    public function showMyListContent(Request $request, Lista $list)
     {
         $me = $request->user();
         return app(GetMyListContentAction::class)->execute($me, $list);
     }
-    public function addFrame(Request $request, Listum $list, Frame $frame)
+    public function addFrame(Request $request, Lista $list, Frame $frame)
     {
         $me = $request->user();
 
         return app(AddFrameToListAction::class)->execute($me, $list, $frame);
     }
-    public function removeFrame(Request $request, Listum $list, Frame $frame)
+    public function removeFrame(Request $request, Lista $list, Frame $frame)
     {
         $me = $request->user();
         return app(RemoveFrameFromListAction::class)->execute($me, $list, $frame);
@@ -62,7 +62,7 @@ class ListController extends Controller
     {
         return app(GetUserPublicListsAction::class)->execute($user);
     }
-    public function showPublicUserListContent(Usuario $user, Listum $list)
+    public function showPublicUserListContent(Usuario $user, Lista $list)
     {
         return app(GetPublicListContentAction::class)->execute($user, $list);
     }

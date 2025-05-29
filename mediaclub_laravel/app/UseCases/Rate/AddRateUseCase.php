@@ -17,8 +17,8 @@ class AddRateUseCase
 
     public function execute(Usuario $user, array $data, Frame $frame): Puntuacion
     {
-        $data['usuario_id'] = $user->usuario_id;
-        $data['frame__id'] = $frame->frame_id;
+        $data['usuario_id'] = $user->id;
+        $data['frame_id'] = $frame->id;
         return $this->rateRepository->addRate($data);
     }
 }

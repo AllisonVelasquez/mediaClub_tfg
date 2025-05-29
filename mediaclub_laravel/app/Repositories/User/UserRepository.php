@@ -48,4 +48,9 @@ class UserRepository implements UserRepositoryInterface
         $user = Usuario::findOrFail($id);
         return $user->amigos();
     }
+
+    public function showProfile() 
+    {
+
+    }
 }

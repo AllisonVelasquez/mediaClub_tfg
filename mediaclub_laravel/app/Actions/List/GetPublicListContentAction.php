@@ -2,7 +2,7 @@
 
 namespace App\Actions\List;
 
-use App\Models\Listum;
+use App\Models\Lista;
 use App\Models\Usuario;
 use App\Traits\ApiResponse;
 use App\UseCases\List\GetListContentUseCase;
@@ -16,7 +16,7 @@ class GetPublicListContentAction
         $this->getListContentUseCase = $getListContentUseCase;
     }
 
-    public function execute(Usuario $user, Listum $list)
+    public function execute(Usuario $user, Lista $list)
     {
         if($list->publica === true){
             $content = $this->getListContentUseCase->execute($user,$list);

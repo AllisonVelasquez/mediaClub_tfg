@@ -2,33 +2,40 @@
 
 namespace App\Repositories\List;
 
-use App\Models\Listum;
+use App\Models\Lista;
 use App\Repositories\List\ListRepositoryInterface;
-use Exception;
-use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ListRepository implements ListRepositoryInterface
 {
-    public function getMyLists(int $userId): Collection
+    public function getMyLists(int $userId): LengthAwarePaginator
     {
-        return Listum::where('usuario_id', $userId)->get();
+        return Lista::with((['framesImg' => function ($query) {
+            $query->limit(4);
+        }]))
+        ->where('usuario_id', $userId)
+        ->paginate(15);
+
     }
 
-    public function getMyListContent(int $userId, int $listId): Listum
+    public function getMyListContent(int $userId, int $listId): Lista
     {
-        return Listum::where('lista_id',$listId)
+        return Lista::with((['frames' => function ($query) {
+            $query->paginate(15);
+        }]))
+            ->where('id',$listId)
             ->where('usuario_id', $userId)
-            ->get();
+            ->first();
     }
 
-    public function create(array $data): Listum
+    public function create(array $data): Lista
     {
-        return Listum::create($data);
+        return Lista::create($data);
     }
 
     public function update(int $userid, int $id, array $data): bool
     {
-        $lista = Listum::where('lista_id', $id)
+        $lista = Lista::where('id', $id)
             ->where('usuario_id', $userid)
             ->firstOrFail();
 
@@ -37,7 +44,7 @@ class ListRepository implements ListRepositoryInterface
 
     public function delete(int $userid, int $id): bool
     {
-        $lista = Listum::where('lista_id', $id)
+        $lista = Lista::where('id', $id)
             ->where('usuario_id', $userid)
             ->firstOrFail();
 
@@ -46,7 +53,7 @@ class ListRepository implements ListRepositoryInterface
 
     public function addFrame(int $userid, int $listId, int $frameId): bool
     {
-        $lista = Listum::where('lista_id', $listId)
+        $lista = Lista::where('id', $listId)
             ->where('usuario_id', $userid)
             ->firstOrFail();
 
@@ -59,25 +66,31 @@ class ListRepository implements ListRepositoryInterface
 
     public function removeFrame(int $userid, int $listId, int $frameId): bool
     {
-        $lista = Listum::where('lista_id', $listId)
+        $lista = Lista::where('id', $listId)
             ->where('usuario_id', $userid)
             ->firstOrFail();
 
         return $lista->frames()->detach($frameId) > 0;
     }
 
-    public function getPublicListsForUser(int $userId): Collection
+    public function getPublicListsForUser(int $userId): LengthAwarePaginator
     {
-        return Listum::where('usuario_id', $userId)
+        return Lista::with((['framesImg' => function ($query) {
+            $query->limit(4);
+        }]))
+        ->where('usuario_id', $userId)
             ->where('publica', true)
-            ->get();
+            ->paginate(15);
     }
 
-    public function getPublicListContentForUser(int $userId, int $listId): Collection
+    public function getPublicListContentForUser(int $userId, int $listId): Lista
     {
-        return Listum::where('lista_id', $listId)
+        return Lista::with((['frames' => function ($query) {
+            $query->paginate(15);
+        }]))
+            ->where('lista_id', $listId)
             ->where('usuario_id', $userId)
             ->where('publica', true)
-            ->firstOrFail();
+            ->first();
     }
 }

@@ -74,7 +74,7 @@ class Usuario extends Authenticatable
 
 	public function lista()
 	{
-		return $this->hasMany(Listum::class);
+		return $this->hasMany(Lista::class);
 	}
 
 	public function megusta()
@@ -111,7 +111,9 @@ class Usuario extends Authenticatable
 		$amistades = Amistad::deUsuario($this->id)->get();
 		$amigosIds = $amistades->map(function ($amistad) {
 			return $amistad->usuario_id == $this->id ? $amistad->amigo_id : $amistad->usuario_id;
-		});
-		return Usuario::whereIn('id', $amigosIds)->get();
+		})->unique()->filter()->values();
+		return Usuario::whereIn('id', $amigosIds)
+				->select('id','alias','foto_perfil')
+				->get();
 	}
 }

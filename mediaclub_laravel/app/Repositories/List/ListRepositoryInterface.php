@@ -2,16 +2,16 @@
 
 namespace App\Repositories\List;
 
-use App\Models\Listum;
-use Illuminate\Support\Collection;
+use App\Models\Lista;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface ListRepositoryInterface
 {
-    public function getMyLists(int $userId): Collection;
+    public function getMyLists(int $userId): LengthAwarePaginator;
 
-    public function getMyListContent(int $userId, int $id): Listum;
+    public function getMyListContent(int $userId, int $id): Lista;
 
-    public function create(array $data): Listum;
+    public function create(array $data): Lista;
 
     public function update(int $userid, int $id, array $data): bool;
 
@@ -21,7 +21,7 @@ interface ListRepositoryInterface
 
     public function removeFrame(int $userid, int $listId, int $frameId): bool;
 
-    public function getPublicListsForUser(int $userId): Collection;
+    public function getPublicListsForUser(int $userId): LengthAwarePaginator;
 
-    public function getPublicListContentForUser(int $userId, int $listId): Collection;
+    public function getPublicListContentForUser(int $userId, int $listId): Lista;
 }

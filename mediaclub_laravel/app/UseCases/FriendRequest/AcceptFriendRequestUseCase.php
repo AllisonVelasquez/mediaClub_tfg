@@ -19,8 +19,8 @@ class AcceptFriendRequestUseCase
 
     public function execute(Usuario $me, Usuario $from)
     {
-        if($this->requestRepository->acceptRequest($me->usuario_id, $from->usuario_id)){
-            $this->friendshipRepository->create($me->usuario_id,$from->usuario_id);
+        if($this->requestRepository->acceptRequest($me->id, $from->id)){
+            $this->friendshipRepository->create($me->id,$from->id);
         }
         return true;
     }

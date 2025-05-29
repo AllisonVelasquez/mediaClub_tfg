@@ -16,6 +16,6 @@ class CancelFriendRequestUseCase
 
     public function execute(Usuario $me, Usuario $to)
     {
-        return $this->requestRepository->cancelRequest($me->usuario_id, $to->usuario_id);
+        return $this->requestRepository->cancelRequest($me->id, $to->id);
     }
 }

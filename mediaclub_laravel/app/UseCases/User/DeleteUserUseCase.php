@@ -23,6 +23,6 @@ class DeleteUserUseCase
             return false;
         }
         $user->tokens()->delete();
-        return $this->userRepository->delete($user->usuario_id);
+        return $this->userRepository->delete($user->id);
     }
 }

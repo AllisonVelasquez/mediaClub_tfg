@@ -36,7 +36,7 @@ class ImportMovieFromTMDB implements ShouldQueue
         try {
 
             $movie = Frame::updateOrCreate(
-                ['frame_id' => $data['id']],
+                ['id' => $data['id']],
                 [
                     'titulo' => $data['title'],
                     'titulo_original' => $data['original_title'],
@@ -46,7 +46,7 @@ class ImportMovieFromTMDB implements ShouldQueue
                     'fecha_estreno' => $data['release_date'],
                     'duracion' => $data['runtime'],
                     'promedio_votos_tmdb' => $data['vote_average'],
-                    'cantidad_votos' => $data['vote_count'],
+                    'cantidad_votos_tmdb' => $data['vote_count'],
                     'popularity' => $data['popularity'],
                     'estado' => $data['status'],
                     'presupuesto' => $data['budget'],
@@ -61,10 +61,10 @@ class ImportMovieFromTMDB implements ShouldQueue
                 $genreIds = [];
                 foreach ($data['genres'] as $genreData) {
                     $genre = Genero::firstOrCreate(
-                        ['genero_id' => $genreData['id']],
+                        ['id' => $genreData['id']],
                         ['nombre' => $genreData['name']]
                     );
-                    $genreIds[] = $genre->genero_id;
+                    $genreIds[] = $genre->id;
                 }
                 $movie->generos()->sync($genreIds);
             }
@@ -82,7 +82,7 @@ class ImportMovieFromTMDB implements ShouldQueue
 
                 foreach ($cast as $actorData) {
                     $actor = Actor::firstOrCreate(
-                        ['actor_id' => $actorData['id']],
+                        ['id' => $actorData['id']],
                         [
                             'nombre' => $actorData['name'],
                             'imagen_url' => $actorData['profile_path'],
@@ -90,7 +90,7 @@ class ImportMovieFromTMDB implements ShouldQueue
                         ]
                     );
 
-                    $actorSync[$actor->actor_id] = [
+                    $actorSync[$actor->id] = [
                         'orden' => $actorData['order'],
                         'personaje' => $actorData['character'] ?? null,
                     ];

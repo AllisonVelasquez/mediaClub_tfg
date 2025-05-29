@@ -16,7 +16,7 @@ class SendFriendRequestUseCase
 
     public function execute(Usuario $from, Usuario $to)
     {
-        return $this->requestRepository->createRequest($from->usuario_id,$to->usuario_id);
+        return $this->requestRepository->createRequest($from->id,$to->id);
     }
 }
 

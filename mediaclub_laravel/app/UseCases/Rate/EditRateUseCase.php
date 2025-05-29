@@ -16,8 +16,8 @@ class EditRateUseCase
 
     public function execute(Usuario $user, array $data, Puntuacion $rate): bool
     {
-        $me = $user->usuario_id;
-        $rate = $rate->puntuacion_id;
+        $me = $user->id;
+        $rate = $rate->id;
         $newRate = $data['puntuacion'];
         return $this->rateRepository->editRate($rate,$me,$newRate);
     }

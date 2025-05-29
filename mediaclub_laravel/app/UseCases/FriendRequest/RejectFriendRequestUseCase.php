@@ -16,6 +16,6 @@ class RejectFriendRequestUseCase
 
     public function execute(Usuario $me, Usuario $from)
     {
-        return $this->requestRepository->rejectRequest($me->usuario_id, $from->usuario_id);
+        return $this->requestRepository->rejectRequest($me->id, $from->id);
     }
 }

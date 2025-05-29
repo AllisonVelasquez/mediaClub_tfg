@@ -17,6 +17,6 @@ class GetReceivedRequestsUseCase
 
     public function execute(Usuario $user)
     {
-        return $this->requestRepository->getReceivedRequests($user->usuario_id);
+        return $this->requestRepository->getReceivedRequests($user->id);
     }
 }

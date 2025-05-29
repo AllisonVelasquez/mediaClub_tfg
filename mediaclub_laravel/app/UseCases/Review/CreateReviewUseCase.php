@@ -17,8 +17,8 @@ class CreateReviewUseCase
 
     public function execute(Usuario $user, array $data, Frame $frame) : Resena
     {
-        $data['usuario_id'] = $user->usuario_id;
-        $data['frame_id'] = $frame->frame_id;
+        $data['usuario_id'] = $user->id;
+        $data['frame_id'] = $frame->id;
         return $this->reviewRepository->addReview($data);
     }
 }

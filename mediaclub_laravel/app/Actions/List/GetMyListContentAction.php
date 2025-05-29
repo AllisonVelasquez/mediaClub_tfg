@@ -2,7 +2,7 @@
 
 namespace App\Actions\List;
 
-use App\Models\Listum;
+use App\Models\Lista;
 use App\Models\Usuario;
 use App\Traits\ApiResponse;
 use App\UseCases\List\GetListContentUseCase;
@@ -16,7 +16,7 @@ class GetMyListContentAction
         $this->getListContentUseCase = $getListContentUseCase;
     }
 
-    public function execute(Usuario $user, Listum $list)
+    public function execute(Usuario $user, Lista $list)
     {
         $content = $this->getListContentUseCase->execute($user,$list);
         return $this->success('Contenido de lista cargado', 200, $content);

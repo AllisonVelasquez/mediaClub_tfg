@@ -47,6 +47,7 @@ class Puntuacion extends Model
 
 	public function frame()
 	{
-		return $this->belongsTo(Frame::class);
+		return $this->belongsTo(Frame::class)
+		->select('id','titulo', 'poster_url');
 	}
 }

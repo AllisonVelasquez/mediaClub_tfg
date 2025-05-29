@@ -15,8 +15,8 @@ class DeleteReviewUseCase
 
     public function execute(Usuario $user, Resena $review) : bool
     {
-        $userid = $user->usuario_id;
-        $reviewid = $review->resena_id;
+        $userid = $user->id;
+        $reviewid = $review->id;
         return $this->reviewRepository->deleteReview($userid, $reviewid);
     }
 }

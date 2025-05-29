@@ -2,7 +2,7 @@
 
 namespace App\UseCases\List;
 
-use App\Models\Listum;
+use App\Models\Lista;
 use App\Models\Usuario;
 use App\Repositories\List\ListRepositoryInterface;
 
@@ -14,8 +14,8 @@ class GetListContentUseCase
     {
         $this->listRepository = $listRepository;
     }
-    public function execute(Usuario $user, Listum $list): Listum
+    public function execute(Usuario $user, Lista $list): Lista
     {
-        return $this->listRepository->getMyListContent($user->usuario_id, $list->lista_id);
+        return $this->listRepository->getMyListContent($user->id, $list->id);
     }
 }

@@ -14,6 +14,6 @@ class GetRateAverageUseCase
 
     public function execute(Frame $frame): float
     {
-        return $this->rateRepository->getRateAverage($frame->frame_id);
+        return $this->rateRepository->getRateAverage($frame->id);
     }
 }

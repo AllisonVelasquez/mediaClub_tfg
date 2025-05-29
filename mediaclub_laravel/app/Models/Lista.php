@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Listum extends Model
+class Lista extends Model
 {
 	protected $table = 'lista';
 	protected $primaryKey = 'id';
@@ -45,8 +45,15 @@ class Listum extends Model
 		return $this->belongsTo(Usuario::class);
 	}
 
+	public function frames_img()
+	{
+		return $this->belongsToMany(Frame::class)
+			->select('id','poster_url');
+	}
 	public function frames()
 	{
-		return $this->belongsToMany(Frame::class);
+		return $this->belongsToMany(Frame::class)
+			->withPivot('fecha')
+			->select('id', 'titulo', 'fecha_estreno');
 	}
 }

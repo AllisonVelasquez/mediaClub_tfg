@@ -17,6 +17,6 @@ class GetSentRequestsUseCase
 
     public function execute(Usuario $user)
     {
-        return $this->requestRepository->getSentRequests($user->usuario_id);
+        return $this->requestRepository->getSentRequests($user->id);
     }
 }

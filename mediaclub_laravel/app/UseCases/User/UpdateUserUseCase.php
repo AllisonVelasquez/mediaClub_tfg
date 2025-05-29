@@ -21,6 +21,6 @@ class UpdateUserUseCase
         if (!$claveCorrecta) {
             return false;
         }
-        return $this->userRepository->update($user->usuario_id,$data);
+        return $this->userRepository->update($user->id,$data);
     }
 }

@@ -2,7 +2,7 @@
 namespace App\UseCases\Rate;
 
 use App\Repositories\Rate\RateRepositoryInterface;
-use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class GetMyRatesUseCase
 {
@@ -13,7 +13,7 @@ class GetMyRatesUseCase
         $this->rateRepository = $rateRepository;
     }
 
-    public function execute(int $userId): Collection
+    public function execute(int $userId): LengthAwarePaginator
     {
         return $this->rateRepository->getMyRates($userId);
     }

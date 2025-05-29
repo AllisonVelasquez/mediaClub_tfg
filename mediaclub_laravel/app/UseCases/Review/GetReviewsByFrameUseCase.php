@@ -16,7 +16,7 @@ class GetReviewsByFrameUseCase
 
     public function execute(Frame $frame) : Collection
     {
-        $frameid = $frame->frame_id;
+        $frameid = $frame->id;
         return $this->reviewRepository->getReviewsByFrame($frameid);
     }
 }

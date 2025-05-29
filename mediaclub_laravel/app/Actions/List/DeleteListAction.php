@@ -2,7 +2,7 @@
 
 namespace App\Actions\List;
 
-use App\Models\Listum;
+use App\Models\Lista;
 use App\Models\Usuario;
 use App\Traits\ApiResponse;
 use App\UseCases\List\DeleteListUseCase;
@@ -16,7 +16,7 @@ class DeleteListAction
         $this->deleteListUseCase = $deleteListUseCase;
     }
 
-    public function execute(Usuario $me, Listum $list)
+    public function execute(Usuario $me, Lista $list)
     {
         $this->deleteListUseCase->execute($me,$list);
         return $this->success('Lista eliminada exitosamente', 200);

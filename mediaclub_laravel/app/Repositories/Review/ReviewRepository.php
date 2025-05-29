@@ -4,19 +4,21 @@ namespace App\Repositories\Review;
 
 use App\Models\Resena;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ReviewRepository implements ReviewRepositoryInterface
 {
-    public function getReviewsByUser(int $userId):Collection
+    public function getReviewsByUser(int $userId): LengthAwarePaginator
     {
-        return Resena::where('usuario_id', $userId)
+        return Resena::with('frame')
+            ->where('usuario_id', $userId)
             ->orderBy('fecha', 'desc')
-            ->get();
+            ->paginate(15);
     }
 
     public function getReview(int $resenaId):Resena
     {
-        return Resena::with(['frame:frame_id,titulo'])->findOrFail($resenaId);
+        return Resena::with('frame')->findOrFail($resenaId);
     }
 
     public function addReview(array $data): Resena

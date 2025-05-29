@@ -100,7 +100,7 @@ class Frame extends Model
 
 	public function listas()
 	{
-		return $this->belongsToMany(Listum::class);
+		return $this->belongsToMany(Lista::class);
 	}
 
 	public function hilos()

@@ -2,7 +2,7 @@
 namespace App\UseCases\Review;
 
 use App\Repositories\Review\ReviewRepositoryInterface;
-use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class GetReviewsByUserUseCase
 {
@@ -13,7 +13,7 @@ class GetReviewsByUserUseCase
         $this->reviewRepository = $reviewRepository;
     }
 
-    public function execute(int $userId): Collection
+    public function execute(int $userId): LengthAwarePaginator
     {
         return $this->reviewRepository->getReviewsByUser($userId);
     }

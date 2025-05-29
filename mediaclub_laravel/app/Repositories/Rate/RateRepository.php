@@ -3,15 +3,15 @@
 namespace App\Repositories\Rate;
 
 use App\Models\Puntuacion;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class RateRepository implements RateRepositoryInterface
 {
-    public function getMyRates(int $userId): Collection
+    public function getMyRates(int $userId): LengthAwarePaginator
     {
-        return Puntuacion::with(['frame:titulo,poster_url'])
+        return Puntuacion::with('frame')
             ->where('user_id', $userId)
-            ->get(['frame_id','puntuacion','fecha']);
+            ->paginate(15);
     }
 
     public function addRate(array $data): Puntuacion
@@ -28,7 +28,7 @@ class RateRepository implements RateRepositoryInterface
 
     public function deleteRate(int $userId, int $rateId): bool
     {
-        $lista = Puntuacion::where('puntuacion_id', $rateId)
+        $lista = Puntuacion::where('id', $rateId)
             ->where('usuario_id', $userId)
             ->firstOrFail();
 
@@ -37,7 +37,7 @@ class RateRepository implements RateRepositoryInterface
 
     public function getRateAverage(int $frameId): float
     {
-        $avg = Puntuacion::where('frame_id', $frameId)->avg('rate_value');
+        $avg = Puntuacion::where('frame_id', $frameId)->avg('puntuacion');
         return round($avg,1);
     }
 }

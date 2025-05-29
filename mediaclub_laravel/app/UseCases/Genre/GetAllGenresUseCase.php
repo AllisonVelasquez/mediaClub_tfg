@@ -2,7 +2,7 @@
 namespace App\UseCases\Genre;
 
 use App\Repositories\Genre\GenreRepositoryInterface;
-use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class GetAllGenresUseCase
 {
@@ -13,7 +13,7 @@ class GetAllGenresUseCase
         $this->genreRepository = $genreRepository;
     }
 
-    public function execute(): Collection
+    public function execute(): LengthAwarePaginator
     {
         return $this->genreRepository->getAll();
     }

@@ -15,8 +15,8 @@ class DeleteFriendUseCase
 
     public function execute(Usuario $user, Usuario $friend): bool
     {
-        $userid = $user->usuario_id;
-        $friendid = $friend->usuario_id;
+        $userid = $user->id;
+        $friendid = $friend->id;
         $this->friendshipRepository->delete($userid, $friendid);
         return true;
     }

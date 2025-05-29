@@ -3,7 +3,6 @@ namespace App\UseCases\Rate;
 
 use App\Models\Puntuacion;
 use App\Repositories\Rate\RateRepositoryInterface;
-use Illuminate\Support\Collection;
 use App\Models\Usuario;
 
 class DeleteRateUseCase
@@ -17,8 +16,8 @@ class DeleteRateUseCase
 
     public function execute(Usuario $user, Puntuacion $rate): bool
     {
-        $userId = $user->usuario_id;
-        $rateId = $rate->puntuacion_id;
+        $userId = $user->id;
+        $rateId = $rate->id;
         return $this->rateRepository->deleteRate($userId, $rateId);
     }
 }

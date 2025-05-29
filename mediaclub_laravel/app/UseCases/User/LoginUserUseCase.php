@@ -29,7 +29,7 @@ class LoginUserUseCase
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
-            'usuario_id' => $user->usuario_id
+            'usuario_id' => $user->id
         ]);
     }
 }
