@@ -14,12 +14,14 @@ use App\Actions\List\GetMyListsAction;
 use App\Actions\List\UpdateListAction;
 use App\Actions\List\GetMyListContentAction;
 use App\Actions\List\GetPublicListContentAction;
+use App\Actions\List\GetPublicListsByFrameAction;
 use App\Actions\List\GetUserPublicListsAction;
 use App\Actions\List\RemoveFrameFromListAction;
 
 use App\Models\Frame;
 use App\Models\Lista;
 use App\Models\Usuario;
+use App\UseCases\List\GetPublicListsByFrameUseCase;
 
 class ListController extends Controller
 {
@@ -66,4 +68,10 @@ class ListController extends Controller
     {
         return app(GetPublicListContentAction::class)->execute($user, $list);
     }
+
+    public function showPublicListsByFrame(Frame $frame)
+    {
+        return app(GetPublicListsByFrameAction::class)->execute($frame);
+    }
+
 }

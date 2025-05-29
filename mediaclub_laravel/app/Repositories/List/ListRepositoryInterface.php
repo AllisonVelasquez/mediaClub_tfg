@@ -24,4 +24,6 @@ interface ListRepositoryInterface
     public function getPublicListsForUser(int $userId): LengthAwarePaginator;
 
     public function getPublicListContentForUser(int $userId, int $listId): Lista;
+
+     public function getPublicListsByFrameId(int $frameId): LengthAwarePaginator ;
 }

@@ -13,9 +13,8 @@ class ListRepository implements ListRepositoryInterface
         return Lista::with((['framesImg' => function ($query) {
             $query->limit(4);
         }]))
-        ->where('usuario_id', $userId)
-        ->paginate(15);
-
+            ->where('usuario_id', $userId)
+            ->paginate(15);
     }
 
     public function getMyListContent(int $userId, int $listId): Lista
@@ -23,7 +22,7 @@ class ListRepository implements ListRepositoryInterface
         return Lista::with((['frames' => function ($query) {
             $query->paginate(15);
         }]))
-            ->where('id',$listId)
+            ->where('id', $listId)
             ->where('usuario_id', $userId)
             ->first();
     }
@@ -78,7 +77,7 @@ class ListRepository implements ListRepositoryInterface
         return Lista::with((['framesImg' => function ($query) {
             $query->limit(4);
         }]))
-        ->where('usuario_id', $userId)
+            ->where('usuario_id', $userId)
             ->where('publica', true)
             ->paginate(15);
     }
@@ -88,9 +87,18 @@ class ListRepository implements ListRepositoryInterface
         return Lista::with((['frames' => function ($query) {
             $query->paginate(15);
         }]))
-            ->where('lista_id', $listId)
+            ->where('id', $listId)
             ->where('usuario_id', $userId)
             ->where('publica', true)
             ->first();
+    }
+
+    public function getPublicListsByFrameId(int $frameId): LengthAwarePaginator 
+    {
+        return Lista::where('publica', true)
+            ->whereHas('frames', function ($query) use ($frameId) {
+                $query->where('id', $frameId);
+            })
+            ->paginate(15);
     }
 }
