@@ -21,9 +21,9 @@ class RateRepository implements RateRepositoryInterface
 
     public function editRate(int $rateId, int $userId, float $rate): bool
     {
-        $rate = Puntuacion::where('usuario_id',$userId)
-        ->findOrFail($rateId);
-        return $rate->update(['puntuacion' => round($rate,1)]);
+        $rate = Puntuacion::where('usuario_id', $userId)
+            ->findOrFail($rateId);
+        return $rate->update(['puntuacion' => round($rate, 1)]);
     }
 
     public function deleteRate(int $userId, int $rateId): bool
@@ -35,9 +35,16 @@ class RateRepository implements RateRepositoryInterface
         return $lista->delete();
     }
 
-    public function getRateAverage(int $frameId): float
+    //Incorporar los datos a cada peli
+    public function getRateAverageMuvis(int $frameId): array
     {
-        $avg = Puntuacion::where('frame_id', $frameId)->avg('puntuacion');
-        return round($avg,1);
+        $result = Puntuacion::where('frame_id', $frameId)
+            ->selectRaw('AVG(puntuacion) as average, COUNT(*) as votes')
+            ->first();
+
+        return [
+            'average' => round($result->average, 1),
+            'votes' => $result->votes ?? 0,
+        ];
     }
 }
