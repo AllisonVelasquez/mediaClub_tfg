@@ -49,7 +49,7 @@ class Amistad extends Model
 		});
 	}
 	//lista de amigos de un user
-	public function scopeAmigosDe($query, $id1)
+	public function scopeDeUsuario($query, $id1)
 	{
 		return $query->where('user_id', $id1)
 			->orWhere('amigo_id', $id1);

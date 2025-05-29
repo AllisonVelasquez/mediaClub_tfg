@@ -83,8 +83,6 @@ Route::middleware('auth:sanctum')->prefix('me')->group(function () {
 Route::prefix('frames')->group(function () {
     Route::get('/buscar/{titulo}', [FrameController::class, 'searchByTitle']);
 
-    // Route::get('/peliculas', [FrameController::class, 'getMovies']);
-    // Route::get('/series', [FrameController::class, 'getSeries']);
     Route::get('/popular', [FrameController::class, 'popular']);
     Route::get('/mas-puntuados', [FrameController::class, 'topRated']);
     Route::get('/proximamente', [FrameController::class, 'upcoming']);
