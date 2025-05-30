@@ -19,6 +19,8 @@ class AddRateUseCase
     {
         $data['usuario_id'] = $user->id;
         $data['frame_id'] = $frame->id;
+
+        
         return $this->rateRepository->addRate($data);
     }
 }

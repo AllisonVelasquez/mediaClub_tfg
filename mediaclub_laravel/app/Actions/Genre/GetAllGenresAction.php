@@ -19,6 +19,7 @@ class GetAllGenresAction
     public function execute()
     {
         $genres = $this->getAllGenresUseCase->execute();
-        return $this->success('Lista de generos cargada con exito',$genres);
+        if($genres->total() === 0) return $this->success('Lista de generos vacía', 200);
+        return $this->success('Lista de generos cargada con exito',200,$genres);
     }
 }

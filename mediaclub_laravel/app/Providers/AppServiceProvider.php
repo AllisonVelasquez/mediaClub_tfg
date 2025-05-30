@@ -17,6 +17,11 @@ use App\Repositories\Friendship\FriendshipRepository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use App\Repositories\Rate\RateRepository;
 use App\Repositories\Rate\RateRepositoryInterface;
+use App\Observers\PuntuacionObserver;
+use App\Models\Puntuacion;
+use App\Repositories\Frame\FrameRepository;
+use App\Repositories\Frame\FrameRepositoryInterface;
+
 class AppServiceProvider extends ServiceProvider
 {
     public function register()
@@ -28,10 +33,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ListRepositoryInterface::class, ListRepository::class);
         $this->app->bind(ReviewRepositoryInterface::class, ReviewRepository::class);
         $this->app->bind(RateRepositoryInterface::class, RateRepository::class);
+        $this->app->bind(FrameRepositoryInterface::class, FrameRepository::class);
     }
 
     public function boot()
     {
-        //
+        Puntuacion::observe(PuntuacionObserver::class);
     }
 }

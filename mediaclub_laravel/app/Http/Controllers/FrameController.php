@@ -2,40 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Frame\FilterFramesAction;
+use App\Actions\Frame\GetFrameDetailsAction;
+use App\Actions\Frame\GetNowPlayingAction;
+use App\Actions\Frame\GetPopularAction;
+use App\Actions\Frame\GetSimilarAction;
+use App\Actions\Frame\GetTop10Action;
+use App\Actions\Frame\SearchFrameByTitleAction;
 use App\Actions\Genre\GetAllGenresAction;
+use App\Http\Requests\FilterFramesRequest;
+use App\Http\Requests\SearchFrameByTitleRequest;
 use App\Models\Frame;
-use App\Services\External\TmdbService;
 
 class FrameController extends Controller
 {
-    //FALTA TOODO ESTO
+    public function searchByTitle(SearchFrameByTitleRequest $request)
+    {
+        return app(SearchFrameByTitleAction::class)->execute($request->validated());
+    }
+    public function filterBy(FilterFramesRequest $request){
+        return app(FilterFramesAction::class)->execute($request->validated());
+    }
     public function getAllGenres()
     {
         return app(GetAllGenresAction::class)->execute();
     }
     public function popular()
     {
-        return app(TmdbService::class)->getMovies(1);
+        return app(GetPopularAction::class)->execute();
     }
-    public function topRated()
+    public function top10()
     {
-        return app(TmdbService::class)->getTopRated(1);
+        return app(GetTop10Action::class)->execute();
     }
-    public function upcoming()
+    public function nowPlaying()
     {
-        return app(TmdbService::class)->getUpcoming(1);
-    }
-    public function trending()
-    {
-        return app(TmdbService::class)->getTrending(1);
+        return app(GetNowPlayingAction::class)->execute();
     }
 
     public function showFrameDetails(Frame $frame)
     {
-        return app(TmdbService::class)->getDetails('movie', $frame->frame_id);
+        return app(GetFrameDetailsAction::class)->execute($frame);
     }
     public function similar(Frame $frame)
     {
-        return app(TmdbService::class)->getSimilar('movie',$frame->frame_id,1);
+        return app(GetSimilarAction::class)->execute($frame);
     }
 }

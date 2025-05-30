@@ -26,15 +26,17 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::prefix('usuarios')->group(function () {
+    Route::get('/buscar', [UserController::class, 'searchByAlias']); //Falta HACERRR
+
     Route::get('/{usuario:alias}/perfil', [UserController::class, 'showProfile']); //
     Route::get('/{usuario:alias}/listas-publicas', [ListController::class, 'showPublicUserLists']); //
-    Route::get('/{usuario:alias}/listas-publicas/{id}', [ListController::class, 'showPublicUserListContent']); //
+    Route::get('/{usuario:alias}/listas-publicas/{lista:id}', [ListController::class, 'showPublicUserListContent']); //
     Route::get('/{usuario:alias}/amigos', [FriendShipController::class, 'showFriends']); //
 
     Route::get('/{usuario:alias}/actividad', [UserController::class, 'activity']); 
 });
 
-Route::middleware('auth:sanctum')->prefix('me')->group(function () {
+Route::middleware('auth:sanctum')->prefix('mi')->group(function () {
     Route::get('/perfil', [UserController::class, 'myProfile']); //
     Route::patch('/actualizar-datos', [UserController::class, 'updateUser']); //
     Route::delete('/borrar-cuenta', [UserController::class, 'deleteUser']); //
@@ -57,46 +59,46 @@ Route::middleware('auth:sanctum')->prefix('me')->group(function () {
     Route::prefix('listas')->group(function () { 
         Route::get('/ver-todas', [ListController::class, 'myLists']); //
         Route::post('/crear', [ListController::class, 'createList']); //
-        Route::patch('/editar/{lista:lista_id}', [ListController::class, 'editList']); //
-        Route::delete('/borrar/{lista:lista_id}', [ListController::class, 'deleteList']); //
-        Route::get('/{id}/detalles', [ListController::class, 'showMyListContent']); //
-        Route::post('/{lista:lista_id}/anadir/{frame:frame_id}', [ListController::class, 'addFrame']);  //
-        Route::delete('/{lista:lista_id}/quitar/{frame:frame_id}', [ListController::class, 'removeFrame']); //
+        Route::patch('/editar/{lista:id}', [ListController::class, 'editList']); //
+        Route::delete('/borrar/{lista:id}', [ListController::class, 'deleteList']); //
+        Route::get('/{lista:id}/detalles', [ListController::class, 'showMyListContent']); //
+        Route::post('/{lista:id}/anadir/{frame:id}', [ListController::class, 'addFrame']);  //
+        Route::delete('/{lista:id}/quitar/{frame:id}', [ListController::class, 'removeFrame']); //
     });
 
     Route::prefix('resenas')->group(function () {
         Route::get('/ver-todas', [ReviewController::class, 'getMyReviews']); //
-        Route::get('/{resena:resena_id}/ver', [ReviewController::class, 'getReview']); //
-        Route::delete('/{resena:resena_id}/borrar', [ReviewController::class, 'deleteReview']); //
-        Route::get('/{frame:frame_id}', [ReviewController::class, 'getMyReviewsByFrame']); //
+        Route::get('/{resena:id}/ver', [ReviewController::class, 'getReview']); //
+        Route::delete('/{resena:id}/borrar', [ReviewController::class, 'deleteReview']); //
+        Route::get('/{frame:id}', [ReviewController::class, 'getMyReviewsByFrame']); //
     });
 
     Route::prefix('puntuaciones')->group(function () { //
         Route::get('/ver-todas', [RateController::class, 'getMyRates']); //
-        Route::patch('/editar/{puntuacion:puntuacion_id}', [RateController::class, 'editRate']); //
-        Route::delete('/borrar/{puntuacion:puntuacion_id}', [RateController::class, 'deleteRate']); //
+        Route::patch('/editar/{puntuacion:id}', [RateController::class, 'editRate']); //
+        Route::delete('/borrar/{puntuacion:id}', [RateController::class, 'deleteRate']); //
     });
 });
 
 //FRAMES
 
 Route::prefix('frames')->group(function () {
-    Route::get('/buscar/{titulo}', [FrameController::class, 'searchByTitle']);
+    Route::get('/buscar', [FrameController::class, 'searchByTitle']);//
 
     Route::get('/popular', [FrameController::class, 'popular']);
-    Route::get('/mas-puntuados', [FrameController::class, 'topRated']);
+    Route::get('/top-10', [FrameController::class, 'top10']);
     Route::get('/proximamente', [FrameController::class, 'upcoming']);
     Route::get('/tendencia', [FrameController::class, 'trending']);
 
-    Route::get('/{frame:frame_id}', [FrameController::class, 'showFrameDetails']);
+    Route::get('/{frame:id}', [FrameController::class, 'showFrameDetails']);
 
-    Route::get('/{frame:frame_id}/resenas', [ReviewController::class, 'getReviewsByFrame']); //
-    Route::post('{frame:frame_id}/anadir-resena', [ReviewController::class, 'addReview'])->middleware('auth:sanctum'); //
-    Route::get('/{frame:frame_id}/puntuacion', [RateController::class, 'getRateAverage']);
-    Route::post('{frame:frame_id}/anadir-puntuacion', [RateController::class, 'addRate'])->middleware('auth:sanctum');
+    Route::get('/{frame:id}/resenas', [ReviewController::class, 'getReviewsByFrame']); //
+    Route::post('{frame:id}/anadir-resena', [ReviewController::class, 'addReview'])->middleware('auth:sanctum'); //
+    Route::get('/{frame:id}/puntuacion', [RateController::class, 'getRateAverage']);
+    Route::post('{frame:id}/anadir-puntuacion', [RateController::class, 'addRate'])->middleware('auth:sanctum');
 
-    Route::get('/{frame:frame_id}/listas', [ListController::class, 'getListas']); //List controller para buscar publicas donde este el frame FALTA
-    Route::get('/{frame:frame_id}/similar', [FrameController::class, 'similar']); 
+    Route::get('/{frame:id}/listas', [ListController::class, 'getListas']); //List controller para buscar publicas donde este el frame FALTA
+    Route::get('/{frame:id}/similar', [FrameController::class, 'similar']); 
 
     Route::get('/generos', [FrameController::class, 'getAllGenres']);
 });

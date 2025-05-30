@@ -4,10 +4,18 @@ namespace App\Repositories\User;
 
 use App\Models\Usuario;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserRepository implements UserRepositoryInterface
 {
+    public function searchByAlias(string $alias): ?LengthAwarePaginator
+    {
+        $alias = trim($alias);
+        return Usuario::where('title', 'like', "%{$alias}%")
+        ->paginate(20);
+    }
     // Buscar usuarios por un campo
     public function findByLoginId(string $login_id): ?Usuario
     {
@@ -49,8 +57,5 @@ class UserRepository implements UserRepositoryInterface
         return $user->amigos();
     }
 
-    public function showProfile() 
-    {
-
-    }
+    public function showProfile() {}
 }
