@@ -9,6 +9,7 @@ use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\FriendShipController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RateController;
+use App\Http\Controllers\ActorController;
 
 
 // Route::get('/test-db-cache', function () {
@@ -98,7 +99,13 @@ Route::prefix('frames')->group(function () {
     Route::get('/{frame:id}/listas-publicas', [ListController::class, 'showPublicListsByFrame']); 
     Route::get('/{frame:id}/similar', [FrameController::class, 'similar']); 
 
-    
+
+Route::prefix('actores')->group(function () {
+    Route::get('/', [ActorController::class, 'getAll']);
+    Route::get('{actor:id}', [ActorController::class, 'showActor']);
+    Route::get('{actor:id}/filmografia', [ActorController::class, 'getFilmography']);
+});
+
 });
 
 
