@@ -26,14 +26,14 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::prefix('usuarios')->group(function () {
-    Route::get('/buscar', [UserController::class, 'searchByAlias']); //Falta HACERRR
+    Route::get('/buscar', [UserController::class, 'searchByAlias']); //
 
     Route::get('/{usuario:alias}/perfil', [UserController::class, 'showProfile']); //
     Route::get('/{usuario:alias}/listas-publicas', [ListController::class, 'showPublicUserLists']); //
     Route::get('/{usuario:alias}/listas-publicas/{lista:id}', [ListController::class, 'showPublicUserListContent']); //
     Route::get('/{usuario:alias}/amigos', [FriendShipController::class, 'showFriends']); //
 
-    Route::get('/{usuario:alias}/actividad', [UserController::class, 'activity']); 
+    Route::get('/{usuario:alias}/actividad', [UserController::class, 'activity']); //FALTA
 });
 
 Route::middleware('auth:sanctum')->prefix('mi')->group(function () {
@@ -45,7 +45,6 @@ Route::middleware('auth:sanctum')->prefix('mi')->group(function () {
 
     Route::get('/actividad', [UserController::class, 'myActivity']); 
 
-    // Agrupar bajo autenticación
     Route::prefix('amistad')->group(function () {
         Route::post('/solicitar/{usuario:alias}', [FriendRequestController::class, 'sendFriendRequest']); //
         Route::delete('/cancelar-solicitud/{usuario:alias}', [FriendRequestController::class, 'cancelFriendRequest']); //
@@ -84,23 +83,22 @@ Route::middleware('auth:sanctum')->prefix('mi')->group(function () {
 
 Route::prefix('frames')->group(function () {
     Route::get('/buscar', [FrameController::class, 'searchByTitle']);//
-
-    Route::get('/popular', [FrameController::class, 'popular']);
-    Route::get('/top-10', [FrameController::class, 'top10']);
-    Route::get('/proximamente', [FrameController::class, 'upcoming']);
-    Route::get('/tendencia', [FrameController::class, 'trending']);
+    Route::get('/filtrar', [FrameController::class, 'filterBy']);//
+    Route::get('/generos', [FrameController::class, 'getAllGenres']);//
+    Route::get('/popular', [FrameController::class, 'popular']); //
+    Route::get('/top-10', [FrameController::class, 'top10']); //
+    Route::get('/recientes', [FrameController::class, 'nowPlaying']);
 
     Route::get('/{frame:id}', [FrameController::class, 'showFrameDetails']);
-
     Route::get('/{frame:id}/resenas', [FrameController::class, 'getReviews']); //
+    
     Route::post('{frame:id}/anadir-resena', [ReviewController::class, 'addReview'])->middleware('auth:sanctum'); //
-    Route::get('/{frame:id}/puntuacion', [RateController::class, 'getRateAverage']);
-    Route::post('{frame:id}/anadir-puntuacion', [RateController::class, 'addRate'])->middleware('auth:sanctum');
+    Route::post('{frame:id}/anadir-puntuacion', [RateController::class, 'addRate'])->middleware('auth:sanctum'); //
 
-    Route::get('/{frame:id}/listas', [ListController::class, 'getListas']); //List controller para buscar publicas donde este el frame FALTA
+    Route::get('/{frame:id}/listas-publicas', [ListController::class, 'showPublicListsByFrame']); 
     Route::get('/{frame:id}/similar', [FrameController::class, 'similar']); 
 
-    Route::get('/generos', [FrameController::class, 'getAllGenres']);
+    
 });
 
 

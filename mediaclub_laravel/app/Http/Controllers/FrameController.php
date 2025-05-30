@@ -6,6 +6,7 @@ use App\Actions\Frame\FilterFramesAction;
 use App\Actions\Frame\GetFrameDetailsAction;
 use App\Actions\Frame\GetNowPlayingAction;
 use App\Actions\Frame\GetPopularAction;
+use App\Actions\Frame\GetReviewsAction;
 use App\Actions\Frame\GetSimilarAction;
 use App\Actions\Frame\GetTop10Action;
 use App\Actions\Frame\SearchFrameByTitleAction;
@@ -20,7 +21,8 @@ class FrameController extends Controller
     {
         return app(SearchFrameByTitleAction::class)->execute($request->validated());
     }
-    public function filterBy(FilterFramesRequest $request){
+    public function filterBy(FilterFramesRequest $request)
+    {
         return app(FilterFramesAction::class)->execute($request->validated());
     }
     public function getAllGenres()
@@ -44,8 +46,13 @@ class FrameController extends Controller
     {
         return app(GetFrameDetailsAction::class)->execute($frame);
     }
+    public function getReviews(Frame $frame)
+    {
+        return app(GetReviewsAction::class)->execute($frame);
+    }
     public function similar(Frame $frame)
     {
         return app(GetSimilarAction::class)->execute($frame);
     }
+    
 }

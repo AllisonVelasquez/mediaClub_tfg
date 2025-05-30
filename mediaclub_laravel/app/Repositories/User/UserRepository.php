@@ -6,7 +6,6 @@ use App\Models\Usuario;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -16,20 +15,18 @@ class UserRepository implements UserRepositoryInterface
         return Usuario::where('title', 'like', "%{$alias}%")
         ->paginate(20);
     }
-    // Buscar usuarios por un campo
+
     public function findByLoginId(string $login_id): ?Usuario
     {
         return Usuario::where('login_id', $login_id)->firstOrFail();
     }
 
-    // Crear un nuevo usuario
     public function store(array $data): Usuario
     {
         $data['contrasena'] = Hash::make($data['contrasena']);
         return Usuario::create($data);
     }
 
-    // Actualizar un usuario
     public function update(int $id, array $data): bool
     {
         $user = Usuario::findOrFail($id);
@@ -37,13 +34,12 @@ class UserRepository implements UserRepositoryInterface
             $data['contrasena'] = Hash::make($data['contrasena']);
         }
         $user->fill($data);
-        if ($user->isDirty()) { //Verifica si hay cambios
+        if ($user->isDirty()) { 
             $user->save();
         }
         return true;
     }
 
-    // Eliminar un usuario
     public function delete(int $id): bool
     {
         $user = Usuario::findOrFail($id);

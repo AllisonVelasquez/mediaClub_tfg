@@ -8,13 +8,14 @@ use App\Actions\User\GetUserProfileAction;
 use App\Actions\User\RegisterUserAction;
 use App\Actions\User\LoginUserAction;
 use App\Actions\User\LogoutUserAction;
+use App\Actions\User\SearchUserByAliasAction;
 use App\Actions\User\UpdateUserAction;
 
 use App\Http\Requests\RegisterUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\DeleteUserRequest;
-
+use App\Http\Requests\SearchUserByAliasRequest;
 use App\Models\Usuario;
 
 
@@ -31,6 +32,11 @@ class UserController extends Controller
     public function loginUser(LoginUserRequest $request)
     {
         return app(LoginUserAction::class)->execute($request->validated());
+    }
+
+    public function searchByAlias(SearchUserByAliasRequest $request)
+    {
+        return app(SearchUserByAliasAction::class)->execute($request->validated());
     }
 
     public function myProfile(Request $request) 
