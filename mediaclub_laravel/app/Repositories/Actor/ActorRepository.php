@@ -24,4 +24,8 @@ class ActorRepository implements ActorRepositoryInterface
     {
         return Actor::orderBy('name')->paginate(20);
     }
+    public function getFilmography(int $id): Collection
+{
+    return Actor::findOrFail($id)->frames()->select('id', 'titulo', 'poster_url')->get();
+}
 }

@@ -12,4 +12,5 @@ Interface ActorRepositoryInterface
     public function searchByName(string $name): Collection;
     public function getFramesByActorId(int $actorId): LengthAwarePaginator;
     public function allPaginated(): LengthAwarePaginator;
+    public function getFilmography(int $id): Collection;
 }

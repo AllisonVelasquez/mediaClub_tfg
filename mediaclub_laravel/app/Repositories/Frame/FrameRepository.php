@@ -37,14 +37,6 @@ class FrameRepository implements FrameRepositoryInterface
             );
         }
 
-        // if (isset($filters['actor_id'])) {
-        //     $query->whereHas(
-        //         'actores',
-        //         fn($q) =>
-        //         $q->where('actores.id', $filters['actor_id'])
-        //     );
-        // }
-
         if (isset($filters['fecha_estreno'])) {
             $query->whereYear('fecha_estreno', $filters['fecha_estreno']);
         }
