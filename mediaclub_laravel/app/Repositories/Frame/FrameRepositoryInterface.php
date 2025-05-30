@@ -4,7 +4,6 @@ namespace App\Repositories\Frame;
 
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 Interface FrameRepositoryInterface
 {
