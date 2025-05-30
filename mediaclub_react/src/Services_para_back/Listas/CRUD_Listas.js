@@ -1,4 +1,4 @@
-import { instance } from "../api"; // 6. Listas
+import { instance } from "../axios"; // 6. Listas
 import { getFrameById } from "../Frames/CRUD_Frames";
 export const getListas = async () => {
   try {

@@ -1,10 +1,9 @@
-import { instance } from "../axios";
+import { instance } from "../api";
 
 // 1. Obtener todos los usuarios
 export const getUsuarios = async () => {
   try {
     const response = await instance.get("usuarios/");
-    // Accedemos a los usuarios dentro de la estructura 'data'
     return response.data;
   } catch (error) {
     console.error("Error al obtener Usuarios:", error);
@@ -17,8 +16,8 @@ export const getUsuario = async (id) => {
   try {
     const response = await instance.get(`usuarios/`);
     // Debería retornar solo el objeto de usuario si existe
-    return response.data.data.usuarios.find(
-      (usuario) => usuario.usuario_id === id
+    return response.data.find(
+      (usuario) => usuario.usuario_id === Number(id)
     );
   } catch (error) {
     console.error("Error al obtener Usuario:", error);

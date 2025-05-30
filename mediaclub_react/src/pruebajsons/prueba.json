@@ -4,17 +4,36 @@
       "usuario_id": 1,
       "login_id": "juanperez",
       "correo": "juan@example.com",
-      "contrasena_hash": "$2b$10$MoLArI9kRmi3oPHLpYBgxey8cOOGs7Ahzc3R984IW.TlPlk19StCW",
+      "contrasena_hash": "$2b$10$oa4jvDcFjT0Lcqq4KSgPNeyQiiHd56ZBqMrUqCDl/qnkX1jPtyTlK",
       "alias": "Juan",
-      "bio": "Amante de la tecnología y los videojuegos.",
+      "bio": "Amante del cine clásico.",
       "redes": {
         "facebook": "fb.com/juan",
         "twitter": "x.com/juan",
         "instagram": "insta.com/juan",
         "youtube": "youtube.com/juan"
       },
-      "fecha_creacion": "2025-01-10T09:00:00",
-      "fecha_ultima_actualizacion": "2025-05-01T11:00:00",
+      "fecha_creacion": "2025-01-01T12:00:00",
+      "fecha_ultima_actualizacion": "2025-05-10T09:00:00",
+      "confirmado": true,
+      "foto_perfil": "/images/juan.webp",
+      "bloqueado": false
+    },
+    {
+      "usuario_id": 3,
+      "login_id": "ali",
+      "correo": "ali@a.a",
+      "contrasena_hash": "$2b$10$oa4jvDcFjT0Lcqq4KSgPNeyQiiHd56ZBqMrUqCDl/qnkX1jPtyTlK",
+      "alias": "ali",
+      "bio": "Amante del cine clásico.",
+      "redes": {
+        "facebook": "fb.com/ali",
+        "twitter": "x.com/juan",
+        "instagram": "insta.com/juan",
+        "youtube": "youtube.com/juan"
+      },
+      "fecha_creacion": "2025-01-01T12:00:00",
+      "fecha_ultima_actualizacion": "2025-05-10T09:00:00",
       "confirmado": true,
       "foto_perfil": "/images/juan.webp",
       "bloqueado": false
@@ -23,7 +42,7 @@
       "usuario_id": 2,
       "login_id": "mariarodriguez",
       "correo": "maria@example.com",
-      "contrasena_hash": "$2b$10$MoLArI9kRmi3oPHLpYBgxey8cOOGs7Ahzc3R984IW.TlPlk19StCW",
+      "contrasena_hash": "$2b$10$oa4jvDcFjT0Lcqq4KSgPNeyQiiHd56ZBqMrUqCDl/qnkX1jPtyTlK",
       "alias": "Maria",
       "bio": "Fanática de las series dramáticas.",
       "redes": {
@@ -39,219 +58,298 @@
       "bloqueado": false
     }
   ],
-  "amistades": [
+  "sesiones_usuario": [
     {
-      "user_id": 1,
-      "amigo_id": 2
+      "sesion_id": 1,
+      "usuario_id": 1,
+      "fecha_inicio": "2025-05-12T08:00:00",
+      "fecha_fin": null,
+      "token": "token123",
+      "navegador": "Chrome",
+      "activa": true
     },
     {
-      "user_id": 2,
-      "amigo_id": 3
-    }
-  ],
-  "solicitudes_amistad": [
-    {
-      "user_id": 1,
-      "amigo_id": 3,
-      "estado": "pendiente"
-    },
-    {
-      "user_id": 2,
-      "amigo_id": 4,
-      "estado": "rechazado"
+      "sesion_id": 2,
+      "usuario_id": 2,
+      "fecha_inicio": "2025-05-12T09:00:00",
+      "fecha_fin": "2025-05-12T10:00:00",
+      "token": "token456",
+      "navegador": "Firefox",
+      "activa": false
     }
   ],
   "resenas": [
     {
       "resena_id": 1,
       "usuario_id": 1,
-      "frame_id": 2,
-      "fecha": "2025-04-01T12:30:00",
-      "contenido": "Una serie fascinante, realmente recomendada para los fanáticos del drama.",
+      "frame_id": 10,
+      "fecha": "2025-05-11T18:30:00",
+      "contenido": "Una película emocionante.",
       "spoiler": false
     },
     {
       "resena_id": 2,
       "usuario_id": 2,
-      "frame_id": 3,
-      "fecha": "2025-04-10T18:00:00",
-      "contenido": "Muy buena película, la trama te mantiene al borde del asiento.",
+      "frame_id": 10,
+      "fecha": "2025-05-11T19:00:00",
+      "contenido": "El final fue impactante.",
       "spoiler": true
-    }
-  ],
-  "megusta": [
-    {
-      "megusta_id": 1,
-      "entidad_id": 1,
-      "usuario_id": 1,
-      "tipo_entidad": "resena",
-      "fecha": "2025-04-15T14:00:00"
     },
     {
-      "megusta_id": 2,
-      "entidad_id": 2,
-      "usuario_id": 3,
-      "tipo_entidad": "respuesta",
-      "fecha": "2025-04-16T17:00:00"
+      "resena_id": 3,
+      "usuario_id": 2,
+      "frame_id": 10,
+      "fecha": "2025-05-11T19:00:00",
+      "contenido": "El final fue impactante.",
+      "spoiler": true
+    },
+    {
+      "resena_id": 4,
+      "usuario_id": 2,
+      "frame_id": 10,
+      "fecha": "2025-05-11T19:00:00",
+      "contenido": "El final fue impactante.",
+      "spoiler": true
+    },
+    {
+      "resena_id": 5,
+      "usuario_id": 2,
+      "frame_id": 10,
+      "fecha": "2025-05-11T19:00:00",
+      "contenido": "El final fue impactante.",
+      "spoiler": true
     }
   ],
   "puntuaciones": [
     {
       "puntuacion_id": 1,
       "usuario_id": 1,
-      "frame_id": 2,
+      "frame_id": 10,
       "puntuacion": 8.5,
-      "fecha": "2025-04-12T16:00:00"
+      "fecha": "2025-05-11T20:00:00"
     },
     {
       "puntuacion_id": 2,
-      "usuario_id": 3,
-      "frame_id": 3,
+      "usuario_id": 2,
+      "frame_id": 11,
       "puntuacion": 9.0,
-      "fecha": "2025-04-14T19:00:00"
+      "fecha": "2025-05-11T20:10:00"
     }
   ],
   "frames": [
     {
-      "frame_id": 1,
-      "imdb_id": 12345,
-      "titulo": "La Aventura del Espacio",
+      "frame_id": 10,
+      "imdb_id": 10101,
+      "titulo": "El Viaje",
       "tipo_contenido": "pelicula",
-      "genero": "Acción",
-      "fecha_lanzamiento": "2025-03-15T20:00:00",
-      "descripcion": "Una película épica sobre la exploración espacial.",
+      "genero": "Aventura",
+      "fecha_lanzamiento": "2024-12-01T00:00:00",
+      "descripcion": "Una aventura épica a través del tiempo.",
       "duracion": 120,
-      "numero_episodios": 0,
-      "poster_url": "/images/aventura_espacio.jpg",
-      "puntuacion_dbs": "{\"imdb\": 7.8, \"rottenTomatoes\": 85}",
-      "fecha_ultima_actualizacion": "2025-05-01T10:00:00"
+      "numero_episodios": null,
+      "poster_url": "/posters/viaje.jpg",
+      "puntuacion_dbs": { "imdb": 7.4 },
+      "fecha_ultima_actualizacion": "2025-05-10T09:30:00"
     },
     {
-      "frame_id": 2,
-      "imdb_id": 23456,
-      "titulo": "Drama en la Ciudad",
+      "frame_id": 11,
+      "imdb_id": 20202,
+      "titulo": "La Caída",
       "tipo_contenido": "serie",
       "genero": "Drama",
-      "fecha_lanzamiento": "2025-02-20T21:00:00",
-      "descripcion": "Una serie que sigue los enredos de una familia en una ciudad turbulenta.",
+      "fecha_lanzamiento": "2023-10-10T00:00:00",
+      "descripcion": "Una historia trágica con tintes políticos.",
       "duracion": 45,
-      "numero_episodios": 12,
-      "poster_url": "/images/drama_ciudad.jpg",
-      "puntuacion_dbs": "{\"imdb\": 8.3, \"metacritic\": 70}",
-      "fecha_ultima_actualizacion": "2025-05-05T09:00:00"
-    }
-  ],
-  "generos": [
-    {
-      "genero_id": 1,
-      "nombre": "Acción"
+      "numero_episodios": 10,
+      "poster_url": "/posters/caida.jpg",
+      "puntuacion_dbs": { "imdb": 8.0 },
+      "fecha_ultima_actualizacion": "2025-05-11T08:45:00"
     },
     {
-      "genero_id": 2,
-      "nombre": "Drama"
-    }
-  ],
-  "frame_generos": [
-    {
-      "frame_id": 1,
-      "genero_id": 1
+      "frame_id": 12,
+      "imdb_id": 30303,
+      "titulo": "Alien",
+      "tipo_contenido": "pelicula",
+      "genero": "Ciencia Ficción",
+      "fecha_lanzamiento": "1979-05-25T00:00:00",
+      "descripcion": "La tripulación de una nave espacial se enfrenta a un mortal alienígena.",
+      "duracion": 117,
+      "numero_episodios": null,
+      "poster_url": "/posters/alien.jpg",
+      "puntuacion_dbs": { "imdb": 8.5 },
+      "fecha_ultima_actualizacion": "2025-05-12T10:00:00"
     },
     {
-      "frame_id": 2,
-      "genero_id": 2
+      "frame_id": 13,
+      "imdb_id": 10101,
+      "titulo": "El Viaje",
+      "tipo_contenido": "pelicula",
+      "genero": "Aventura",
+      "fecha_lanzamiento": "2024-12-01T00:00:00",
+      "descripcion": "Una aventura épica a través del tiempo.",
+      "duracion": 120,
+      "numero_episodios": null,
+      "poster_url": "/posters/viaje.jpg",
+      "puntuacion_dbs": { "imdb": 7.4 },
+      "fecha_ultima_actualizacion": "2025-05-10T09:30:00"
+    },
+    {
+      "frame_id": 14,
+      "imdb_id": 20202,
+      "titulo": "La Caída",
+      "tipo_contenido": "serie",
+      "genero": "Drama",
+      "fecha_lanzamiento": "2023-10-10T00:00:00",
+      "descripcion": "Una historia trágica con tintes políticos.",
+      "duracion": 45,
+      "numero_episodios": 10,
+      "poster_url": "/posters/caida.jpg",
+      "puntuacion_dbs": { "imdb": 8.0 },
+      "fecha_ultima_actualizacion": "2025-05-11T08:45:00"
+    },
+    {
+      "frame_id": 15,
+      "imdb_id": 30303,
+      "titulo": "Alien",
+      "tipo_contenido": "pelicula",
+      "genero": "Ciencia Ficción",
+      "fecha_lanzamiento": "1979-05-25T00:00:00",
+      "descripcion": "La tripulación de una nave espacial se enfrenta a un mortal alienígena.",
+      "duracion": 117,
+      "numero_episodios": null,
+      "poster_url": "/posters/alien.jpg",
+      "puntuacion_dbs": { "imdb": 8.5 },
+      "fecha_ultima_actualizacion": "2025-05-12T10:00:00"
+    },
+    {
+      "frame_id": 16,
+      "imdb_id": 10101,
+      "titulo": "El Viaje2",
+      "tipo_contenido": "pelicula",
+      "genero": "Aventura",
+      "fecha_lanzamiento": "2024-12-01T00:00:00",
+      "descripcion": "Una aventura épica a través del tiempo.",
+      "duracion": 120,
+      "numero_episodios": null,
+      "poster_url": "/posters/viaje.jpg",
+      "puntuacion_dbs": { "imdb": 7.4 },
+      "fecha_ultima_actualizacion": "2025-05-10T09:30:00"
+    },
+    {
+      "frame_id": 17,
+      "imdb_id": 20202,
+      "titulo": "La Caída2",
+      "tipo_contenido": "serie",
+      "genero": "Drama",
+      "fecha_lanzamiento": "2023-10-10T00:00:00",
+      "descripcion": "Una historia trágica con tintes políticos.",
+      "duracion": 45,
+      "numero_episodios": 10,
+      "poster_url": "/posters/caida.jpg",
+      "puntuacion_dbs": { "imdb": 8.0 },
+      "fecha_ultima_actualizacion": "2025-05-11T08:45:00"
+    },
+    {
+      "frame_id": 18,
+      "imdb_id": 30303,
+      "titulo": "Alien2",
+      "tipo_contenido": "pelicula",
+      "genero": "Ciencia Ficción",
+      "fecha_lanzamiento": "1979-05-25T00:00:00",
+      "descripcion": "La tripulación de una nave espacial se enfrenta a un mortal alienígena.",
+      "duracion": 117,
+      "numero_episodios": null,
+      "poster_url": "/posters/alien.jpg",
+      "puntuacion_dbs": { "imdb": 8.5 },
+      "fecha_ultima_actualizacion": "2025-05-12T10:00:00"
     }
   ],
   "listas": [
     {
       "lista_id": 1,
-      "nombre": "Mis Películas Favoritas",
+      "nombre": "Favoritas",
       "usuario_id": 1,
-      "fecha_creacion": "2025-01-20T15:00:00",
+      "fecha_creacion": "2025-04-10T08:00:00",
       "publica": true
     },
     {
       "lista_id": 2,
-      "nombre": "Series para Ver",
+      "nombre": "Por ver",
       "usuario_id": 2,
-      "fecha_creacion": "2025-02-22T12:45:00",
-      "publica": true
-    }
-  ],
-  "frame_listas": [
-    {
-      "frame_lista_id": 1,
-      "frame_id": [
-        1,
-        2,
-        3
-      ],
-      "lista_id": 1
-    },
-    {
-      "frame_lista_id": 2,
-      "frame_id": [
-        1,
-        2,
-        3
-      ],
-      "lista_id": 2
-    }
-  ],
-  "actividades": [
-    {
-      "actividad_id": 1,
-      "usuario_id": 1,
-      "frame_id": 1,
-      "fecha": "2025-03-16T18:30:00",
-      "tipo": "visto"
-    },
-    {
-      "actividad_id": 2,
-      "usuario_id": 2,
-      "frame_id": 2,
-      "fecha": "2025-04-20T22:00:00",
-      "tipo": "en curso"
+      "fecha_creacion": "2025-04-15T10:30:00",
+      "publica": false
     }
   ],
   "hilos": [
     {
       "hilo_id": 1,
       "usuario_id": 1,
-      "frame_id": 1,
-      "titulo": "¿Qué les parece la trama de esta película?",
-      "contenido": "Me encantó la trama, pero el final fue inesperado.",
-      "fecha_creacion": "2025-04-05T15:00:00"
+      "frame_id": 10,
+      "titulo": "¿Qué opinan del final?",
+      "contenido": "Siento que dejaron todo abierto.",
+      "fecha_creacion": "2025-05-11T16:00:00"
+    },
+    {
+      "hilo_id": 2,
+      "usuario_id": 2,
+      "frame_id": 11,
+      "titulo": "¿Vale la pena verla completa?",
+      "contenido": "Después del episodio 5 me desanimé.",
+      "fecha_creacion": "2025-05-11T16:30:00"
     }
   ],
-  "respuesta_hilos": [
+  "respuestas_hilo": [
     {
       "respuesta_hilo_id": 1,
       "hilo_id": 1,
       "usuario_id": 2,
-      "contenido": "Totalmente de acuerdo, el final fue impresionante.",
-      "fecha": "2025-04-05T16:00:00",
-      "respuesta_a": 0
+      "contenido": "Sí, el final fue flojo.",
+      "fecha": "2025-05-11T16:10:00",
+      "respuesta_a": null
+    },
+    {
+      "respuesta_hilo_id": 2,
+      "hilo_id": 2,
+      "usuario_id": 1,
+      "contenido": "Aguanta hasta el final, mejora mucho.",
+      "fecha": "2025-05-11T16:45:00",
+      "respuesta_a": 1
     }
   ],
   "chats": [
     {
       "id_chat": 1,
-      "fecha_creacion": "2025-05-01T14:00:00",
-      "is_group": true,
-      "usuarios_chat": [
-        1,
-        2
-      ],
+      "fecha_creacion": "2025-05-10T10:00:00",
+      "is_group": false,
+      "usuarios_chat": [1, 2],
       "chat_id": "chat_1",
       "usuario_id": 1,
-      "fecha_union": "2025-05-01T14:10:00",
+      "fecha_union": "2025-05-10T10:05:00",
       "mensajes": [
         {
           "id": 1,
           "chat_id": "chat_1",
           "usuario_id": 1,
-          "contenido": "¡Hola! ¿Qué tal?",
-          "fecha_envio": "2025-05-01T14:15:00"
+          "contenido": "Hola!",
+          "fecha_envio": "2025-05-10T10:10:00"
+        }
+      ]
+    },
+    {
+      "id_chat": 2,
+      "fecha_creacion": "2025-05-11T12:00:00",
+      "is_group": true,
+      "usuarios_chat": [1, 2, 3],
+      "chat_id": "chat_2",
+      "usuario_id": 2,
+      "fecha_union": "2025-05-11T12:01:00",
+      "mensajes": [
+        {
+          "id": 2,
+          "chat_id": "chat_2",
+          "usuario_id": 2,
+          "contenido": "¿Qué opinan del capítulo nuevo?",
+          "fecha_envio": "2025-05-11T12:02:00"
         }
       ]
     }

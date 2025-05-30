@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getFrameById } from "../services/Frames/CRUD_Frames";
+import { getFrameById } from "../../services/Frames/CRUD_Frames";
+import Resena from "../Resenas/Resenas";
 import "./PeliculaDetalle.css";
 
 const PeliculaDetalle = () => {
@@ -9,15 +10,22 @@ const PeliculaDetalle = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    getFrameById(id)
-      .then((data) => {
+    const fetchPelicula = async () => {
+      try {
+        const data = await getFrameById(Number(id));
+
         if (!data) {
           setError("Película no encontrada.");
         } else {
           setPelicula(data);
         }
-      })
-      .catch(() => setError("Error al cargar los datos."));
+      } catch (err) {
+        setError("Error al cargar los datos.");
+        console.error("Error al obtener la película:", err);
+      }
+    };
+
+    fetchPelicula();
   }, [id]);
 
   if (error) return <p className="detalle-error">{error}</p>;
@@ -28,7 +36,7 @@ const PeliculaDetalle = () => {
       <img
         className="detalle-poster"
         src={pelicula.poster_url}
-        alt={pelicula.titulo}
+        alt={`Poster de ${pelicula.titulo}`}
       />
       <div className="detalle-info">
         <h1>{pelicula.titulo}</h1>
@@ -58,6 +66,9 @@ const PeliculaDetalle = () => {
           <strong>Descripción:</strong>
         </p>
         <p>{pelicula.descripcion}</p>
+      </div>
+      <div className="resenas-container">
+        <Resena peliculaId={pelicula.frame_id} />
       </div>
     </div>
   );

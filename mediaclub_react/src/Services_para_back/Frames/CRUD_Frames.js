@@ -1,4 +1,4 @@
-import { instance } from "../api";
+import { instance } from "../axios";
 // 5. Frames
 // Obtener todos los frames
 export const getFrames = async () => {
@@ -18,7 +18,7 @@ export const getFrameById = async (frameId) => {
       params: { frame_id: frameId },
     });
 
-    return response.data[0];
+    return response.data;
   } catch (error) {
     console.error("Error al obtener frame por ID:", error);
     throw error;

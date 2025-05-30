@@ -1,45 +1,48 @@
-// src/components/UserLists.jsx
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { getUsuarios } from "../../services/Usuarios/CRUD_Usuarios";
+import "./UserList.css";
 
-const UserLists = ({ usuarioId, data }) => {
-  const navigate = useNavigate();
+const UserList = () => {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Filtrar listas del usuario
-  const listas =
-    data.find((item) => item.message.includes("Listas"))?.data?.listas || [];
-  const usuario = data
-    .find((item) => item.message.includes("Usuarios"))
-    ?.data?.usuarios?.find((u) => u.usuario_id === usuarioId);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const data = await getUsuarios(); // Aquí data es { usuarios: [...] }
+        const usuarios = Array.isArray(data) ? data : [];
+        setUsers(usuarios);
+      } catch (error) {
+        console.error("Error al obtener los usuarios:", error);
+        setUsers([]);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const listasUsuario = listas.filter(
-    (lista) => lista.usuario_id === usuarioId
-  );
+    fetchUsers();
+  }, []);
 
-  if (!usuario) return <p>Usuario no encontrado</p>;
+  if (loading) return <div>Cargando usuarios...</div>;
+  if (!users.length) return <div>No hay usuarios disponibles.</div>;
 
   return (
-    <div>
-      <h2>Listas de {usuario.alias}</h2>
-      <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-        {listasUsuario.map((lista) => (
-          <div
-            key={lista.lista_id}
-            onClick={() => navigate(`/lista/${lista.lista_id}`)}
-            style={{
-              cursor: "pointer",
-              border: "1px solid #ccc",
-              padding: "1rem",
-              borderRadius: "8px",
-              textAlign: "center",
-              width: "150px",
-            }}
-          >
-            <img
-              src={usuario.foto_perfil || "/images/default.webp"}
-              alt={usuario.alias}
-              style={{ width: "100%", borderRadius: "4px" }}
-            />
-            <h4>{lista.nombre}</h4>
+    <div className="user-list">
+      <h2>Usuarios</h2>
+      <div className="user-list-container">
+        {users.map((user) => (
+          <div className="user-card" key={user.usuario_id}>
+            <Link to={`/perfil/${user.usuario_id}`} className="user-link">
+              <div className="user-photo">
+                <img
+                  src={user.foto_perfil}
+                  alt={user.alias}
+                  className="user-img"
+                />
+              </div>
+              <div className="user-name">{user.alias}</div>
+            </Link>
           </div>
         ))}
       </div>
@@ -47,4 +50,4 @@ const UserLists = ({ usuarioId, data }) => {
   );
 };
 
-export default UserLists;
+export default UserList;

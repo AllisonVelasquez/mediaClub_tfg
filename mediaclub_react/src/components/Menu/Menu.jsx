@@ -1,17 +1,16 @@
 import React from "react";
 import "./Menu.css";
 import { NavLink, Link } from "react-router-dom";
-import logo from "./LOGO.png";
 
 function Menu() {
   return (
     <nav>
-      <Link to="/">
-        <img src={logo} alt="Logo" className="logo" />
+      <Link to="/Inicio">
+        <img src="/logo.png" alt="Muvis Logo" className="logo" />
       </Link>
       <div className="menu-links">
         <NavLink
-          to="/landing"
+          to="/Inicio"
           className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
         >
           Inicio
@@ -23,22 +22,28 @@ function Menu() {
           Perfil
         </NavLink>
         <NavLink
-          to="/Registro"
+          to="/Peliculas"
           className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
         >
-          Registro
+          Peliculas{" "}
         </NavLink>
         <NavLink
-          to="/Login"
+          to="/ListaUsuarios"
           className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
         >
-          Login
+          Usuarios
         </NavLink>
         <NavLink
-          to="/TodasLasListas"
+          to="/DetallesPeliculas"
           className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
         >
-          listas
+          DetallesPeliculas
+        </NavLink>
+        <NavLink
+          to="/Resenas"
+          className={({ isActive }) => (isActive ? "opcion-activa" : "opcion")}
+        >
+          Reseñas{" "}
         </NavLink>
       </div>
     </nav>

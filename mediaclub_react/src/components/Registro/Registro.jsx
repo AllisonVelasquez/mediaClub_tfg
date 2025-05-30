@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import bcrypt from "bcryptjs";
-
+import logoNombreOscuro from "../assents/logo_nombre_oscuro.png";
 import "./Registro.css";
-import logoNombreOscuro from "./logo_nombre_oscuro.png";
-import { crearUsuario, getUsuarios } from "../services/Usuarios/CRUD_Usuarios";
+import { crearUsuario, getUsuarios } from "../../services/Usuarios/CRUD_Usuarios";
 const Registro = () => {
   const [formData, setFormData] = useState({
     nombre: "",

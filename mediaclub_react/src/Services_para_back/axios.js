@@ -14,12 +14,3 @@ export const instance = axios.create({
 
 
 
-
-
-
-
-
-
-// 8. Respuestas Hilo
-
-
