@@ -15,7 +15,5 @@ Interface FrameRepositoryInterface
     public function getTop10(): Collection;
     public function getNowPlaying(): LengthAwarePaginator;
     public function getSimilar(int $id): Collection;
-    //se invoca en el use case para actualizar la puntuacion nuestra
-    public function updateMuvisAverageRate(int $frameId, array $avgRates): bool;
-   
+    public function getReviews(int $id) : LengthAwarePaginator;
 }

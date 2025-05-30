@@ -12,5 +12,4 @@ interface RateRepositoryInterface
     public function addRate(array $data): Puntuacion;
     public function editRate(int $rateId, int $userId, float $rate): bool;
     public function deleteRate(int $userId, int $rateId): bool;
-    public function getRateAverageMuvis(int $frameId): array;
 }

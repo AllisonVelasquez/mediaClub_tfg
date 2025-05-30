@@ -13,7 +13,5 @@ interface ReviewRepositoryInterface
     public function addReview(array $data):Resena;
     public function deleteReview(int $userId, int $resenaId):bool;
     public function getMyReviewsByFrame(int $userId, int $frameId):Collection;
-    public function getReviewsByFrame(int $frameId):Collection;
-
 }
 

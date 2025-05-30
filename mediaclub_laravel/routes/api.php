@@ -92,7 +92,7 @@ Route::prefix('frames')->group(function () {
 
     Route::get('/{frame:id}', [FrameController::class, 'showFrameDetails']);
 
-    Route::get('/{frame:id}/resenas', [ReviewController::class, 'getReviewsByFrame']); //
+    Route::get('/{frame:id}/resenas', [FrameController::class, 'getReviews']); //
     Route::post('{frame:id}/anadir-resena', [ReviewController::class, 'addReview'])->middleware('auth:sanctum'); //
     Route::get('/{frame:id}/puntuacion', [RateController::class, 'getRateAverage']);
     Route::post('{frame:id}/anadir-puntuacion', [RateController::class, 'addRate'])->middleware('auth:sanctum');

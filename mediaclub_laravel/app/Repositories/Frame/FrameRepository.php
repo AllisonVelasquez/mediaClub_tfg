@@ -99,7 +99,7 @@ class FrameRepository implements FrameRepositoryInterface
             ->pluck('genero_id')
             ->toArray();
 
-        if (empty($genreIds)) throw new Exception('No hay peliculas similares',404);
+        if (empty($genreIds)) throw new Exception('No hay peliculas similares', 404);
 
         return Frame::categoriesData()
             ->whereHas('generos', function ($query) use ($genreIds) {
@@ -110,19 +110,9 @@ class FrameRepository implements FrameRepositoryInterface
             ->get();
     }
 
-    public function updateMuvisAverageRate(int $frameId, array $avgRates): bool
+    public function getReviews(int $frameId): LengthAwarePaginator
     {
-        return Frame::where('id', $frameId)->update([
-            'promedio_votos_muvis' => $avgRates['average'] ?? 0,
-            'cantidad_votos_muvis' => $avgRates['votes'] ?? 0,
-        ]);
+        $frame = Frame::findOrFail($frameId);
+        return $frame->resenas()->orderBy('fecha', 'desc')->paginate(10);
     }
-
-    // public function updateMuvisAverageRate(int $frameId, array $avgRates): bool
-    // {
-    //     return Frame::where('id', $frameId)->update([
-    //         'promedio_votos_muvis' => $avgRates['average'] ?? 0,
-    //         'cantidad_votos_muvis' => $avgRates['votes'] ?? 0,
-    //     ]);
-    // }
 }

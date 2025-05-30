@@ -35,16 +35,4 @@ class RateRepository implements RateRepositoryInterface
         return $lista->delete();
     }
 
-    //Incorporar los datos a cada peli
-    public function getRateAverageMuvis(int $frameId): array
-    {
-        $result = Puntuacion::where('frame_id', $frameId)
-            ->selectRaw('AVG(puntuacion) as average, COUNT(*) as votes')
-            ->first();
-
-        return [
-            'average' => round($result->average, 1),
-            'votes' => $result->votes ?? 0,
-        ];
-    }
 }

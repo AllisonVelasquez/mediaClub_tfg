@@ -43,10 +43,4 @@ class ReviewRepository implements ReviewRepositoryInterface
             ->get();
     }
 
-    public function getReviewsByFrame(int $frameId): Collection
-    {
-        return Resena::where('frame_id', $frameId)
-            ->orderBy('fecha', 'desc')
-            ->get();
-    }
 }
