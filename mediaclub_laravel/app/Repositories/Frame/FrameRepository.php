@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class FrameRepository implements FrameRepositoryInterface
 {
@@ -21,8 +22,18 @@ class FrameRepository implements FrameRepositoryInterface
 
     public function getDetails(int $id): Frame
     {
-        return Frame::with(['actores', 'generos'])
+        $cacheKey = "movie_with_relations_{$id}";
+
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        }
+
+        $movie = Frame::with(['actores', 'generos'])
             ->find($id);
+        
+        Cache::put($cacheKey,$movie,1800);
+        
+        return $movie;
     }
 
     public function filter(array $filters): LengthAwarePaginator
