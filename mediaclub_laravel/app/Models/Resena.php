@@ -28,7 +28,7 @@ class Resena extends Model
 {
 	protected $table = 'resena';
 	protected $primaryKey = 'id';
-	
+
 	public $timestamps = false;
 
 	protected $casts = [
@@ -54,6 +54,10 @@ class Resena extends Model
 	public function frame()
 	{
 		return $this->belongsTo(Frame::class)
-		->select('id','titulo');
+			->select('id', 'titulo');
+	}
+	public function likes()
+	{
+		return $this->morphMany(Megusta::class, 'likeable');
 	}
 }

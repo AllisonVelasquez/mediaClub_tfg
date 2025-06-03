@@ -22,25 +22,23 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Megustum extends Model
+class Megusta extends Model
 {
 	protected $table = 'megusta';
 	protected $primaryKey = 'id';
 
-	public $timestamps = false;
-
 	protected $casts = [
 		'usuario_id' => 'int',
-		'entidad_id' => 'int',
-		'fecha' => 'datetime'
 	];
 
 	protected $fillable = [
 		'usuario_id',
-		'entidad_id',
-		'tipo_entidad',
-		'fecha'
 	];
+
+	public function likeable()
+    {
+        return $this->morphTo();
+    }
 
 	public function usuario()
 	{

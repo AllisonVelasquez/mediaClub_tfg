@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('megusta', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('usuario_id');
-            $table->unsignedBigInteger('entidad_id');
-            $table->enum('tipo_entidad', ['resena', 'mensaje']);
-            $table->dateTime('fecha')->useCurrent();
+            $table->morphs('likeable'); 
+            $table->timestamps();
 
-            $table->unique(['usuario_id', 'entidad_id', 'tipo_entidad'], 'usuario_id');
+            $table->unique(['usuario_id', 'likeable_id', 'likeable_type']);
         });
     }
 
@@ -30,3 +29,4 @@ return new class extends Migration
         Schema::dropIfExists('megusta');
     }
 };
+

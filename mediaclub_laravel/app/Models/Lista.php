@@ -48,12 +48,16 @@ class Lista extends Model
 	public function frames_img()
 	{
 		return $this->belongsToMany(Frame::class)
-			->select('id','poster_url');
+			->select('id', 'poster_url');
 	}
 	public function frames()
 	{
 		return $this->belongsToMany(Frame::class)
 			->withPivot('fecha')
 			->select('id', 'titulo', 'fecha_estreno');
+	}
+	public function likes()
+	{
+		return $this->morphMany(Megusta::class, 'likeable');
 	}
 }
