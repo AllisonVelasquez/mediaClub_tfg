@@ -48,7 +48,6 @@ class Usuario extends Authenticatable
 	protected $primaryKey = 'id';
 
 	protected $casts = [
-		'confirmado' => 'bool'
 	];
 
 	protected $fillable = [
@@ -59,7 +58,6 @@ class Usuario extends Authenticatable
 		'bio',
 		'redes',
 		'foto_perfil',
-		'confirmado'
 	];
 
 	public function actividades()

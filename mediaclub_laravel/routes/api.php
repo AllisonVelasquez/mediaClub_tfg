@@ -104,7 +104,7 @@ Route::prefix('actores')->group(function () {
     Route::get('/', [ActorController::class, 'getAll']);
     Route::get('/buscar', [ActorController::class, 'searchByName']);
     Route::get('{actor:id}', [ActorController::class, 'showActor']);
-    // Route::get('{actor:id}/filmografia', [ActorController::class, 'getFilmography']); hay que añadirlo al devolver los datos de actor
+    Route::get('{actor:id}/filmografia', [ActorController::class, 'getFilmography']);
 });
 
 });

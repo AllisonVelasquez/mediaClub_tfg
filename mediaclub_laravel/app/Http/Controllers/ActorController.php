@@ -2,12 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Actions\Actor\GetActorByIdAction;
+use App\Actions\Actor\GetAllActorsAction;
+use App\Actions\Actor\GetFilmographyAction;
+use App\Actions\Actor\SearchByNameAction;
+use App\Http\Requests\SearchActorByNameRequest;
+use App\Models\Actor;
 
 class ActorController extends Controller
 {
-    public function searchById() {}
-    public function searchByName() {}
-    public function searchFramesByActorId() {}
-    public function getAll() {}
+    public function searchByName(SearchActorByNameRequest $request) 
+    {
+        return app(SearchByNameAction::class)->execute($request->validated());
+    }
+    public function showActor(Actor $actor) 
+    {
+        return app(GetActorByIdAction::class)->execute($actor);
+    }
+    public function getFilmography(Actor $actor) 
+    {
+        return app(GetFilmographyAction::class)->execute($actor);
+    }
+    public function getAll() 
+    {
+        return app(GetAllActorsAction::class)->execute();
+    }
 }

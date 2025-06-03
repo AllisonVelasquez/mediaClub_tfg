@@ -20,7 +20,6 @@ return new class extends Migration
             $table->text('bio')->nullable();
             $table->json('redes')->nullable();
             $table->string('foto_perfil')->default('/images/perfiles/default.png'); //Hay que cambiar la ruta por defecto
-            $table->boolean('confirmado')->default(false);
             $table->timestamps();
         });
     }

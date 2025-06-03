@@ -9,8 +9,7 @@ use App\Models\Actor;
 Interface ActorRepositoryInterface
 {
     public function findById(int $actorId): Actor;
-    public function searchByName(string $name): Collection;
-    public function getFramesByActorId(int $actorId): LengthAwarePaginator;
+    public function searchByName(string $name): LengthAwarePaginator;
     public function allPaginated(): LengthAwarePaginator;
-    public function getFilmography(int $id): Collection;
+    public function getFilmography(int $id): LengthAwarePaginator;
 }
