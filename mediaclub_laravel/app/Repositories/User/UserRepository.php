@@ -13,7 +13,7 @@ class UserRepository implements UserRepositoryInterface
     {
         $alias = trim($alias);
         return Usuario::where('title', 'like', "%{$alias}%")
-        ->paginate(20);
+            ->paginate(20);
     }
 
     public function findByLoginId(string $login_id): ?Usuario
@@ -34,7 +34,7 @@ class UserRepository implements UserRepositoryInterface
             $data['contrasena'] = Hash::make($data['contrasena']);
         }
         $user->fill($data);
-        if ($user->isDirty()) { 
+        if ($user->isDirty()) {
             $user->save();
         }
         return true;
@@ -53,5 +53,24 @@ class UserRepository implements UserRepositoryInterface
         return $user->amigos();
     }
 
-    public function showProfile() {}
+    public function getInfoUser(int $userId): array
+    {
+        $user = Usuario::withCount([
+            'resenas',
+            'puntuaciones',
+            'lista as listas_publicas_count' => function ($query) {
+                $query->where('publica', true);
+            },
+            'lista as listas_privadas_count' => function ($query) {
+                $query->where('publica', false);
+            }
+        ])->findOrFail($userId);
+
+        return [
+            'puntuaciones' => $user->puntuaciones_count,
+            'resenas' => $user->resenas_count,
+            'listas_publicas' => $user->listas_publicas_count,
+            'listas_privadas' => $user->listas_privadas_count,
+        ];
+    }
 }

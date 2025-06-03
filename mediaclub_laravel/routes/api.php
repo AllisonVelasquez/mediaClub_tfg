@@ -29,12 +29,13 @@ Route::prefix('auth')->group(function () {
 Route::prefix('usuarios')->group(function () {
     Route::get('/buscar', [UserController::class, 'searchByAlias']); //
 
-    Route::get('/{usuario:alias}/perfil', [UserController::class, 'showProfile']); //
-    Route::get('/{usuario:alias}/listas-publicas', [ListController::class, 'showPublicUserLists']); //
-    Route::get('/{usuario:alias}/listas-publicas/{lista:id}', [ListController::class, 'showPublicUserListContent']); //
-    Route::get('/{usuario:alias}/amigos', [FriendShipController::class, 'showFriends']); //
+    Route::get('/{usuario:id}/perfil', [UserController::class, 'showProfile']); //
+    Route::get('/{usuario:id}/listas-publicas', [ListController::class, 'showPublicUserLists']); //
+    Route::get('/{usuario:id}/listas-publicas/{lista:id}', [ListController::class, 'showPublicUserListContent']); //
+    Route::get('/{usuario:id}/amigos', [FriendShipController::class, 'showFriends']); //
+    Route::get('/{usuario:id}/info', [FriendShipController::class, 'showUserInfo']); //
 
-    Route::get('/{usuario:alias}/actividad', [UserController::class, 'activity']); //FALTA
+    Route::get('/{usuario:id}/actividad', [UserController::class, 'activity']); //FALTA
 });
 
 Route::middleware('auth:sanctum')->prefix('mi')->group(function () {

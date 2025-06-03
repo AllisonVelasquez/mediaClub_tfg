@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 
 use App\Actions\User\DeleteUserAction;
+use App\Actions\User\GetUserInfoAction;
 use App\Actions\User\GetUserProfileAction;
 use App\Actions\User\RegisterUserAction;
 use App\Actions\User\LoginUserAction;
@@ -39,14 +41,19 @@ class UserController extends Controller
         return app(SearchUserByAliasAction::class)->execute($request->validated());
     }
 
-    public function myProfile(Request $request) 
+    public function myProfile(Request $request)
     {
         return app(GetUserProfileAction::class)->execute($request->user());
     }
 
-    public function showProfile( Usuario $user)
+    public function showProfile(Usuario $user)
     {
         return app(GetUserProfileAction::class)->execute($user);
+    }
+
+    public function showUserInfo(Usuario $user)
+    {
+        return app(GetUserInfoAction::class)->execute($user);
     }
 
     public function logoutUser(Request $request)
@@ -55,7 +62,7 @@ class UserController extends Controller
         return app(LogoutUserAction::class)->execute($user);
     }
 
-    public function deleteUser(DeleteUserRequest $request) 
+    public function deleteUser(DeleteUserRequest $request)
     {
         $user = $request->user();
         $data = $request->validated();
@@ -66,9 +73,9 @@ class UserController extends Controller
     {
         $user = $request->user();
         return app(UpdateUserAction::class)->execute($user, $request->validated());
-        
     }
-    
+
+
 
     //Threads
 }
