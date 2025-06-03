@@ -1,4 +1,5 @@
 <?php
+
 use App\Models\Lista;
 use App\Models\Megusta;
 use App\Models\Resena;
@@ -10,6 +11,9 @@ class LikeRepository
         $modelClass = $this->resolveModelClass($modelName);
         $model = $modelClass::findOrFail($modelId);
 
+        if ($modelClass === 'listas' && !$model->publica) {
+            throw new Exception('Esta lista no es publica', 403);
+        }
         // return $model->likes()->with('usuario')->get();
         return $model->likes()->count();
     }
@@ -20,12 +24,11 @@ class LikeRepository
 
         $model = $modelClass::findOrFail($modelId);
 
-        $existingLike = $model->likes()->where('usuario_id', $userId)->first();
-        if ($existingLike) {
-            return $existingLike; 
+        if ($modelClass === 'listas' && !$model->publica) {
+            throw new Exception('Esta lista no es publica.', 403);
         }
-        
-        return $model->likes()->create([
+
+        return $model->likes()->firstOrCreate([
             'usuario_id' => $userId,
         ]);
     }
@@ -42,7 +45,7 @@ class LikeRepository
     {
         return match ($modelName) {
             'listas' => Lista::class,
-            'reviews' => Resena::class,
+            'resenas' => Resena::class,
             // 'posts' => Post::class,
             // 'comentarios' => Comentario::class,
             default => throw new \InvalidArgumentException("Tipo inválido"),

@@ -10,7 +10,7 @@ use App\Http\Controllers\FriendShipController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RateController;
 use App\Http\Controllers\ActorController;
-
+use App\Http\Controllers\LikeController;
 
 // Route::get('/test-db-cache', function () {
 //     Cache::put('cache_prueba', 'Laravel usando cache en la DB!', now()->addHours(24));
@@ -45,7 +45,7 @@ Route::middleware('auth:sanctum')->prefix('mi')->group(function () {
     Route::get('/amigos', [FriendShipController::class, 'myFriends']); //
     Route::delete('/amigos/eliminar/{usuario:alias}', [FriendShipController::class, 'removeFriend']); //
 
-    Route::get('/actividad', [UserController::class, 'myActivity']); 
+    Route::get('/actividad', [UserController::class, 'myActivity']);
 
     Route::prefix('amistad')->group(function () {
         Route::post('/solicitar/{usuario:alias}', [FriendRequestController::class, 'sendFriendRequest']); //
@@ -57,7 +57,7 @@ Route::middleware('auth:sanctum')->prefix('mi')->group(function () {
     });
 
 
-    Route::prefix('listas')->group(function () { 
+    Route::prefix('listas')->group(function () {
         Route::get('/ver-todas', [ListController::class, 'myLists']); //
         Route::post('/crear', [ListController::class, 'createList']); //
         Route::patch('/editar/{lista:id}', [ListController::class, 'editList']); //
@@ -84,30 +84,35 @@ Route::middleware('auth:sanctum')->prefix('mi')->group(function () {
 //FRAMES
 
 Route::prefix('frames')->group(function () {
-    Route::get('/buscar', [FrameController::class, 'searchByTitle']);//
-    Route::get('/filtrar', [FrameController::class, 'filterBy']);//
-    Route::get('/generos', [FrameController::class, 'getAllGenres']);//
+    Route::get('/buscar', [FrameController::class, 'searchByTitle']); //
+    Route::get('/filtrar', [FrameController::class, 'filterBy']); //
+    Route::get('/generos', [FrameController::class, 'getAllGenres']); //
     Route::get('/popular', [FrameController::class, 'popular']); //
     Route::get('/top-10', [FrameController::class, 'top10']); //
     Route::get('/recientes', [FrameController::class, 'nowPlaying']);
 
     Route::get('/{frame:id}', [FrameController::class, 'showFrameDetails']);
     Route::get('/{frame:id}/resenas', [FrameController::class, 'getReviews']); //
-    
+
     Route::post('{frame:id}/anadir-resena', [ReviewController::class, 'addReview'])->middleware('auth:sanctum'); //
     Route::post('{frame:id}/anadir-puntuacion', [RateController::class, 'addRate'])->middleware('auth:sanctum'); //
 
-    Route::get('/{frame:id}/listas-publicas', [ListController::class, 'showPublicListsByFrame']); 
-    Route::get('/{frame:id}/similar', [FrameController::class, 'similar']); 
-
+    Route::get('/{frame:id}/listas-publicas', [ListController::class, 'showPublicListsByFrame']); //
+    Route::get('/{frame:id}/similar', [FrameController::class, 'similar']); //
+});
 
 Route::prefix('actores')->group(function () {
-    Route::get('/', [ActorController::class, 'getAll']);
+    Route::get('/', [ActorController::class, 'getAll']); 
     Route::get('/buscar', [ActorController::class, 'searchByName']);
     Route::get('{actor:id}', [ActorController::class, 'showActor']);
     Route::get('{actor:id}/filmografia', [ActorController::class, 'getFilmography']);
 });
 
+
+Route::get('{likeable_type}/{likeable_id}/ver-likes', [LikeController::class, 'showLikes']);
+
+
+Route::middleware('auth:sanctum')->prefix('{likeable_type}/{likeable_id}')->group(function () {
+    Route::post('anadir', [LikeController::class, 'addLike']);
+    Route::delete('quitar', [LikeController::class, 'removeLike']);
 });
-
-
