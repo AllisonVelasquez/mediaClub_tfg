@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ListController;
@@ -14,11 +13,6 @@ use App\Http\Controllers\ActorController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 
-// Route::get('/test-db-cache', function () {
-//     Cache::put('cache_prueba', 'Laravel usando cache en la DB!', now()->addHours(24));
-//     $mensaje = Cache::get('cache_prueba');
-//     return response()->json(['mensaje' => $mensaje]);
-// });
 
 //USERS
 
