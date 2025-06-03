@@ -60,6 +60,8 @@ class Usuario extends Authenticatable
 		'bio',
 		'redes',
 		'foto_perfil',
+		'created_at',
+		'updated_at'
 	];
 
 	public function actividades()
