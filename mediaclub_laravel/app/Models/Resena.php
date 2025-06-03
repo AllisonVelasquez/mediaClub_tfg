@@ -7,6 +7,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -26,6 +27,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Resena extends Model
 {
+	use HasFactory;
+	
 	protected $table = 'resena';
 	protected $primaryKey = 'id';
 

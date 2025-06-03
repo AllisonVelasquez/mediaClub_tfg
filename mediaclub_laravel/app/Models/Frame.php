@@ -104,11 +104,6 @@ class Frame extends Model
 		return $this->belongsToMany(Lista::class);
 	}
 
-	public function hilos()
-	{
-		return $this->hasMany(Hilo::class);
-	}
-
 	public function puntuaciones()
 	{
 		return $this->hasMany(Puntuacion::class);

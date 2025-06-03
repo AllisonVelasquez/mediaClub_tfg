@@ -8,6 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -27,14 +28,16 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class RespuestaHilo extends Model
+class RespuestaPost extends Model
 {
-	protected $table = 'respuesta_hilo';
+	use HasFactory;
+
+	protected $table = 'respuesta_post';
 	protected $primaryKey = 'id';
 
 
 	protected $casts = [
-		'hilo_id' => 'int',
+		'post_id' => 'int',
 		'usuario_id' => 'int',
 		'respuesta_a' => 'int'
 	];
@@ -46,9 +49,9 @@ class RespuestaHilo extends Model
 		'respuesta_a'
 	];
 
-	public function hilo()
+	public function post()
 	{
-		return $this->belongsTo(Hilo::class);
+		return $this->belongsTo(Post::class);
 	}
 
 	public function usuario()
@@ -56,13 +59,18 @@ class RespuestaHilo extends Model
 		return $this->belongsTo(Usuario::class);
 	}
 
-	public function respuesta_hilo()
+	public function respuestas_hijas()
 	{
-		return $this->belongsTo(RespuestaHilo::class, 'respuesta_a');
+		return $this->hasMany(RespuestaPost::class, 'respuesta_a');
 	}
 
-	public function respuesta_hilos()
+	public function respuesta_post()
 	{
-		return $this->hasMany(RespuestaHilo::class, 'respuesta_a');
+		return $this->belongsTo(RespuestaPost::class, 'respuesta_a');
 	}
+
+	public function likes()
+    {
+        return $this->morphMany(Megusta::class, 'likeable');
+    }
 }
