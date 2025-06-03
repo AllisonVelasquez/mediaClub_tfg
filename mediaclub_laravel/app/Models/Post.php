@@ -51,11 +51,6 @@ class Post extends Model
 		return $this->belongsTo(Usuario::class);
 	}
 
-	public function respuestas()
-	{
-		return $this->hasMany(RespuestaPost::class);
-	}
-
 	 public function likes()
     {
         return $this->morphMany(Megusta::class, 'likeable');

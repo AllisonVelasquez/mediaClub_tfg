@@ -2,7 +2,9 @@
 
 use App\Models\Lista;
 use App\Models\Megusta;
+use App\Models\Post;
 use App\Models\Resena;
+use App\Models\RespuestaPost;
 
 class LikeRepository
 {
@@ -11,7 +13,7 @@ class LikeRepository
         $modelClass = $this->resolveModelClass($modelName);
         $model = $modelClass::findOrFail($modelId);
 
-        if ($modelClass === 'listas' && !$model->publica) {
+        if (($modelClass === 'listas' || $modelClass === 'posts') && !$model->publica) {
             throw new Exception('Esta lista no es publica', 403);
         }
         // return $model->likes()->with('usuario')->get();
@@ -46,8 +48,7 @@ class LikeRepository
         return match ($modelName) {
             'listas' => Lista::class,
             'resenas' => Resena::class,
-            // 'posts' => Post::class,
-            // 'comentarios' => Comentario::class,
+            'posts' => Post::class,
             default => throw new \InvalidArgumentException("Tipo inválido"),
         };
     }

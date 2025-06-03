@@ -21,6 +21,10 @@ use App\Observers\PuntuacionObserver;
 use App\Models\Puntuacion;
 use App\Repositories\Frame\FrameRepository;
 use App\Repositories\Frame\FrameRepositoryInterface;
+use App\Repositories\Actor\ActorRepository;
+use App\Repositories\Actor\ActorRepositoryInterface;
+use App\Repositories\Post\PostRepository;
+use App\Repositories\Post\PostRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,6 +38,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ReviewRepositoryInterface::class, ReviewRepository::class);
         $this->app->bind(RateRepositoryInterface::class, RateRepository::class);
         $this->app->bind(FrameRepositoryInterface::class, FrameRepository::class);
+        $this->app->bind(ActorRepositoryInterface::class, ActorRepository::class);
+        $this->app->bind(PostRepositoryInterface::class, PostRepository::class);
     }
 
     public function boot()
