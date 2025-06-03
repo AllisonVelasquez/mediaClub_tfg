@@ -96,7 +96,7 @@ class ImportMovieFromTMDB implements ShouldQueue
                     ];
                 }
 
-                $movie->actors()->sync($actorSync);
+                $movie->actores()->sync($actorSync);
             }
         } catch (\Throwable $e) {
             Log::error('Fallo al importar película', [

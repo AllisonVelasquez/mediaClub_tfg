@@ -49,7 +49,7 @@ class Frame extends Model
 	public $timestamps = false;
 
 	protected $casts = [
-		'frame_id' => 'int',
+		'id' => 'int',
 		'fecha_estreno' => 'datetime',
 		'duracion' => 'int',
 		'promedio_votos_tmdb' => 'float',
@@ -62,7 +62,7 @@ class Frame extends Model
 	];
 
 	protected $fillable = [
-		'frame_id',
+		'id',
 		'titulo',
 		'titulo_original',
 		'descripcion',
