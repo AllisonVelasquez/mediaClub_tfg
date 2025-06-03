@@ -6,17 +6,20 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Models\Usuario;
 
 class UserRegistered extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    public $user;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct(public $user)
+    public function __construct(Usuario $user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
