@@ -67,9 +67,9 @@ class Usuario extends Authenticatable
 		return $this->hasMany(Actividad::class);
 	}
 
-	public function hilos()
+	public function posts()
 	{
-		return $this->hasMany(Hilo::class);
+		return $this->hasMany(Post::class);
 	}
 
 	public function lista()
@@ -79,7 +79,7 @@ class Usuario extends Authenticatable
 
 	public function megusta()
 	{
-		return $this->hasMany(Megustum::class);
+		return $this->hasMany(Megusta::class);
 	}
 
 	public function puntuaciones()
@@ -90,11 +90,6 @@ class Usuario extends Authenticatable
 	public function resenas()
 	{
 		return $this->hasMany(Resena::class);
-	}
-
-	public function respuesta_hilos()
-	{
-		return $this->hasMany(RespuestaHilo::class);
 	}
 
 	public function solicitudes_recibidas()

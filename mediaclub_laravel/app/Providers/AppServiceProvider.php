@@ -25,6 +25,8 @@ use App\Repositories\Actor\ActorRepository;
 use App\Repositories\Actor\ActorRepositoryInterface;
 use App\Repositories\Post\PostRepository;
 use App\Repositories\Post\PostRepositoryInterface;
+use App\Repositories\Activity\ActivityRepository;
+use App\Repositories\Activity\ActivityRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,6 +42,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(FrameRepositoryInterface::class, FrameRepository::class);
         $this->app->bind(ActorRepositoryInterface::class, ActorRepository::class);
         $this->app->bind(PostRepositoryInterface::class, PostRepository::class);
+        $this->app->bind(ActivityRepositoryInterface::class, ActivityRepository::class);
+
     }
 
     public function boot()

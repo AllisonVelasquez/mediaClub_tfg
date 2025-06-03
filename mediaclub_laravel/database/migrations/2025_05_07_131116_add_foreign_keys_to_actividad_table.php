@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('actividad', function (Blueprint $table) {
             $table->foreign('usuario_id', 'actividad_usuario_id_fk')->references('id')->on('usuario')->onUpdate('restrict')->onDelete('cascade');
-            $table->foreign('frame_id', 'actividad_frame_id_fk')->references('id')->on('frame')->onUpdate('restrict')->onDelete('cascade');
         });
     }
 
@@ -24,7 +23,6 @@ return new class extends Migration
     {
         Schema::table('actividad', function (Blueprint $table) {
             $table->dropForeign('actividad_usuario_id_fk');
-            $table->dropForeign('actividad_frame_id_fk');
         });
     }
 };

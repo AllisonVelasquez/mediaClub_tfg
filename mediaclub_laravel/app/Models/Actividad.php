@@ -12,14 +12,10 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Actividad
  * 
- * @property int $actividad_id
+ * @property int $id
  * @property int $usuario_id
- * @property int $frame_id
- * @property Carbon $fecha
- * @property string $tipo
  * 
  * @property Usuario $usuario
- * @property Frame $frame
  *
  * @package App\Models
  */
@@ -27,20 +23,20 @@ class Actividad extends Model
 {
 	protected $table = 'actividad';
 	protected $primaryKey = 'id';
-	
-	public $timestamps = false;
 
 	protected $casts = [
 		'usuario_id' => 'int',
-		'frame_id' => 'int',
-		'fecha' => 'datetime'
+		'metadata' => 'array',
+
 	];
 
 	protected $fillable = [
 		'usuario_id',
-		'frame_id',
-		'fecha',
-		'tipo'
+		'activitable_id',
+		'activitable_type',
+		'tipo',
+		'descripcion',
+		'metadata',
 	];
 
 	public function usuario()
@@ -48,8 +44,8 @@ class Actividad extends Model
 		return $this->belongsTo(Usuario::class);
 	}
 
-	public function frame()
+	public function activitable()
 	{
-		return $this->belongsTo(Frame::class);
+		return $this->morphTo();
 	}
 }

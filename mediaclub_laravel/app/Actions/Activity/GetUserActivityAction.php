@@ -1,18 +1,24 @@
 <?php
 
 namespace App\Actions\User;
-
-use App\Services\User\AuthService;
-use App\Models\Usuario;
+use App\UseCases\Activity\GetUserActivityUseCase;
 use App\Traits\ApiResponse;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Usuario;
 
-class DeleteUserAction
+
+class GetUserActivityAction
 {
-    // use ApiResponse;
-    // protected $getUserActivityUseCase;
-    // public function __construct(GetUserActivityUseCase $getUserActivityUseCase)
-    // {
-    //     $this->getUserActivityUseCase = $getUserActivityUseCase;
-    // }
+    use ApiResponse;
+    protected $getUserActivitytUseCase;
+
+    public function __construct(GetUserActivityUseCase $getUserActivitytUseCase)
+    {
+        $this->getUserActivitytUseCase = $getUserActivitytUseCase;
+    }
+
+    public function execute(Usuario $user)
+    {
+        $this->getUserActivitytUseCase->execute($user);
+        return $this->success('Lista de actividad cargada correctamente', 200);
+    }
 }

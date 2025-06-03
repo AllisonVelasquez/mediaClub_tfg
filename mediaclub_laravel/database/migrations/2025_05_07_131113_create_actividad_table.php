@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('actividad', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('usuario_id');
-            $table->unsignedBigInteger('frame_id');
-            $table->dateTime('fecha')->useCurrent();
-            $table->enum('tipo', ['pendiente', 'visto', 'resenar', 'megusta']);
+            $table->morphs('activitable');
+            $table->string('tipo');
+            $table->text('descripcion')->nullable();
+            $table->json('metadata')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -18,8 +18,7 @@ class CreateListAction
 
     public function execute(Usuario $me, array $data)
     {
-        $me_id = $me->usuario_id;
-        $lista = $this->createListUseCase->execute($me_id,$data);
+        $lista = $this->createListUseCase->execute($me,$data);
         return $this->success('Lista Creada exitosamente', 200, $lista);
     }
 }

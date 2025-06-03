@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -38,7 +39,7 @@ Route::prefix('usuarios')->group(function () {
     Route::get('/{usuario:id}/posts', [PostController::class, 'showUserPosts']); 
     Route::get('/{usuario:id}/posts/{post:id}', [PostController::class, 'showPost']); 
 
-    Route::get('/{usuario:id}/actividad', [UserController::class, 'activity']); //FALTA
+    Route::get('/{usuario:id}/actividad', [ActivityController::class, 'showUserActivity']);
 });
 
 Route::middleware('auth:sanctum')->prefix('mi')->group(function () {
@@ -48,7 +49,7 @@ Route::middleware('auth:sanctum')->prefix('mi')->group(function () {
     Route::get('/amigos', [FriendShipController::class, 'myFriends']); 
     Route::delete('/amigos/eliminar/{usuario:alias}', [FriendShipController::class, 'removeFriend']); 
 
-    Route::get('/actividad', [UserController::class, 'myActivity']);
+    Route::get('/actividad', [ActivityController::class, 'showMyActivity']);
 
     Route::prefix('posts')->group(function () {
         Route::get('/ver-todos', [PostController::class, 'showMyPosts']); 
