@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('respuesta_hilo', function (Blueprint $table) {
+        Schema::create('respuesta_post', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('hilo_id');
+            $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('usuario_id');
             $table->text('contenido');
             $table->unsignedBigInteger('respuesta_a')->index('respuesta_a');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('respuesta_hilo');
+        Schema::dropIfExists('respuesta_post');
     }
 };
