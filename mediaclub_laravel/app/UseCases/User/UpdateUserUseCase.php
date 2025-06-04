@@ -17,10 +17,6 @@ class UpdateUserUseCase
 
     public function execute(Usuario $user, array $data)
     {
-        $claveCorrecta = Hash::check($data['contrasena'], $user->contrasena);
-        if (!$claveCorrecta) {
-            return false;
-        }
         return $this->userRepository->update($user->id,$data);
     }
 }

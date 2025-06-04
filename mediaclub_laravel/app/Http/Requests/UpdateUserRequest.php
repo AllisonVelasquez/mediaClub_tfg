@@ -42,7 +42,7 @@ class UpdateUserRequest extends FormRequest
             'bio' => 'sometimes|string|max:255',
             'redes' => 'sometimes|string|max:255',
             'foto_perfil' => 'sometimes|string|max:255',
-            'contrasena' => ['required', 'string', Password::min(8)->mixedCase()->numbers()->symbols()]
+            'contrasena' => ['sometimes', 'string', Password::min(8)->mixedCase()->numbers()->symbols()]
         ];
     }
 

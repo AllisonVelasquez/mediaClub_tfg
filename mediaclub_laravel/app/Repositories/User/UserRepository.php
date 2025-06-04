@@ -30,7 +30,7 @@ class UserRepository implements UserRepositoryInterface
     public function update(int $id, array $data): bool
     {
         $user = Usuario::findOrFail($id);
-        if (!empty($data['contrasena'])) {
+        if (isset($data['contrasena'])) {
             $data['contrasena'] = Hash::make($data['contrasena']);
         }
         $user->fill($data);
