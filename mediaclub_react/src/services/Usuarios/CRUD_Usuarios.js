@@ -1,68 +1,67 @@
-import { instance } from "../api";
+import { instance } from "../axios";
 
-// 1. Obtener todos los usuarios
-export const getUsuarios = async () => {
+// LogIn de usuario (autenticación)
+export const logInUsuario = async (usuarioData) => {
   try {
-    const response = await instance.get("usuarios/");
+    const response = await instance.post("auth/login", usuarioData);
     return response.data;
   } catch (error) {
-    console.error("Error al obtener Usuarios:", error);
+    console.error("Error al iniciar sesión:", error);
     throw error;
   }
 };
-
-// 2. Obtener un usuario específico por ID
-export const getUsuario = async (id) => {
-  try {
-    const response = await instance.get(`usuarios/`);
-    // Debería retornar solo el objeto de usuario si existe
-    return response.data.find(
-      (usuario) => usuario.usuario_id === Number(id)
-    );
-  } catch (error) {
-    console.error("Error al obtener Usuario:", error);
-    throw error;
-  }
-};
-
+// Crear usuario (registro)
 export const crearUsuario = async (usuarioData) => {
   try {
-    // Realizamos el POST para crear el nuevo usuario
-    const response = await instance.post("usuarios", usuarioData);
-    // Verificamos si la creación fue exitosa y retornamos la respuesta
-    if (response.status === 200 || response.status === 201) {
-      return response.data; 
-    } else {
-      console.error("Error al crear usuario:", response.data.message);
-      throw new Error("No se pudo crear el usuario.");
-    }
-  } catch (error) {
-    console.error("Error al crear usuario:", error);
-    throw error;
-  }
-};
 
-// 4. Actualizar un usuario existente
-export const actualizarUsuario = async (usuarioId, usuarioData) => {
-  try {
-    const response = await instance.put(`/usuarios/${usuarioId}`, usuarioData);
-    return response.data.data.usuarios.find(
-      (usuario) => usuario.usuario_id === usuarioId
-    ); // Retorna el usuario actualizado
-  } catch (error) {
-    console.error("Error al actualizar usuario:", error);
-    throw error;
-  }
-};
-
-// 5. Eliminar un usuario
-export const eliminarUsuario = async (usuarioId) => {
-  try {
-    const response = await instance.delete(`0/usuarios/${usuarioId}`);
-    // En este caso retornamos los datos de la respuesta
+    const response = await instance.post("auth/registro", usuarioData);
     return response.data;
   } catch (error) {
-    console.error("Error al eliminar usuario:", error);
+    console.error("Error al registrar usuario:", error);
+    throw error;
+  }
+};
+
+// Obtener perfil de usuario por alias (público)
+export const obtenerPerfilPorAlias = async (alias) => {
+  try {
+    const response = await instance.get(`usuarios/${alias}/perfil`);
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener el perfil:", error);
+    throw error;
+  }
+};
+
+// Obtener perfil propio (requiere auth y token Sanctum)
+export const obtenerMiPerfil = async () => {
+  try {
+    const response = await instance.get("me/perfil");
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener tu perfil:", error);
+    throw error;
+  }
+};
+
+// Actualizar datos del usuario logueado
+export const actualizarMiUsuario = async (usuarioData) => {
+  try {
+    const response = await instance.patch("me/actualizar-datos", usuarioData);
+    return response.data;
+  } catch (error) {
+    console.error("Error al actualizar tu perfil:", error);
+    throw error;
+  }
+};
+
+// Eliminar cuenta del usuario logueado
+export const eliminarMiCuenta = async () => {
+  try {
+    const response = await instance.delete("me/borrar-cuenta");
+    return response.data;
+  } catch (error) {
+    console.error("Error al eliminar tu cuenta:", error);
     throw error;
   }
 };

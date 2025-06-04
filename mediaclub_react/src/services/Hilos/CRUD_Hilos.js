@@ -1,11 +1,12 @@
 import { instance } from "../axios";
-// 7. Hilos
+
+// Obtener hilos
 export const getHilos = async () => {
   try {
-    const response = await instance.get("/6");
+    const response = await instance.get("hilos");
     return response.data;
   } catch (error) {
-    console.error("Error al obtener 6:", error);
+    console.error("Error al obtener hilos:", error);
     throw error;
   }
 };

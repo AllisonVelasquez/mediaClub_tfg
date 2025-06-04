@@ -1,8 +1,9 @@
-import { instance } from "../api";
-// 3. Reseñas
+import { instance } from "../axios";
+
+// Obtener reseñas
 export const getReseñas = async () => {
   try {
-    const response = await instance.get('resenas');
+    const response = await instance.get("reseñas");
     return response.data;
   } catch (error) {
     console.error("Error al obtener reseñas:", error);
@@ -10,9 +11,10 @@ export const getReseñas = async () => {
   }
 };
 
+// Crear reseña
 export const crearReseña = async (reseñaData) => {
   try {
-    const response = await instance.post('resenas', reseñaData);
+    const response = await instance.post("reseñas", reseñaData);
     return response.data;
   } catch (error) {
     console.error("Error al crear reseña:", error);
@@ -20,9 +22,10 @@ export const crearReseña = async (reseñaData) => {
   }
 };
 
+// Eliminar reseña
 export const eliminarReseña = async (resenaId) => {
   try {
-    const response = await instance.delete(`resenas/${resenaId}`);
+    const response = await instance.delete(`reseñas/${resenaId}`);
     return response.data;
   } catch (error) {
     console.error("Error al eliminar reseña:", error);
