@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('actor', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->primary();
-            $table->string('nombre', 100)->unique();
+            $table->string('nombre', 100);
             $table->string('imagen_url')->nullable();
             $table->decimal('popularidad', 5)->nullable();
         });

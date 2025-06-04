@@ -81,7 +81,7 @@ class ImportMovieFromTMDB implements ShouldQueue
                 $actorSync = [];
 
                 foreach ($cast as $actorData) {
-                    $actor = Actor::firstOrCreate(
+                    $actor = Actor::updateOrCreate(
                         ['id' => $actorData['id']],
                         [
                             'nombre' => $actorData['name'],
