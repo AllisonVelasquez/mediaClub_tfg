@@ -24,7 +24,9 @@ class PostRepository implements PostRepositoryInterface
 
     public function getPostById(int $userId, int $postId): Post
     {
-        return Post::with('usuario')
+        return Post::with(['usuario' => function ($query) {
+            $query->select('id', 'alias', 'foto_perfil');
+        }])
             ->where('usuario_id', $userId)
             ->findOrFail($postId);
     }
@@ -42,6 +44,8 @@ class PostRepository implements PostRepositoryInterface
 
     public function delete(int $userId, int $postId): bool
     {
-        return Post::where('usuario_id', $userId)->delete() > 0;
+        return Post::where('usuario_id', $userId)
+        ->where('id', $postId)
+        ->delete() > 0;
     }
 }

@@ -47,7 +47,7 @@ Route::middleware('auth:sanctum')->prefix('mi')->group(function () {
 
     Route::prefix('posts')->group(function () {
         Route::get('/ver-todos', [PostController::class, 'showMyPosts']); 
-        Route::get('/{post:id}/detalles', [PostController::class, 'showPost']); 
+        Route::get('/{post:id}/detalles', [PostController::class, 'showMyPost']); 
         Route::post('/crear', [PostController::class, 'createPost']);
         Route::patch('/editar/{post:id}', [PostController::class, 'editPost']);
         Route::delete('/borrar/{post:id}', [PostController::class, 'deletePost']);
