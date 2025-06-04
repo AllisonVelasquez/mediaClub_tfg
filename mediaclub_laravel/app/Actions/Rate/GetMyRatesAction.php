@@ -19,7 +19,9 @@ class GetMyRatesAction
 
     public function execute(Usuario $user)
     {
-        $this->getMyRatesUseCase->execute($user->usuario_id);
-        return $this->success('Puntuaciones cargadas con exito', 200);
+        $rates = $this->getMyRatesUseCase->execute($user);
+        if($rates->total() === 0) return $this->success('No se han encontrado puntuaciones', 200);
+
+        return $this->success('Puntuaciones cargadas con exito', 200, $rates);
     }
 }
