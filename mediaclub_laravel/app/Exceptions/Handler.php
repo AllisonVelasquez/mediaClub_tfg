@@ -81,7 +81,7 @@ class Handler extends ExceptionHandler
 
             // Manejo de error en la consulta a la base de datos
             if ($exception instanceof QueryException) {
-                return $this->error('Error en la consulta a la base de datos.', 500);
+                return $this->error('Error en la consulta a la base de datos.', 500,$exception->getMessage());
             }
 
             // if ($exception instanceof AuthenticationException) {
