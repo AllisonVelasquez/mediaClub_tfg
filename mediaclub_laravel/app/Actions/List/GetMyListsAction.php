@@ -20,6 +20,8 @@ class GetMyListsAction
     public function execute(Usuario $me)
     {
         $myLists = $this->getMyListsUseCase->execute($me);
+        if($myLists->total() === 0) return $this->success('No se han encontrado listas creadas', 200);
+
         return $this->success('Listas cargadas exitosamente', 200, $myLists);
     }
 }

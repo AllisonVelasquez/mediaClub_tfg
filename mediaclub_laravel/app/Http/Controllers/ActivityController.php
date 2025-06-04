@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 class ActivityController extends Controller
 {
 
-    public function showUserActivity(Usuario $user)
+    public function showUserActivity(Usuario $usuario)
     {
-        return app(GetUserActivityAction::class)->execute($user);
+        return app(GetUserActivityAction::class)->execute($usuario);
 
     }
     public function showMyActivity(Request $request)

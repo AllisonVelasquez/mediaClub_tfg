@@ -89,7 +89,7 @@ class Handler extends ExceptionHandler
             // }
 
             // Si ninguna de las excepciones anteriores se maneja, devolvemos un error genérico
-            return $this->error('Error inesperado', 500, $exception->getMessage());
+            return $this->error('Error inesperado', $exception->getCode(), $exception->getMessage());
         }
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Providers;
+use App\Models\Usuario;
+
 
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\User\UserRepositoryInterface;

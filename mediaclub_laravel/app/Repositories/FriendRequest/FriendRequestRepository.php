@@ -30,6 +30,8 @@ class FriendRequestRepository implements FriendRequestRepositoryInterface
 
     public function cancelRequest(int $fromUserId, int $toUserId): bool
     {
+        if ($fromUserId === $toUserId) throw new Exception('No puedes realizar esta accion',400);
+
         $canceled = Solicitud::where('remitente_id', $fromUserId)
             ->where('destinatario_id', $toUserId)
             ->where('estado', 'pendiente')
@@ -39,6 +41,8 @@ class FriendRequestRepository implements FriendRequestRepositoryInterface
 
     public function acceptRequest(int $toUserId, int $fromUserId): bool
     {
+        if ($fromUserId === $toUserId) throw new Exception('No puedes realizar esta accion',400);
+
         $accepted = Solicitud::where('remitente_id', $fromUserId)
             ->where('destinatario_id', $toUserId)
             ->where('estado', 'pendiente')
@@ -48,6 +52,8 @@ class FriendRequestRepository implements FriendRequestRepositoryInterface
 
     public function rejectRequest(int $toUserId, int $fromUserId): bool
     {
+        if ($fromUserId === $toUserId) throw new Exception('No puedes realizar esta accion',400);
+
         $rejected = Solicitud::where('remitente_id', $fromUserId)
             ->where('destinatario_id', $toUserId)
             ->where('estado', 'pendiente')

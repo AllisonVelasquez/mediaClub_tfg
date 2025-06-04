@@ -46,14 +46,14 @@ class UserController extends Controller
         return app(GetUserProfileAction::class)->execute($request->user());
     }
 
-    public function showProfile(Usuario $user)
+    public function showProfile(Usuario $usuario)
     {
-        return app(GetUserProfileAction::class)->execute($user);
+        return app(GetUserProfileAction::class)->execute($usuario);
     }
 
-    public function showUserInfo(Usuario $user)
+    public function showUserInfo(Usuario $usuario)
     {
-        return app(GetUserInfoAction::class)->execute($user);
+        return app(GetUserInfoAction::class)->execute($usuario);
     }
 
     public function logoutUser(Request $request)

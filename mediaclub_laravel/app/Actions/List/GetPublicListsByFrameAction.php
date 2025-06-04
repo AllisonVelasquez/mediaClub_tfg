@@ -20,6 +20,8 @@ class GetPublicListsByFrameAction
     public function execute(Frame $frame)
     {
         $publicLists = $this->getPublicListsByFrameUseCase->execute($frame);
+        if ($publicLists->total() === 0) return $this->success('No se han econtrado listas publicas para esta pelicula', 200);
+
         return $this->success('Listas publicas cargadas exitosamente', 200, $publicLists);
     }
 }
