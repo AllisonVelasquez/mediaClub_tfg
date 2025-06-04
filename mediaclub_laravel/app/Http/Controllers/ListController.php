@@ -21,7 +21,6 @@ use App\Actions\List\RemoveFrameFromListAction;
 use App\Models\Frame;
 use App\Models\Lista;
 use App\Models\Usuario;
-use App\UseCases\List\GetPublicListsByFrameUseCase;
 
 class ListController extends Controller
 {

@@ -50,4 +50,9 @@ class Puntuacion extends Model
 		return $this->belongsTo(Frame::class)
 		->select('id','titulo', 'poster_url');
 	}
+
+	public function actividad()
+	{
+		return $this->morphOne(Actividad::class, 'activitable');
+	}
 }

@@ -63,4 +63,8 @@ class Lista extends Model
 	{
 		return $this->morphMany(Megusta::class, 'likeable');
 	}
+	public function actividad()
+	{
+		return $this->morphOne(Actividad::class, 'activitable');
+	}
 }
