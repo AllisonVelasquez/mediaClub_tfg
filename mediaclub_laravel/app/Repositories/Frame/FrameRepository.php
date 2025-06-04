@@ -53,16 +53,16 @@ class FrameRepository implements FrameRepositoryInterface
         }
 
         if (isset($filters['duracion'])) {
-            $query->orderBy('duracion', $filters['duracion'] === 'desc' ? 'asc' : 'desc');
+            $query->orderBy('duracion', $filters['duracion']);
         }
 
         if (isset($filters['promedio_votos_tmdb'])) {
-            $direction = strtolower($filters['promedio_votos_tmdb'] === 'desc' ? 'asc' : 'desc');
+            $direction = strtolower($filters['promedio_votos_tmdb']);
             $query->orderBy('promedio_votos_tmdb', $direction);
         }
 
         if (isset($filters['promedio_votos_muvis'])) {
-            $direction = strtolower($filters['promedio_votos_muvis'] === 'desc' ? 'asc' : 'desc');
+            $direction = strtolower($filters['promedio_votos_muvis']);
             $query->orderBy('promedio_votos_muvis', $direction);
         }
 

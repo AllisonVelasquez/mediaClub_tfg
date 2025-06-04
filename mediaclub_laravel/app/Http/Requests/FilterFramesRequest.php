@@ -11,7 +11,7 @@ class FilterFramesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,7 @@ class FilterFramesRequest extends FormRequest
     {
         return [
             'genero_id' => ['sometimes', 'integer', 'exists:generos,id'],
-            'duracion' => ['sometimes', 'integer', 'min:1'],
+            'duracion' => ['sometimes', 'in:asc,desc'],
             'fecha_estreno' => ['sometimes', 'integer', 'digits:4'],
             'promedio_votos_muvis' => ['sometimes', 'in:asc,desc'],
             'promedio_votos_tmdb' => ['sometimes', 'in:asc,desc'],
