@@ -20,6 +20,7 @@ class GetUserPostsAction
     public function execute(Usuario $user)
     {
         $posts = $this->getUserPostsUseCase->execute($user);
+        if($posts->total() === 0 )   return $this->success('Lista de posts vacia', 200);
         return $this->success('Listas de posts', 200, $posts);
     }
 }
