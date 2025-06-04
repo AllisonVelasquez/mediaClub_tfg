@@ -16,7 +16,7 @@ class FrameRepository implements FrameRepositoryInterface
         $title = trim($title);
 
         return Frame::searchData()
-            ->where('title', 'like', "%{$title}%")
+            ->where('titulo', 'like', "%{$title}%")
             ->paginate(15);
     }
 
@@ -56,7 +56,7 @@ class FrameRepository implements FrameRepositoryInterface
             $query->orderBy('duracion', $filters['duracion'] === 'desc' ? 'asc' : 'desc');
         }
 
-        if (isset($filters['prpmedio_votos_tmdb'])) {
+        if (isset($filters['promedio_votos_tmdb'])) {
             $direction = strtolower($filters['promedio_votos_tmdb'] === 'desc' ? 'asc' : 'desc');
             $query->orderBy('promedio_votos_tmdb', $direction);
         }
