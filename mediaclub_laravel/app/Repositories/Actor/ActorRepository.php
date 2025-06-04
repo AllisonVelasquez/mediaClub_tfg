@@ -13,11 +13,11 @@ class ActorRepository implements ActorRepositoryInterface
     }
     public function searchByName(string $name): LengthAwarePaginator
     {
-        return Actor::where('name', 'like', '%' . $name . '%')->paginate(20);
+        return Actor::where('nombre', 'like', '%' . $name . '%')->paginate(20);
     }
     public function allPaginated(): LengthAwarePaginator
     {
-        return Actor::orderBy('name')->paginate(20);
+        return Actor::orderByDesc('popularidad')->paginate(20);
     }
     public function getFilmography(int $id): LengthAwarePaginator
     {
@@ -25,7 +25,7 @@ class ActorRepository implements ActorRepositoryInterface
             ->frames()
             ->withPivot('personaje')
             ->orderByDesc('fecha_estreno')
-            ->select('frames.id', 'titulo', 'poster_url', 'fecha_estreno')
+            ->select('frame.id', 'titulo', 'poster_url', 'fecha_estreno')
             ->paginate(15);
     }
 }

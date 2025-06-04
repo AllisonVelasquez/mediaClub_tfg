@@ -109,9 +109,9 @@ Route::prefix('frames')->group(function () {
 });
 
 Route::prefix('actores')->group(function () {
-    Route::get('/', [ActorController::class, 'getAll']);
+    Route::get('/ver-todos', [ActorController::class, 'getAll']);
     Route::get('/buscar', [ActorController::class, 'searchByName']);
-    Route::get('{actor}', [ActorController::class, 'showActor']);
+    Route::get('{actor}/detalles', [ActorController::class, 'showActor']); //aqui falta aqui me quede
     Route::get('{actor}/filmografia', [ActorController::class, 'getFilmography']);
 });
 
