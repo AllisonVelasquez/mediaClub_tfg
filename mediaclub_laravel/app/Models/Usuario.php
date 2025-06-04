@@ -17,7 +17,7 @@ use Illuminate\Notifications\Notifiable;
 /**
  * Class Usuario
  * 
- * @property int $usuario_id
+ * @property int $id
  * @property string $login_id
  * @property string $correo
  * @property string $contrasena

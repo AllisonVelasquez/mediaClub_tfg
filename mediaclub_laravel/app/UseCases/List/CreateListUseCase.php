@@ -20,6 +20,7 @@ class CreateListUseCase
     public function execute(Usuario $me, array $data): Lista
     {
         $data['usuario_id'] = $me->id;
+        
         $list = $this->listRepository->create($data);
 
         $this->activityRepository->registrarActividad(

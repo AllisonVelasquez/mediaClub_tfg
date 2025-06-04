@@ -21,7 +21,6 @@ use App\Actions\List\RemoveFrameFromListAction;
 use App\Models\Frame;
 use App\Models\Lista;
 use App\Models\Usuario;
-use App\UseCases\List\GetPublicListsByFrameUseCase;
 
 class ListController extends Controller
 {
@@ -30,43 +29,42 @@ class ListController extends Controller
         $me = $request->user();
         return app(CreateListAction::class)->execute($me, $request->validated());
     }
-    public function editList(EditListRequest $request, Lista $list)
+    public function editList(EditListRequest $request, Lista $lista)
     {
         $me = $request->user();
-        return app(UpdateListAction::class)->execute($me, $list, $request->validated());
+        return app(UpdateListAction::class)->execute($me, $lista, $request->validated());
     }
-    public function deleteList(Request $request, Lista $list)
+    public function deleteList(Request $request, Lista $lista)
     {
         $me = $request->user();
-        return app(DeleteListAction::class)->execute($me, $list);
+        return app(DeleteListAction::class)->execute($me, $lista);
     }
     public function myLists(Request $request)
     {
         return app(GetMyListsAction::class)->execute($request->user());
     }
-    public function showMyListContent(Request $request, Lista $list)
+    public function showMyListContent(Request $request, Lista $lista)
     {
         $me = $request->user();
-        return app(GetMyListContentAction::class)->execute($me, $list);
+        return app(GetMyListContentAction::class)->execute($me, $lista);
     }
-    public function addFrame(Request $request, Lista $list, Frame $frame)
+    public function addFrame(Request $request, Lista $lista, Frame $frame)
     {
         $me = $request->user();
-
-        return app(AddFrameToListAction::class)->execute($me, $list, $frame);
+        return app(AddFrameToListAction::class)->execute($me, $lista, $frame);
     }
-    public function removeFrame(Request $request, Lista $list, Frame $frame)
+    public function removeFrame(Request $request, Lista $lista, Frame $frame)
     {
         $me = $request->user();
-        return app(RemoveFrameFromListAction::class)->execute($me, $list, $frame);
+        return app(RemoveFrameFromListAction::class)->execute($me, $lista, $frame);
     }
     public function showPublicUserLists(Usuario $user)
     {
         return app(GetUserPublicListsAction::class)->execute($user);
     }
-    public function showPublicUserListContent(Usuario $user, Lista $list)
+    public function showPublicUserListContent(Usuario $user, Lista $lista)
     {
-        return app(GetPublicListContentAction::class)->execute($user, $list);
+        return app(GetPublicListContentAction::class)->execute($user, $lista);
     }
 
     public function showPublicListsByFrame(Frame $frame)

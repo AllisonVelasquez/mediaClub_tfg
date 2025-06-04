@@ -1,20 +1,27 @@
-
-
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { logInUsuario } from "../../services/Usuarios/CRUD_Usuarios";
+import { AuthContext } from "./AuthContext";
 import "./LogIn.css";
 import logoNombreOscuro from "../assents/logo_nombre_oscuro.png";
 
 const LogIn = () => {
   const [formData, setFormData] = useState({
-    usuario: "",
-    password: "",
+    login_id: "",
+    contrasena: "",
   });
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const { logIn } = useContext(AuthContext);
+
+  // Validación visual para login_id (minúsculas y sin espacios)
+  const isLoginIdOk =
+    formData.login_id.length > 2 &&
+    formData.login_id === formData.login_id.toLowerCase() &&
+    !/\s/.test(formData.login_id);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,41 +36,27 @@ const LogIn = () => {
     setLoading(true);
     setError(null);
 
+    if (!isLoginIdOk) {
+      setError("El usuario debe estar en minúsculas y sin espacios.");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await logInUsuario(formData);
-      const usuarios = response;
+      const response = await logInUsuario({
+        login_id: formData.login_id,
+        contrasena: formData.contrasena,
+      });
 
-      const usuario = usuarios.find(
-        (user) => user.login_id === formData.usuario
-      );
+      const { access_token } = response.contenido.original;
 
-      if (!usuario) {
-        setError("El usuario no existe");
-        setLoading(false);
-        return;
-      }
-      bcrypt.compare(
-        formData.password,
-        usuario.contrasena_hash,
-        (err, result) => {
-          if (err) {
-            setError("Error al verificar la contraseña");
-            setLoading(false);
-            return;
-          }
-
-          if (!result) {
-            setError("Contraseña incorrecta");
-            setLoading(false);
-          } else {
-            // Aquí podrías guardar la sesión si lo necesitas
-            navigate("/Perfil");
-          }
-        }
-      );
+      logIn(access_token); // <-- Guardar token en contexto y localStorage
+      navigate("/Perfil");
     } catch (err) {
-      setError("Error al iniciar sesión");
-      console.error("Error al iniciar sesión", err);
+      setError(
+        err?.response?.data?.message ||
+        "Error al iniciar sesión. Verifica tus credenciales."
+      );
     } finally {
       setLoading(false);
     }
@@ -79,25 +72,36 @@ const LogIn = () => {
       <div className="login-header">
         <img src={logoNombreOscuro} alt="Muvis Logo" />
       </div>
-      <h2 style={{ fontFamily: "Arial, Helvetica, sans-serif", color: "#2a3b42", marginTop: "1.5rem" }}>
+      <h2
+        style={{
+          fontFamily: "Arial, Helvetica, sans-serif",
+          color: "#2a3b42",
+          marginTop: "1.5rem",
+        }}
+      >
         Iniciar sesión
       </h2>
       <form className="login-container" onSubmit={handleLogin}>
-        <label htmlFor="usuario">Usuario:</label>
+        <label htmlFor="login_id">Usuario:</label>
         <input
           type="text"
-          id="usuario"
-          name="usuario"
-          value={formData.usuario}
+          id="login_id"
+          name="login_id"
+          value={formData.login_id}
           onChange={handleChange}
           autoComplete="username"
         />
-        <label htmlFor="password">Contraseña:</label>
+        {!isLoginIdOk && formData.login_id && (
+          <div className="error">
+            El usuario debe estar en minúsculas y sin espacios.
+          </div>
+        )}
+        <label htmlFor="contrasena">Contraseña:</label>
         <input
           type="password"
-          id="password"
-          name="password"
-          value={formData.password}
+          id="contrasena"
+          name="contrasena"
+          value={formData.contrasena}
           onChange={handleChange}
           autoComplete="current-password"
         />

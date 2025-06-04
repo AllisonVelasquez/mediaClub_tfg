@@ -13,8 +13,8 @@ class GetActorByIdUseCase
         $this->actorRepositoryInterface = $actorRepositoryInterface;
     }
 
-    public function execute(int $id): Actor
+    public function execute(Actor $actor): Actor
     {
-        return $this->actorRepositoryInterface->findById($id);
+        return $this->actorRepositoryInterface->findById($actor->id);
     }
 }

@@ -3,6 +3,7 @@ namespace App\UseCases\Rate;
 
 use App\Repositories\Rate\RateRepositoryInterface;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\Usuario;
 
 class GetMyRatesUseCase
 {
@@ -13,8 +14,8 @@ class GetMyRatesUseCase
         $this->rateRepository = $rateRepository;
     }
 
-    public function execute(int $userId): LengthAwarePaginator
+    public function execute(Usuario $user): LengthAwarePaginator
     {
-        return $this->rateRepository->getMyRates($userId);
+        return $this->rateRepository->getMyRates($user->id);
     }
 }

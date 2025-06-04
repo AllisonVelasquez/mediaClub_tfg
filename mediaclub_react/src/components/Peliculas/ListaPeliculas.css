@@ -1,0 +1,282 @@
+/* Fondo general de la sección */
+.peliculas-bg {
+  background-color: #f4f4f4;
+  padding: 40px 0;
+}
+
+/* Título principal */
+.peliculas-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 40px;
+}
+
+/* Bloque individual de cada carrusel */
+.carousel-block {
+  margin-bottom: 50px;
+  padding: 0 5%;
+}
+
+/* Título del carrusel */
+.carousel-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 30px 0 20px 0;
+  text-align: left;
+  border-left: 5px solid #007bff;
+  padding-left: 15px;
+}
+
+/* Contenedor del carrusel */
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Flechas de navegación */
+.carousel-arrow {
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  color: #333;
+  cursor: pointer;
+  padding: 10px;
+  transition: color 0.3s;
+  flex-shrink: 0;
+}
+
+.carousel-arrow:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.carousel-arrow:hover:not(:disabled) {
+  color: #007bff;
+}
+
+/* Carrusel de tarjetas */
+.peliculas-carousel {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  width: 100%;
+  padding-bottom: 10px;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+
+  /* Ajustamos con variable --visible-count que luego puedes actualizar via JS */
+  --visible-count: 5;
+}
+
+/* Cada tarjeta toma un ancho proporcional al visible count */
+.pelicula-card-landing {
+  perspective: 1000px;
+  flex: 0 0 calc((100% / var(--visible-count)) - 16px); /* 16px = approx gap ajustado */
+  height: 360px;
+  margin: 10px 0;
+  cursor: pointer;
+  scroll-snap-align: center;
+}
+
+/* Flip card inner */
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.pelicula-card-landing:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Front and back faces */
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  background: white;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-front {
+  z-index: 2;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+/* Poster */
+.pelicula-poster-img {
+  height: 200px;
+  overflow: hidden;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
+.poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.pelicula-card-landing:hover .poster-img {
+  transform: scale(1.05);
+}
+
+/* Texto frontal */
+.pelicula-nombre {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: 10px;
+  color: #2c3e50;
+}
+
+.pelicula-puntuacion {
+  font-size: 1rem;
+  color: #f39c12;
+  margin-top: 5px;
+}
+
+.puntuacion-text {
+  font-size: 0.8rem;
+  color: #7f8c8d;
+}
+
+/* Texto trasero */
+.card-back .pelicula-nombre {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+.card-back {
+  transform: rotateY(180deg);
+  padding: 15px;
+  box-sizing: border-box;
+  overflow-y: auto; /* <-- Habilita scroll vertical */
+  max-height: 100%;  /* <-- Asegura que se quede dentro de la tarjeta */
+}
+.card-back .pelicula-genero,
+.card-back .pelicula-fecha-lanzamiento,
+.card-back .pelicula-descripcion {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 6px 0;
+  line-height: 1.4;
+}
+
+/* Responsive para pantallas medianas y pequeñas */
+@media (max-width: 1200px) {
+  .peliculas-carousel {
+    --visible-count: 4;
+  }
+  .pelicula-card-landing {
+    height: 320px;
+  }
+  .pelicula-poster-img {
+    height: 170px;
+  }
+}
+
+@media (max-width: 992px) {
+  .peliculas-carousel {
+    --visible-count: 3;
+  }
+  .pelicula-card-landing {
+    height: 280px;
+  }
+  .pelicula-poster-img {
+    height: 140px;
+  }
+  .pelicula-nombre {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-container {
+    flex-direction: column;
+  }
+
+  .peliculas-carousel {
+    --visible-count: 2;
+    gap: 15px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    padding-bottom: 15px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .pelicula-card-landing {
+    flex: 0 0 calc((100% / var(--visible-count)) - 12px);
+    height: auto;
+    aspect-ratio: 3 / 5;
+    margin: 0 auto;
+  }
+
+  .pelicula-poster-img {
+    height: 60vw;
+  }
+
+  .pelicula-nombre {
+    font-size: 1.3rem;
+  }
+
+  .card-back .pelicula-nombre {
+    font-size: 1.3rem;
+  }
+
+  .carousel-arrow {
+    display: none;
+  }
+
+  .carousel-title {
+    text-align: center;
+    margin-left: 0;
+    padding-left: 0;
+    border-left: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .peliculas-carousel {
+    --visible-count: 1;
+  }
+
+  .pelicula-card-landing {
+    flex: 0 0 90vw;
+    height: auto;
+    aspect-ratio: 3 / 5;
+  }
+
+  .pelicula-poster-img {
+    height: 55vw;
+  }
+}
+
+/* Extra: evitar que la tarjeta gire en móvil (porque hover no existe) */
+@media (hover: none) and (pointer: coarse) {
+  .pelicula-card-landing:hover .card-inner {
+    transform: none;
+  }
+}

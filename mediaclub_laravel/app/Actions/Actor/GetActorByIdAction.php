@@ -19,7 +19,7 @@ class GetActorByIdAction
 
     public function execute(Actor $actor)
     {
-        $details = $this->getActorByIdUseCase->execute($actor->id);
+        $details = $this->getActorByIdUseCase->execute($actor);
         $this->success('Detalles de actor cargados', 200, $details);
     }
 }

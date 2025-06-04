@@ -12,7 +12,8 @@ class UserRepository implements UserRepositoryInterface
     public function searchByAlias(string $alias): ?LengthAwarePaginator
     {
         $alias = trim($alias);
-        return Usuario::where('title', 'like', "%{$alias}%")
+        return Usuario::select('id', 'alias', 'foto_perfil')
+            ->where('alias', 'like', "%{$alias}%")
             ->paginate(20);
     }
 

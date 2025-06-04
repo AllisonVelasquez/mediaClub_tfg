@@ -106,7 +106,7 @@ class FrameRepository implements FrameRepositoryInterface
 
         return Frame::categoriesData()
             ->whereHas('generos', function ($query) use ($genreIds) {
-                $query->whereIn('generos.id', $genreIds);
+                $query->whereIn('genero.id', $genreIds);
             })
             ->where('id', '!=', $id)
             ->limit(15)

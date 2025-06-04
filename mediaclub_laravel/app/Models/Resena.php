@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
 class Resena extends Model
 {
 	use HasFactory;
-	
+
 	protected $table = 'resena';
 	protected $primaryKey = 'id';
 
@@ -57,10 +57,14 @@ class Resena extends Model
 	public function frame()
 	{
 		return $this->belongsTo(Frame::class)
-			->select('id', 'titulo');
+			->select('frame.id', 'titulo','poster_url');
 	}
 	public function likes()
 	{
 		return $this->morphMany(Megusta::class, 'likeable');
+	}
+	public function actividad()
+	{
+		return $this->morphOne(Actividad::class, 'activitable');
 	}
 }

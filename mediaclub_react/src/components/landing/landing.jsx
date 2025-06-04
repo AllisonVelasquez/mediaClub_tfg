@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { getFrames } from "../../services/Frames/CRUD_Frames"; // Corrige la ruta si tus servicios están en 'services'
+import { getFramesPopular } from "../../services/Frames/CRUD_Frames"; // Corrige la ruta si tus servicios están en 'services'
 import { Link } from "react-router-dom";
 import "./landing.css";
 
@@ -11,7 +11,7 @@ const Landing = () => {
   const carouselRef = useRef(null);
 
   useEffect(() => {
-    getFrames()
+    getFramesPopular()
       .then((data) => setPeliculas(Array.isArray(data) ? data : []))
       .catch(console.error);
   }, []);

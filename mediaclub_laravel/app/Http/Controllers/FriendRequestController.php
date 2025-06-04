@@ -14,25 +14,25 @@ use App\Models\Usuario;
 
 class FriendRequestController extends Controller
 {
-    public function sendFriendRequest (Request $request, Usuario $to)
+    public function sendFriendRequest (Request $request, Usuario $usuario)
     {
         $from = $request->user();
-        return app(SendFriendRequestAction::class)->execute($from,$to);
+        return app(SendFriendRequestAction::class)->execute($from,$usuario);
     }
-    public function acceptFriendRequest (Request $request, Usuario $from)
+    public function acceptFriendRequest (Request $request, Usuario $usuario)
     {
         $me = $request->user();
-        return app(AcceptFriendRequestAction::class)->execute($me,$from);
+        return app(AcceptFriendRequestAction::class)->execute($me,$usuario);
     }
-    public function rejectFriendRequest (Request $request, Usuario $from)
+    public function rejectFriendRequest (Request $request, Usuario $usuario)
     {
         $me = $request->user();
-        return app(RejectFriendRequestAction::class)->execute($me,$from);
+        return app(RejectFriendRequestAction::class)->execute($me,$usuario);
     }
-    public function cancelFriendRequest (Request $request, Usuario $to)
+    public function cancelFriendRequest (Request $request, Usuario $usuario)
     {
         $me = $request->user();
-        return app(CancelFriendRequestAction::class)->execute($me,$to);
+        return app(CancelFriendRequestAction::class)->execute($me,$usuario);
     }
     public function getSentFriendRequests (Request $request)
     {

@@ -10,7 +10,7 @@ class ListRepository implements ListRepositoryInterface
 {
     public function getMyLists(int $userId): LengthAwarePaginator
     {
-        return Lista::with((['framesImg' => function ($query) {
+        return Lista::with((['frames_img' => function ($query) {
             $query->limit(4);
         }]))
             ->where('usuario_id', $userId)
@@ -19,9 +19,11 @@ class ListRepository implements ListRepositoryInterface
 
     public function getMyListContent(int $userId, int $listId): Lista
     {
-        return Lista::with((['frames' => function ($query) {
-            $query->paginate(15);
-        }]))
+        return Lista::withCount('frames')
+            ->with(['frames' => function ($query) {
+                $query->select('id', 'titulo', 'poster_url')
+                    ->orderBy('frame_lista.fecha', 'desc');
+            }])
             ->where('id', $listId)
             ->where('usuario_id', $userId)
             ->first();
@@ -84,18 +86,23 @@ class ListRepository implements ListRepositoryInterface
 
     public function getPublicListContentForUser(int $userId, int $listId): Lista
     {
-        return Lista::with((['frames' => function ($query) {
-            $query->paginate(15);
-        }]))
+        return Lista::withCount('frames')
+            ->with(['frames' => function ($query) {
+                $query->select('id', 'titulo', 'poster_url')
+                    ->orderBy('frame_lista.fecha', 'desc');
+            }])
             ->where('id', $listId)
             ->where('usuario_id', $userId)
             ->where('publica', true)
             ->first();
     }
 
-    public function getPublicListsByFrameId(int $frameId): LengthAwarePaginator 
+    public function getPublicListsByFrameId(int $frameId): LengthAwarePaginator
     {
-        return Lista::where('publica', true)
+        return Lista::with(['frames_img' => function ($query) {
+            $query->limit(4);
+        }])
+            ->where('publica', true)
             ->whereHas('frames', function ($query) use ($frameId) {
                 $query->where('id', $frameId);
             })

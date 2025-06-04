@@ -19,7 +19,7 @@ class GetReviewAction
 
     public function execute(Resena $resena)
     {
-        $this->getReviewUseCase->execute($resena->resena_id);
-        return $this->success('Reseña cargada con exito');
+        $resena = $this->getReviewUseCase->execute($resena);
+        return $this->success('Reseña cargada con exito',200,$resena);
     }
 }

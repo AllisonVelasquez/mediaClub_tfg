@@ -19,7 +19,8 @@ class GetReviewsByUserAction
 
     public function execute(Usuario $user)
     {
-        $this->getReviewsByUserUseCase->execute($user->usuario_id);
-        return $this->success('Reseña creada con exito', 201);
+        $resenas = $this->getReviewsByUserUseCase->execute($user->id);
+        if ($resenas->total() === 0)  return $this->success('Lista de reseñas vacia', 200);
+        return $this->success('Lista de reseñas cargada', 200, $resenas);
     }
 }

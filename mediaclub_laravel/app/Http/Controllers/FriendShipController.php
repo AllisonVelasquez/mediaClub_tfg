@@ -14,12 +14,12 @@ class FriendShipController extends Controller
         return app(GetUserFriendsListAction::class)->execute($request->user());
     }
 
-    public function showFriends(Usuario $user){
-        return app(GetUserFriendsListAction::class)->execute($user);
+    public function showFriends(Usuario $usuario){
+        return app(GetUserFriendsListAction::class)->execute($usuario);
     }
     
-    public function deleteFriend(Request $request, Usuario $friend){
-        $user = $request->user();
-        return app(DeleteFriendAction::class)->execute($user,$friend);
+    public function deleteFriend(Request $request, Usuario $usuario){
+        $me = $request->user();
+        return app(DeleteFriendAction::class)->execute($me,$usuario);
     }
 }
