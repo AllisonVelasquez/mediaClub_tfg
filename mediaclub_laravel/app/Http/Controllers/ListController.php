@@ -51,7 +51,6 @@ class ListController extends Controller
     public function addFrame(Request $request, Lista $lista, Frame $frame)
     {
         $me = $request->user();
-
         return app(AddFrameToListAction::class)->execute($me, $lista, $frame);
     }
     public function removeFrame(Request $request, Lista $lista, Frame $frame)
