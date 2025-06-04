@@ -20,7 +20,7 @@ class GetSimilarAction
     public function execute(Frame $frame)
     {
         $frames = $this->getSimilarUseCase->execute($frame->id);
-        if($frames->isEmpty()) return $this->success('Lista Top 10 vacía',200);
-        return $this->success('Lista Top 10 cargada', 200, $frames);
+        if($frames->isEmpty()) return $this->success('Lista de peliculas similares vacía',200);
+        return $this->success('Lista de peliculas similares cargada', 200, $frames);
     }
 }
