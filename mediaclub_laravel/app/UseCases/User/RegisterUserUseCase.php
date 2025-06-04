@@ -16,6 +16,7 @@ class RegisterUserUseCase
 
     public function execute(array $data)
     {
+        unset($data['contrasena_confirmation']);
         $user = $this->userRepository->store($data);
         $user->notify(new UserRegistered($user));
         return $user;
