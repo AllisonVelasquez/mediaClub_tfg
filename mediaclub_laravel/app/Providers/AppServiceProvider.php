@@ -27,6 +27,8 @@ use App\Repositories\Post\PostRepository;
 use App\Repositories\Post\PostRepositoryInterface;
 use App\Repositories\Activity\ActivityRepository;
 use App\Repositories\Activity\ActivityRepositoryInterface;
+use App\Repositories\Genre\GenreRepository;
+use App\Repositories\Genre\GenreRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -43,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ActorRepositoryInterface::class, ActorRepository::class);
         $this->app->bind(PostRepositoryInterface::class, PostRepository::class);
         $this->app->bind(ActivityRepositoryInterface::class, ActivityRepository::class);
-
+        $this->app->bind(GenreRepositoryInterface::class, GenreRepository::class);
     }
 
     public function boot()
