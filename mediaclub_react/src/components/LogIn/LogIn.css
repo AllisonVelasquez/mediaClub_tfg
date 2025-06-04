@@ -1,0 +1,106 @@
+.login-bg {
+	min-height: 100vh;
+	background: #d9e9dc;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+  }
+  
+  .login-header {
+	margin-top: 2.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  }
+  
+  .login-header img {
+	height: 3.5rem;
+	margin-bottom: 0.5rem;
+  }
+  
+  .login-header h1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 2.5rem;
+	color: #2a3b42;
+	font-weight: bold;
+	margin: 0;
+	letter-spacing: 1px;
+  }
+  
+  .login-container {
+	margin-top: 2rem;
+	background: #a9d3b4;
+	border-radius: 10px;
+	padding: 2rem 2.5rem 2.5rem 2.5rem;
+	box-shadow: 0 2px 8px rgba(44, 62, 80, 0.05);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-width: 350px;
+	max-width: 90vw;
+  }
+  
+  .login-container label {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #2a3b42;
+	margin-bottom: 0.5rem;
+	font-size: 1rem;
+  }
+  
+  .login-container input {
+	width: 100%;
+	padding: 0.5rem;
+	margin-bottom: 1.2rem;
+	border: none;
+	border-radius: 5px;
+	background: #d9e9dc;
+	font-size: 1.1rem;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #2a3b42;
+  }
+  
+  .login-container input:focus {
+	outline: 2px solid #2e5135;
+  }
+  
+  .login-btn {
+	width: 100%;
+	padding: 0.7rem 0;
+	background: #2e5135;
+	color: #c1f7cc;
+	border: none;
+	border-radius: 20px;
+	font-size: 1.1rem;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	margin-bottom: 1rem;
+	cursor: pointer;
+	transition: background 0.2s;
+  }
+  
+  .login-btn:disabled {
+	background: #6b8f71;
+	cursor: not-allowed;
+  }
+  
+  .register-btn {
+	width: 100%;
+	padding: 0.7rem 0;
+	background: #f8ffe5;
+	color: #2a3b42;
+	border: none;
+	border-radius: 20px;
+	font-size: 1.05rem;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	cursor: pointer;
+	transition: background 0.2s;
+  }
+  
+  .login-container .error {
+	color: #b22222;
+	margin-bottom: 1rem;
+	font-size: 1rem;
+	text-align: center;
+  }

@@ -1,0 +1,141 @@
+.registro-bg {
+	min-height: 100vh;
+	background: #d9e9dc;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  }
+  
+  .registro-header {
+	margin-top: 2.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  }
+  
+  .registro-header img {
+	height: 3.5rem;
+	margin-bottom: 0.5rem;
+  }
+  
+  .registro-header h1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 2.5rem;
+	color: #2a3b42;
+	font-weight: bold;
+	margin: 0;
+	letter-spacing: 1px;
+  }
+  
+  .registro-title {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #2a3b42;
+	font-size: 1.5rem;
+	margin: 2rem 0 1.5rem 0;
+	text-align: center;
+  }
+  
+  .registro-container {
+	background: #a9d3b4;
+	border-radius: 12px;
+	padding: 2rem 2.5rem 2.5rem 2.5rem;
+	box-shadow: 0 2px 8px rgba(44, 62, 80, 0.05);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-width: 500px;
+	max-width: 95vw;
+  }
+  
+  .registro-form {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1.2rem 2rem;
+  }
+  
+  .registro-field {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+  }
+  
+  .registro-label {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #2a3b42;
+	font-size: 1rem;
+	margin-bottom: 0.3rem;
+  }
+  
+  .registro-input {
+	width: 100%;
+	padding: 0.5rem;
+	border: none;
+	border-radius: 5px;
+	background: #d9e9dc;
+	font-size: 1.1rem;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #2a3b42;
+  }
+  
+  .registro-input:focus {
+	outline: 2px solid #2e5135;
+  }
+  
+  .registro-icon {
+	position: absolute;
+	right: 0.7rem;
+	top: 2.2rem;
+	font-size: 1.2rem;
+  }
+  
+  .registro-icon.success {
+	color: #2e5135;
+  }
+  
+  .registro-icon.error {
+	color: #b22222;
+  }
+  
+  .registro-btn-row {
+	grid-column: 2;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	margin-top: 0.5rem;
+  }
+  
+  .registro-btn {
+	padding: 0.7rem 2.5rem;
+	background: #2e5135;
+	color: #c1f7cc;
+	border: none;
+	border-radius: 20px;
+	font-size: 1.1rem;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background 0.2s;
+  }
+  
+  .registro-form .error {
+	grid-column: 1 / span 2;
+	color: #b22222;
+	margin-top: 0.5rem;
+	font-size: 1rem;
+	text-align: center;
+  }
+  
+  .registro-link {
+	margin-top: 1.5rem;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #2a3b42;
+	text-align: center;
+	font-size: 1rem;
+	text-decoration: none;
+  }
+
+  .enlace{
+	text-decoration: none;
+	color: #2a3b42;
+  }
