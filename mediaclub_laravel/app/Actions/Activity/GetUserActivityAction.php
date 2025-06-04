@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\User;
+namespace App\Actions\Activity;
 use App\UseCases\Activity\GetUserActivityUseCase;
 use App\Traits\ApiResponse;
 use App\Models\Usuario;
@@ -18,7 +18,9 @@ class GetUserActivityAction
 
     public function execute(Usuario $user)
     {
-        $this->getUserActivitytUseCase->execute($user);
-        return $this->success('Lista de actividad cargada correctamente', 200);
+        $actividad= $this->getUserActivitytUseCase->execute($user);
+        if($actividad->total() === 0)  return $this->success('Lista de actividad vacia', 200);
+
+        return $this->success('Lista de actividad cargada correctamente', 200,$actividad);
     }
 }

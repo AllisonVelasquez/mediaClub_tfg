@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\User\GetUserActivityAction;
+use App\Actions\Activity\GetUserActivityAction; 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 
