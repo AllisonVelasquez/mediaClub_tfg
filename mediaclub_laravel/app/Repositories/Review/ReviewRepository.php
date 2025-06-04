@@ -28,7 +28,7 @@ class ReviewRepository implements ReviewRepositoryInterface
 
     public function deleteReview(int $userId, int $resenaId):bool
     {
-        $lista = Resena::where('resena_id', $resenaId)
+        $lista = Resena::where('id', $resenaId)
             ->where('usuario_id', $userId)
             ->firstOrFail();
 

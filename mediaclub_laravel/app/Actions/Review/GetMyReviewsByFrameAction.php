@@ -20,7 +20,8 @@ class GetMyReviewsByFrameAction
 
     public function execute(Usuario $user, Frame $frame )
     {
-        $this->getMyReviewsByFrameUseCase->execute($user, $frame);
-        return $this->success('Lista de reseñas cargada');
+        $resenas = $this->getMyReviewsByFrameUseCase->execute($user, $frame);
+        if($resenas->isEmpty())return $this->success('No se han encontrado reseñas para esa pelicula',200);
+        return $this->success('Reseñas realizadas',200,$resenas);
     }
 }

@@ -76,7 +76,7 @@ Route::middleware('auth:sanctum')->prefix('mi')->group(function () {
 
     Route::prefix('resenas')->group(function () {
         Route::get('/ver-todas', [ReviewController::class, 'getMyReviews']); 
-        Route::get('/{resena}/ver', [ReviewController::class, 'getReview']); 
+        Route::get('/{resena}/detalles', [ReviewController::class, 'getReview']); 
         Route::delete('/{resena}/borrar', [ReviewController::class, 'deleteReview']); 
         Route::get('/{frame}', [ReviewController::class, 'getMyReviewsByFrame']); 
     });

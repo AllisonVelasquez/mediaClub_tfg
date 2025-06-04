@@ -21,13 +21,9 @@ class ReviewController extends Controller
         return app(GetReviewsByUserAction::class)->execute($me);
     }
 
-    // public function getReviewsByUser(Usuario $user) { //esto en caso de ver los amigos
-    //     return app(GetReviewsByUserAction::class)->execute($user);
-    // }
-
-    public function getReview(Resena $review)
+    public function getReview(Resena $resena)
     {
-        return app(GetReviewAction::class)->execute($review);
+        return app(GetReviewAction::class)->execute($resena);
     }
     public function addReview(CreateReviewRequest $request, Frame $frame)
     {
@@ -36,18 +32,14 @@ class ReviewController extends Controller
         return app(CreateReviewAction::class)->execute($me, $data, $frame);
     }
 
-    public function deleteReview(Request $request, Resena $review)
+    public function deleteReview(Request $request, Resena $resena)
     {
         $me = $request->user();
-        return app(DeleteReviewAction::class)->execute($me, $review);
+        return app(DeleteReviewAction::class)->execute($me, $resena);
     }
 
     public function getMyReviewsByFrame(Request $request, Frame $frame) {
         $me = $request->user();
         return app(GetMyReviewsByFrameAction::class)->execute($me, $frame);
-    }
-
-    public function getReviewsByFrame(Frame $frame) {
-        return app(GetReviewsByFrameAction::class)->execute($frame);
     }
 }

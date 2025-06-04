@@ -57,7 +57,7 @@ class Resena extends Model
 	public function frame()
 	{
 		return $this->belongsTo(Frame::class)
-			->select('id', 'titulo');
+			->select('frame.id', 'titulo','poster_url');
 	}
 	public function likes()
 	{

@@ -13,8 +13,8 @@ class GetReviewUseCase
         $this->reviewRepository = $reviewRepository;
     }
 
-    public function execute(int $resenaId) : Resena
+    public function execute(Resena $resena) : Resena
     {
-        return $this->reviewRepository->getReview($resenaId);
+        return $this->reviewRepository->getReview($resena->id);
     }
 }
