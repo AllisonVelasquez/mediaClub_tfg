@@ -1,6 +1,6 @@
 import "./ListaPeliculas.css";
 import { useState, useEffect } from "react";
-import { getFrames } from "../../services/Frames/CRUD_Frames";
+import { getFramesPopular } from "../../services/Frames/CRUD_Frames";
 import { useNavigate } from "react-router-dom";
 
 const ListaPeliculas = () => {
@@ -10,7 +10,7 @@ const ListaPeliculas = () => {
   useEffect(() => {
     const fetchFrames = async () => {
       try {
-        const data = await getFrames();
+        const data = await getFramesPopular();
         setFrames(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Error fetching frames:", error);

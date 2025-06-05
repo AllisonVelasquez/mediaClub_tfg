@@ -2,13 +2,13 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getFrameById } from "../../services/Frames/CRUD_Frames";
 import {  } from "../../services/Actores/CRUD_actores";
-import Resena from "../Resenas/Resenas";
+import Resena from "../Resenas";
 import "./PeliculaDetalle.css";
 
 const PeliculaDetalle = () => {
   const { id } = useParams();
   const [pelicula, setPelicula] = useState(null);
-  const [repa, setReparto] = useState([]);
+  const [reparto, setReparto] = useState([]);
   const [error, setError] = useState(null);
   const renderStars = (score) => {
     const fullStars = Math.floor(score);
