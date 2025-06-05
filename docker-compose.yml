@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  traefik:
+    image: traefik:v2.11
+    command:
+      - "--api.insecure=true"
+      - "--providers.file.filename=/etc/traefik/dynamic.yml"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+    volumes:
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml
+      - ./traefik/dynamic.yml:/etc/traefik/dynamic.yml
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  backend:
+    build:
+      context: ./mediaclub_laravel
+    volumes:
+      - ./mediaclub_laravel:/var/www
+    networks:
+      - web
+
+  frontend:
+    build:
+      context: ./mediaclub_react
+    volumes:
+      - ./mediaclub_react:/app
+    networks:
+      - web
+
+  mysql:
+    image: mysql:8.3
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - muvis_data:/var/lib/mysql
+    networks:
+      - web
+
+networks:
+  web:
+    driver: bridge
+volumes:
+  muvis_data:
