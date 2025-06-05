@@ -1,23 +1,38 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-
-import UserList from "./components/UserList";
-import Profile from "./components/Perfil";
-import Registro from "./components/Registro";
+import { Routes, Route, useLocation } from "react-router-dom";
+import Menu from "./components/Menu/Menu.jsx";
+import Landing from "./components/landing/landing.jsx";
+import Registro from "./components/Registro/Registro.jsx";
+import LogIn from "./components/LogIn/LogIn.jsx";
+import Perfil from "./components/Perfil/Perfil.jsx"; 
+import PrivateRoute from "./components/PrivateRouter.jsx"; 
+import Peliculas from "./components/Peliculas/ListaPeliculas.jsx";
+import PeliculaDetalle from "./components/Peliculas/PeliculaDetalle";
 
 function App() {
+  const location = useLocation();
+  const hideMenu = ["/", "/LogIn", "/Registro"].includes(location.pathname);
+
   return (
-    <Router>
-      <nav>
-        <Link to="/Perfil">Inicio</Link>
-        <Link to="/UserList">Inicio</Link>
-        <Link to="/Registro">Inicio</Link>
-      </nav>
+    <>
+      {!hideMenu && <Menu />}
       <Routes>
-        <Route path="/Perfil" element={<Profile />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/LogIn" element={<LogIn />} />
         <Route path="/Registro" element={<Registro />} />
-        <Route path="/UserList" element={<UserList />} />
+
+        {/* Rutas protegidas */}
+        <Route
+          path="/Perfil"
+          element={
+            <PrivateRoute>
+              <Perfil />
+              <PeliculaDetalle />
+              <Peliculas />
+            </PrivateRoute>
+          }
+        />
       </Routes>
-    </Router>
+    </>
   );
 }
 

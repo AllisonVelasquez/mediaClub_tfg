@@ -1,0 +1,45 @@
+/*Contenedor Buscador */
+.buscador-container {
+  width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #8AC195;
+  }
+  /*Contenedor del desplegable */
+.desplegable{
+  display: flex;
+  flex-flow: row wrap;
+  gap:1;
+  justify-content: center;
+  align-items: center;
+}
+
+.opciones{
+    background-color: #5a9b7c;
+
+}
+
+  .buscador-input {
+    border: none;
+    padding: 8px 10px;
+    font-size: 14px;
+    outline: none;
+    width: 180px;
+  }
+  
+  .buscador-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .buscador-btn:hover {
+    background-color: #0056b3;
+  }
+
+  
