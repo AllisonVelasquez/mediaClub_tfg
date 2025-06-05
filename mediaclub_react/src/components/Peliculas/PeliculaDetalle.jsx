@@ -83,8 +83,8 @@ const PeliculaDetalle = () => {
             <strong>Reparto:</strong>
           </p>
           <div class="detalle-reparto">
-            {repa.length > 0 ? (
-              repa.map((actor, index) => (
+            {reparto.length > 0 ? (
+              reparto.map((actor, index) => (
                 <div key={index} class="actor-card">
                   <img src={actor.img} alt={actor.nombre} class="actor-img" />
                   <div class="actor-info">
