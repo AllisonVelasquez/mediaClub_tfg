@@ -82,6 +82,13 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/Actores"
+          element={
+            <PrivateRoute>
+              <ListaActores />
+            </PrivateRoute>
+          }></Route>
 
       </Routes>
     </>

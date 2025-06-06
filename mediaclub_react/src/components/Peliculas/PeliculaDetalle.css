@@ -1,131 +1,162 @@
-/* PeliculasDetalles.css */
-
-.container {
-  padding: 24px;
-  max-width: 1200px;
-  margin: 0 auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
-}
-
-.flex-row {
+.detalle-container {
+  position: relative;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  padding: 60px 20px;
   display: flex;
-  flex-direction: column;
-  gap: 24px;
+  justify-content: center;
+  align-items: center;
 }
 
-@media (min-width: 768px) {
-  .flex-row {
-    flex-direction: row;
-  }
+.fondo-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(12px);
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.detalle-contenido {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+  color: #222;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
 .poster {
-  width: 256px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  object-fit: cover;
-}
-
-.details {
-  flex: 1;
+  width: 340px;
+  max-width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  margin-bottom: 24px;
 }
 
 .title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 8px;
+  font-size: 2.5rem;
+  margin: 12px 0 4px;
 }
 
-.subtext {
-  color: #666;
-  margin-bottom: 12px;
+.subtitle {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 20px;
+  font-style: italic;
 }
 
-.rating-info {
-  margin-top: 16px;
+.descripcion {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #333;
+  padding: 0 20px;
 }
 
-.vote-input {
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 6px 12px;
-  width: 80px;
+.info p {
+  margin: 6px 0;
   font-size: 1rem;
-  margin-right: 12px;
 }
 
-.vote-button {
+.generos {
+  margin-top: 20px;
+}
+
+.genre-badge {
+  display: inline-block;
+  background-color: #e2e8f0;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  margin: 4px;
+  color: #333;
+}
+
+.actores {
+  margin-top: 40px;
+}
+
+.actores h2 {
+  margin-bottom: 16px;
+}
+
+.actores-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.actor {
+  width: 100px;
+  text-align: center;
+}
+
+.actor img {
+  width: 100px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.actor p {
+  margin: 4px 0;
+}
+
+.personaje {
+  font-size: 0.85rem;
+  color: #666;
+  font-style: italic;
+}
+
+.votacion {
+  margin-top: 32px;
+}
+
+.votacion form {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.votacion input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 100px;
+  font-size: 1rem;
+}
+
+.votacion button {
+  padding: 8px 16px;
+  border: none;
   background-color: #2563eb;
   color: white;
-  border: none;
-  padding: 8px 16px;
   border-radius: 6px;
-  font-weight: 600;
+  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
-.vote-button:hover {
+.votacion button:hover {
   background-color: #1d4ed8;
 }
 
-.vote-display {
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.voto-confirmado {
+  color: green;
+  font-weight: bold;
 }
 
-.section {
-  margin-top: 40px;
-}
-
-.section h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.reviews-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.review-item {
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 12px;
-  margin-bottom: 12px;
-}
-
-.review-user {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 4px;
-}
-
-.similares-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-@media (min-width: 768px) {
-  .similares-grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}
-
-.similar-item img {
-  width: 100%;
-  border-radius: 8px;
-  object-fit: cover;
-}
-
-.similar-title {
-  margin-top: 6px;
-  font-size: 0.9rem;
-  text-align: center;
-  color: #444;
+.error {
+  color: red;
+  margin-top: 10px;
 }

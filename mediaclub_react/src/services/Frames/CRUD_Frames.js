@@ -19,6 +19,8 @@ const mapFrames = (frames) =>
 export const getFramesPopulares = async () => {
   try {
     const response = await instance.get("frames/popular");
+    console.log(response.data);
+    
     if (
       response.data &&
       response.data.contenido &&
