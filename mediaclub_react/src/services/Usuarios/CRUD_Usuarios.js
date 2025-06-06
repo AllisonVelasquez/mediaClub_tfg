@@ -46,9 +46,7 @@ export const obtenerPerfilPorId = async (usuarioId) => {
 
 export const obtenerMiPerfil = async () => {
   try {
-    const response = await instance.get("/mi/perfil");
-    console.log("Perfil obtenido:", response.data);
-    
+    const response = await instance.get("/mi/perfil");    
     return response.data;
   } catch (error) {
     console.error("Error al obtener tu perfil:", error);

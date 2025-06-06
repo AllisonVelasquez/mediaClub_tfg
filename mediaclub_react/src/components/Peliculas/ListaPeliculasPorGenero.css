@@ -1,0 +1,98 @@
+/* Contenedor principal del componente */
+.peliculas-container {
+  width: 100%;
+  background-color: #d1f5e0;
+  padding: 2rem 1rem; /* Padding lateral un poco más pequeño para ajustarse a pantallas pequeñas */
+  box-sizing: border-box;
+}
+
+/* Fondo blanco con sombra y bordes redondeados */
+.peliculas-bg {
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow-x: hidden;
+}
+
+/* Título principal centrado */
+.peliculas-title {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 40px;
+  color: #064e3b;
+  font-weight: 700;
+}
+
+/* Secciones por género */
+section {
+  margin-bottom: 3rem;
+}
+
+/* Título de cada género */
+section h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #064e3b;
+  padding-left: 1rem;
+  border-left: 4px solid #10b981;
+  font-weight: 600;
+}
+
+/* Contenedor del botón ver más */
+.ver-mas-btn {
+  display: inline-block;
+  background-color: #10b981;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.ver-mas-btn:hover {
+  background-color: #059669;
+}
+
+/* Responsive ajustes */
+@media (max-width: 900px) {
+  .peliculas-bg {
+    padding: 1.5rem 1rem;
+    max-width: 95vw;
+  }
+  
+  .peliculas-title {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+
+  section h3 {
+    font-size: 1.4rem;
+    padding-left: 0.7rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .peliculas-container {
+    padding: 1rem 0.5rem;
+  }
+
+  .peliculas-bg {
+    padding: 1rem 0.5rem;
+  }
+  
+  .peliculas-title {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+  }
+
+  section h3 {
+    font-size: 1.2rem;
+    padding-left: 0.5rem;
+  }
+}

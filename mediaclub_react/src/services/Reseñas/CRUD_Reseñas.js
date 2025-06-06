@@ -1,9 +1,9 @@
 import { instance } from "../axios";
 
-// Obtener reseñas
-export const getReseñas = async () => {
+// Obtener reseñas de un frame (película)
+export const getResenasByFrame = async (frameId) => {
   try {
-    const response = await instance.get("reseñas");
+    const response = await instance.get(`frames/${frameId}/resenas`);
     return response.data;
   } catch (error) {
     console.error("Error al obtener reseñas:", error);
@@ -11,10 +11,10 @@ export const getReseñas = async () => {
   }
 };
 
-// Crear reseña
-export const crearReseña = async (reseñaData) => {
+// Crear reseña para un frame
+export const crearResena = async (frameId, resenaData) => {
   try {
-    const response = await instance.post("reseñas", reseñaData);
+    const response = await instance.post(`frames/${frameId}/anadir-resena`, resenaData);
     return response.data;
   } catch (error) {
     console.error("Error al crear reseña:", error);
@@ -22,10 +22,10 @@ export const crearReseña = async (reseñaData) => {
   }
 };
 
-// Eliminar reseña
-export const eliminarReseña = async (resenaId) => {
+// Eliminar reseña (ajusta la ruta si es necesario)
+export const eliminarResena = async (resenaId) => {
   try {
-    const response = await instance.delete(`reseñas/${resenaId}`);
+    const response = await instance.delete(`mi/resenas/${resenaId}/borrar`);
     return response.data;
   } catch (error) {
     console.error("Error al eliminar reseña:", error);

@@ -1,174 +1,131 @@
-/*Contenedor*/
-.container{
-  display: flex;
-  flex-flow: column wrap;
-  
-}
-/*Contenedor de la imagen y descripcion */
-.detalle-container {
-  display: flex;
-  flex-flow:row wrap;
-  gap: 2rem;
-  padding: 2rem;
-  max-width: 1000px;
-  margin: 2rem auto;
-  background: #3a8574;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  justify-content: center;
-  align-items: self-start;
-  box-sizing: border-box;
+/* PeliculasDetalles.css */
+
+.container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
 }
 
-.detalle-poster {
-  flex: 1 1 300px;
-  max-width: 300px;
-  width: 100%;
-  border-radius: 10px;
-  object-fit: cover;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.detalle-info {
-  flex: 2 1 400px;
-  min-width: 260px;
-  color: #000000;
-}
-
-.detalle-info h1 {
-  margin-bottom: 1rem;
-  font-size: 2.2rem;
-  color: #000000;
-}
-
-.detalle-info p {
-  margin: 0.4rem 0;
-  line-height: 1.5;
-}
-
-/* Contenedor de reseñas */
-.resenas-container {
-  display: flex;
-  flex-flow: row wrap;
-  gap: 1;
-  background-color: rgba(28, 207, 118, 0.089);
-}
-
-/* Mensajes de estado */
-.detalle-cargando,
-.detalle-error {
-  text-align: center;
-  margin-top: 3rem;
-  font-size: 1.3rem;
-  color: #555;
-}
-
-/* Contenedor de reparto */
-.detalle-reparto {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 2rem;
-  padding: 1rem;
-  border-radius: 12px;
-}
-
-/* Tarjeta de actor */
-.actor-card {
-  background-color: #ffffff;
-  width: 200px;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+.flex-row {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  gap: 24px;
 }
 
-.actor-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+@media (min-width: 768px) {
+  .flex-row {
+    flex-direction: row;
+  }
 }
 
-/* Imagen */
-.actor-img {
-  width: 100%;
-  height: 240px;
+.poster {
+  width: 256px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   object-fit: cover;
-  border-bottom: 1px solid #eee;
 }
 
-/* Info del actor */
-.actor-info {
-  padding: 1rem;
-  color: #333;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+.details {
+  flex: 1;
 }
 
-.actor-info h4 {
-  margin: 0.5rem 0;
-  font-size: 1.2rem;
-  color: #1a1a1a;
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
-.actor-info p {
+.subtext {
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.rating-info {
+  margin-top: 16px;
+}
+
+.vote-input {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 12px;
+  width: 80px;
+  font-size: 1rem;
+  margin-right: 12px;
+}
+
+.vote-button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.vote-button:hover {
+  background-color: #1d4ed8;
+}
+
+.vote-display {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.section {
+  margin-top: 40px;
+}
+
+.section h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.reviews-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.review-item {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+}
+
+.review-user {
   font-size: 0.9rem;
   color: #555;
-  margin: 0.3rem 0;
+  margin-bottom: 4px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .actor-card {
-    width: 45%;
-  }
+.similares-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
 }
 
-@media (max-width: 480px) {
-  .actor-card {
-    width: 90%;
-  }
-}
-
-/* Tablets y pantallas medianas */
-@media (max-width: 768px) {
-  .detalle-container {
-    flex-direction: column;
-    padding: 1rem;
-    max-width: 90%;
-  }
-  
-  .detalle-poster {
-    max-width: 100%;
-    flex: none;
-    margin: 0 auto;
-  }
-  
-  .detalle-info {
-    min-width: auto;
-    flex: none;
-    margin-top: 1.5rem;
-  }
-  
-  .resenas-container {
-    margin-top: 2rem;
+@media (min-width: 768px) {
+  .similares-grid {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 
-/* Móviles pequeños */
-@media (max-width: 480px) {
-  .detalle-info h1 {
-    font-size: 1.8rem;
-  }
-  
-  .detalle-info p {
-    font-size: 14px;
-  }
-  
-  .detalle-container {
-    padding: 1rem 0.5rem;
-  }
+.similar-item img {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.similar-title {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #444;
 }

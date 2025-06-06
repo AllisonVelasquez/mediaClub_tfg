@@ -1,0 +1,84 @@
+/* Generos.css */
+.generos-nav {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: #e0f7fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
+
+.menu-toggle {
+  width: 100%;
+  padding: 10px;
+  font-size: 1.2rem;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.generos-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.generos-list.open {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.genero-item {
+  padding: 0.5rem 1rem;
+  background-color: #ffffff;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  font-size: 1rem;
+}
+
+.generos-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.generos-pagination button {
+  background-color: #00796b;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.generos-pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .genero-item {
+    font-size: 0.95rem;
+  }
+
+  .menu-toggle {
+    font-size: 1rem;
+  }
+
+  .generos-pagination {
+    flex-direction: column;
+  }
+}

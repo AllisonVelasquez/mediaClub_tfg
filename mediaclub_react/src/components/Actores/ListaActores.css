@@ -1,0 +1,102 @@
+/* ListaActores.css */
+
+.lista-actores {
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.lista-actores h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #2e5135;
+  text-align: center;
+}
+
+.contenedor-actores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.actor-card {
+  width: 150px;
+  background: #f8ffe5;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #bcd2c2;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.actor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px #a0b692;
+}
+
+.actor-card img {
+  width: 120px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.actor-nombre {
+  font-weight: 600;
+  color: #2e5135;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.actor-popularidad {
+  font-size: 0.9rem;
+  color: #212226;
+}
+
+/* Estado de carga y error */
+.estado-carga,
+.estado-error {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #2e5135;
+  margin-top: 2rem;
+}
+
+/* PAGINACIÓN */
+.paginacion {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.paginacion button {
+  padding: 6px 12px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #333;
+  font-weight: 600;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.paginacion button:hover:not(:disabled) {
+  background-color: #a9c27a;
+  color: white;
+}
+
+.paginacion button.activo {
+  background-color: #2e5135;
+  color: #fff;
+  cursor: default;
+}
+
+.paginacion button:disabled {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+  color: #999;
+}

@@ -1,16 +1,20 @@
 import { instance } from "../axios";
 
 // Obtener todos los actores
-export const getAllActores = async () => {
-  const response = await instance.get("actores/ver-todos");
+// services/Actores/CRUD_actores.js
+export const getAllActores = async (page = 1) => {
+  const response = await instance.get(`actores/ver-todos?page=${page}`);
   return response.data;
 };
 
+
 // Buscar actores por nombre
-export const searchActoresByName = async (nombre) => {
-  const response = await instance.get(`actores/buscar`, { params: { nombre } });
-  return response.data;
+export const buscarActoresPorNombre = async (nombre) => {
+  const res = await fetch(`actores/buscar/?nombre=${encodeURIComponent(nombre)}`);
+  if (!res.ok) throw new Error("Error al buscar actores");
+  return res.json();
 };
+
 
 // Obtener detalles de un actor por ID
 export const getActorDetalles = async (actorId) => {

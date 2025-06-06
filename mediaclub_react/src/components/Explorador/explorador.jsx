@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./explorador.css";
 
-const Buscador = ({ valorInicial = "", contextoOculto }) => {
+const Buscador = ({ valorInicial = "", contextoOculto, onBuscar }) => {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
@@ -14,34 +14,25 @@ const Buscador = ({ valorInicial = "", contextoOculto }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (onBuscar) {
+      onBuscar(query.trim());
+    }
+
     console.log("Búsqueda enviada:", {
       query,
       contexto: contextoOculto,
     });
-
   };
 
   return (
-    <div class="buscador-container">
-      <nav class="desplegable">
-        <select class="opciones" name="opciones">
-          <option value="Todos">Todos</option>
-          <option value="Todos">Todos</option>
-          <option value="Todos">Todos</option>
-          <option value="Todos">Todos</option>
-          <option value="Todos">Todos</option>
-          <option value="Todos">Todos</option>
-          <option value="Todos">Todos</option>
-          <option value="Todos">Todos</option>
-          <option value="Todos">Todos</option>
-        </select>
-      </nav>
+    <div className="buscador-container">
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={query}
           onChange={handleChange}
-          placeholder="Buscar..."
+          placeholder="Buscar por nombre..."
           className="buscador-input"
         />
         <button type="submit" className="buscador-btn">
