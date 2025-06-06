@@ -30,45 +30,22 @@ function Menu() {
           >
             Perfil
           </NavLink>
+
           <NavLink
-            to="/Peliculas"
+            to="/listaActores"
             className={({ isActive }) =>
               isActive ? "opcion-activa" : "opcion"
             }
           >
-            Películas
+            Actores
           </NavLink>
           <NavLink
-            to="/ListaUsuarios"
+            to="/PeliculasPorGenero"
             className={({ isActive }) =>
               isActive ? "opcion-activa" : "opcion"
             }
           >
-            Usuarios
-          </NavLink>
-          <NavLink
-            to="/DetallesPeliculas"
-            className={({ isActive }) =>
-              isActive ? "opcion-activa" : "opcion"
-            }
-          >
-            Detalles Películas
-          </NavLink>
-          <NavLink
-            to="/Resenas"
-            className={({ isActive }) =>
-              isActive ? "opcion-activa" : "opcion"
-            }
-          >
-            Reseñas
-          </NavLink>
-          <NavLink
-            to="/error"
-            className={({ isActive }) =>
-              isActive ? "opcion-activa" : "opcion"
-            }
-          >
-            Error
+             Películas
           </NavLink>
 
           <button className="logout-btn" onClick={logOut}>

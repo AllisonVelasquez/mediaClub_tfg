@@ -36,16 +36,14 @@ export const getFramesPopulares = async () => {
     throw error;
   }
 };
-
-// Obtener frames por género con paginación
-export const getFramesByGenero = async (generoId, pagina = 1) => {
+    // Obtener frames por género con paginación
+export const getFramesByGenero = async (genero, pagina = 1) => {
   try {
     const response = await instance.get("frames/filtrar", {
-      params: { genero: generoId, page: pagina },
+      params: { genero, page: pagina },
     });
     if (
-      response.data &&
-      response.data.contenido &&
+      response.data?.contenido &&
       Array.isArray(response.data.contenido.data)
     ) {
       return {
@@ -63,7 +61,107 @@ export const getFramesByGenero = async (generoId, pagina = 1) => {
   }
 };
 
-// Obtener detalles de un frame
+// Obtener frames por año de estreno con paginación
+export const getFramesByFechaEstreno = async (fecha_estreno, pagina = 1) => {
+  try {
+    const response = await instance.get("frames/filtrar", {
+      params: { fecha_estreno, page: pagina },
+    });
+    if (
+      response.data?.contenido &&
+      Array.isArray(response.data.contenido.data)
+    ) {
+      return {
+        ...response.data,
+        contenido: {
+          ...response.data.contenido,
+          data: mapFrames(response.data.contenido.data),
+        },
+      };
+    }
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener frames por fecha de estreno:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Obtener frames por actor con paginación
+export const getFramesOrderByDuracion = async (orden = 'asc', pagina = 1) => {
+  try {
+    const response = await instance.get("frames/filtrar", {
+      params: { duracion: orden, page: pagina },
+    });
+    if (
+      response.data?.contenido &&
+      Array.isArray(response.data.contenido.data)
+    ) {
+      return {
+        ...response.data,
+        contenido: {
+          ...response.data.contenido,
+          data: mapFrames(response.data.contenido.data),
+        },
+      };
+    }
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener frames ordenados por duración:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Obtener frames ordenados por votos TMDB y Muvis con paginación
+export const getFramesOrderByVotosTmdb = async (orden = 'asc', pagina = 1) => {
+  try {
+    const response = await instance.get("frames/filtrar", {
+      params: { promedio_votos_tmdb: orden, page: pagina },
+    });
+    if (
+      response.data?.contenido &&
+      Array.isArray(response.data.contenido.data)
+    ) {
+      return {
+        ...response.data,
+        contenido: {
+          ...response.data.contenido,
+          data: mapFrames(response.data.contenido.data),
+        },
+      };
+    }
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener frames ordenados por votos TMDB:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Obtener frames ordenados por votos Muvis con paginación
+export const getFramesOrderByVotosMuvis = async (orden = 'asc', pagina = 1) => {
+  try {
+    const response = await instance.get("frames/filtrar", {
+      params: { promedio_votos_muvis: orden, page: pagina },
+    });
+    if (
+      response.data?.contenido &&
+      Array.isArray(response.data.contenido.data)
+    ) {
+      return {
+        ...response.data,
+        contenido: {
+          ...response.data.contenido,
+          data: mapFrames(response.data.contenido.data),
+        },
+      };
+    }
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener frames ordenados por votos Muvis:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Obtener detalles de un frame específico
 export const getDetallesFrame = async (frameId) => {
   try {
     const response = await instance.get(`frames/${frameId}/detalles`);
@@ -107,16 +205,7 @@ export const buscarFramesPorTitulo = async (titulo) => {
   }
 };
 
-// Obtener reseñas de un frame
-export const getResenasFrame = async (frameId) => {
-  try {
-    const response = await instance.get(`frames/${frameId}/resenas`);
-    return response.data;
-  } catch (error) {
-    console.error("Error al obtener reseñas:", error.response?.data || error.message);
-    throw error;
-  }
-};
+
 
 // Obtener listas públicas de un frame
 export const getListasPublicasFrame = async (frameId) => {

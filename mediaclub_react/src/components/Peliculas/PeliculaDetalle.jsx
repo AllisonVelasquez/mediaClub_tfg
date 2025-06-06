@@ -4,6 +4,7 @@ import {
   getDetallesFrame,
   anadirPuntuacionFrame,
 } from "../../services/Frames/CRUD_Frames.js";
+import ListaResenas from "../Resenas/ListaResenas.jsx";
 import ListaActores from "../Actores/ListaActores.jsx";
 
 const PeliculaDetalles = () => {
@@ -116,7 +117,6 @@ const PeliculaDetalles = () => {
 
         <div className="actores">
           <h2>Actores</h2>
-          {/* Aquí usamos ListaActores con la lista que viene en detalles */}
           <ListaActores
             actoresIniciales={detalles.actores}
             onActorClick={(actor) => navigate(`/actores/${actor.id}`)}
@@ -156,6 +156,8 @@ const PeliculaDetalles = () => {
 
           {error && <p className="error">{error}</p>}
         </div>
+        <ListaResenas frameId={detalles.id} modo="frame" />
+
       </div>
     </div>
   );
