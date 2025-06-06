@@ -8,20 +8,25 @@ use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_registro_usuario_exitoso()
     {
         $data = [
             'login_id' => 'allis123',
             'correo' => 'test@example.com',
             'contrasena' => 'Password123.',
+            'contrasena_confirmation' => 'Password123.',
+
             'alias' => 'Allis Velasquez',
             'bio' => 'Hola soy Yo'
         ];
-        $response = $this->postJson('/auth/registro', $data);
+        $response = $this->postJson('/api/auth/registro', $data);
 
+        // dd($response->getContent()); para ver el memsaje que lanza
         $response->assertStatus(201);
 
-        $this->assertDatabaseHas('usuarios', ['login_id' => $data['login_id']]);
+        $this->assertDatabaseHas('usuario', ['login_id' => $data['login_id']]);
     }
 
     // public function test_login_usuario_exitoso()
