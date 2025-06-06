@@ -1,12 +1,14 @@
 <?php
 
+namespace App\Repositories\Like;
+
 use App\Models\Lista;
 use App\Models\Megusta;
 use App\Models\Post;
 use App\Models\Resena;
-use App\Models\RespuestaPost;
+use Exception;
 
-class LikeRepository
+class LikeRepository implements LikeRepositoryInterface
 {
     public function getLikes(string $modelName, int $modelId)
     {
@@ -30,9 +32,11 @@ class LikeRepository
             throw new Exception('Esta lista no es publica.', 403);
         }
 
-        return $model->likes()->firstOrCreate([
-            'usuario_id' => $userId,
-        ]);
+        if ($model->likes()->where('usuario_id', $userId)->exists()) {
+            throw new Exception('No se puede dar me gusta mas de una vez.',422);
+        }
+
+        return $model->likes()->create(['usuario_id' => $userId]);
     }
 
     public function removeLike(string $modelName, int $modelId, int $userId): bool
@@ -43,7 +47,7 @@ class LikeRepository
             ->delete() > 0;
     }
 
-    protected function resolveModelClass(string $modelName): string
+    public function resolveModelClass(string $modelName): string
     {
         return match ($modelName) {
             'listas' => Lista::class,

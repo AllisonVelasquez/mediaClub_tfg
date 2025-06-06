@@ -21,11 +21,21 @@ class ActorRepository implements ActorRepositoryInterface
     }
     public function getFilmography(int $id): LengthAwarePaginator
     {
-        return Actor::findOrFail($id)
+        $filmography = Actor::findOrFail($id)
             ->frames()
-            ->withPivot('personaje')
-            ->orderByDesc('fecha_estreno')
             ->select('frame.id', 'titulo', 'poster_url', 'fecha_estreno')
+            ->orderByDesc('fecha_estreno')
             ->paginate(15);
+        $filmography->getCollection()->transform(function ($frame) {
+            return [
+                'frame_id' => $frame->id,
+                'titulo' => $frame->titulo,
+                'poster_url' => $frame->poster_url,
+                'personaje' => $frame->pivot->personaje ?? null,
+            ];
+        });
+
+
+        return $filmography;
     }
 }

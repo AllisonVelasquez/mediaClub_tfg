@@ -50,4 +50,6 @@ class Actor extends Model
 		return $this->belongsToMany(Frame::class)
 			->withPivot('personaje', 'orden');
 	}
+
+	
 }

@@ -3,8 +3,7 @@
 namespace App\Repositories\Like;
 
 use App\Models\Megusta;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
+
 
 interface LikeRepositoryInterface
 {

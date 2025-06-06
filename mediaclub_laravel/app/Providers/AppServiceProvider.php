@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Providers;
-use App\Models\Usuario;
 
 
 use Illuminate\Support\ServiceProvider;
@@ -31,6 +30,9 @@ use App\Repositories\Activity\ActivityRepository;
 use App\Repositories\Activity\ActivityRepositoryInterface;
 use App\Repositories\Genre\GenreRepository;
 use App\Repositories\Genre\GenreRepositoryInterface;
+use App\Repositories\Like\LikeRepository;
+use App\Repositories\Like\LikeRepositoryInterface;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -48,6 +50,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PostRepositoryInterface::class, PostRepository::class);
         $this->app->bind(ActivityRepositoryInterface::class, ActivityRepository::class);
         $this->app->bind(GenreRepositoryInterface::class, GenreRepository::class);
+        $this->app->bind(LikeRepositoryInterface::class, LikeRepository::class);
     }
 
     public function boot()
