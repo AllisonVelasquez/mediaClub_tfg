@@ -7,3 +7,6 @@
 /index.php
 /webalizer
 /xampp
+
+.env
+.docker.env
