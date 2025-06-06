@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   getDetallesFrame,
   anadirPuntuacionFrame,
 } from "../../services/Frames/CRUD_Frames.js";
-import "./PeliculaDetalle.css";
+import ListaActores from "../Actores/ListaActores.jsx";
 
 const PeliculaDetalles = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [detalles, setDetalles] = useState(null);
   const [miVoto, setMiVoto] = useState(null);
   const [votoEnviado, setVotoEnviado] = useState(false);
@@ -115,22 +116,11 @@ const PeliculaDetalles = () => {
 
         <div className="actores">
           <h2>Actores</h2>
-          <ul>
-            {detalles.actores.map((actor) => (
-              <li key={actor.id}>
-                <img
-                  src={
-                    actor.imagen_url
-                      ? baseImgUrl + actor.imagen_url
-                      : "https://via.placeholder.com/100x150?text=Sin+imagen"
-                  }
-                  alt={actor.nombre}
-                />
-                <p>{actor.nombre}</p>
-                <span>{actor.pivot.personaje}</span>
-              </li>
-            ))}
-          </ul>
+          {/* Aquí usamos ListaActores con la lista que viene en detalles */}
+          <ListaActores
+            actoresIniciales={detalles.actores}
+            onActorClick={(actor) => navigate(`/actores/${actor.id}`)}
+          />
         </div>
 
         <div className="votacion">
