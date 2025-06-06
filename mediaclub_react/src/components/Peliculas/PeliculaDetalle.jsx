@@ -12,6 +12,7 @@ const PeliculaDetalles = () => {
   const [miVoto, setMiVoto] = useState(null);
   const [votoEnviado, setVotoEnviado] = useState(false);
   const [error, setError] = useState("");
+  const [comentario, setComentario] = useState("");
 
   useEffect(() => {
     const fetchDetalles = async () => {
@@ -37,7 +38,7 @@ const PeliculaDetalles = () => {
     }
   }, [id]);
 
-  const handleVotar = async (voto) => {
+  const handleVotar = async (voto, comentario) => {
     if (voto < 1 || voto > 10 || !/^\d+(\.\d)?$/.test(voto)) {
       setError("La puntuación debe estar entre 1 y 10 y tener máximo un decimal.");
       return;
@@ -49,7 +50,12 @@ const PeliculaDetalles = () => {
       setVotoEnviado(true);
       localStorage.setItem(`voto_pelicula_${id}`, voto);
 
-      const response = await anadirPuntuacionFrame(id, voto);
+      const response = await anadirPuntuacionFrame(id, voto, comentario);
+
+      if (response?.status === "success") {
+        console.log("Comentario y puntuación enviados correctamente:", response.contenido);
+      }
+
       if (response?.promedio_actualizado) {
         setDetalles((prev) => ({
           ...prev,
@@ -65,57 +71,53 @@ const PeliculaDetalles = () => {
 
   if (!detalles) return <p>Cargando detalles...</p>;
 
-  const baseImgUrl = "https://image.tmdb.org/t/p/w500";
-  const fondoUrl = detalles.poster_url
-    ? `${baseImgUrl}${detalles.poster_url}`
-    : "";
-
   const fechaFormateada = detalles.fecha_estreno
     ? new Date(detalles.fecha_estreno).toLocaleDateString("es-ES")
     : "N/A";
 
+  const baseImgUrl = "https://image.tmdb.org/t/p/w500";
+
   return (
-    <div
-      className="detalle-container"
-      style={{
-        backgroundImage: `url(${fondoUrl})`,
-      }}
-    >
-      <div className="fondo-overlay" />
-
-      <div className="detalle-contenido">
+    <div className="pelicula-container">
+      <div className="pelicula-poster">
         <img
-          src={fondoUrl || "https://via.placeholder.com/300x450?text=Sin+imagen"}
+          src={
+            detalles.poster_url
+              ? baseImgUrl + detalles.poster_url
+              : "https://via.placeholder.com/400x600?text=Sin+imagen"
+          }
           alt={detalles.titulo}
-          className="poster"
         />
+      </div>
 
-        <h1 className="title">{detalles.titulo}</h1>
-        <h3 className="subtitle">{detalles.titulo_original}</h3>
+      <div className="pelicula-info">
+        <h1>{detalles.titulo}</h1>
+        <h3>{detalles.titulo_original}</h3>
 
         <p className="descripcion">{detalles.descripcion}</p>
 
-        <div className="info">
-          <p><strong>Fecha de estreno:</strong> {fechaFormateada}</p>
-          <p><strong>Duración:</strong> {detalles.duracion} minutos</p>
-          <p><strong>Eslogan:</strong> {detalles.eslogan || "N/A"}</p>
-          <p><strong>Promedio votos Muvis:</strong> {detalles.promedio_votos_muvis ?? "N/A"}</p>
-          <p><strong>Promedio votos TMDB:</strong> {detalles.promedio_votos_tmdb ?? "N/A"}</p>
-          <p><strong>Presupuesto:</strong> {detalles.presupuesto ? `$${detalles.presupuesto.toLocaleString()}` : "N/A"}</p>
-          <p><strong>Ingresos:</strong> {detalles.ingresos ? `$${detalles.ingresos.toLocaleString()}` : "N/A"}</p>
-        </div>
+        <p><strong>Fecha de estreno:</strong> {fechaFormateada}</p>
+        <p><strong>Duración:</strong> {detalles.duracion} minutos</p>
+        <p><strong>Eslogan:</strong> {detalles.eslogan || "N/A"}</p>
+        <p><strong>Promedio votos Muvis:</strong> {detalles.promedio_votos_muvis ?? "N/A"}</p>
+        <p><strong>Promedio votos TMDB:</strong> {detalles.promedio_votos_tmdb ?? "N/A"}</p>
+        <p><strong>Presupuesto:</strong> {detalles.presupuesto ? `$${detalles.presupuesto.toLocaleString()}` : "N/A"}</p>
+        <p><strong>Ingresos:</strong> {detalles.ingresos ? `$${detalles.ingresos.toLocaleString()}` : "N/A"}</p>
 
         <div className="generos">
-          {detalles.generos.map((genero) => (
-            <span key={genero.id} className="genre-badge">{genero.nombre}</span>
-          ))}
+          <h2>Géneros</h2>
+          <ul>
+            {detalles.generos.map((genero) => (
+              <li key={genero.id}>{genero.nombre}</li>
+            ))}
+          </ul>
         </div>
 
         <div className="actores">
           <h2>Actores</h2>
-          <div className="actores-list">
+          <ul>
             {detalles.actores.map((actor) => (
-              <div key={actor.id} className="actor">
+              <li key={actor.id}>
                 <img
                   src={
                     actor.imagen_url
@@ -125,22 +127,23 @@ const PeliculaDetalles = () => {
                   alt={actor.nombre}
                 />
                 <p>{actor.nombre}</p>
-                <p className="personaje">{actor.pivot.personaje}</p>
-              </div>
+                <span>{actor.pivot.personaje}</span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
         <div className="votacion">
           <h2>Tu puntuación</h2>
           {votoEnviado ? (
-            <p className="voto-confirmado">Ya votaste: <strong>{miVoto}</strong></p>
+            <p className="voto-exito">Ya votaste: <strong>{miVoto}</strong></p>
           ) : (
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 const voto = parseFloat(e.target.voto.value);
-                handleVotar(voto);
+                const comentario = e.target.comentario.value.trim();
+                handleVotar(voto, comentario);
               }}
             >
               <input
@@ -150,10 +153,17 @@ const PeliculaDetalles = () => {
                 min="1"
                 max="10"
                 placeholder="Ej: 7.5"
+                required
               />
+              <textarea
+                name="comentario"
+                placeholder="Escribe un comentario (opcional)"
+                rows="3"
+              ></textarea>
               <button type="submit">Votar</button>
             </form>
           )}
+
           {error && <p className="error">{error}</p>}
         </div>
       </div>

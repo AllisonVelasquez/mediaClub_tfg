@@ -174,12 +174,13 @@ export const getFramesPorActor = async (actorId, pagina = 1) => {
 };
 
 //anadir puntuación a un frame
-export const anadirPuntuacionFrame = async (frameId, puntuacion) => {
+
+export const anadirPuntuacionFrame = async (frameId, puntuacion, comentario = "") => {
   try {
-    const response = await instance.post(
-      `frames/${frameId}/anadir-puntuacion`,
-      { puntuacion: Number(puntuacion) } // Asegúrate de que coincida con el backend
-    );
+    const response = await instance.post(`frames/${frameId}/anadir-puntuacion`, {
+      puntuacion: Number(puntuacion),
+      comentario: comentario,
+    });
     return response.data;
   } catch (error) {
     console.error("Error al añadir puntuación:", error.response?.data || error.message);
