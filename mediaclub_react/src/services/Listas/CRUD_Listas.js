@@ -101,7 +101,6 @@ export const addFrameToLista = async (listaId, frameId) => {
 // Quitar un frame de una lista propia
 export const removeFrameFromLista = async (listaId, frameId) => {
   try {
-    // DELETE /mi/listas/{lista:id}/quitar/{frame:id}
     const response = await instance.delete(`mi/listas/${listaId}/quitar/${frameId}`);
     return response.data;
   } catch (error) {

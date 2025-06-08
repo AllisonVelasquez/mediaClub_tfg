@@ -24,6 +24,7 @@ const Landing = () => {
     setStart((prev) =>
       Math.min(prev + VISIBLE, Math.max(peliculas.length - VISIBLE, 0))
     );
+    
   };
 
   return (
@@ -66,8 +67,8 @@ const Landing = () => {
                 />
               </div>
                <div className="pelicula-promedios">
-                <span><b>Muvis:</b> {peli.promedio_muvis ?? 'N/A'}</span><br/>
-                <span><b>TMDB:</b> {peli.promedio_tmdb ?? 'N/A'}</span>
+                <span><b>Muvis:</b> {peli.promedio_votos_muvis ?? '0/A' }</span><br/>
+                <span><b>TMDB:</b> {peli.promedio_votos_tmdb ?? 'N/A'}</span>
               </div>
               <div className="pelicula-nombre">{peli.titulo}</div>
              

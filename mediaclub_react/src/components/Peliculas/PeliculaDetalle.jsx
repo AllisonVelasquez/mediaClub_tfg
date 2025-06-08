@@ -6,6 +6,7 @@ import {
 } from "../../services/Frames/CRUD_Frames.js";
 import ListaResenas from "../Resenas/ListaResenas.jsx";
 import ListaActores from "../Actores/ListaActores.jsx";
+import "./PeliculaDetalles.css"; // Asegúrate de tener un archivo CSS para estilos
 
 const PeliculaDetalles = () => {
   const { id } = useParams();

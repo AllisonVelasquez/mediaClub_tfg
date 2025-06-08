@@ -4,10 +4,12 @@ import {
   getResenasFrame,
   getResenasUsuario,
   crearResena,
-  eliminarResena
+  eliminarResena,
 } from "../../services/Resenas/CRUD_Resenas";
 
-const ListaResenas = ({ frameId = null, modo }) => {
+import "./ListaResenas.css";
+
+const ListaResenas = ({ frameId = null, modo, mostrarFormulario = true }) => {
   const [resenas, setResenas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [nuevoContenido, setNuevoContenido] = useState("");
@@ -26,9 +28,10 @@ const ListaResenas = ({ frameId = null, modo }) => {
       } else if (modo === "usuario") {
         data = await getResenasUsuario();
       }
-      setResenas(data.contenido.data);
+      setResenas(data?.contenido?.data || []);
     } catch (error) {
       console.error("Error al cargar reseñas:", error);
+      setResenas([]);
     } finally {
       setLoading(false);
     }
@@ -65,18 +68,19 @@ const ListaResenas = ({ frameId = null, modo }) => {
     }
   };
 
-  if (loading) return <p>Cargando reseñas...</p>;
+  if (loading) return <p className="loading">Cargando reseñas...</p>;
 
   return (
-    <div>
-      {(modo === "frame" || modo === "usuario") && (
-        <div>
+    <div className="lista-resenas">
+      {(modo === "frame" || modo === "usuario") && mostrarFormulario && (
+        <div className="nuevo-formulario">
           <textarea
+            className="nuevo-textarea"
             value={nuevoContenido}
             onChange={(e) => setNuevoContenido(e.target.value)}
             placeholder="Escribe tu reseña"
           />
-          <div>
+          <div className="spoiler-checkbox">
             <label>
               <input
                 type="checkbox"
@@ -86,21 +90,25 @@ const ListaResenas = ({ frameId = null, modo }) => {
               ¿Contiene spoilers?
             </label>
           </div>
-          <button onClick={handleCrear}>Publicar reseña</button>
+          <button className="btn-publicar" onClick={handleCrear}>
+            Publicar reseña
+          </button>
         </div>
       )}
 
       {resenas.length === 0 ? (
-        <p>No hay reseñas disponibles.</p>
+        <p className="sin-resenas">No hay reseñas disponibles.</p>
       ) : (
-        resenas.map((resena) => (
-          <Resena
-            key={resena.id}
-            resena={resena}
-            modo={modo}
-            onEliminar={modo === "usuario" ? handleEliminar : undefined}
-          />
-        ))
+        <div className="resenas-lista">
+          {resenas.map((resena) => (
+            <Resena
+              key={resena.id}
+              resena={resena}
+              modo={modo}
+              onEliminar={modo === "usuario" ? handleEliminar : undefined}
+            />
+          ))}
+        </div>
       )}
     </div>
   );

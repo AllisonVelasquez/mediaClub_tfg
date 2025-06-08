@@ -47,6 +47,14 @@ function Menu() {
           >
              Películas
           </NavLink>
+                   <NavLink
+            to="/Posts"
+            className={({ isActive }) =>
+              isActive ? "opcion-activa" : "opcion"
+            }
+          >
+             Posts
+          </NavLink>
 
           <button className="logout-btn" onClick={logOut}>
             Cerrar sesión

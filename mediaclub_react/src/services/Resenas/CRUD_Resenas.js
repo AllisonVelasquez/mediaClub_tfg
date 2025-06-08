@@ -38,8 +38,7 @@ export const getResenaPorId = async (resenaId) => {
 // ✅ Crear una nueva reseña
 export const crearResena = async ({ frame_id, contenido, spoiler }) => {
   try {
-    const response = await instance.post("mi/resenas/crear", {
-      frame_id,
+    const response = await instance.post(`frames/${frame_id}/anadir-resena`, {
       contenido,
       spoiler,
     });
@@ -50,6 +49,7 @@ export const crearResena = async ({ frame_id, contenido, spoiler }) => {
   }
 };
 
+
 // ✅ Eliminar una reseña por ID
 export const eliminarResena = async (resenaId) => {
   try {
@@ -57,6 +57,45 @@ export const eliminarResena = async (resenaId) => {
     return response.data;
   } catch (error) {
     console.error(`Error al eliminar reseña ${resenaId}:`, error.response?.data || error.message);
+    throw error;
+  }
+};
+
+export const likeResena = async (resenaId) => {
+  try {
+    const response = await instance.post(`resenas/${resenaId}/anadir-like`);
+    return response.data;
+  } catch (error) {
+    console.error(
+      `Error al dar like a la reseña ${resenaId}:`,
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
+
+export const unlikeResena = async (resenaId) => {
+  try {
+    const response = await instance.delete(`resenas/${resenaId}/quitar-like`);
+    return response.data;
+  } catch (error) {
+    console.error(
+      `Error al quitar like a la reseña ${resenaId}:`,
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
+
+export const getLikesResena = async (resenaId) => {
+  try {
+    const response = await instance.get(`resenas/${resenaId}/ver-likes`);
+    return response.data;
+  } catch (error) {
+    console.error(
+      `Error al obtener likes de la reseña ${resenaId}:`,
+      error.response?.data || error.message
+    );
     throw error;
   }
 };

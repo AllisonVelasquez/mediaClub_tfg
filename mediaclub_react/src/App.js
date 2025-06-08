@@ -11,6 +11,8 @@ import PeliculasPorGenero from "./components/Peliculas/ListaPeliculasPorGenero.j
 import Generos from "./components/Peliculas/Generos.jsx";
 import PeliculaDetalles from "./components/Peliculas/PeliculaDetalle.jsx";
 import Actor from "./components/Actores/Actor.jsx";
+import EditarPerfil from "./components/Perfil/EditarPerfil.jsx";
+import ListaPosts from "./components/Posts/ListaPosts.jsx";
 // import Resenas from "./components/Resenas/Resenas.jsx"; // <-- Importa el componente de reseñas
 
 function App() {
@@ -34,14 +36,14 @@ function App() {
             </PrivateRoute>
           }
         />
-        {/* <Route
-          path="/Resenas"
+        <Route
+          path="/editar-perfil"
           element={
             <PrivateRoute>
-              <Resenas />
+              <EditarPerfil/>
             </PrivateRoute>
           }
-        /> */}
+        />
         <Route
           path="/Peliculas/Genero/:id"
           element={
@@ -90,11 +92,20 @@ function App() {
               <ListaActores />
             </PrivateRoute>
           }></Route>
+
           <Route
           path="/actores/:id"
           element={
             <PrivateRoute>
               <Actor />
+            </PrivateRoute>
+          } ></Route>
+
+        <Route
+          path="/Posts"
+          element={
+            <PrivateRoute>
+              <ListaPosts />
             </PrivateRoute>
           } ></Route>
 
