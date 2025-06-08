@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Resena.css";
 import { likeResena, unlikeResena } from "../../services/Resenas/CRUD_Resenas";
 
-const Resena = ({ resena, modo, onEliminar }) => {
+const Resena = ({ resena, modo, onEliminar, onClick }) => {
   const [likesCount, setLikesCount] = useState(resena.likes || 0);
   const [likedByUser, setLikedByUser] = useState(resena.likedByUser || false);
   const [loadingLike, setLoadingLike] = useState(false);
@@ -34,7 +34,11 @@ const Resena = ({ resena, modo, onEliminar }) => {
   };
 
   return (
-    <div className="resena">
+    <div
+      className="resena"
+      onClick={onClick}
+      style={{ cursor: "pointer" }}
+    >
       <div className="resena-usuario-id">Usuario ID: {resena.usuario_id}</div>
 
       {modo === "usuario" && resena.frame && (
@@ -57,7 +61,10 @@ const Resena = ({ resena, modo, onEliminar }) => {
             <input
               type="checkbox"
               checked={mostrarSpoiler}
-              onChange={() => setMostrarSpoiler(!mostrarSpoiler)}
+              onChange={(e) => {
+                e.stopPropagation();
+                setMostrarSpoiler(!mostrarSpoiler);
+              }}
             />
             Mostrar contenido con spoilers ⚠️
           </label>
@@ -74,7 +81,10 @@ const Resena = ({ resena, modo, onEliminar }) => {
       <div className="resena-likes">
         <button
           className={`btn-like ${likedByUser ? "liked" : ""}`}
-          onClick={handleLikeClick}
+          onClick={(e) => {
+            e.stopPropagation(); // Evita que el click en el botón dispare onClick del div padre
+            handleLikeClick();
+          }}
           disabled={loadingLike}
           title={likedByUser ? "Quitar like" : "Dar like"}
         >
@@ -83,7 +93,13 @@ const Resena = ({ resena, modo, onEliminar }) => {
       </div>
 
       {modo === "usuario" && onEliminar && (
-        <button className="btn-eliminar" onClick={() => onEliminar(resena)}>
+        <button
+          className="btn-eliminar"
+          onClick={(e) => {
+            e.stopPropagation(); // Evita que el click dispare la navegación
+            onEliminar(resena);
+          }}
+        >
           Eliminar
         </button>
       )}

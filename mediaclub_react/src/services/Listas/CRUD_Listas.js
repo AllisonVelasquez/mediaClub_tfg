@@ -1,11 +1,9 @@
 import { instance } from "../axios";
-import { getFrameById } from "../Frames/CRUD_Frames";
+import { getDetallesFrame } from "../Frames/CRUD_Frames";
 
 // Obtener todas las listas públicas de todos los usuarios
 export const getListas = async () => {
   try {
-    // Según rutas.php, no hay endpoint global, así que asume que tienes un endpoint para obtener todas las listas públicas
-    // Si no existe, deberías crearlo en el backend o ajustar aquí para obtener solo las listas públicas de un usuario
     const response = await instance.get("listas/");
     return response.data;
   } catch (error) {
@@ -119,7 +117,7 @@ export const getFramesLista = async (listaId) => {
       console.warn("No se encontraron frames para esta lista.");
       return [];
     }
-    const peliculas = await Promise.all(lista.frame_id.map((id) => getFrameById(id)));
+    const peliculas = await Promise.all(lista.frame_id.map((id) => getDetallesFrame(id)));
     return peliculas;
   } catch (error) {
     console.error("Error al obtener la lista de frames:", error);
@@ -127,3 +125,23 @@ export const getFramesLista = async (listaId) => {
   }
 };
 
+// Obtener todas las listas del usuario autenticado (propias)
+export const getMisListas = async () => {
+  try {
+    const response = await instance.get("mi/listas/ver-todas");
+    return response.data.contenido; // Incluye current_page, links, etc.
+  } catch (error) {
+    console.error("Error al obtener tus listas:", error);
+    throw error;
+  }
+};
+// Obtener una lista propia por ID con sus frames
+export const getMiListaPorId = async (listaId) => {
+  try {
+    const response = await instance.get(`mi/listas/${listaId}/detalles`);
+    return response.data; // Retorna objeto completo de la lista
+  } catch (error) {
+    console.error("Error al obtener detalles de la lista:", error);
+    throw error;
+  }
+};

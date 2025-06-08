@@ -13,6 +13,8 @@ import PeliculaDetalles from "./components/Peliculas/PeliculaDetalle.jsx";
 import Actor from "./components/Actores/Actor.jsx";
 import EditarPerfil from "./components/Perfil/EditarPerfil.jsx";
 import ListaPosts from "./components/Posts/ListaPosts.jsx";
+import ListaDetalle from "./components/Listas/ListasDetalles.jsx";
+import UserProfileFull from "./components/Perfil/PerfilUsuarios.jsx";
 // import Resenas from "./components/Resenas/Resenas.jsx"; // <-- Importa el componente de reseñas
 
 function App() {
@@ -29,6 +31,13 @@ function App() {
 
         {/* Rutas protegidas */}
         <Route
+          path="/Perfil/:id"
+          element={
+            <PrivateRoute>
+              <UserProfileFull />
+            </PrivateRoute>
+          } />  
+        <Route
           path="/Perfil"
           element={
             <PrivateRoute>
@@ -40,7 +49,7 @@ function App() {
           path="/editar-perfil"
           element={
             <PrivateRoute>
-              <EditarPerfil/>
+              <EditarPerfil />
             </PrivateRoute>
           }
         />
@@ -92,8 +101,14 @@ function App() {
               <ListaActores />
             </PrivateRoute>
           }></Route>
-
-          <Route
+        <Route
+          path="/listas/:id"
+          element={
+            <PrivateRoute>
+              <ListaDetalle />
+            </PrivateRoute>
+          }></Route>
+        <Route
           path="/actores/:id"
           element={
             <PrivateRoute>

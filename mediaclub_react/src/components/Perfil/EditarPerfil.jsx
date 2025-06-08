@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { actualizarMiUsuario } from "../../services/Usuarios/CRUD_Usuarios";
+import { actualizarMiPerfil } from "../../services/Usuarios/Mi/CRUD_Usuarios";
 import "./EditarPerfil.css";
 
 const EditarPerfil = ({ datos, onCancel, onSave }) => {
@@ -117,7 +117,7 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
     }
 
     try {
-      await actualizarMiUsuario(datosActualizados);
+      await actualizarMiPerfil(datosActualizados);
       alert("Datos actualizados correctamente");
       onSave();
     } catch (error) {

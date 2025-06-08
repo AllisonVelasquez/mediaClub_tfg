@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logoNombreOscuro from "../assents/logo_nombre_oscuro.png";
 import "./Registro.css";
-import { crearUsuario, logInUsuario } from "../../services/Usuarios/CRUD_Usuarios";
+import { crearUsuario, logInUsuario } from "../../services/Usuarios/log";
 
 const Registro = () => {
   const navigate = useNavigate();

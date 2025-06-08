@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { logInUsuario } from "../../services/Usuarios/CRUD_Usuarios";
+import { logInUsuario } from "../../services/Usuarios/log";
 import { AuthContext } from "./AuthContext";
 import "./LogIn.css";
 import logoNombreOscuro from "../assents/logo_nombre_oscuro.png";
