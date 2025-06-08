@@ -215,6 +215,10 @@ const Registro = () => {
       <div className="registro-link">
         <a href="/LogIn" className="enlace">Ya tengo una cuenta</a>
       </div>
+      <div className="login-link">
+        <Link to="/" className='enlace'>Volver al inicio</Link>
+      </div>
+
     </div>
   );
 };
