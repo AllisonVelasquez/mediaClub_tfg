@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import logoNombreOscuro from "../assents/logo_nombre_oscuro.png";
 import "./Registro.css";
 import { crearUsuario, logInUsuario } from "../../services/Usuarios/CRUD_Usuarios";
