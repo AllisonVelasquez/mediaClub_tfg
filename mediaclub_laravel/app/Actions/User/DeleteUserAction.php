@@ -11,13 +11,13 @@ class DeleteUserAction
     use ApiResponse;
     protected $deleteUserUseCase;
     public function __construct(DeleteUserUseCase $deleteUserUseCase) {
-        $this->deleteUserUseCase = $$deleteUserUseCase;
+        $this->deleteUserUseCase = $deleteUserUseCase;
     }
     
     public function execute(Usuario $user, array $data)
     {
-
-        if ($this->deleteUserUseCase->execute($user, $data)) {
+        $eliminado = $this->deleteUserUseCase->execute($user, $data);
+        if ($eliminado) {
             return $this->success('Usuario eliminado.', 200);
         }
         return $this->error('No puedes eliminar este usuario.', 403);

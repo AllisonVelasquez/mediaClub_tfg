@@ -41,10 +41,10 @@ class UserRepository implements UserRepositoryInterface
         return true;
     }
 
-    public function delete(int $id): bool
+    public function deleteUser(int $id): bool
     {
         $user = Usuario::findOrFail($id);
-        return $user->delete();
+        return $user->delete() > 0;
     }
 
 

@@ -15,7 +15,7 @@ class DeleteUserUseCase
         $this->userRepository = $userRepository;
     }
 
-    public function execute(Usuario $user, array $data)
+    public function execute(Usuario $user, array $data) : bool
     {
         $loginCoincide = $user->login_id === $data['login_id'];
         $claveCorrecta = Hash::check($data['contrasena'], $user->contrasena);
@@ -23,6 +23,6 @@ class DeleteUserUseCase
             return false;
         }
         $user->tokens()->delete();
-        return $this->userRepository->delete($user->id);
+        return $this->userRepository->deleteUser($user->id);
     }
 }

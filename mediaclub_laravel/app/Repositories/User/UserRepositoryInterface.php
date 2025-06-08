@@ -12,7 +12,7 @@ interface UserRepositoryInterface
     public function findByLoginId(string $login_id): ?Usuario;
     public function store(array $data): Usuario;
     public function update(int $id, array $data): bool;
-    public function delete(int $id): bool;
+    public function deleteUser(int $id): bool;
     public function listFriends(int $id): Collection;
     public function getInfoUser(int $userId): array;
 }

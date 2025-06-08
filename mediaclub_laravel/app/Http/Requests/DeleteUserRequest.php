@@ -27,7 +27,7 @@ class DeleteUserRequest extends FormRequest
                 'required',
                 'string',
                 'max:100',
-                'exists:usuarios,login_id',
+                'exists:usuario,login_id',
                 function ($attribute, $value, $fail) {
                     if (preg_match('/\s/', $value)) {
                         $fail('El ID no debe contener espacios.');
