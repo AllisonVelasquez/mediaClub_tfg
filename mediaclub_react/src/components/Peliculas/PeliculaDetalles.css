@@ -1,0 +1,109 @@
+.pelicula-container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f9f9f9;
+  border-radius: 16px;
+}
+
+.pelicula-poster img {
+  width: 300px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  margin-bottom: 20px;
+}
+
+.pelicula-info {
+  text-align: center;
+  max-width: 800px;
+}
+
+.pelicula-info h1 {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+
+.pelicula-info h3 {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.descripcion {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 24px;
+}
+
+.generos ul,
+.actores ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.generos li {
+  background: #e0e0e0;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.actores li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100px;
+}
+
+.actores img {
+  width: 80px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+
+.votacion {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.votacion input,
+.votacion textarea {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 80%;
+  max-width: 300px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.votacion button {
+  padding: 10px 20px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.votacion button:hover {
+  background-color: #1d4ed8;
+}
+
+.voto-exito {
+  color: green;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}

@@ -1,0 +1,64 @@
+.lista-resenas {
+  max-width: 700px;
+  margin: 20px auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.nuevo-formulario {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.nuevo-textarea {
+  resize: vertical;
+  min-height: 80px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.nuevo-textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.spoiler-checkbox {
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+.btn-publicar {
+  align-self: flex-start;
+  padding: 8px 16px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-publicar:hover {
+  background-color: #0056b3;
+}
+
+.resenas-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sin-resenas,
+.loading {
+  text-align: center;
+  font-style: italic;
+  color: #666;
+  margin-top: 40px;
+}

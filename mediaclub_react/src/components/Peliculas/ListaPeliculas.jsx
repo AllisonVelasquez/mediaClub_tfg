@@ -1,178 +1,163 @@
-import "./ListaPeliculas.css";
-import { useState, useEffect } from "react";
-import { getFramesPopular } from "../../services/Frames/CRUD_Frames";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Slider from "react-slick";
+import { getFramesByGenero } from "../../services/Frames/CRUD_Frames";
+import { getMisListas, addFrameToLista } from "../../services/Listas/CRUD_Listas";
 
-const ListaPeliculas = () => {
+const ListaPeliculas = ({ generoId }) => {
   const [frames, setFrames] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [listas, setListas] = useState([]);
+  const [selectedFrameId, setSelectedFrameId] = useState(null);
+  const [showSelector, setShowSelector] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFrames = async () => {
+      setIsLoading(true);
       try {
-        const data = await getFramesPopular();
-        setFrames(Array.isArray(data) ? data : []);
+        const data = await getFramesByGenero(generoId);
+        setFrames(data.contenido?.data || []);
       } catch (error) {
-        console.error("Error fetching frames:", error);
+        console.error("Error cargando frames:", error);
         setFrames([]);
+      } finally {
+        setIsLoading(false);
       }
     };
-    fetchFrames();
-  }, []);
+
+    if (generoId) fetchFrames();
+  }, [generoId]);
+
+  const fetchMisListas = async () => {
+    try {
+      const data = await getMisListas();
+      setListas(data.data || []);
+    } catch (error) {
+      console.error("Error cargando tus listas:", error);
+    }
+  };
+
+  const handleAddToListaClick = async (frameId) => {
+    setSelectedFrameId(frameId);
+    await fetchMisListas();
+    setShowSelector(true);
+  };
+
+  const handleSeleccionLista = async (listaId) => {
+    try {
+      await addFrameToLista(listaId, selectedFrameId);
+      alert("Película añadida a la lista con éxito");
+    } catch (err) {
+      console.error("Error añadiendo frame a lista:", err);
+      alert("Error al añadir la película");
+    } finally {
+      setShowSelector(false);
+      setSelectedFrameId(null);
+    }
+  };
 
   const renderStars = (score) => {
-    const fullStars = Math.floor(score);
-    const emptyStars = 10 - fullStars;
+    const maxStars = 5;
     const stars = [];
-    for (let i = 0; i < fullStars; i++) stars.push("★");
-    for (let i = 0; i < emptyStars; i++) stars.push("☆");
-    return stars.join("");
+    const filledStars = Math.round(score / 2);
+    for (let i = 0; i < maxStars; i++) {
+      stars.push(
+        <span key={i} className="pelicula-puntuacion-estrellas">
+          {i < filledStars ? "★" : "☆"}
+        </span>
+      );
+    }
+    return stars;
   };
 
-  const handleMovieClick = (id) => {
-    navigate(`/pelicula/${id}`);
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 3,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: false,
+    responsive: [
+      { breakpoint: 1024, settings: { slidesToShow: 3, slidesToScroll: 2 } },
+      { breakpoint: 600, settings: { slidesToShow: 2, slidesToScroll: 1 } },
+      { breakpoint: 480, settings: { slidesToShow: 1, slidesToScroll: 1 } },
+    ],
   };
 
-  const byPuntuacion = [...frames].sort(
-    (a, b) => b.puntuacion_dbs.imdb - a.puntuacion_dbs.imdb
-  );
-  const byFecha = [...frames].sort(
-    (a, b) => new Date(b.fecha_lanzamiento) - new Date(a.fecha_lanzamiento)
-  );
-  const byNombre = [...frames].sort((a, b) => a.titulo.localeCompare(b.titulo));
+  if (isLoading) return <p>Cargando películas...</p>;
+  if (frames.length === 0) return <p>No hay películas disponibles.</p>;
 
   return (
-    <div className="peliculas-bg">
-      <h2 className="peliculas-title">
-        Descubre nuestras películas recomendadas
-      </h2>
-
-      <Carrusel
-        titulo="🔝 Mejores puntuadas"
-        frames={byPuntuacion}
-        onClick={handleMovieClick}
-        renderStars={renderStars}
-      />
-      <Carrusel
-        titulo="🕒 Estrenos recientes"
-        frames={byFecha}
-        onClick={handleMovieClick}
-        renderStars={renderStars}
-      />
-      <Carrusel
-        titulo="🔤 Orden alfabético"
-        frames={byNombre}
-        onClick={handleMovieClick}
-        renderStars={renderStars}
-      />
-    </div>
-  );
-};
-
-const Carrusel = ({ titulo, frames = [], onClick, renderStars }) => {
-  const [start, setStart] = useState(0);
-  const [visibleCount, setVisibleCount] = useState(5);
-
-  // Ajusta visibleCount según el tamaño de pantalla
-  useEffect(() => {
-    const updateVisibleCount = () => {
-      const width = window.innerWidth;
-      if (width >= 1200) {
-        setVisibleCount(5);
-      } else if (width >= 992) {
-        setVisibleCount(4);
-      } else if (width >= 768) {
-        setVisibleCount(3);
-      } else if (width >= 480) {
-        setVisibleCount(2);
-      } else {
-        setVisibleCount(1);
-      }
-      setStart(0); // Resetear posición al cambiar el tamaño
-    };
-
-    updateVisibleCount();
-    window.addEventListener("resize", updateVisibleCount);
-    return () => window.removeEventListener("resize", updateVisibleCount);
-  }, []);
-
-  const handlePrev = () => {
-    setStart((prev) => {
-      const next = prev - visibleCount;
-      return next < 0 ? Math.max(frames.length - visibleCount, 0) : next;
-    });
-  };
-
-  const handleNext = () => {
-    setStart((prev) => {
-      const next = prev + visibleCount;
-      return next >= frames.length ? 0 : next;
-    });
-  };
-
-  return (
-    <div className="carousel-block">
-      <h3 className="carousel-title">{titulo}</h3>
-      <div className="carousel-container"   style={{ "--visible-count": visibleCount }}
->
-        <button
-          className="carousel-arrow"
-          onClick={handlePrev}
-          disabled={frames.length <= visibleCount}
-        >
-          &lt;
-        </button>
-
-        <div className="peliculas-carousel">
-          {frames.slice(start, start + visibleCount).map((peli) => (
-            <div
-              className="pelicula-card-landing"
-              key={peli.frame_id}
-              onClick={() => onClick(peli.frame_id)}
-            >
-              <div className="card-inner">
-                {/* Cara frontal */}
-                <div className="card-front">
-                  <div className="pelicula-poster-img">
-                    <img
-                      src={peli.poster_url}
-                      alt={peli.titulo}
-                      className="poster-img"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="pelicula-nombre">{peli.titulo}</div>
-                  <div className="pelicula-puntuacion">
-                    {renderStars(peli.puntuacion_dbs.imdb)}
-                    <span className="puntuacion-text">
-                      {" "}
-                      ({peli.puntuacion_dbs.imdb})
-                    </span>
-                  </div>
+    <div className="slider-wrapper">
+      <Slider {...settings}>
+        {frames.map((frame) => (
+          <div key={frame.id}>
+            <div className="pelicula-card-landing" style={{ position: "relative" }}>
+              <img
+                src={frame.poster_url}
+                alt={frame.titulo}
+                onClick={() => navigate(`/peliculasDetalles/${frame.id}`)}
+                style={{ width: "100%", borderRadius: "10px 10px 0 0", cursor: "pointer" }}
+              />
+              <h4 className="pelicula-nombre">{frame.titulo}</h4>
+              <div className="pelicula-info">
+                <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
+                  <span>voto TMDB:</span>
+                  {renderStars(frame.promedio_votos_tmdb || 0)}
+                  <span className="pelicula-puntuacion-num">
+                    {typeof frame.promedio_votos_tmdb === "number"
+                      ? frame.promedio_votos_tmdb.toFixed(1)
+                      : "Sin puntuar"}
+                  </span>
                 </div>
-
-                {/* Cara trasera */}
-                <div className="card-back">
-                  <div className="pelicula-nombre">{peli.titulo}</div>
-                  <div className="pelicula-genero">{peli.genero}</div>
-                  <div className="pelicula-fecha-lanzamiento">
-                    {new Date(peli.fecha_lanzamiento).toLocaleDateString()}
-                  </div>
-                  <div className="pelicula-descripcion">{peli.descripcion}</div>
+                <div style={{ marginLeft: "1rem", fontWeight: "600" }}>
+                  <span>voto Muvis:</span>{" "}
+                  {typeof frame.promedio_votos_muvis === "number"
+                    ? frame.promedio_votos_muvis.toFixed(1)
+                    : "Sin puntuar"}
                 </div>
+                <span style={{ marginLeft: "auto", fontSize: "0.9rem", color: "#666" }}>
+                  <span>fecha de estreno:</span> {frame.fecha_estreno}
+                </span>
               </div>
+              <button
+                className="mt-2 text-sm text-blue-600 hover:underline"
+                onClick={() => handleAddToListaClick(frame.id)}
+              >
+                Añadir a una lista
+              </button>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+      </Slider>
 
-        <button
-          className="carousel-arrow"
-          onClick={handleNext}
-          disabled={frames.length <= visibleCount}
-        >
-          &gt;
-        </button>
-      </div>
+      {showSelector && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-4 rounded shadow-lg max-w-md w-full">
+            <h3 className="text-lg font-bold mb-3">Selecciona una lista</h3>
+            <ul className="space-y-2">
+              {listas.map((lista) => (
+                <li
+                  key={lista.id}
+                  className="cursor-pointer hover:bg-gray-100 p-2 rounded"
+                  onClick={() => handleSeleccionLista(lista.id)}
+                >
+                  {lista.nombre_lista} ({lista.publica ? "Pública" : "Privada"})
+                </li>
+              ))}
+            </ul>
+            <button
+              className="mt-4 text-red-600 hover:underline"
+              onClick={() => setShowSelector(false)}
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

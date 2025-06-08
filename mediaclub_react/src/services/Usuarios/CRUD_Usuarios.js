@@ -34,22 +34,11 @@ export const cerrarSesion = async () => {
 
 // --- PERFIL ---
 
-export const obtenerPerfilPorId = async (usuarioId) => {
-  try {
-    const response = await instance.get(`/usuarios/${usuarioId}/perfil`);
-    return response.data;
-  } catch (error) {
-    console.error("Error al obtener el perfil público:", error);
-    throw error;
-  }
-};
-
 export const obtenerMiPerfil = async () => {
   try {
-    const response = await instance.get("/mi/perfil");
-    console.log("Perfil obtenido:", response.data);
+    const response = await instance.get("/mi/perfil");    
     
-    return response.data;
+    return response.data.contenido;
   } catch (error) {
     console.error("Error al obtener tu perfil:", error);
     throw error;
@@ -61,17 +50,103 @@ export const actualizarMiUsuario = async (datosActualizados) => {
     const response = await instance.patch("/mi/actualizar-datos", datosActualizados);
     return response.data;
   } catch (error) {
-    console.error("Error al actualizar tu perfil:", error);
-    throw error;
+    // Extraer mensaje de error de la respuesta, si existe
+    if (error.response && error.response.data) {
+      console.error("Error al actualizar tu perfil:", error.response.data);
+      throw error.response.data;  // Lanzar los datos del error para manejar en frontend
+    } else {
+      console.error("Error al actualizar tu perfil:", error.message);
+      throw new Error("Error desconocido al actualizar tu perfil");
+    }
   }
 };
 
-export const eliminarMiCuenta = async () => {
+
+export const eliminarMiCuenta = async ({ login_id, contrasena }) => {
   try {
-    const response = await instance.delete("/mi/borrar-cuenta");
+    const response = await instance.delete("/mi/borrar-cuenta", {
+      data: { login_id, contrasena },
+    });
     return response.data;
   } catch (error) {
     console.error("Error al eliminar tu cuenta:", error);
     throw error;
   }
+};
+
+export const obtenerPerfilUsuario = async (id) => {
+  const res = await instance.get(`/usuarios/${id}/perfil`);
+  return res.data;
+};
+
+export const obtenerListasPublicas = async (id) => {
+  const res = await instance.get(`/usuarios/${id}/listas-publicas`);
+  return res.data;
+};
+
+export const obtenerAmigosUsuario = async (id) => {
+  const res = await instance.get(`/usuarios/${id}/amigos`);
+  return res.data;
+};
+
+export const obtenerActividadUsuario = async (id) => {
+  const res = await instance.get(`/usuarios/${id}/actividad`);
+  return res.data;
+};
+
+
+//PERFILES DE OTROS USUARIOS
+
+// Buscar usuarios por alias
+export const searchUsersByAlias = async (alias) => {
+  const response = await instance.get(`/usuarios/buscar`, { params: { alias } });
+  return response.data;
+};
+
+// Obtener perfil de un usuario
+export const getUserProfile = async (usuarioId) => {
+  const response = await instance.get(`/usuarios/${usuarioId}/perfil`);
+  return response.data;
+};
+
+// Obtener listas públicas de un usuario
+export const getUserPublicLists = async (usuarioId) => {
+  const response = await instance.get(`/usuarios/${usuarioId}/listas-publicas`);
+  return response.data;
+};
+
+// Obtener contenido de una lista pública de un usuario
+export const getUserPublicListContent = async (usuarioId, listaId) => {
+  const response = await instance.get(`/usuarios/${usuarioId}/listas-publicas/${listaId}`);
+  return response.data;
+};
+
+// Obtener amigos de un usuario
+export const getUserFriends = async (usuarioId) => {
+  const response = await instance.get(`/usuarios/${usuarioId}/amigos`);
+  return response.data;
+};
+
+// Obtener info general de un usuario
+export const getUserInfo = async (usuarioId) => {
+  const response = await instance.get(`/usuarios/${usuarioId}/info`);
+  return response.data;
+};
+
+// Obtener posts de un usuario
+export const getUserPosts = async (usuarioId) => {
+  const response = await instance.get(`/usuarios/${usuarioId}/posts`);
+  return response.data;
+};
+
+// Obtener post específico de un usuario
+export const getUserPost = async (usuarioId, postId) => {
+  const response = await instance.get(`/usuarios/${usuarioId}/posts/${postId}`);
+  return response.data;
+};
+
+// Obtener actividad de un usuario
+export const getUserActivity = async (usuarioId) => {
+  const response = await instance.get(`/usuarios/${usuarioId}/actividad`);
+  return response.data;
 };

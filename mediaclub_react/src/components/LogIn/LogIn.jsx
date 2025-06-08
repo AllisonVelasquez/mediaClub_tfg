@@ -10,7 +10,6 @@ const LogIn = () => {
     login_id: "",
     contrasena: "",
   });
-
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -50,7 +49,7 @@ const LogIn = () => {
 
       const { access_token } = response.contenido.original;
 
-      logIn(access_token); // <-- Guardar token en contexto y localStorage
+      logIn(access_token);
       navigate("/Perfil");
     } catch (err) {
       setError(

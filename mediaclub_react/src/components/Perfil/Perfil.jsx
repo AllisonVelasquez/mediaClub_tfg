@@ -1,119 +1,163 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { obtenerMiPerfil } from "../../services/Usuarios/CRUD_Usuarios";
+import React, { useState, useEffect, useContext } from "react";
+import { obtenerMiPerfil, eliminarMiCuenta } from "../../services/Usuarios/CRUD_Usuarios";
+import EditarPerfil from "./EditarPerfil";
+import ListaResenas from "../Resenas/ListaResenas";
+import ListaPosts from "../Posts/ListaPosts";
+import MisListas from "../Listas/MisListas";
+import { AuthContext } from "../LogIn/AuthContext";
 import "./perfil.css";
 
 const Perfil = () => {
-  const { userId } = useParams();
   const [profile, setProfile] = useState(null);
-  const [loggedUserId, setLoggedUserId] = useState(null);
+  const [editando, setEditando] = useState(false);
+  const { logOut } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const user = await obtenerMiPerfil(userId);
+        const user = await obtenerMiPerfil();
         setProfile(user);
       } catch (error) {
         console.error("Error al obtener el perfil:", error);
       }
     };
     fetchProfile();
-    setLoggedUserId(userId);
-  }, [userId]);
+  }, []);
 
   if (!profile) {
     return <div>Cargando...</div>;
   }
 
-  const isOwner = String(loggedUserId) === String(userId);
-  const redes = profile.redes || {};
+  // Parsear redes (string JSON)
+  let redesArray = [];
+  try {
+    redesArray = profile.redes ? JSON.parse(profile.redes) : [];
+  } catch (error) {
+    console.error("Error al parsear redes:", error);
+  }
+
+  const urlBasePorRed = {
+    Facebook: "https://facebook.com/",
+    Twitter: "https://twitter.com/",
+    Instagram: "https://instagram.com/",
+    YouTube: "https://youtube.com/",
+  };
+
+  const handleEditarClick = () => setEditando(true);
+  const handleCancelar = () => setEditando(false);
+
+  const handleGuardar = async () => {
+    try {
+      const user = await obtenerMiPerfil();
+      setProfile(user);
+    } catch (error) {
+      console.error("Error al obtener el perfil:", error);
+    }
+    setEditando(false);
+  };
+
+  const handleEliminarCuenta = async () => {
+    if (!window.confirm("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es irreversible.")) return;
+
+    const contrasena = window.prompt("Por favor, confirma tu contraseña para eliminar la cuenta:");
+    if (!contrasena) {
+      alert("Debes ingresar tu contraseña.");
+      return;
+    }
+
+    try {
+      await eliminarMiCuenta({ login_id: profile.login_id, contrasena });
+      alert("Cuenta eliminada correctamente.");
+      logOut();
+    } catch (error) {
+      console.error("Error al eliminar la cuenta:", error);
+      alert("No se pudo eliminar la cuenta. Verifica tu contraseña e intenta de nuevo.");
+    }
+  };
+
+  if (editando) {
+    return <EditarPerfil datos={profile} onCancel={handleCancelar} onSave={handleGuardar} />;
+  }
+
+  const userId = profile.id;
 
   return (
     <div className="profile">
       <div className="profile-header">
         <div className="profile-photo">
           <img
-            src={profile.foto_perfil}
-            alt={`${profile.alias}`}
+            src={profile.foto_perfil || "/images/perfiles/default.png"}
+            alt={profile.alias || "Foto de perfil"}
             className="photo-img"
             onError={(e) => (e.target.style.display = "none")}
           />
         </div>
 
         <div className="profile-info">
-          <div className="profile-username">{profile.alias}</div>
-          {isOwner && (
-            <>
-              <div className="profile-userid">{profile.login_id}</div>
-              <div className="profile-bio">{profile.bio}</div>
-              <div className="profile-creation-date">
-                <small>
-                  Miembro desde:{" "}
-                  {new Date(profile.fecha_creacion).toLocaleDateString()}
-                </small>
-              </div>
-            </>
-          )}
+          <div className="profile-username">{profile.alias || "Sin alias"}</div>
+          <div className="profile-bio">{profile.bio || "Sin biografía"}</div>
+          <div className="profile-creation-date">
+            <small>
+              Miembro desde:{" "}
+              {profile.created_at ? new Date(profile.created_at).toLocaleDateString() : "Fecha no disponible"}
+            </small>
+          </div>
+
+          <div className="profile-redes">
+            <h4>Redes Sociales:</h4>
+            {redesArray.length > 0 ? (
+              <ul>
+                {redesArray.map(({ nombre, url }, index) => {
+                  const base = urlBasePorRed[nombre] || "";
+                  const link = base + url;
+                  return (
+                    <li key={index}>
+                      <strong>{nombre}:</strong>{" "}
+                      {url ? (
+                        <a href={link} target="_blank" rel="noopener noreferrer">
+                          {link}
+                        </a>
+                      ) : (
+                        "No disponible"
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <p>No hay redes sociales registradas.</p>
+            )}
+          </div>
         </div>
 
-        {isOwner && (
-          <div className="profile-actions">
-            <button className="icon-btn" title="Configuración">
-              <span role="img" aria-label="configuración">
-                Editar Datos ⚙️
-              </span>
-            </button>
-          </div>
-        )}
+        <div className="profile-actions">
+          <button className="icon-btn" title="Editar perfil" onClick={handleEditarClick}>
+            <span role="img" aria-label="editar">
+              Editar Datos ⚙️
+            </span>
+          </button>
+        </div>
       </div>
 
-      {isOwner && (
-        <div className="profile-socials">
-          <h3>Redes Sociales</h3>
-          <div className="social-links">
-            {redes.facebook && (
-              <a
-                href={redes.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link fb"
-              >
-                Facebook
-              </a>
-            )}
-            {redes.twitter && (
-              <a
-                href={redes.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link twitter"
-              >
-                Twitter
-              </a>
-            )}
-            {redes.instagram && (
-              <a
-                href={redes.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link insta"
-              >
-                Instagram
-              </a>
-            )}
-            {(redes.youtube || redes.youtube_url) && (
-              <a
-                href={redes.youtube || redes.youtube_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link youtube"
-              >
-                YouTube
-              </a>
-            )}
-          </div>
+      <button
+        className="btn-eliminar-cuenta"
+        onClick={handleEliminarCuenta}
+        style={{ backgroundColor: "red", color: "white", marginTop: "20px" }}
+      >
+        Eliminar mi cuenta
+      </button>
+    <div className="profile-listas">
+        <MisListas modo="usuario" mostrarFormulario={true} currentUserId={userId} />
         </div>
-      )}
+      <div className="profile-resenas">
+        <h2>Mis Reseñas</h2>
+        <ListaResenas modo="usuario" mostrarFormulario={false} />
+      </div>
+
+      <div className="profile-posts">
+        <h2>Mis Posts</h2>
+        <ListaPosts modo="usuario" mostrarFormulario={true} currentUserId={userId} />
+      </div>
     </div>
   );
 };

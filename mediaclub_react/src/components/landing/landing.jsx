@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { getFramesPopular } from "../../services/Frames/CRUD_Frames"; // Corrige la ruta si tus servicios están en 'services'
+import { getFramesPopulares } from "../../services/Frames/CRUD_Frames"; // Corrige la ruta si tus servicios están en 'services'
 import { Link } from "react-router-dom";
 import "./landing.css";
 
@@ -11,7 +11,7 @@ const Landing = () => {
   const carouselRef = useRef(null);
 
   useEffect(() => {
-    getFramesPopular()
+    getFramesPopulares()
       .then((data) => setPeliculas(Array.isArray(data) ? data : []))
       .catch(console.error);
   }, []);
@@ -24,6 +24,7 @@ const Landing = () => {
     setStart((prev) =>
       Math.min(prev + VISIBLE, Math.max(peliculas.length - VISIBLE, 0))
     );
+    
   };
 
   return (
@@ -66,8 +67,8 @@ const Landing = () => {
                 />
               </div>
                <div className="pelicula-promedios">
-                <span><b>Muvis:</b> {peli.promedio_muvis ?? 'N/A'}</span><br/>
-                <span><b>TMDB:</b> {peli.promedio_tmdb ?? 'N/A'}</span>
+                <span><b>Muvis:</b> {peli.promedio_votos_muvis ?? '0/A' }</span><br/>
+                <span><b>TMDB:</b> {peli.promedio_votos_tmdb ?? 'N/A'}</span>
               </div>
               <div className="pelicula-nombre">{peli.titulo}</div>
              
