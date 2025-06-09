@@ -3,8 +3,7 @@
 namespace App\Repositories\FriendRequest;
 
 use App\Models\Solicitud;
-use Illuminate\Database\Eloquent\Collection;
-
+use Illuminate\Support\Collection;
 interface FriendRequestRepositoryInterface
 {
     public function createRequest(int $fromUserId, int $toUserId): Solicitud;

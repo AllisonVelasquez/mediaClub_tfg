@@ -5,8 +5,9 @@ namespace App\Repositories\FriendRequest;
 use App\Repositories\FriendRequest\FriendRequestRepositoryInterface;
 use App\Models\Solicitud;
 use Exception;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use App\Models\Amistad;
+
 
 class FriendRequestRepository implements FriendRequestRepositoryInterface
 {
@@ -63,7 +64,7 @@ class FriendRequestRepository implements FriendRequestRepositoryInterface
 
     public function getReceivedRequests(int $userId): Collection
     {
-        $recibidas = Solicitud::with('remitente')
+        return Solicitud::with('remitente')
             ->where('destinatario_id', $userId)
             ->where('estado', 'pendiente')
             ->get()
@@ -74,12 +75,11 @@ class FriendRequestRepository implements FriendRequestRepositoryInterface
                     'fecha' => $solicitud->fecha_solicitud->toDateTimeString()
                 ];
             });
-        return $recibidas;
     }
 
     public function getSentRequests(int $userId): Collection
     {
-        $enviadas = Solicitud::with('destinatario')
+        return Solicitud::with('destinatario')
             ->where('remitente_id', $userId)
             ->where('estado', 'pendiente')
             ->get()
@@ -90,7 +90,6 @@ class FriendRequestRepository implements FriendRequestRepositoryInterface
                     'fecha' => $solicitud->created_at->toDateTimeString()
                 ];
             });
-        return $enviadas;
     }
 
 }
