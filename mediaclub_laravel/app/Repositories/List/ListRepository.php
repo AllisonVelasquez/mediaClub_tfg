@@ -76,7 +76,7 @@ class ListRepository implements ListRepositoryInterface
 
     public function getPublicListsForUser(int $userId): LengthAwarePaginator
     {
-        return Lista::with((['framesImg' => function ($query) {
+        return Lista::with((['frames_img' => function ($query) {
             $query->limit(4);
         }]))
             ->where('usuario_id', $userId)

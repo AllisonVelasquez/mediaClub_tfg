@@ -22,14 +22,14 @@ class PostController extends Controller
         return app(GetMyPostsAction::class)->execute($me);
     }
 
-    public function showUserPosts(Usuario $user)
+    public function showUserPosts(Usuario $usuario)
     {
-        return app(GetUserPostsAction::class)->execute($user);
+        return app(GetUserPostsAction::class)->execute($usuario);
     }
 
-    public function showPost(Usuario $user, Post $post)
+    public function showPost(Usuario $usuario, Post $post)
     {
-        return app(GetPostAction::class)->execute($user, $post);
+        return app(GetPostAction::class)->execute($usuario, $post);
     }
 
     public function showMyPost(Request $request, Post $post)
