@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import logoNombreOscuro from "../assents/logo_nombre_oscuro.png";
 import "./Registro.css";
 import { crearUsuario } from "../../services/Usuarios/log";
@@ -205,6 +205,10 @@ const handleSubmit = async (e) => {
       <div className="registro-link">
         <a href="/LogIn" className="enlace">Ya tengo una cuenta</a>
       </div>
+      <div className="login-link">
+        <Link to="/" className='enlace'>Volver al inicio</Link>
+      </div>
+
     </div>
   );
 };

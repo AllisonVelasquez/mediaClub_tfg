@@ -112,6 +112,10 @@ const LogIn = () => {
           Quiero registrarme
         </button>
       </form>
+      <div className="login-link">
+        <Link to="/" className='enlace'>Volver al inicio</Link>
+      </div>
+
     </div>
   );
 };
