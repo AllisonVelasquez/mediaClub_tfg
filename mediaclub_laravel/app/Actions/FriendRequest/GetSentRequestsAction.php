@@ -17,6 +17,9 @@ class GetSentRequestsAction
     public function execute(Usuario $user)
     {
         $request = $this->getSentRequestsUseCase->execute($user);
+        if($request->isEmpty()) {
+            return $this->error('Lista de solicitudes enviadas vacia', 200);
+        }
         return $this->success('Lista de solicitudes enviadas', 200, $request);
     }
 }
