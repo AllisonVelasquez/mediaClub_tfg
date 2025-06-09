@@ -42,7 +42,7 @@ class FriendRequestRepository implements FriendRequestRepositoryInterface
 
     public function acceptRequest(int $toUserId, int $fromUserId): bool
     {
-        if ($fromUserId === $toUserId) throw new Exception('No puedes realizar esta accion',400);
+        if ($fromUserId === $toUserId) throw new Exception('No puedes aceptar una solicitud de ti mismo',400);
 
         $accepted = Solicitud::where('remitente_id', $fromUserId)
             ->where('destinatario_id', $toUserId)
@@ -53,7 +53,7 @@ class FriendRequestRepository implements FriendRequestRepositoryInterface
 
     public function rejectRequest(int $toUserId, int $fromUserId): bool
     {
-        if ($fromUserId === $toUserId) throw new Exception('No puedes realizar esta accion',400);
+        if ($fromUserId === $toUserId) throw new Exception('No puedes rechazar una solicitud de ti mismo',400);
 
         $rejected = Solicitud::where('remitente_id', $fromUserId)
             ->where('destinatario_id', $toUserId)
@@ -70,9 +70,10 @@ class FriendRequestRepository implements FriendRequestRepositoryInterface
             ->get()
             ->map(function ($solicitud) {
                 return [
+                    'remitente_id' => $solicitud->remitente_id,
                     'alias' => $solicitud->remitente->alias,
                     'foto_perfil' => $solicitud->remitente->foto_perfil,
-                    'fecha' => $solicitud->fecha_solicitud->toDateTimeString()
+                    'fecha' => $solicitud->created_at->toDateTimeString()
                 ];
             });
     }
@@ -85,6 +86,7 @@ class FriendRequestRepository implements FriendRequestRepositoryInterface
             ->get()
             ->map(function ($solicitud) {
                 return [
+                    'id' => $solicitud->id,
                     'alias' => $solicitud->destinatario->alias,
                     'foto_perfil' => $solicitud->destinatario->foto_perfil,
                     'fecha' => $solicitud->created_at->toDateTimeString()

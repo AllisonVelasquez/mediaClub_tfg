@@ -29,6 +29,10 @@ class Amistad extends Model
 		'usuario_id' => 'int',
 		'amigo_id' => 'int'
 	];
+protected $fillable = [
+		'usuario_id',
+		'amigo_id'
+	];
 
 	public function usuario()
 	{

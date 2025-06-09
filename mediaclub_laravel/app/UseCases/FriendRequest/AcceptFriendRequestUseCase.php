@@ -21,7 +21,8 @@ class AcceptFriendRequestUseCase
     {
         if($this->requestRepository->acceptRequest($me->id, $from->id)){
             $this->friendshipRepository->create($me->id,$from->id);
+            return true;
         }
-        return true;
+        return false;
     }
 }

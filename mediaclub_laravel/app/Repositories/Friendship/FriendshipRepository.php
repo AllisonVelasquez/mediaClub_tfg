@@ -8,7 +8,10 @@ class FriendshipRepository implements FriendshipRepositoryInterface
 {
     public function create(int $userid, int $friendid): Amistad
     {
-        return Amistad::create($userid, $friendid);
+        return Amistad::create([
+            'usuario_id' => $userid,
+            'amigo_id' => $friendid,
+        ]);
     }
     public function delete(int $userid, int $friendid): bool
     {

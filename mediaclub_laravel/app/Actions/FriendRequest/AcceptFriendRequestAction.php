@@ -16,7 +16,8 @@ class AcceptFriendRequestAction
     }
     public function execute(Usuario $me,Usuario $from)
     {
-        $this->acceptFriendRequestUseCase->execute($me, $from);
-        return $this->success('Solicitud de amistad aceptada', 201);
+        $frequest =$this->acceptFriendRequestUseCase->execute($me, $from);
+        if(!$frequest) return $this->error('No se ha podido aceptar la solicitud', 400);
+        return $this->success('Solicitud de amistad aceptada', 201, $frequest);
     }
 }
