@@ -12,6 +12,6 @@ class FriendshipRepository implements FriendshipRepositoryInterface
     }
     public function delete(int $userid, int $friendid): bool
     {
-        return Amistad::entre($userid, $friendid)->delete();
+        return Amistad::entre($userid, $friendid)->delete() > 0;
     }
 }

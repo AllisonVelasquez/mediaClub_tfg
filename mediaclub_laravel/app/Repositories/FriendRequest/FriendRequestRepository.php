@@ -79,14 +79,14 @@ class FriendRequestRepository implements FriendRequestRepositoryInterface
 
     public function getSentRequests(int $userId): Collection
     {
-        $enviadas = Solicitud::with('usuario')
+        $enviadas = Solicitud::with('destinatario')
             ->where('remitente_id', $userId)
             ->where('estado', 'pendiente')
             ->get()
             ->map(function ($solicitud) {
                 return [
-                    'alias' => $solicitud->remitente->alias,
-                    'foto_perfil' => $solicitud->remitente->foto_perfil,
+                    'alias' => $solicitud->destinatario->alias,
+                    'foto_perfil' => $solicitud->destinatario->foto_perfil,
                     'fecha' => $solicitud->created_at->toDateTimeString()
                 ];
             });
