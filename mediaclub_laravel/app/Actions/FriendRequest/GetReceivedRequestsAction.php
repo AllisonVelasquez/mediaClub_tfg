@@ -18,7 +18,7 @@ class GetReceivedRequestsAction
     {
         $request = $this->getReceivedRequestsUseCase->execute($user);
         if($request->isEmpty()) {
-            return $this->error('Lista de solicitudes recibidas vacia', 200);
+            return $this->success('Lista de solicitudes recibidas vacia', 200);
         }
         return $this->success('Lista de solicitudes recibidas', 200, $request);
     }
