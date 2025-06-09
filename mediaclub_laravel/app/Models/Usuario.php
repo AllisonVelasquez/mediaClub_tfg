@@ -7,9 +7,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Auth\Middleware\Authenticate;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -49,8 +47,7 @@ class Usuario extends Authenticatable
 	protected $table = 'usuario';
 	protected $primaryKey = 'id';
 
-	protected $casts = [
-	];
+	protected $casts = [];
 
 	protected $fillable = [
 		'login_id',
@@ -105,12 +102,22 @@ class Usuario extends Authenticatable
 
 	public function amigos(): Collection
 	{
-		$amistades = Amistad::deUsuario($this->id)->get();
-		$amigosIds = $amistades->map(function ($amistad) {
-			return $amistad->usuario_id == $this->id ? $amistad->amigo_id : $amistad->usuario_id;
-		})->unique()->filter()->values();
-		return Usuario::whereIn('id', $amigosIds)
-				->select('id','alias','foto_perfil')
-				->get();
+		$userId = $this->id;
+
+		$amistades = Amistad::deUsuario($userId)
+			->with(['usuario', 'amigo'])
+			->get();
+
+		return $amistades->map(function ($amistad) use ($userId) {
+			$amigo = $amistad->usuario_id == $userId
+				? $amistad->amigo
+				: $amistad->usuario;
+
+			return [
+				'id' => $amigo->id,
+				'alias' => $amigo->alias,
+				'foto_perfil' => $amigo->foto_perfil,
+			];
+		});
 	}
 }

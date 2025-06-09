@@ -3,7 +3,7 @@
 namespace App\Repositories\User;
 
 use App\Models\Usuario;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
 

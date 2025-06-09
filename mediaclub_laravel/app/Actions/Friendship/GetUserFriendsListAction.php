@@ -21,7 +21,7 @@ class GetUserFriendsListAction
     {
         $friends = $this->getUserFriendsListUseCase->execute($user);
 
-        if(isEmpty($friends)) return $this->success('Lista de amigos vacía',200);
+        if($friends->isEmpty()) return $this->success('Lista de amigos vacía',200);
         return $this->success('Lista de amigos cargada',200,$friends);
     }
 }
