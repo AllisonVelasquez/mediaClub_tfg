@@ -1,80 +1,70 @@
-.user-profile-container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 1rem;
-  font-family: Arial, sans-serif;
-  color: #333;
-  background: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.perfil-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
 }
 
-.user-name {
+.perfil-titulo {
   text-align: center;
   font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #222;
+  color: #333;
+  margin-bottom: 2rem;
 }
 
-.profile-section {
-  background: white;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  border-radius: 6px;
-  box-shadow: inset 0 0 5px #eee;
+.perfil-seccion {
+  margin-bottom: 2.5rem;
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-.profile-section h2 {
-  margin-bottom: 0.5rem;
-  border-bottom: 2px solid #0077cc;
-  padding-bottom: 0.3rem;
-  color: #0077cc;
-}
-
-.profile-section pre {
-  background: #f1f1f1;
-  padding: 0.75rem;
-  border-radius: 4px;
-  max-height: 200px;
-  overflow-y: auto;
-  font-size: 0.9rem;
-}
-
-.profile-section ul {
-  list-style: disc inside;
-  padding-left: 1rem;
-}
-
-.profile-section p {
-  font-style: italic;
-  color: #666;
-}
-
-.btn-friend-request {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #0077cc;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.btn-friend-request:disabled {
-  background-color: #999;
-  cursor: default;
-}
-
-.btn-friend-request:not(:disabled):hover {
-  background-color: #005fa3;
-}
-
-.loading,
-.error {
-  text-align: center;
-  font-size: 1.2rem;
-  margin-top: 3rem;
+.perfil-seccion h2 {
   color: #444;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.perfil-info {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.perfil-foto {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
+
+.perfil-detalles p {
+  margin: 0.3rem 0;
+}
+
+.lista-items {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  color: #333;
+}
+
+.json-info {
+  background: #eee;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.cargando {
+  color: #666;
+  font-style: italic;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
 }

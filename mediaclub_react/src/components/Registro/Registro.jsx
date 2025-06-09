@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logoNombreOscuro from "../assents/logo_nombre_oscuro.png";
 import "./Registro.css";
-import { crearUsuario, logInUsuario } from "../../services/Usuarios/log";
+import { crearUsuario } from "../../services/Usuarios/log";
 
 const Registro = () => {
   const navigate = useNavigate();
@@ -39,50 +39,40 @@ const Registro = () => {
     setSuccess("");
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setSuccess("");
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError("");
+  setSuccess("");
 
-    if (!isLoginIdOk || !isAliasOk || !isCorreoOk || !isPassOk || !isRepeatOk) {
-      setError("Por favor, completa todos los campos correctamente.");
-      return;
-    }
+  if (!isLoginIdOk || !isAliasOk || !isCorreoOk || !isPassOk || !isRepeatOk) {
+    setError("Por favor, completa todos los campos correctamente.");
+    return;
+  }
 
-    const payload = new FormData();
-    payload.append("login_id", formData.login_id);
-    payload.append("correo", formData.correo);
-    payload.append("alias", formData.alias);
-    payload.append("contrasena", formData.contrasena);
-    payload.append("contrasena_confirmation", formData.contrasena_confirmation);
+  const payload = new FormData();
+  payload.append("login_id", formData.login_id);
+  payload.append("correo", formData.correo);
+  payload.append("alias", formData.alias);
+  payload.append("contrasena", formData.contrasena);
+  payload.append("contrasena_confirmation", formData.contrasena_confirmation);
 
-    try {
-      const registroResponse = await crearUsuario(payload);
-      setSuccess("Registro exitoso");
+  try {
+    await crearUsuario(payload);
+    setSuccess("Registro exitoso. Redirigiendo al inicio de sesión...");
+    
+    // Redirigir tras un pequeño retraso para que el usuario vea el mensaje
+    setTimeout(() => {
+      navigate("/login");
+    }, 500); // 1.5 segundos de espera (puedes ajustar esto)
 
-      const loginData = {
-        correo: formData.correo,
-        contrasena: formData.contrasena,
-      };
+  } catch (err) {
+    setError(
+      err?.response?.data?.message ||
+      "Error al registrar. Intenta más tarde."
+    );
+  }
+};
 
-      const loginResponse = await logInUsuario(loginData);
-      if (loginResponse.token) {
-        localStorage.setItem("token", loginResponse.token);
-      }
-
-      const alias = registroResponse?.contenido?.alias;
-      if (alias) {
-        navigate(`/usuarios/${alias}/perfil`);
-      } else {
-        navigate("/Perfil");
-      }
-    } catch (err) {
-      setError(
-        err?.response?.data?.message ||
-        "Error al registrar o iniciar sesión. Intenta más tarde."
-      );
-    }
-  };
 
   return (
     <div className="registro-bg">

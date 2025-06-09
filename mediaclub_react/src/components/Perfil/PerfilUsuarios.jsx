@@ -8,16 +8,15 @@ import {
   getUserPosts,
   getUserActivity,
 } from "../../services/Usuarios/Usuarios/CRUD_Usuarios";
-import "./PerfilUsuarios.css"; // Asegúrate de tener estilos para el perfil
+import "./PerfilUsuarios.css";
+
 const UserFullProfile = () => {
   const { id: usuarioId } = useParams();
 
-  // Estados para perfil y errores
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [errorProfile, setErrorProfile] = useState(null);
   const [profile, setProfile] = useState(null);
 
-  // Estados para listas (arrays)
   const [publicLists, setPublicLists] = useState([]);
   const [loadingLists, setLoadingLists] = useState(true);
   const [errorLists, setErrorLists] = useState(null);
@@ -34,7 +33,6 @@ const UserFullProfile = () => {
   const [loadingActivity, setLoadingActivity] = useState(true);
   const [errorActivity, setErrorActivity] = useState(null);
 
-  // Estado para info (objeto)
   const [userInfo, setUserInfo] = useState(null);
   const [loadingInfo, setLoadingInfo] = useState(true);
   const [errorInfo, setErrorInfo] = useState(null);
@@ -46,90 +44,67 @@ const UserFullProfile = () => {
       return;
     }
 
-    // Cargar perfil
     const fetchProfile = async () => {
-      setLoadingProfile(true);
-      setErrorProfile(null);
       try {
         const res = await getUserProfile(usuarioId);
         setProfile(res.contenido || null);
       } catch (err) {
-        console.error("Error al cargar perfil:", err);
         setErrorProfile("No se pudo cargar el perfil.");
       } finally {
         setLoadingProfile(false);
       }
     };
 
-    // Cargar listas públicas
     const fetchPublicLists = async () => {
-      setLoadingLists(true);
-      setErrorLists(null);
       try {
         const res = await getUserPublicLists(usuarioId);
         setPublicLists(Array.isArray(res.contenido) ? res.contenido : []);
       } catch (err) {
-        console.error("Error al cargar listas públicas:", err);
         setErrorLists("No se pudieron cargar las listas públicas.");
       } finally {
         setLoadingLists(false);
       }
     };
 
-    // Cargar amigos
     const fetchFriends = async () => {
-      setLoadingFriends(true);
-      setErrorFriends(null);
       try {
         const res = await getUserFriends(usuarioId);
         setFriends(Array.isArray(res.contenido) ? res.contenido : []);
       } catch (err) {
-        console.error("Error al cargar amigos:", err);
         setErrorFriends("No se pudieron cargar los amigos.");
       } finally {
         setLoadingFriends(false);
       }
     };
 
-    // Cargar info adicional
     const fetchUserInfo = async () => {
-      setLoadingInfo(true);
-      setErrorInfo(null);
       try {
         const res = await getUserInfo(usuarioId);
         setUserInfo(res.contenido || null);
       } catch (err) {
-        console.error("Error al cargar info:", err);
         setErrorInfo("No se pudo cargar la información.");
       } finally {
         setLoadingInfo(false);
       }
     };
 
-    // Cargar posts
     const fetchPosts = async () => {
-      setLoadingPosts(true);
-      setErrorPosts(null);
       try {
         const res = await getUserPosts(usuarioId);
         setPosts(Array.isArray(res.contenido) ? res.contenido : []);
       } catch (err) {
-        console.error("Error al cargar posts:", err);
         setErrorPosts("No se pudieron cargar los posts.");
       } finally {
         setLoadingPosts(false);
       }
     };
 
-    // Cargar actividad
     const fetchActivity = async () => {
-      setLoadingActivity(true);
-      setErrorActivity(null);
       try {
         const res = await getUserActivity(usuarioId);
-        setActivity(Array.isArray(res.contenido) ? res.contenido : []);
+        const actividad = res?.contenido?.data;
+        setActivity(Array.isArray(actividad) ? actividad : []);
       } catch (err) {
-        console.error("Error al cargar actividad:", err);
         setErrorActivity("No se pudo cargar la actividad.");
       } finally {
         setLoadingActivity(false);
@@ -145,53 +120,57 @@ const UserFullProfile = () => {
   }, [usuarioId]);
 
   return (
-    <div>
+    <div className="perfil-contenedor">
       <h1>Perfil completo de {profile?.alias || "Usuario"}</h1>
 
-      <section>
+      <section className="perfil-seccion">
         <h2>Perfil</h2>
         {loadingProfile ? (
-          <p>Cargando perfil...</p>
+          <p className="cargando">Cargando perfil...</p>
         ) : errorProfile ? (
-          <p style={{ color: "red" }}>{errorProfile}</p>
+          <p className="error">{errorProfile}</p>
         ) : profile ? (
-          <div>
+          <div className="perfil-card">
             <img
               src={profile.foto_perfil || "/images/perfiles/default.png"}
               alt={`${profile.alias}'s profile`}
-              width={120}
-              height={120}
-              style={{ borderRadius: "50%" }}
+              className="perfil-foto"
             />
-            <p><strong>Alias:</strong> {profile.alias}</p>
-            <p><strong>Correo:</strong> {profile.correo}</p>
-            <p><strong>Bio:</strong> {profile.bio || "Sin bio"}</p>
-            {/* Puedes mostrar redes parseando JSON si quieres */}
+            <div>
+              <p><strong>Alias:</strong> {profile.alias}</p>
+              <p><strong>Correo:</strong> {profile.correo}</p>
+              <p><strong>Bio:</strong> {profile.bio || "Sin bio"}</p>
+            </div>
           </div>
         ) : (
           <p>Perfil no disponible.</p>
         )}
       </section>
 
-      <section>
-        <h2>Información</h2>
+      <section className="perfil-seccion">
+        <h2>Información adicional</h2>
         {loadingInfo ? (
-          <p>Cargando información...</p>
+          <p className="cargando">Cargando información...</p>
         ) : errorInfo ? (
-          <p style={{ color: "red" }}>{errorInfo}</p>
+          <p className="error">{errorInfo}</p>
         ) : userInfo ? (
-          <pre>{JSON.stringify(userInfo, null, 2)}</pre>
+          <div className="info-cards">
+            <div className="info-card"><h4>Reseñas</h4><p>{userInfo.resenas}</p></div>
+            <div className="info-card"><h4>Puntuaciones</h4><p>{userInfo.puntuaciones}</p></div>
+            <div className="info-card"><h4>Listas Públicas</h4><p>{userInfo.listas_publicas}</p></div>
+            <div className="info-card"><h4>Listas Privadas</h4><p>{userInfo.listas_privadas}</p></div>
+          </div>
         ) : (
           <p>Información no disponible.</p>
         )}
       </section>
 
-      <section>
+      <section className="perfil-seccion">
         <h2>Listas públicas</h2>
         {loadingLists ? (
-          <p>Cargando listas públicas...</p>
+          <p className="cargando">Cargando listas públicas...</p>
         ) : errorLists ? (
-          <p style={{ color: "red" }}>{errorLists}</p>
+          <p className="error">{errorLists}</p>
         ) : publicLists.length === 0 ? (
           <p>No tiene listas públicas.</p>
         ) : (
@@ -203,12 +182,12 @@ const UserFullProfile = () => {
         )}
       </section>
 
-      <section>
+      <section className="perfil-seccion">
         <h2>Amigos</h2>
         {loadingFriends ? (
-          <p>Cargando amigos...</p>
+          <p className="cargando">Cargando amigos...</p>
         ) : errorFriends ? (
-          <p style={{ color: "red" }}>{errorFriends}</p>
+          <p className="error">{errorFriends}</p>
         ) : friends.length === 0 ? (
           <p>No tiene amigos.</p>
         ) : (
@@ -220,12 +199,12 @@ const UserFullProfile = () => {
         )}
       </section>
 
-      <section>
+      <section className="perfil-seccion">
         <h2>Posts</h2>
         {loadingPosts ? (
-          <p>Cargando posts...</p>
+          <p className="cargando">Cargando posts...</p>
         ) : errorPosts ? (
-          <p style={{ color: "red" }}>{errorPosts}</p>
+          <p className="error">{errorPosts}</p>
         ) : posts.length === 0 ? (
           <p>No tiene posts.</p>
         ) : (
@@ -237,18 +216,32 @@ const UserFullProfile = () => {
         )}
       </section>
 
-      <section>
-        <h2>Actividad</h2>
+      <section className="perfil-seccion">
+        <h2>Actividad reciente</h2>
         {loadingActivity ? (
-          <p>Cargando actividad...</p>
+          <p className="cargando">Cargando actividad...</p>
         ) : errorActivity ? (
-          <p style={{ color: "red" }}>{errorActivity}</p>
+          <p className="error">{errorActivity}</p>
         ) : activity.length === 0 ? (
           <p>No tiene actividad reciente.</p>
         ) : (
-          <ul>
-            {activity.map((act, i) => (
-              <li key={i}>{JSON.stringify(act)}</li>
+          <ul className="actividad-lista">
+            {activity.map((act) => (
+              <li key={act.id} className="actividad-item">
+                <div className="actividad-icono">📝</div>
+                <div className="actividad-detalle">
+                  <p className="actividad-descripcion">{act.descripcion}</p>
+                  <p className="actividad-fecha">
+                    {new Date(act.created_at).toLocaleDateString("es-ES", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </p>
+                </div>
+              </li>
             ))}
           </ul>
         )}
