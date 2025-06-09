@@ -58,13 +58,13 @@ class ListController extends Controller
         $me = $request->user();
         return app(RemoveFrameFromListAction::class)->execute($me, $lista, $frame);
     }
-    public function showPublicUserLists(Usuario $user)
+    public function showPublicUserLists(Usuario $usuario)
     {
-        return app(GetUserPublicListsAction::class)->execute($user);
+        return app(GetUserPublicListsAction::class)->execute($usuario);
     }
-    public function showPublicUserListContent(Usuario $user, Lista $lista)
+    public function showPublicUserListContent(Usuario $usuario, Lista $lista)
     {
-        return app(GetPublicListContentAction::class)->execute($user, $lista);
+        return app(GetPublicListContentAction::class)->execute($usuario, $lista);
     }
 
     public function showPublicListsByFrame(Frame $frame)
