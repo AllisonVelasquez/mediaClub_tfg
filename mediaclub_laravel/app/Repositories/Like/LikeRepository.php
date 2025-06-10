@@ -13,31 +13,31 @@ class LikeRepository implements LikeRepositoryInterface
     public function getLikes(string $modelName, int $modelId)
     {
         $modelClass = $this->resolveModelClass($modelName);
-    $model = $modelClass::findOrFail($modelId);
+        $model = $modelClass::findOrFail($modelId);
 
-    if (($model instanceof \App\Models\Lista || $model instanceof \App\Models\Post) && !$model->publica) {
-        throw new \Exception('Esta lista no es pública', 403);
-    }
+        // if (($model instanceof \App\Models\Lista || $model instanceof \App\Models\Post) && !$model->publica) {
+        //     throw new \Exception('Esta lista no es pública', 403);
+        // }
 
-    $likes = $model->likes()
-        ->with(['usuario:id,alias,foto_perfil']) 
-        ->paginate(10); 
+        $likes = $model->likes()
+            ->with(['usuario:id,alias,foto_perfil'])
+            ->paginate(10);
 
-    $usuarios = $likes->getCollection()
-        ->pluck('usuario')
-        ->filter()
-        ->map(function ($usuario) {
-            return [
-                'id' => $usuario->id,
-                'alias' => $usuario->alias,
-                'foto_perfil' => $usuario->foto_perfil ?? '/images/default.png',
-            ];
-        })
-        ->values();
+        $usuarios = $likes->getCollection()
+            ->pluck('usuario')
+            ->filter()
+            ->map(function ($usuario) {
+                return [
+                    'id' => $usuario->id,
+                    'alias' => $usuario->alias,
+                    'foto_perfil' => $usuario->foto_perfil ?? '/images/default.png',
+                ];
+            })
+            ->values();
 
-    $likes->setCollection($usuarios);
+        $likes->setCollection($usuarios);
 
-    return $likes;
+        return $likes;
     }
 
     public function addLike(string $modelName, int $modelId, int $userId): Megusta
