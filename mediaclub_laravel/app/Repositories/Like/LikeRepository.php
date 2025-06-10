@@ -15,11 +15,26 @@ class LikeRepository implements LikeRepositoryInterface
         $modelClass = $this->resolveModelClass($modelName);
         $model = $modelClass::findOrFail($modelId);
 
-        if (($modelClass === 'listas' || $modelClass === 'posts') && !$model->publica) {
-            throw new Exception('Esta lista no es publica', 403);
+        if (($model instanceof \App\Models\Lista || $model instanceof \App\Models\Post) && !$model->publica) {
+            throw new \Exception('Esta lista no es pública', 403);
         }
-        // return $model->likes()->with('usuario')->get();
-        return $model->likes()->count();
+
+        $usuarios = $model->likes()
+            ->with(['usuario:id,foto_perfil'])
+            ->get()
+            ->pluck('usuario')
+            ->map(function ($usuario) {
+                return [
+                    'id' => $usuario->id,
+                    'foto_perfil' => $usuario->foto_perfil,
+                ];
+            })
+            ->values();
+
+        return [
+            'count' => $usuarios->count(),
+            'usuarios' => $usuarios,
+        ];
     }
 
     public function addLike(string $modelName, int $modelId, int $userId): Megusta
@@ -33,7 +48,7 @@ class LikeRepository implements LikeRepositoryInterface
         }
 
         if ($model->likes()->where('usuario_id', $userId)->exists()) {
-            throw new Exception('No se puede dar me gusta mas de una vez.',422);
+            throw new Exception('No se puede dar me gusta mas de una vez.', 422);
         }
 
         return $model->likes()->create(['usuario_id' => $userId]);
