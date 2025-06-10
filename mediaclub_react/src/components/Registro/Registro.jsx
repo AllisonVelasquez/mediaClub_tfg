@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate,Link } from "react-router-dom";
 import logoNombreOscuro from "../assents/logo_nombre_oscuro.png";
 import "./Registro.css";
 import { crearUsuario } from "../../services/Usuarios/log";
 
 const Registro = () => {
-  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     login_id: "",
@@ -206,7 +204,7 @@ const handleSubmit = async (e) => {
         <a href="/LogIn" className="enlace">Ya tengo una cuenta</a>
       </div>
       <div className="login-link">
-        <Link to="/" className='enlace'>Volver al inicio</Link>
+        <a href="/" className='enlace'>Volver al inicio</a>
       </div>
 
     </div>

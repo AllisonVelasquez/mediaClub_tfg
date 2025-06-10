@@ -78,6 +78,7 @@ const Landing = () => {
               className="pelicula-card-landing"
               key={peli.frame_id || peli.id || peli.titulo}
             >
+
               <div className="pelicula-poster-img">
                 <img
                   src={peli.poster_url}
@@ -89,6 +90,8 @@ const Landing = () => {
                   }}
                 />
               </div>
+              <div className="pelicula-nombre"><b>{peli.titulo}</b></div>
+
               <div className="pelicula-promedios">
                 <span>
                   <b>Muvis:</b> {formatRating(peli.promedio_votos_muvis)}
@@ -100,7 +103,6 @@ const Landing = () => {
                 </span>
                 {renderStars(peli.promedio_votos_tmdb)}
               </div>
-              <div className="pelicula-nombre">{peli.titulo}</div>
             </div>
           ))}
         </div>
