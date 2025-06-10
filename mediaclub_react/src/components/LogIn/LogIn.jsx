@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { logInUsuario } from "../../services/Usuarios/log";
 import { AuthContext } from "./AuthContext";
 import "./LogIn.css";
-import logoNombreOscuro from "../assents/logo_nombre_oscuro.png";
+import logo_nombre_oscuro from "../assents/logo_nombre_oscuro.png";
 
 const LogIn = () => {
   const [formData, setFormData] = useState({
@@ -69,7 +69,7 @@ const LogIn = () => {
   return (
     <div className="login-bg">
       <div className="login-header">
-        <img src={logoNombreOscuro} alt="Muvis Logo" />
+        <img src={logo_nombre_oscuro} alt="Muvis Logo" />
       </div>
       <h2
         style={{

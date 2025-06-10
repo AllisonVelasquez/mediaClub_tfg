@@ -94,7 +94,7 @@ const Perfil = () => {
         </div>
 
         <div className="profile-info">
-          <div className="profile-username">{profile.alias || "Sin alias"}</div>
+          <div className="profile-username">{profile.alias }</div>
           <div className="profile-bio">{profile.bio || "Sin biografía"}</div>
           <div className="profile-creation-date">
             <small>

@@ -140,6 +140,8 @@ const UserFullProfile = () => {
               <p><strong>Alias:</strong> {profile.alias}</p>
               <p><strong>Correo:</strong> {profile.correo}</p>
               <p><strong>Bio:</strong> {profile.bio || "Sin bio"}</p>
+              
+
             </div>
           </div>
         ) : (
