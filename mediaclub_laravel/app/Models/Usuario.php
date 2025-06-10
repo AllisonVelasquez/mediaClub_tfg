@@ -120,4 +120,8 @@ class Usuario extends Authenticatable
 			];
 		});
 	}
+	public function routeNotificationForMail()
+	{
+		return $this->correo;
+	}
 }

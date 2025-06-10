@@ -3,12 +3,11 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Models\Usuario;
 
-class UserRegistered extends Notification implements ShouldQueue
+class UserRegistered extends Notification
 {
     use Queueable;
 
@@ -42,7 +41,7 @@ class UserRegistered extends Notification implements ShouldQueue
             ->greeting('Hola ' . $this->user->login_id . '!')
             ->line('Gracias por registrarte.')
             ->line('Esperamos que disfrutes de nuestra plataforma.')
-            ->action('Ir al sitio', url('/'))
+            ->action('Ir al sitio', url('/')) //hay que poner la url aqui
             ->line('¡Gracias por unirte!');
     }
 
