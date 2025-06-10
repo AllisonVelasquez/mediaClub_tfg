@@ -38,7 +38,9 @@ class PostRepository implements PostRepositoryInterface
 
     public function update(int $userId, int $postId, array $data): bool
     {
-        Post::where('usuario_id', $userId)->update($data);
+        Post::where('usuario_id', $userId)
+        ->where('id', $postId)
+        ->update($data) > 0;
         return true;
     }
 
