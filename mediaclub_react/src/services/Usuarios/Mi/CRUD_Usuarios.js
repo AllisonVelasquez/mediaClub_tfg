@@ -17,6 +17,7 @@ export const eliminarMiCuenta = async (datos) => {
 };
 
 // AMISTADES
+// AMISTADES
 export const obtenerMisAmigos = async () => {
   const response = await instance.get("mi/amigos");
   return response.data;
@@ -51,6 +52,12 @@ export const cancelFriendRequest = async (usuarioId) => {
   const response = await instance.delete(`mi/amistad/cancelar-solicitud/${usuarioId}`);
   return response.data;
 };
+
+export const enviarSolicitudAmistad = async (usuarioId) => {
+  const response = await instance.post(`mi/amistad/solicitar/${usuarioId}`);
+  return response.data;
+};
+
 
 // ACTIVIDAD
 export const obtenerMiActividad = async () => {
