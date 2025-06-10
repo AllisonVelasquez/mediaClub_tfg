@@ -4,6 +4,7 @@ import EditarPerfil from "./EditarPerfil";
 import ListaResenas from "../Resenas/ListaResenas";
 import ListaPosts from "../Posts/ListaPosts";
 import MisListas from "../Listas/MisListas";
+import ListaAmigos from "../Listas/listaAmigos";
 import Amistades from "./Amistades";
 import { AuthContext } from "../LogIn/AuthContext";
 import "./perfil.css";
@@ -139,6 +140,7 @@ const Perfil = () => {
       <div className="profile-amistades">
         <h2>Mis Amistades</h2>
       <div className="lista-amigos">
+        <ListaAmigos mi={true} />
       </div>
         <Amistades userId={userId} />
       </div>

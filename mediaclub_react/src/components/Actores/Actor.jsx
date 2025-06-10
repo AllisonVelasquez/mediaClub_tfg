@@ -17,8 +17,6 @@ const Actor = () => {
         setLoading(true);
         const detallesActor = await getActorDetalles(id);        
         const filmografiaActor = await getActorFilmografia(id);
-        console.log("Detalles del actor:", detallesActor);
-        console.log(getActorDetalles(id));
         setDetalles(detallesActor);
         setFilmografia(filmografiaActor.data);
       } catch (err) {
@@ -46,7 +44,7 @@ const { imagen_url, nombre, popularidad } = detalles;
     <div>
       <h2>{detalles.nombre}</h2>
       <img
-        src={detalles.imagen_url}
+        src={BASE_IMG_URL+detalles.imagen_url}
         alt={detalles.nombre}
         onError={(e) => {
           e.target.alt =detalles.nombre;
