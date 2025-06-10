@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate,Link } from "react-router-dom";
 import logoNombreOscuro from "../assents/logo_nombre_oscuro.png";
 import "./Registro.css";
 import { crearUsuario } from "../../services/Usuarios/log";
@@ -74,7 +75,7 @@ const handleSubmit = async (e) => {
   return (
     <div className="registro-bg">
       <div className="registro-header">
-        <img src={logoNombreOscuro} alt="Muvis Logo" />
+        <img src="/logo_nombre_oscuro.png" alt="Muvis Logo" />
       </div>
       <div className="registro-title">Registra una nueva cuenta</div>
       <form className="registro-container" onSubmit={handleSubmit} autoComplete="off">

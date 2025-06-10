@@ -11,7 +11,7 @@ class PostRepository implements PostRepositoryInterface
     {
         return Post::where('usuario_id', $userId)
             ->orderByDesc('created_at')
-            ->paginate(10);
+            ->paginate(5);
     }
 
     public function getUserPosts(int $userId): LengthAwarePaginator
@@ -19,7 +19,7 @@ class PostRepository implements PostRepositoryInterface
         return Post::where('usuario_id', $userId)
             ->where('publico', true)
             ->orderByDesc('created_at')
-            ->paginate(10);
+            ->paginate(5);
     }
 
     public function getPostById(int $userId, int $postId): Post

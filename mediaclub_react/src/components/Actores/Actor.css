@@ -1,0 +1,136 @@
+.actor-container {
+	background: #bfe0c7;
+	border-radius: 16px;
+	max-width: 900px;
+	margin: 2.5rem auto 0 auto;
+	padding: 2.5rem 2.5rem 2rem 2.5rem;
+	box-shadow: 0 2px 12px rgba(44, 62, 80, 0.07);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .actor-header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	margin-bottom: 2rem;
+  }
+  
+  .actor-photo {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	background: #f8c6c6;
+	border: 2.5px solid #e1bcbc;
+	margin-bottom: 1rem;
+	object-fit: cover;
+	box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+  }
+  
+  .actor-name {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #2a3b42;
+	text-align: center;
+	margin-bottom: 0.2rem;
+  }
+  
+  .actor-popularidad {
+	font-size: 1rem;
+	color: #4b5c5e;
+	text-align: center;
+	margin-bottom: 1.2rem;
+  }
+  
+  .actor-section-title {
+	font-size: 1.2rem;
+	color: #2a3b42;
+	margin-bottom: 1rem;
+	margin-top: 0;
+	font-weight: bold;
+	text-align: left;
+	width: 100%;
+  }
+  
+  .filmografia-lista {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1.2rem;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+  }
+  
+  @media (max-width: 900px) {
+	.filmografia-lista {
+	  grid-template-columns: repeat(2, 1fr);
+	}
+  }
+  @media (max-width: 600px) {
+	.filmografia-lista {
+	  grid-template-columns: 1fr;
+	}
+  }
+  
+  .filmografia-item {
+	background: #a9d3b4;
+	border-radius: 10px;
+	padding: 1rem 0.5rem 0.5rem 0.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+	transition: transform 0.15s;
+  }
+  
+  .filmografia-item:hover {
+	transform: translateY(-4px) scale(1.03);
+	box-shadow: 0 4px 16px rgba(44, 62, 80, 0.12);
+  }
+  
+  .filmografia-item img {
+	width: 100px;
+	height: 150px;
+	object-fit: cover;
+	border-radius: 7px;
+	margin-bottom: 0.5rem;
+	background: #f8ffe5;
+	box-shadow: 0 1px 4px rgba(44, 62, 80, 0.05);
+  }
+  
+  .filmografia-titulo {
+	font-size: 1rem;
+	font-weight: bold;
+	color: #2e5135;
+	text-align: center;
+	margin-bottom: 0.2rem;
+  }
+  
+  .filmografia-personaje {
+	font-size: 0.98rem;
+	color: #2a3b42;
+	text-align: center;
+	margin-bottom: 0.2rem;
+  }
+  
+  .actor-link {
+	text-decoration: none;
+	color: inherit;
+	transition: color 0.2s;
+  }
+  
+  .actor-link:hover .filmografia-titulo {
+	color: #1d3923;
+  }
+  
+  .estado-carga,
+  .estado-error {
+	text-align: center;
+	font-size: 1.1rem;
+	color: #2e5135;
+	margin-top: 2rem;
+  }

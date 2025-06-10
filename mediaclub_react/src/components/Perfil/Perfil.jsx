@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { obtenerMiPerfil, eliminarMiCuenta } from "../../services/Usuarios/Mi/CRUD_Usuarios";
+import { obtenerMiPerfil } from "../../services/Usuarios/Mi/CRUD_Usuarios";
 import EditarPerfil from "./EditarPerfil";
 import ListaResenas from "../Resenas/ListaResenas";
 import ListaPosts from "../Posts/ListaPosts";
@@ -54,25 +54,6 @@ const Perfil = () => {
       console.error("Error al obtener el perfil:", error);
     }
     setEditando(false);
-  };
-
-  const handleEliminarCuenta = async () => {
-    if (!window.confirm("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es irreversible.")) return;
-
-    const contrasena = window.prompt("Por favor, confirma tu contraseña para eliminar la cuenta:");
-    if (!contrasena) {
-      alert("Debes ingresar tu contraseña.");
-      return;
-    }
-
-    try {
-      await eliminarMiCuenta({ login_id: profile.login_id, contrasena });
-      alert("Cuenta eliminada correctamente.");
-      logOut();
-    } catch (error) {
-      console.error("Error al eliminar la cuenta:", error);
-      alert("No se pudo eliminar la cuenta. Verifica tu contraseña e intenta de nuevo.");
-    }
   };
 
   if (editando) {
@@ -132,20 +113,11 @@ const Perfil = () => {
         <div className="profile-actions">
           <button className="icon-btn" title="Editar perfil" onClick={handleEditarClick}>
             <span role="img" aria-label="editar">
-              Editar Datos ⚙️
+              Editar Datos
             </span>
           </button>
         </div>
       </div>
-
-      <button
-        className="btn-eliminar-cuenta"
-        onClick={handleEliminarCuenta}
-        style={{ backgroundColor: "red", color: "white", marginTop: "20px" }}
-      >
-        Eliminar mi cuenta
-      </button>
-
       <div className="profile-listas">
         <MisListas modo="usuario" mostrarFormulario={true} currentUserId={userId} />
       </div>
