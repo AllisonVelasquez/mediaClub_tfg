@@ -119,6 +119,7 @@ Route::prefix('actores')->group(function () {
 Route::get('{likeable_type}/{likeable_id}/ver-likes', [LikeController::class, 'showLikes']);
                                                
 Route::middleware('auth:sanctum')->prefix('{likeable_type}/{likeable_id}')->group(function () {
-    Route::post('anadir-like', [LikeController::class, 'addLike']);
-    Route::delete('quitar-like', [LikeController::class, 'removeLike']);
+    Route::get('/ver-likes', [LikeController::class, 'showLikes']);
+    Route::post('/anadir-like', [LikeController::class, 'addLike']);
+    Route::delete('/quitar-like', [LikeController::class, 'removeLike']);
 });

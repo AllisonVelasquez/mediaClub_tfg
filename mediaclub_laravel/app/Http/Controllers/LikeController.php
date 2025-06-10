@@ -9,9 +9,10 @@ use Illuminate\Http\Request;
 
 class LikeController extends Controller
 {
-    public function showLikes(string $model, int $id)
+    public function showLikes(string $model, int $id,Request $request)
     {
-        return app(GetLikesAction::class)->execute($model, $id);
+        $me = $request->user();
+        return app(GetLikesAction::class)->execute($model, $id, $me);
     }
     public function addLike(string $model, int $id, Request $request)
     {

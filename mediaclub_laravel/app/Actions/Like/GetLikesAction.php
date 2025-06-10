@@ -2,6 +2,7 @@
 
 namespace App\Actions\Like;
 
+use App\Models\Usuario;
 use App\Traits\ApiResponse;
 use App\UseCases\Like\GetLikesUseCase;
 
@@ -17,9 +18,9 @@ class GetLikesAction
         $this->getLikesUseCase = $getLikesUseCase;
     }
 
-    public function execute(string $model,int $id)
+    public function execute(string $model,int $id,Usuario $usuario)
     {
-        $likes = $this->getLikesUseCase->execute($model, $id);
-        return $this->success('Likes cargados exitosamente', 200, $likes);
+        $likes = $this->getLikesUseCase->execute($model, $id,$usuario);
+        return $this->success('Likes cargados exitosamente', 200, $likes,$usuario);
     }
 }

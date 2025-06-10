@@ -10,11 +10,16 @@ use Exception;
 
 class LikeRepository implements LikeRepositoryInterface
 {
-    public function getLikes(string $modelName, int $modelId)
+    public function getLikes(string $modelName, int $modelId, int $userId)
     {
         $modelClass = $this->resolveModelClass($modelName);
         $model = $modelClass::findOrFail($modelId);
 
+        $isOwner = optional($userId === $model->usuario_id);
+
+        if (!$isOwner && ($model instanceof \App\Models\Lista || $model instanceof \App\Models\Post) && !$model->publica) {
+            throw new \Exception('Esta lista no es pública', 403);
+        }
         $likes = $model->likes()
             ->with(['usuario:id,alias,foto_perfil'])
             ->paginate(10);
@@ -26,7 +31,7 @@ class LikeRepository implements LikeRepositoryInterface
                 return [
                     'id' => $usuario->id,
                     'alias' => $usuario->alias,
-                    'foto_perfil' => $usuario->foto_perfil ?? '/images/default.png',
+                    'foto_perfil' => $usuario->foto_perfil,
                 ];
             })
             ->values();
