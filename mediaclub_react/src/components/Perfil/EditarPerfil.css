@@ -2,16 +2,16 @@
   max-width: 500px;
   margin: 20px auto;
   padding: 25px;
-  background-color: #f7f9fc;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
-  font-family: Arial, sans-serif;
+  background-color: #a9d3b4; /* Fondo verde claro como el formulario de login */
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.05);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .editar-perfil h2 {
   margin-bottom: 20px;
   font-weight: 700;
-  color: #333;
+  color: #2a3b42;
   text-align: center;
 }
 
@@ -23,29 +23,28 @@
 .editar-perfil label {
   margin-bottom: 15px;
   font-weight: 600;
-  color: #444;
+  color: #2a3b42;
   display: flex;
   flex-direction: column;
 }
 
-.editar-perfil input[type="text"],
-.editar-perfil input[type="url"],
-.editar-perfil textarea {
+.editar-input {
   margin-top: 6px;
   padding: 8px 10px;
-  font-size: 14px;
-  border: 1.5px solid #ccc;
+  font-size: 1.1rem;
+  border: none;
   border-radius: 5px;
-  transition: border-color 0.3s ease;
+  background: #d9e9dc;
+  color: #2a3b42;
   font-family: inherit;
-  resize: vertical;
+  transition: box-shadow 0.2s;
+  width: 100%;
+  min-height: 38px;
+  box-sizing: border-box;
 }
 
-.editar-perfil input[type="text"]:focus,
-.editar-perfil input[type="url"]:focus,
-.editar-perfil textarea:focus {
-  border-color: #007bff;
-  outline: none;
+.editar-input:focus {
+  outline: 2px solid #2e5135;
 }
 
 .editar-perfil textarea {
@@ -54,8 +53,9 @@
 
 .form-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-top: 25px;
+  gap: 1rem;
 }
 
 .form-actions button {
@@ -63,25 +63,62 @@
   padding: 10px 20px;
   font-weight: 600;
   border: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  border-radius: 20px;
+  font-size: 1.1rem;
   font-family: inherit;
+  transition: background-color 0.3s;
 }
 
 .form-actions button[type="submit"] {
-  background-color: #007bff;
-  color: white;
+  background-color: #2e5135; /* Verde oscuro */
+  color: #c1f7cc;
 }
 
 .form-actions button[type="submit"]:hover {
-  background-color: #0056b3;
+  background-color: #1d3923;
 }
 
 .form-actions button[type="button"] {
-  background-color: #ccc;
-  color: #333;
+  background-color: #f8ffe5; /* Fondo claro como el botón de registro */
+  color: #2a3b42;
 }
 
 .form-actions button[type="button"]:hover {
-  background-color: #999;
+  background-color: #e6f5d6;
+}
+
+/* Botón eliminar cuenta */
+.btn-eliminar-cuenta {
+  background: #e57373;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 0.6rem 2rem;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 1.5rem 0 0 0;
+  transition: background 0.2s;
+  display: block;
+}
+.btn-eliminar-cuenta:hover {
+  background: #b22222;
+}
+
+/* Dropzone para imagen de perfil */
+.dropzone {
+  background: #d9e9dc;
+  border: 2px dashed #2a3b42;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  color: #2a3b42;
+  transition: border-color 0.2s;
+}
+.dropzone.drag-over {
+  border-color: #2e5135;
+  background: #c1f7cc;
 }

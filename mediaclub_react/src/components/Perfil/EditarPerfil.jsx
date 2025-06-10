@@ -1,13 +1,16 @@
-import { useState, useEffect, useRef } from "react";
-import { actualizarMiPerfil } from "../../services/Usuarios/Mi/CRUD_Usuarios";
+import { useState, useEffect, useRef, useContext } from "react";
+import { actualizarMiPerfil, eliminarMiCuenta } from "../../services/Usuarios/Mi/CRUD_Usuarios";
+import { AuthContext } from "../LogIn/AuthContext";
 import "./EditarPerfil.css";
 
 const EditarPerfil = ({ datos, onCancel, onSave }) => {
+  const { logOut } = useContext(AuthContext);
+
   const redesInicial = (Array.isArray(datos.redes)
     ? datos.redes.reduce((acc, r) => {
-        acc[r.nombre] = r.url;
-        return acc;
-      }, {})
+      acc[r.nombre] = r.url;
+      return acc;
+    }, {})
     : {}) || {};
 
   const [originalDatos] = useState({
@@ -30,9 +33,9 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
     setRedes(
       (Array.isArray(datos.redes)
         ? datos.redes.reduce((acc, r) => {
-            acc[r.nombre] = r.url;
-            return acc;
-          }, {})
+          acc[r.nombre] = r.url;
+          return acc;
+        }, {})
         : {}) || {}
     );
   }, [datos]);
@@ -126,18 +129,37 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
     }
   };
 
+  const handleEliminarCuenta = async () => {
+    if (!window.confirm("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es irreversible.")) return;
+
+    const contrasena = window.prompt("Por favor, confirma tu contraseña para eliminar la cuenta:");
+    if (!contrasena) {
+      alert("Debes ingresar tu contraseña.");
+      return;
+    }
+
+    try {
+      await eliminarMiCuenta({ login_id: datos.login_id, contrasena });
+      alert("Cuenta eliminada correctamente.");
+      logOut();
+    } catch (error) {
+      console.error("Error al eliminar la cuenta:", error);
+      alert("No se pudo eliminar la cuenta. Verifica tu contraseña e intenta de nuevo.");
+    }
+  };
+
   return (
     <div className="editar-perfil">
       <h2>Editar Perfil</h2>
       <form onSubmit={handleSubmit}>
         <label>
           Alias:
-          <input value={alias} onChange={(e) => setAlias(e.target.value)} />
+          <input className="editar-input" value={alias} onChange={(e) => setAlias(e.target.value)} />
         </label>
 
         <label>
           Biografía:
-          <textarea value={bio} onChange={(e) => setBio(e.target.value)} />
+          <textarea className="editar-input" value={bio} onChange={(e) => setBio(e.target.value)} />
         </label>
 
         <label>
@@ -180,6 +202,7 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
           <label key={nombre}>
             {nombre}:
             <input
+              className="editar-input"
               value={redes[nombre] || ""}
               onChange={(e) => handleRedChange(nombre, e.target.value)}
             />
@@ -193,8 +216,14 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
           </button>
         </div>
       </form>
+      <br></br><hr/>
+      <button
+        className="btn-eliminar-cuenta"
+        onClick={handleEliminarCuenta}
+      >
+        Eliminar mi cuenta
+      </button>
     </div>
-    
   );
 };
 
