@@ -41,7 +41,7 @@ const Landing = () => {
     <div className="landing-bg">
       <header className="landing-header">
         <div className="landing-logo">
-          <img src="../assents/logo_nombre_oscuro.png" alt="Muvis Logo" />
+          <img src="/logo_nombre_oscuro.png" alt="Muvis Logo" />
         </div>
         <div className="landing-actions">
           <Link to="/LogIn" className="landing-btn light">
