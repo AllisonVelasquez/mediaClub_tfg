@@ -1,0 +1,79 @@
+/* === POST CONTAINER === */
+.post {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 1.2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.post:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* === TITULO Y CONTENIDO === */
+.post h4 {
+  font-size: 1.25rem;
+  color: #333;
+  margin: 0;
+}
+
+.post p {
+  font-size: 1rem;
+  color: #555;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* === BOTONES Y CONTROLES === */
+.post button {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: background 0.3s ease;
+}
+
+.post button:hover {
+  background: #388e3c;
+}
+
+.post button:last-child {
+  background: #e53935;
+}
+
+.post button:last-child:hover {
+  background: #c62828;
+}
+
+/* === INPUTS EN MODO EDICIÓN === */
+.post input[type="text"],
+.post textarea {
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.post textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* === LIKE + CONTADOR === */
+.post > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}

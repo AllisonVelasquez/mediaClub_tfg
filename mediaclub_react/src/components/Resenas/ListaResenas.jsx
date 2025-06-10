@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // <--- Importa useNavigate
 import Resena from "./Resenas";
 import {
   getResenasFrame,
@@ -14,6 +15,8 @@ const ListaResenas = ({ frameId = null, modo, mostrarFormulario = true }) => {
   const [loading, setLoading] = useState(true);
   const [nuevoContenido, setNuevoContenido] = useState("");
   const [spoiler, setSpoiler] = useState(false);
+
+  const navigate = useNavigate(); // <--- Hook para navegación
 
   useEffect(() => {
     cargarResenas();
@@ -68,6 +71,11 @@ const ListaResenas = ({ frameId = null, modo, mostrarFormulario = true }) => {
     }
   };
 
+  // Nueva función que recibe el click en una reseña y navega al perfil del usuario
+  const handleResenaClick = (usuarioId) => {
+    navigate(`/Perfil/${usuarioId}`);
+  };
+
   if (loading) return <p className="loading">Cargando reseñas...</p>;
 
   return (
@@ -106,6 +114,7 @@ const ListaResenas = ({ frameId = null, modo, mostrarFormulario = true }) => {
               resena={resena}
               modo={modo}
               onEliminar={modo === "usuario" ? handleEliminar : undefined}
+              onClick={() => handleResenaClick(resena.usuario_id)} // <--- Pasamos la función aquí
             />
           ))}
         </div>

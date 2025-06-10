@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import { getFramesByGenero } from "../../services/Frames/CRUD_Frames";
-import { getMisListas, addFrameToLista } from "../../services/Listas/CRUD_Listas";
+import { obtenerMisListas, añadirFrameALista } from "../../services/Usuarios/Mi/CRUD_Usuarios";
 
 const ListaPeliculas = ({ generoId }) => {
   const [frames, setFrames] = useState([]);
@@ -17,6 +17,7 @@ const ListaPeliculas = ({ generoId }) => {
       setIsLoading(true);
       try {
         const data = await getFramesByGenero(generoId);
+        // según la estructura que tenías: data.contenido.data
         setFrames(data.contenido?.data || []);
       } catch (error) {
         console.error("Error cargando frames:", error);
@@ -31,10 +32,11 @@ const ListaPeliculas = ({ generoId }) => {
 
   const fetchMisListas = async () => {
     try {
-      const data = await getMisListas();
-      setListas(data.data || []);
+      const listasData = await obtenerMisListas(); // ya devuelve contenido directamente (array)
+      setListas(listasData || []);
     } catch (error) {
       console.error("Error cargando tus listas:", error);
+      setListas([]);
     }
   };
 
@@ -46,7 +48,7 @@ const ListaPeliculas = ({ generoId }) => {
 
   const handleSeleccionLista = async (listaId) => {
     try {
-      await addFrameToLista(listaId, selectedFrameId);
+      await añadirFrameALista(listaId, selectedFrameId);
       alert("Película añadida a la lista con éxito");
     } catch (err) {
       console.error("Error añadiendo frame a lista:", err);

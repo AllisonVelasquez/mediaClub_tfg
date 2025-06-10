@@ -64,9 +64,8 @@ const ListaActores = ({ actoresIniciales = null, onActorClick = null }) => {
           >
             <img
               src={BASE_IMG_URL + actor.imagen_url}
-              alt={actor.nombre}
               onError={(e) => {
-                e.target.src = "/default_poster.png";
+                e.target.alt = actor.nombre;
               }}
             />
             <div className="actor-nombre">{actor.nombre}</div>

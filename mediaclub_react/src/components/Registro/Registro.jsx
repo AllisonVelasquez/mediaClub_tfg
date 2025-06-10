@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import logoNombreOscuro from "../assents/logo_nombre_oscuro.png";
 import "./Registro.css";
-import { crearUsuario, logInUsuario } from "../../services/Usuarios/CRUD_Usuarios";
+import { crearUsuario } from "../../services/Usuarios/log";
 
 const Registro = () => {
-  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     login_id: "",
@@ -39,50 +37,39 @@ const Registro = () => {
     setSuccess("");
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setSuccess("");
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError("");
+  setSuccess("");
 
-    if (!isLoginIdOk || !isAliasOk || !isCorreoOk || !isPassOk || !isRepeatOk) {
-      setError("Por favor, completa todos los campos correctamente.");
-      return;
-    }
+  if (!isLoginIdOk || !isAliasOk || !isCorreoOk || !isPassOk || !isRepeatOk) {
+    setError("Por favor, completa todos los campos correctamente.");
+    return;
+  }
 
-    const payload = new FormData();
-    payload.append("login_id", formData.login_id);
-    payload.append("correo", formData.correo);
-    payload.append("alias", formData.alias);
-    payload.append("contrasena", formData.contrasena);
-    payload.append("contrasena_confirmation", formData.contrasena_confirmation);
+  const payload = new FormData();
+  payload.append("login_id", formData.login_id);
+  payload.append("correo", formData.correo);
+  payload.append("alias", formData.alias);
+  payload.append("contrasena", formData.contrasena);
+  payload.append("contrasena_confirmation", formData.contrasena_confirmation);
 
-    try {
-      const registroResponse = await crearUsuario(payload);
-      setSuccess("Registro exitoso");
+  try {
+    await crearUsuario(payload);
+    setSuccess("Registro exitoso. ");
+    
+    setTimeout(() => {
+      {window.location.href = "/LogIn";} 
+    }, 500); 
 
-      const loginData = {
-        correo: formData.correo,
-        contrasena: formData.contrasena,
-      };
+  } catch (err) {
+    setError(
+      err?.response?.data?.message ||
+      "Error al registrar. Intenta más tarde."
+    );
+  }
+};
 
-      const loginResponse = await logInUsuario(loginData);
-      if (loginResponse.token) {
-        localStorage.setItem("token", loginResponse.token);
-      }
-
-      const alias = registroResponse?.contenido?.alias;
-      if (alias) {
-        navigate(`/usuarios/${alias}/perfil`);
-      } else {
-        navigate("/Perfil");
-      }
-    } catch (err) {
-      setError(
-        err?.response?.data?.message ||
-        "Error al registrar o iniciar sesión. Intenta más tarde."
-      );
-    }
-  };
 
   return (
     <div className="registro-bg">
@@ -100,6 +87,7 @@ const Registro = () => {
               type="text"
               name="login_id"
               id="login_id"
+              placeholder="sin espacios y en minúsculas"
               value={formData.login_id}
               onChange={handleChange}
               required
@@ -215,6 +203,10 @@ const Registro = () => {
       <div className="registro-link">
         <a href="/LogIn" className="enlace">Ya tengo una cuenta</a>
       </div>
+      <div className="login-link">
+        <a href="/" className='enlace'>Volver al inicio</a>
+      </div>
+
     </div>
   );
 };

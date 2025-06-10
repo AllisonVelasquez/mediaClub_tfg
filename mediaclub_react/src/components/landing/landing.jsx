@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { getFramesPopulares } from "../../services/Frames/CRUD_Frames"; // Corrige la ruta si tus servicios están en 'services'
+import { getFramesPopulares } from "../../services/Frames/CRUD_Frames";
 import { Link } from "react-router-dom";
 import "./landing.css";
 
@@ -24,14 +24,31 @@ const Landing = () => {
     setStart((prev) =>
       Math.min(prev + VISIBLE, Math.max(peliculas.length - VISIBLE, 0))
     );
-    
+  };
+
+  const renderStars = (rating) => {
+    if (typeof rating !== "number") return null;
+    const stars = Math.round(rating / 2);
+    return (
+      <div className="stars">
+        {[...Array(5)].map((_, i) => (
+          <span key={i} className={i < stars ? "star filled" : "star"}>
+            ★
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  const formatRating = (value) => {
+    return typeof value === "number" ? value.toFixed(1) : "--";
   };
 
   return (
     <div className="landing-bg">
       <header className="landing-header">
         <div className="landing-logo">
-          <img src="/logo_nombre_oscuro.png" alt="Muvis Logo" />
+          <img src="../assents/logo_nombre_oscuro.png" alt="Muvis Logo" />
         </div>
         <div className="landing-actions">
           <Link to="/LogIn" className="landing-btn light">
@@ -43,7 +60,9 @@ const Landing = () => {
         </div>
       </header>
       <h2 className="landing-title">
-        Descubre las valoraciones de<br />personas como tu
+        Descubre las valoraciones de
+        <br />
+        personas como tú
       </h2>
       <div className="carousel-container">
         <button
@@ -55,23 +74,35 @@ const Landing = () => {
         </button>
         <div className="peliculas-carousel" ref={carouselRef}>
           {peliculas.slice(start, start + VISIBLE).map((peli) => (
-            <div className="pelicula-card-landing" key={peli.frame_id || peli.id || peli.titulo}>
+            <div
+              className="pelicula-card-landing"
+              key={peli.frame_id || peli.id || peli.titulo}
+            >
+
               <div className="pelicula-poster-img">
-                {/* Mostrar la imagen del frame */}
                 <img
                   src={peli.poster_url}
                   alt={peli.titulo}
                   className="poster-img"
                   loading="lazy"
-                  onError={e => { e.target.src = "/default_poster.png"; }}
+                  onError={(e) => {
+                    e.target.src = "/default_poster.png";
+                  }}
                 />
               </div>
-               <div className="pelicula-promedios">
-                <span><b>Muvis:</b> {peli.promedio_votos_muvis ?? '0/A' }</span><br/>
-                <span><b>TMDB:</b> {peli.promedio_votos_tmdb ?? 'N/A'}</span>
+              <div className="pelicula-nombre"><b>{peli.titulo}</b></div>
+
+              <div className="pelicula-promedios">
+                <span>
+                  <b>Muvis:</b> {formatRating(peli.promedio_votos_muvis)}
+                </span>
+                {renderStars(peli.promedio_votos_muvis)}
+                <br />
+                <span>
+                  <b>TMDB:</b> {formatRating(peli.promedio_votos_tmdb)}
+                </span>
+                {renderStars(peli.promedio_votos_tmdb)}
               </div>
-              <div className="pelicula-nombre">{peli.titulo}</div>
-             
             </div>
           ))}
         </div>

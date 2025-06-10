@@ -60,7 +60,7 @@ const Actor = () => {
                 width={120}
                 height={180}
                 onError={(e) => {
-                  e.target.src = "/default_poster.png";
+                  e.target.src = pelicula.titulo;
                 }}
               />
             </Link>

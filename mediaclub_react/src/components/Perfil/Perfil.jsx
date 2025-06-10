@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { obtenerMiPerfil, eliminarMiCuenta } from "../../services/Usuarios/CRUD_Usuarios";
+import { obtenerMiPerfil, eliminarMiCuenta } from "../../services/Usuarios/Mi/CRUD_Usuarios";
 import EditarPerfil from "./EditarPerfil";
 import ListaResenas from "../Resenas/ListaResenas";
 import ListaPosts from "../Posts/ListaPosts";
 import MisListas from "../Listas/MisListas";
+import Amistades from "./Amistades";
 import { AuthContext } from "../LogIn/AuthContext";
 import "./perfil.css";
 
@@ -28,7 +29,6 @@ const Perfil = () => {
     return <div>Cargando...</div>;
   }
 
-  // Parsear redes (string JSON)
   let redesArray = [];
   try {
     redesArray = profile.redes ? JSON.parse(profile.redes) : [];
@@ -94,12 +94,11 @@ const Perfil = () => {
         </div>
 
         <div className="profile-info">
-          <div className="profile-username">{profile.alias || "Sin alias"}</div>
+          <div className="profile-username">{profile.alias }</div>
           <div className="profile-bio">{profile.bio || "Sin biografía"}</div>
           <div className="profile-creation-date">
             <small>
-              Miembro desde:{" "}
-              {profile.created_at ? new Date(profile.created_at).toLocaleDateString() : "Fecha no disponible"}
+              Miembro desde: {profile.created_at ? new Date(profile.created_at).toLocaleDateString() : "Fecha no disponible"}
             </small>
           </div>
 
@@ -146,9 +145,11 @@ const Perfil = () => {
       >
         Eliminar mi cuenta
       </button>
-    <div className="profile-listas">
+
+      <div className="profile-listas">
         <MisListas modo="usuario" mostrarFormulario={true} currentUserId={userId} />
-        </div>
+      </div>
+
       <div className="profile-resenas">
         <h2>Mis Reseñas</h2>
         <ListaResenas modo="usuario" mostrarFormulario={false} />
@@ -157,6 +158,11 @@ const Perfil = () => {
       <div className="profile-posts">
         <h2>Mis Posts</h2>
         <ListaPosts modo="usuario" mostrarFormulario={true} currentUserId={userId} />
+      </div>
+
+      <div className="profile-amistades">
+        <h2>Mis Amistades</h2>
+        <Amistades userId={userId} />
       </div>
     </div>
   );

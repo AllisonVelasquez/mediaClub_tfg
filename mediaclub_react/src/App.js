@@ -14,7 +14,7 @@ import Actor from "./components/Actores/Actor.jsx";
 import EditarPerfil from "./components/Perfil/EditarPerfil.jsx";
 import ListaPosts from "./components/Posts/ListaPosts.jsx";
 import ListaDetalle from "./components/Listas/ListasDetalles.jsx";
-import PerfilUsuario from "./components/Perfil/PerfilUsuarios.jsx";
+import UserProfileFull from "./components/Perfil/PerfilUsuarios.jsx";
 // import Resenas from "./components/Resenas/Resenas.jsx"; // <-- Importa el componente de reseñas
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
           path="/Perfil/:id"
           element={
             <PrivateRoute>
-              <PerfilUsuario />
+              <UserProfileFull />
             </PrivateRoute>
           } />  
         <Route
