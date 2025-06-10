@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { deletePost, editPost, likePost, unlikePost, getLikesPost } from "../../services/Posts/CRUD_post";
+import { useState, useEffect } from "react";
+import { likePost, unlikePost, getLikesPost } from "../../services/Posts/CRUD_post";
 import "./Post.css";
 
 const Post = ({ post, currentUserId, modo, esPropio, onEliminar, onActualizar }) => {
