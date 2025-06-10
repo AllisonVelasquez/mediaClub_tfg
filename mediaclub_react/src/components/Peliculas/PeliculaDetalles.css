@@ -1,11 +1,11 @@
 .pelicula-container {
   max-width: 1000px;
-  margin: auto;
+  margin: 2.5rem auto;
   padding: 40px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #f9f9f9;
+  background: #bfe0c7;
   border-radius: 16px;
 }
 
@@ -106,4 +106,74 @@
 .error {
   color: red;
   margin-top: 10px;
+}
+
+.votacion{
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  background: #c6e5ce;
+  border-radius: 10px;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  margin: 2rem auto 1.5rem auto;
+  max-width: 700px;
+  box-shadow: 0 4px 20px rgba(44, 62, 80, 0.08);
+}
+
+.votacion input[type="number"]{
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #e3f1e6;
+  font-size: 1.1rem;
+  color: #0b1c12;
+  margin-bottom: 0.5rem;
+  font-family: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.votacion input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: #2e5135;
+}
+
+.votacion button{
+  padding: 12px 32px;
+  border-radius: 30px;
+  font-size: 1.25rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  font-family: inherit;
+  background: #2e5135;
+  color: #c1f7cc;
+  margin-top: 1.2rem;
+}
+
+.votacion button:hover {
+  background: #1d3923;
+}
+
+.votacion .error,
+.resena-form .error,
+.resena-form .info {
+  color: #b22222;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .votacion form,
+  .resena-form {
+    padding: 1rem 0.5rem;
+    max-width: 98vw;
+  }
+  .votacion button,
+  .resena-form button {
+    width: 100%;
+    font-size: 1.1rem;
+  }
 }

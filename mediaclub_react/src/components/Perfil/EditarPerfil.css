@@ -2,7 +2,7 @@
   max-width: 500px;
   margin: 20px auto;
   padding: 25px;
-  background-color: #a9d3b4; /* Fondo verde claro como el formulario de login */
+  background-color: #a9d3b4; 
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(44, 62, 80, 0.05);
   font-family: Arial, Helvetica, sans-serif;
@@ -70,7 +70,7 @@
 }
 
 .form-actions button[type="submit"] {
-  background-color: #2e5135; /* Verde oscuro */
+  background-color: #2e5135;
   color: #c1f7cc;
 }
 

@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  getDetallesFrame,
-  anadirPuntuacionFrame,
-} from "../../services/Frames/CRUD_Frames.js";
+import { getDetallesFrame, anadirPuntuacionFrame} from "../../services/Frames/CRUD_Frames.js";
 import ListaResenas from "../Resenas/ListaResenas.jsx";
 import ListaActores from "../Actores/ListaActores.jsx";
-import "./PeliculaDetalles.css"; // Asegúrate de tener un archivo CSS para estilos
+import "./PeliculaDetalles.css";
 
 const PeliculaDetalles = () => {
   const { id } = useParams();
@@ -94,18 +91,52 @@ const PeliculaDetalles = () => {
       </div>
 
       <div className="pelicula-info">
-        <h1>{detalles.titulo}</h1>
-        <h3>{detalles.titulo_original}</h3>
+        <h1 className="pelicula-titulo">{detalles.titulo}</h1>
+        <h3 className="pelicula-titulo-original">{detalles.titulo_original}</h3>
 
-        <p className="descripcion">{detalles.descripcion}</p>
+        <div className="pelicula-datos-grid">
+          <div>
+            <span className="pelicula-label">Fecha de estreno:</span>
+            <span className="pelicula-valor">{fechaFormateada}</span>
+          </div>
+          <div>
+            <span className="pelicula-label">Duración:</span>
+            <span className="pelicula-valor">{detalles.duracion} min</span>
+          </div>
+          <div>
+            <span className="pelicula-label">Eslogan:</span>
+            <span className="pelicula-valor">{detalles.eslogan || "N/A"}</span>
+          </div>
+          <div>
+            <span className="pelicula-label">Presupuesto:</span>
+            <span className="pelicula-valor">
+              {detalles.presupuesto ? `$${detalles.presupuesto.toLocaleString()}` : "N/A"}
+            </span>
+          </div>
+          <div>
+            <span className="pelicula-label">Ingresos:</span>
+            <span className="pelicula-valor">
+              {detalles.ingresos ? `$${detalles.ingresos.toLocaleString()}` : "N/A"}
+            </span>
+          </div>
+        </div>
 
-        <p><strong>Fecha de estreno:</strong> {fechaFormateada}</p>
-        <p><strong>Duración:</strong> {detalles.duracion} minutos</p>
-        <p><strong>Eslogan:</strong> {detalles.eslogan || "N/A"}</p>
-        <p><strong>Promedio votos Muvis:</strong> {detalles.promedio_votos_muvis ?? "N/A"}</p>
-        <p><strong>Promedio votos TMDB:</strong> {detalles.promedio_votos_tmdb ?? "N/A"}</p>
-        <p><strong>Presupuesto:</strong> {detalles.presupuesto ? `$${detalles.presupuesto.toLocaleString()}` : "N/A"}</p>
-        <p><strong>Ingresos:</strong> {detalles.ingresos ? `$${detalles.ingresos.toLocaleString()}` : "N/A"}</p>
+        <div className="pelicula-promedios">
+          <div>
+            <span className="pelicula-label">Promedio Muvis:</span>
+            <span className="pelicula-valor">
+              {detalles.promedio_votos_muvis ?? "N/A"}
+            </span>
+          </div>
+          <div>
+            <span className="pelicula-label">Promedio TMDB:</span>
+            <span className="pelicula-valor">
+              {detalles.promedio_votos_tmdb ?? "N/A"}
+            </span>
+          </div>
+        </div>
+
+        <p className="pelicula-descripcion">{detalles.descripcion}</p>
 
         <div className="generos">
           <h2>Géneros</h2>
@@ -117,7 +148,6 @@ const PeliculaDetalles = () => {
         </div>
 
         <div className="actores">
-          <h2>Actores</h2>
           <ListaActores
             actoresIniciales={detalles.actores}
             onActorClick={(actor) => navigate(`/actores/${actor.id}`)}
@@ -145,19 +175,14 @@ const PeliculaDetalles = () => {
                 max="10"
                 placeholder="Ej: 7.5"
                 required
+                className="input-voto"
               />
-              <textarea
-                name="comentario"
-                placeholder="Escribe un comentario (opcional)"
-                rows="3"
-              ></textarea>
-              <button type="submit">Votar</button>
+              <button type="submit" className="btn-votar">Votar</button>
             </form>
           )}
-
+          <ListaResenas frameId={detalles.id} modo="frame" className="resena"/>
           {error && <p className="error">{error}</p>}
         </div>
-        <ListaResenas frameId={detalles.id} modo="frame" />
 
       </div>
     </div>
