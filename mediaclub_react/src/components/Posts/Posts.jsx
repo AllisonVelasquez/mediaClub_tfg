@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { likePost, unlikePost, getLikesPost } from "../../services/Posts/CRUD_post";
+import { deletePost, editPost, likePost, unlikePost, getLikesPost } from "../../services/Posts/CRUD_post";
+import "./Post.css";
 
-const Post = ({ post, currentUserId, modo, onDelete, onUpdate }) => {
+const Post = ({ post, currentUserId, modo, esPropio, onEliminar, onActualizar }) => {
   const [editando, setEditando] = useState(false);
-  const [titulo, setTitulo] = useState(post.titulo || "");
-  const [contenido, setContenido] = useState(post.contenido || "");
-  const [publico, setPublico] = useState(post.publico === 1);
+  const [contenido, setContenido] = useState(post.contenido);
   const [likes, setLikes] = useState(0);
   const [liked, setLiked] = useState(false);
-
-  const esPropietario = currentUserId && post.usuario_id === currentUserId;
 
   useEffect(() => {
     fetchLikes();
@@ -18,7 +15,7 @@ const Post = ({ post, currentUserId, modo, onDelete, onUpdate }) => {
   const fetchLikes = async () => {
     try {
       const res = await getLikesPost(post.id);
-      setLikes(res.total || 0);
+      setLikes(res.total);
       setLiked(res.ya_dio_like || false);
     } catch (err) {
       console.error("Error obteniendo likes", err);
@@ -39,59 +36,41 @@ const Post = ({ post, currentUserId, modo, onDelete, onUpdate }) => {
   };
 
   const handleGuardar = async () => {
-    await onUpdate(post.id, {
-      titulo: titulo.trim(),
-      contenido: contenido.trim(),
-      publico: publico ? 1 : 0,
-    });
+    await onActualizar(post.id, { contenido });
     setEditando(false);
   };
 
   return (
-    <div className="post">
+    <div className="card-post">
       {editando ? (
         <>
-          <input
-            type="text"
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
-            placeholder="Título"
-          />
           <textarea
             value={contenido}
             onChange={(e) => setContenido(e.target.value)}
-            placeholder="Contenido"
+            className="editar-input"
+            style={{ minHeight: "80px", resize: "none" }}
           />
-          <label>
-            Público:
-            <input
-              type="checkbox"
-              checked={publico}
-              onChange={() => setPublico(!publico)}
-            />
-          </label>
-          <button onClick={handleGuardar}>Guardar</button>
-          <button onClick={() => setEditando(false)}>Cancelar</button>
+          <div className="card-post-acciones">
+            <button onClick={handleGuardar}>Guardar</button>
+            <button onClick={() => setEditando(false)}>Cancelar</button>
+          </div>
         </>
       ) : (
         <>
-          <h4>{post.titulo}</h4>
-          <p>{post.contenido}</p>
-          <p>
-            <strong>{publico ? "Público" : "Privado"}</strong>
-          </p>
-          <div>
-            <button onClick={toggleLike}>
-              {liked ? "💔 Quitar Like" : "❤️ Me gusta"}
+          <span className="card-post-loginid">{post.login_id}</span>
+          <div className="card-post-contenido">{post.contenido}</div>
+          <div className="card-post-acciones">
+            <button className="like-btn" onClick={toggleLike}>
+              {liked ? ":( Quitar Like" : "♡ Me gusta"}
             </button>
-            <span>{likes} {likes === 1 ? "like" : "likes"}</span>
+            <span>{likes} likes</span>
+            {modo === "usuario" && esPropio && (
+              <>
+                <button onClick={() => setEditando(true)}>Editar</button>
+                <button className="delete-btn" onClick={onEliminar}>Eliminar</button>
+              </>
+            )}
           </div>
-          {modo === "usuario" && esPropietario && (
-            <>
-              <button onClick={() => setEditando(true)}>Editar</button>
-              <button onClick={() => onDelete(post.id)}>Eliminar</button>
-            </>
-          )}
         </>
       )}
     </div>

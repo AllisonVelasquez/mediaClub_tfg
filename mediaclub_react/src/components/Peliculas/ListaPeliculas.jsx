@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import { getFramesByGenero } from "../../services/Frames/CRUD_Frames";
 import { obtenerMisListas, añadirFrameALista } from "../../services/Usuarios/Mi/CRUD_Usuarios";
 
+
 const ListaPeliculas = ({ generoId }) => {
   const [frames, setFrames] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
