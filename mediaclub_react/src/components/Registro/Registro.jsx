@@ -61,7 +61,7 @@ const handleSubmit = async (e) => {
     
     // Redirigir tras un pequeño retraso para que el usuario vea el mensaje
     setTimeout(() => {
-      navigate("/login");
+      navigate("/LogIn");
     }, 500); // 1.5 segundos de espera (puedes ajustar esto)
 
   } catch (err) {
