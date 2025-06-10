@@ -30,9 +30,9 @@ class FrameRepository implements FrameRepositoryInterface
 
         $movie = Frame::with(['actores', 'generos'])
             ->find($id);
-        
-        Cache::put($cacheKey,$movie,1800);
-        
+
+        Cache::put($cacheKey, $movie, 1800);
+
         return $movie;
     }
 
@@ -116,6 +116,9 @@ class FrameRepository implements FrameRepositoryInterface
     public function getReviews(int $frameId): LengthAwarePaginator
     {
         $frame = Frame::findOrFail($frameId);
-        return $frame->resenas()->orderBy('fecha', 'desc')->paginate(10);
+        return $frame->resenas()
+            ->with(['usuario:id,foto_perfil,alias'])
+            ->orderBy('fecha', 'desc')
+            ->paginate(10);
     }
 }
