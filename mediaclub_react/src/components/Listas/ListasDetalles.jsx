@@ -30,7 +30,7 @@ const ListaDetalle = () => {
   if (!lista) return <p className="p-4">Lista no encontrada</p>;
 
   return (
-    <div className="p-4">
+    <div className="p-4" style="background-color: #f9f9f9; border-radius: 8px;">
       <h2 className="text-2xl font-semibold mb-2">{lista.nombre_lista}</h2>
       <p className="mb-2">Visibilidad: {lista.publica ? "Pública" : "Privada"}</p>
       <p className="mb-4">Frames en la lista: {lista.frames_count}</p>

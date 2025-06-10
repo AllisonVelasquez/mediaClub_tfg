@@ -86,11 +86,15 @@ const Perfil = () => {
       <div className="profile-header">
         <div className="profile-photo">
           <img
-            src={profile.foto_perfil || "/images/perfiles/default.png"}
-            alt={profile.alias || "Foto de perfil"}
-            className="photo-img"
-            onError={(e) => (e.target.style.display = "none")}
-          />
+  src={profile.foto_perfil || "/images/perfiles/default.png"}
+  alt={profile.alias || "Foto de perfil"}
+  className="photo-img"
+  onError={(e) => {
+    e.target.onerror = null; // evita bucle infinito
+    e.target.src = "/images/perfiles/default.png";
+  }}
+/>
+
         </div>
 
         <div className="profile-info">

@@ -31,10 +31,9 @@ export const deletePost = async (postId) => {
   return response.data;
 };
 
-// 💙 Likes adaptados a posts
 export const likePost = async (postId) => {
   const response = await instance.post(`posts/${postId}/anadir-like`);
-  return response.data;
+  return response;
 };
 
 export const unlikePost = async (postId) => {

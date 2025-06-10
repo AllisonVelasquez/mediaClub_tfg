@@ -7,10 +7,21 @@ const Resena = ({ resena, modo, onEliminar, onClick }) => {
   const [likedByUser, setLikedByUser] = useState(resena.likedByUser || false);
   const [loadingLike, setLoadingLike] = useState(false);
 
-  // Nuevo estado para controlar mostrar contenido con spoiler
+  // Estado para mostrar contenido con spoiler
   const [mostrarSpoiler, setMostrarSpoiler] = useState(false);
 
-  const fecha = new Date(resena.fecha).toLocaleDateString("es-ES");
+  // Protege fecha si no existe o es inválida
+  const fecha = resena.fecha
+    ? new Date(resena.fecha).toLocaleDateString("es-ES")
+    : "Fecha no disponible";
+
+  // Protege usuario para no romper si es undefined
+  const usuario = resena.usuario || {};
+  const fotoPerfil = usuario.foto_perfil || "/images/perfiles/default.png";
+  const aliasUsuario = usuario.alias || "Usuario anónimo";
+
+  // Protege frame (película) si modo usuario y existe frame
+  const tieneFrame = modo === "usuario" && resena.frame;
 
   const handleLikeClick = async () => {
     if (loadingLike) return;
@@ -34,21 +45,34 @@ const Resena = ({ resena, modo, onEliminar, onClick }) => {
   };
 
   return (
-    <div
-      className="resena"
-      onClick={onClick}
-      style={{ cursor: "pointer" }}
-    >
-      <div className="resena-usuario-id">Usuario ID: {resena.usuario_id}</div>
+    <div className="resena" onClick={onClick} style={{ cursor: "pointer" }}>
+      <div className="resena-usuario-id">
+        <div>
+          <img
+            className="resena-usuario-avatar"
+            src={fotoPerfil}
+            alt={aliasUsuario}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "/images/perfiles/default.png";
+            }}
+          />
+          <span className="resena-usuario-nombre">{aliasUsuario}</span>
+        </div>
+      </div>
 
-      {modo === "usuario" && resena.frame && (
+      {tieneFrame && (
         <div className="resena-header">
           <img
             className="resena-poster"
-            src={`https://image.tmdb.org/t/p/w200${resena.frame.poster_url}`}
-            alt={resena.frame.titulo}
+            src={`https://image.tmdb.org/t/p/w200${resena.frame.poster_url || ""}`}
+            alt={resena.frame.titulo || "Película"}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "/images/posters/default.png";
+            }}
           />
-          <h3 className="resena-titulo">{resena.frame.titulo}</h3>
+          <h3 className="resena-titulo">{resena.frame.titulo || "Título no disponible"}</h3>
         </div>
       )}
 
@@ -71,10 +95,8 @@ const Resena = ({ resena, modo, onEliminar, onClick }) => {
         </div>
       ) : (
         <>
-          <p className="resena-contenido">{resena.contenido}</p>
-          {resena.spoiler && (
-            <p className="resena-spoiler">⚠️ Contiene spoilers</p>
-          )}
+          <p className="resena-contenido">{resena.contenido || "Sin contenido"}</p>
+          {resena.spoiler && <p className="resena-spoiler">⚠️ Contiene spoilers</p>}
         </>
       )}
 
@@ -82,7 +104,7 @@ const Resena = ({ resena, modo, onEliminar, onClick }) => {
         <button
           className={`btn-like ${likedByUser ? "liked" : ""}`}
           onClick={(e) => {
-            e.stopPropagation(); // Evita que el click en el botón dispare onClick del div padre
+            e.stopPropagation();
             handleLikeClick();
           }}
           disabled={loadingLike}
@@ -96,7 +118,7 @@ const Resena = ({ resena, modo, onEliminar, onClick }) => {
         <button
           className="btn-eliminar"
           onClick={(e) => {
-            e.stopPropagation(); // Evita que el click dispare la navegación
+            e.stopPropagation();
             onEliminar(resena);
           }}
         >

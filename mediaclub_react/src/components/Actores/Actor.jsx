@@ -15,7 +15,7 @@ const Actor = () => {
     const fetchDatos = async () => {
       try {
         setLoading(true);
-        const detallesActor = await getActorDetalles(id);
+        const detallesActor = await getActorDetalles(id);        
         const filmografiaActor = await getActorFilmografia(id);
 
         setDetalles(detallesActor);
@@ -34,14 +34,19 @@ const Actor = () => {
   if (error) return <div>{error}</div>;
   if (!detalles) return null;
 
+const { imagen_url, nombre, popularidad } = detalles;
+  if (!imagen_url || imagen_url === "null") {
+     <div>El actor no tiene imagen disponible.</div>;
+  } 
+
   return (
     <div>
       <h2>{detalles.nombre}</h2>
       <img
-        src={BASE_IMG_URL + detalles.imagen_url}
+        src={detalles.imagen_url}
         alt={detalles.nombre}
         onError={(e) => {
-          e.target.src = "/default_poster.png";
+          e.target.alt =detalles.nombre;
         }}
       />
       <p>Popularidad: {detalles.popularidad}</p>

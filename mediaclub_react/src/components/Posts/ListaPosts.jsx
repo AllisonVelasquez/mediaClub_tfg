@@ -23,7 +23,6 @@ const ListaPosts = ({ modo = "publico", mostrarFormulario = false, currentUserId
       if (modo === "usuario") {
         data = await getMyPosts(pageNum);
       } else {
-        // para modo público, usa getUserPosts con currentUserId (de perfil ajeno)
         data = await getUserPosts(currentUserId, pageNum);
       }
       setPosts(data.contenido.data);
@@ -109,14 +108,13 @@ const ListaPosts = ({ modo = "publico", mostrarFormulario = false, currentUserId
             key={post.id}
             post={post}
             modo={modo}
-            esPropio={modo === "usuario" && post.usuario_id === currentUserId}
-            onEliminar={() => handleEliminar(post.id)}
-            onActualizar={handleActualizar}
+            currentUserId={currentUserId}
+            onDelete={() => handleEliminar(post.id)}
+            onUpdate={handleActualizar}
           />
         ))
       )}
 
-      {/* Paginación básica */}
       <div className="paginacion">
         <button onClick={() => setPage((p) => Math.max(p - 1, 1))} disabled={page === 1}>
           Anterior
