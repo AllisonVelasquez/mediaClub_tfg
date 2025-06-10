@@ -17,7 +17,8 @@ const Actor = () => {
         setLoading(true);
         const detallesActor = await getActorDetalles(id);        
         const filmografiaActor = await getActorFilmografia(id);
-
+        console.log("Detalles del actor:", detallesActor);
+        console.log(getActorDetalles(id));
         setDetalles(detallesActor);
         setFilmografia(filmografiaActor.data);
       } catch (err) {
@@ -29,6 +30,8 @@ const Actor = () => {
 
     fetchDatos();
   }, [id]);
+
+
 
   if (loading) return <div>Cargando información del actor...</div>;
   if (error) return <div>{error}</div>;
@@ -51,29 +54,26 @@ const { imagen_url, nombre, popularidad } = detalles;
       />
       <p>Popularidad: {detalles.popularidad}</p>
 
-      <h3>Filmografía</h3>
-      <ul>
+      <div className="actor-section-title">Filmografía</div>
+      <ul className="filmografia-lista">
         {filmografia.map((pelicula) => (
-          <li key={pelicula.frame_id}>
-            <Link to={`/peliculasDetalles/${pelicula.frame_id}`}>
-              <div>
-                <strong>{pelicula.titulo}</strong> - {pelicula.personaje}
-              </div>
+          <li className="filmografia-item" key={pelicula.frame_id}>
+            <Link className="actor-link" to={`/peliculasDetalles/${pelicula.frame_id}`}>
               <img
                 src={BASE_IMG_URL + pelicula.poster_url}
                 alt={pelicula.titulo}
-                width={120}
-                height={180}
                 onError={(e) => {
                   e.target.src = pelicula.titulo;
                 }}
               />
+              <div className="filmografia-titulo">{pelicula.titulo}</div>
+              <div className="filmografia-personaje">{pelicula.personaje}</div>
             </Link>
           </li>
         ))}
       </ul>
     </div>
   );
-};
+}
 
 export default Actor;

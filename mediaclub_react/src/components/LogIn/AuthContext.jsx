@@ -15,14 +15,14 @@ export const AuthProvider = ({ children }) => {
   const logOut = () => {
     localStorage.removeItem("token");
     setToken(null);
-    navigate("/login");
+    navigate("/LogIn");
   };
 
   useEffect(() => {
     const syncLogout = (event) => {
       if (event.key === "token" && !event.newValue) {
         setToken(null);
-        navigate("/login");
+        navigate("/LogIn");
       }
     };
     window.addEventListener("storage", syncLogout);

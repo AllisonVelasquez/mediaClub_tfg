@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllActores } from "../../services/Actores/CRUD_actores";
-
+import "./ListaActores.css";
 const BASE_IMG_URL = "https://image.tmdb.org/t/p/w185";
 const BOTONES_VISIBLES = 5;
 

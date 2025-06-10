@@ -1,15 +1,14 @@
-/* Estilos por defecto (oscuro) */
 body {
-  background-color: #D9E9DC; /* Fondo claro */
-  color: 212226; /* Texto oscuro */
+  background-color: #d9e9dc;
+  color: 212226;
   transition: all 0.3s ease;
+  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
 }
 
 /* Estilo claro */
 body.dark-theme {
-  background-color: #2A3B42; 
-  color: #D9E9DC; 
-
+  background-color: #2a3b42;
+  color: #d9e9dc;
 }
