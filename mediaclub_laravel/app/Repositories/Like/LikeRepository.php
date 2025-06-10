@@ -15,10 +15,6 @@ class LikeRepository implements LikeRepositoryInterface
         $modelClass = $this->resolveModelClass($modelName);
         $model = $modelClass::findOrFail($modelId);
 
-        // if (($model instanceof \App\Models\Lista || $model instanceof \App\Models\Post) && !$model->publica) {
-        //     throw new \Exception('Esta lista no es pública', 403);
-        // }
-
         $likes = $model->likes()
             ->with(['usuario:id,alias,foto_perfil'])
             ->paginate(10);
