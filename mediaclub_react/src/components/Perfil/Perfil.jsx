@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { obtenerMiPerfil, eliminarMiCuenta } from "../../services/Usuarios/Mi/CRUD_Usuarios";
+import { obtenerMiPerfil } from "../../services/Usuarios/Mi/CRUD_Usuarios";
 import EditarPerfil from "./EditarPerfil";
 import ListaResenas from "../Resenas/ListaResenas";
 import ListaPosts from "../Posts/ListaPosts";
