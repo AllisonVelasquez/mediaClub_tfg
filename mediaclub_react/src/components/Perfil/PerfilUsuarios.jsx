@@ -7,6 +7,7 @@ import {
   getUserInfo,
   getUserPosts,
   getUserActivity,
+  sendFriendRequest
 } from "../../services/Usuarios/Usuarios/CRUD_Usuarios";
 import "./PerfilUsuarios.css";
 

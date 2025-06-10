@@ -27,14 +27,21 @@ const Landing = () => {
   };
 
   const renderStars = (rating) => {
-    const stars = Math.round(rating / 2); // De 1–10 a 1–5
+    if (typeof rating !== "number") return null;
+    const stars = Math.round(rating / 2);
     return (
       <div className="stars">
         {[...Array(5)].map((_, i) => (
-          <span key={i} className={i < stars ? "star filled" : "star"}>★</span>
+          <span key={i} className={i < stars ? "star filled" : "star"}>
+            ★
+          </span>
         ))}
       </div>
     );
+  };
+
+  const formatRating = (value) => {
+    return typeof value === "number" ? value.toFixed(1) : "--";
   };
 
   return (
@@ -53,7 +60,9 @@ const Landing = () => {
         </div>
       </header>
       <h2 className="landing-title">
-        Descubre las valoraciones de<br />personas como tú
+        Descubre las valoraciones de
+        <br />
+        personas como tú
       </h2>
       <div className="carousel-container">
         <button
@@ -81,11 +90,15 @@ const Landing = () => {
                 />
               </div>
               <div className="pelicula-promedios">
-                <span><b>Muvis:</b> {peli.promedio_votos_muvis ?? "0/A"}</span>
-                {peli.promedio_votos_muvis && renderStars(peli.promedio_votos_muvis)}
+                <span>
+                  <b>Muvis:</b> {formatRating(peli.promedio_votos_muvis)}
+                </span>
+                {renderStars(peli.promedio_votos_muvis)}
                 <br />
-                <span><b>TMDB:</b> {peli.promedio_votos_tmdb ?? "N/A"}</span>
-                {peli.promedio_votos_tmdb && renderStars(peli.promedio_votos_tmdb)}
+                <span>
+                  <b>TMDB:</b> {formatRating(peli.promedio_votos_tmdb)}
+                </span>
+                {renderStars(peli.promedio_votos_tmdb)}
               </div>
               <div className="pelicula-nombre">{peli.titulo}</div>
             </div>

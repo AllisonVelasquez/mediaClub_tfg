@@ -58,12 +58,11 @@ const handleSubmit = async (e) => {
 
   try {
     await crearUsuario(payload);
-    setSuccess("Registro exitoso. Redirigiendo al inicio de sesión...");
+    setSuccess("Registro exitoso. ");
     
-    // Redirigir tras un pequeño retraso para que el usuario vea el mensaje
     setTimeout(() => {
-      navigate("/login");
-    }, 500); // 1.5 segundos de espera (puedes ajustar esto)
+      {window.location.href = "/LogIn";} 
+    }, 500); 
 
   } catch (err) {
     setError(
@@ -90,6 +89,7 @@ const handleSubmit = async (e) => {
               type="text"
               name="login_id"
               id="login_id"
+              placeholder="sin espacios y en minúsculas"
               value={formData.login_id}
               onChange={handleChange}
               required

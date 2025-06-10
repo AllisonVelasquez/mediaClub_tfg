@@ -1,232 +1,210 @@
 .registro-bg {
-	min-height: 100vh;
-	background: #d9e9dc;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 1rem;
-  }
-  
-  .registro-header {
-	margin-top: 2.5rem;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-  }
-  
-  .registro-header img {
-	height: 3.5rem;
-	margin-bottom: 0.5rem;
-  }
-  
-  .registro-header h1 {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 2.5rem;
-	color: #2a3b42;
-	font-weight: bold;
-	margin: 0;
-	letter-spacing: 1px;
-  }
-  
-  .registro-title {
-	font-family: Arial, Helvetica, sans-serif;
-	color: #2a3b42;
-	font-size: 1.5rem;
-	margin: 2rem 0 1.5rem 0;
-	text-align: center;
-  }
-  
+  min-height: 100vh;
+  background: #d9e9dc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.registro-header {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.registro-header img {
+  height: 3.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.registro-title {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #2a3b42;
+  font-size: 1.5rem;
+  margin: 2rem 0 1.5rem 0;
+  text-align: center;
+}
+
+.registro-container {
+  background: #a9d3b4;
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 300px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.registro-form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem 2rem;
+}
+
+.registro-field {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.registro-label {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #2a3b42;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.registro-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  background: #d9e9dc;
+  font-size: 1.1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #2a3b42;
+}
+
+.registro-input:focus {
+  outline: 2px solid #2e5135;
+}
+
+.registro-icon {
+  position: absolute;
+  right: 0.7rem;
+  top: 2.2rem;
+  font-size: 1.2rem;
+}
+
+.registro-icon.success {
+  color: #2e5135;
+}
+
+.registro-icon.error {
+  color: #b22222;
+}
+
+.registro-toggle-btn {
+  position: absolute;
+  right: 0.7rem;
+  top: 2.2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  user-select: none;
+  color: #2a3b42;
+}
+
+.registro-btn-row {
+  grid-column: 2;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.registro-btn {
+  padding: 0.7rem 2.5rem;
+  background: #2e5135;
+  color: #c1f7cc;
+  border: none;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.registro-btn:hover {
+  background: #24432c;
+}
+
+.registro-form .error,
+.registro-form .success {
+  grid-column: 1 / span 2;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.error {
+  color: #b22222;
+}
+
+.success {
+  color: #2e5135;
+}
+
+.registro-link,
+.login-link {
+  margin-top: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #2a3b42;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.enlace {
+  text-decoration: none;
+  color: #2a3b42;
+}
+
+.enlace:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .registro-container {
-	background: #a9d3b4;
-	border-radius: 12px;
-	padding: 2rem 2.5rem;
-	box-shadow: 0 2px 8px rgba(44, 62, 80, 0.05);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	min-width: 300px;
-	max-width: 600px;
-	width: 100%;
+    padding: 1.5rem;
+    min-width: 90%;
   }
-  
+
   .registro-form {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 1.2rem 2rem;
+    grid-template-columns: 1fr;
   }
-  
-  .registro-field {
-	display: flex;
-	flex-direction: column;
-	position: relative;
-  }
-  
-  .registro-label {
-	font-family: Arial, Helvetica, sans-serif;
-	color: #2a3b42;
-	font-size: 1rem;
-	margin-bottom: 0.3rem;
-  }
-  
-  .registro-input {
-	width: 100%;
-	padding: 0.5rem;
-	border: none;
-	border-radius: 5px;
-	background: #d9e9dc;
-	font-size: 1.1rem;
-	font-family: Arial, Helvetica, sans-serif;
-	color: #2a3b42;
-  }
-  
-  .registro-input:focus {
-	outline: 2px solid #2e5135;
-  }
-  
-  .registro-icon {
-	position: absolute;
-	right: 0.7rem;
-	top: 2.2rem;
-	font-size: 1.2rem;
-  }
-  
-  .registro-icon.success {
-	color: #2e5135;
-  }
-  
-  .registro-icon.error {
-	color: #b22222;
-  }
-  
-  .registro-toggle-btn {
-	position: absolute;
-	right: 0.7rem;
-	top: 2.2rem;
-	background: transparent;
-	border: none;
-	cursor: pointer;
-	font-size: 1.2rem;
-	user-select: none;
-	color: #2a3b42;
-  }
-  
+
   .registro-btn-row {
-	grid-column: 2;
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	margin-top: 0.5rem;
+    grid-column: 1;
+    justify-content: center;
   }
-  
+
   .registro-btn {
-	padding: 0.7rem 2.5rem;
-	background: #2e5135;
-	color: #c1f7cc;
-	border: none;
-	border-radius: 20px;
-	font-size: 1.1rem;
-	font-family: Arial, Helvetica, sans-serif;
-	font-weight: bold;
-	cursor: pointer;
-	transition: background 0.2s;
+    width: 100%;
   }
-  
+}
+
+@media (max-width: 480px) {
+  .registro-header img {
+    height: 2.5rem;
+  }
+
+  .registro-title {
+    font-size: 1.2rem;
+  }
+
+  .registro-btn {
+    font-size: 1rem;
+  }
+
+  .registro-label {
+    font-size: 0.95rem;
+  }
+
+  .registro-input {
+    font-size: 1rem;
+  }
+
   .registro-form .error,
   .registro-form .success {
-	grid-column: 1 / span 2;
-	font-size: 1rem;
-	text-align: center;
-	margin-top: 0.5rem;
+    font-size: 0.95rem;
   }
-  
-  .error {
-	color: #b22222;
-  }
-  
-  .success {
-	color: #2e5135;
-  }
-  
-  .registro-link {
-	margin-top: 1.5rem;
-	font-family: Arial, Helvetica, sans-serif;
-	color: #2a3b42;
-	text-align: center;
-	font-size: 1rem;
-  }
-  
-  .enlace {
-	text-decoration: none;
-	color: #2a3b42;
-  }
-  
-  .registro-dropzone {
-	grid-column: 1 / span 2;
-	border: 2px dashed #888;
-	padding: 1rem;
-	text-align: center;
-	margin-bottom: 1rem;
-	cursor: pointer;
-  }
-  
-  .registro-preview {
-	max-width: 150px;
-	max-height: 150px;
-	border-radius: 50%;
-  }
-  
-  /* ---------------------------
-	 RESPONSIVE MEDIA QUERIES
-  ----------------------------*/
-  
-  @media (max-width: 768px) {
-	.registro-container {
-	  padding: 1.5rem;
-	  min-width: 90%;
-	}
-  
-	.registro-form {
-	  grid-template-columns: 1fr;
-	}
-  
-	.registro-btn-row {
-	  grid-column: 1;
-	  justify-content: center;
-	}
-  
-	.registro-btn {
-	  width: 100%;
-	}
-  
-	.registro-dropzone {
-	  grid-column: 1;
-	}
-  }
-  
-  @media (max-width: 480px) {
-	.registro-header img {
-	  height: 2.5rem;
-	}
-  
-	.registro-title {
-	  font-size: 1.2rem;
-	}
-  
-	.registro-btn {
-	  font-size: 1rem;
-	}
-  
-	.registro-label {
-	  font-size: 0.95rem;
-	}
-  
-	.registro-input {
-	  font-size: 1rem;
-	}
-  
-	.registro-form .error,
-	.registro-form .success {
-	  font-size: 0.95rem;
-	}
-  }
+}

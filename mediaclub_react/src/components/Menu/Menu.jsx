@@ -6,9 +6,9 @@ import "./Menu.css";
 
 function Menu() {
   const { logOut } = useContext(AuthContext);
-
   return (
     <div className="container_menu">
+      
       <nav className="container_nav">
         <Link to="/Inicio">
           <img src="/logo.png" alt="Muvis Logo" className="logo" />
