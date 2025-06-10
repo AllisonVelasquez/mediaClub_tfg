@@ -60,9 +60,11 @@ const Post = ({ post, currentUserId, modo, esPropio, onEliminar, onActualizar })
           <span className="card-post-loginid">{post.login_id}</span>
           <div className="card-post-contenido">{post.contenido}</div>
           <div className="card-post-acciones">
-            <button className="like-btn" onClick={toggleLike}>
-              {liked ? ":( Quitar Like" : "♡ Me gusta"}
-            </button>
+            {!esPropio && (
+              <button className="like-btn" onClick={toggleLike}>
+                {liked ? ":( Quitar Like" : "♡ Me gusta"}
+              </button>
+            )}
             <span>{likes} likes</span>
             {modo === "usuario" && esPropio && (
               <>
