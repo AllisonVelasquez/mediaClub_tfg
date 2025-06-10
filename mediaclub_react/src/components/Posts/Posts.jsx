@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { likePost, unlikePost, getLikesPost } from "../../services/Posts/CRUD_post";
 
-const Post = ({ post, currentUserId, modo, esPropio, onEliminar, onActualizar }) => {
+const Post = ({ post, currentUserId, modo, onDelete, onUpdate }) => {
   const [editando, setEditando] = useState(false);
   const [titulo, setTitulo] = useState(post.titulo || "");
   const [contenido, setContenido] = useState(post.contenido || "");
   const [publico, setPublico] = useState(post.publico === 1);
   const [likes, setLikes] = useState(0);
   const [liked, setLiked] = useState(false);
+
+  const esPropietario = currentUserId && post.usuario_id === currentUserId;
 
   useEffect(() => {
     fetchLikes();
@@ -46,7 +48,7 @@ const Post = ({ post, currentUserId, modo, esPropio, onEliminar, onActualizar })
   };
 
   return (
-    <div className="card-post">
+    <div className="post">
       {editando ? (
         <>
           <input

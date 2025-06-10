@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getMyPosts, getUserPosts, deletePost, editPost, crearPost } from "../../services/Posts/CRUD_post";
 import Post from "./Posts";
-import "./ListaPosts.css";
-
-const MAX_CARACTERES = 1500;
 
 const ListaPosts = ({ modo = "publico", mostrarFormulario = false, currentUserId }) => {
   const [posts, setPosts] = useState([]);
@@ -11,9 +8,9 @@ const ListaPosts = ({ modo = "publico", mostrarFormulario = false, currentUserId
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  const [nuevoTitulo, setNuevoTitulo] = useState("");
   const [nuevoContenido, setNuevoContenido] = useState("");
   const [nuevoPublico, setNuevoPublico] = useState(true);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     cargarPosts(page);
@@ -58,20 +55,15 @@ const ListaPosts = ({ modo = "publico", mostrarFormulario = false, currentUserId
   };
 
   const handleCrear = async () => {
-    setError("");
-    if (!nuevoContenido.trim()) {
-      setError("El contenido es obligatorio.");
-      return;
-    }
-    if (nuevoContenido.length > MAX_CARACTERES) {
-      setError("El contenido supera el máximo de 1500 caracteres.");
+    if (!nuevoTitulo.trim() || !nuevoContenido.trim()) {
+      alert("El título y contenido son obligatorios.");
       return;
     }
     try {
-      await crearPost({ contenido: nuevoContenido, publico: nuevoPublico ? 1 : 0 });
+      await crearPost({ titulo: nuevoTitulo, contenido: nuevoContenido, publico: nuevoPublico ? 1 : 0 });
+      setNuevoTitulo("");
       setNuevoContenido("");
       setNuevoPublico(true);
-      setError("");
       await cargarPosts(page);
     } catch (error) {
       console.error("Error al crear post:", error);
@@ -85,32 +77,26 @@ const ListaPosts = ({ modo = "publico", mostrarFormulario = false, currentUserId
       {mostrarFormulario && modo === "usuario" && (
         <div className="nuevo-post-form">
           <h3>Crear nuevo post</h3>
-          <div>
-            <textarea
-              placeholder="Contenido"
-              value={nuevoContenido}
-              onChange={(e) => {
-                setNuevoContenido(e.target.value);
-                if (e.target.value.length <= MAX_CARACTERES) setError("");
-              }}
-              maxLength={MAX_CARACTERES + 1}
+          <input
+            type="text"
+            placeholder="Título"
+            value={nuevoTitulo}
+            onChange={(e) => setNuevoTitulo(e.target.value)}
+          />
+          <textarea
+            placeholder="Contenido"
+            value={nuevoContenido}
+            onChange={(e) => setNuevoContenido(e.target.value)}
+          />
+          <label>
+            Público:
+            <input
+              type="checkbox"
+              checked={nuevoPublico}
+              onChange={() => setNuevoPublico(!nuevoPublico)}
             />
-            <div className={`contador-caracteres${nuevoContenido.length > MAX_CARACTERES ? " error" : ""}`}>
-              {nuevoContenido.length}/{MAX_CARACTERES}
-            </div>
-          </div>
-          <div className="nuevo-post-options">
-            <label>
-              Público:
-              <input
-                type="checkbox"
-                checked={nuevoPublico}
-                onChange={() => setNuevoPublico(!nuevoPublico)}
-              />
-            </label>
-            <button onClick={handleCrear}>Publicar</button>
-          </div>
-          {error && <div className="mensaje-error">{error}</div>}
+          </label>
+          <button onClick={handleCrear}>Publicar</button>
         </div>
       )}
 

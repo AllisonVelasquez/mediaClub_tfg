@@ -138,6 +138,8 @@ const Perfil = () => {
 
       <div className="profile-amistades">
         <h2>Mis Amistades</h2>
+      <div className="lista-amigos">
+      </div>
         <Amistades userId={userId} />
       </div>
     </div>
