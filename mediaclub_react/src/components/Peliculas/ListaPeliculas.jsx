@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import { getFramesByGenero } from "../../services/Frames/CRUD_Frames";
@@ -17,7 +17,6 @@ const ListaPeliculas = ({ generoId }) => {
       setIsLoading(true);
       try {
         const data = await getFramesByGenero(generoId);
-        // según la estructura que tenías: data.contenido.data
         setFrames(data.contenido?.data || []);
       } catch (error) {
         console.error("Error cargando frames:", error);
@@ -32,7 +31,7 @@ const ListaPeliculas = ({ generoId }) => {
 
   const fetchMisListas = async () => {
     try {
-      const listasData = await obtenerMisListas(); // ya devuelve contenido directamente (array)
+      const listasData = await obtenerMisListas(); 
       setListas(listasData || []);
     } catch (error) {
       console.error("Error cargando tus listas:", error);
