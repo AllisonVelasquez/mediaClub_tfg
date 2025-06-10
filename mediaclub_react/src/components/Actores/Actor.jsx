@@ -31,7 +31,7 @@ const Actor = () => {
 
 
 
-  if (loading) return <div>Cargando información del actor...</div>;
+  if (loading) return <div className="estado-carga">Cargando información del actor...</div>;
   if (error) return <div>{error}</div>;
   if (!detalles) return null;
 

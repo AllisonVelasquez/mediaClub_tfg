@@ -7,7 +7,13 @@ body {
   padding: 0;
 }
 
-/* Estilo claro */
+.estado-carga {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #2e5135;
+  margin-top: 2rem;
+}
+
 body.dark-theme {
   background-color: #2a3b42;
   color: #d9e9dc;

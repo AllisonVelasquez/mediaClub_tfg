@@ -28,7 +28,7 @@ const PeliculasPorGenero = () => {
     navigate("/generos");
   };
 
-  if (loadingGeneros) return <p style={{ textAlign: "center" }}>Cargando géneros...</p>;
+  if (loadingGeneros) return <p className="estado-carga">Cargando todas las películas...</p>
 
   return (
     <div className="peliculas-container">

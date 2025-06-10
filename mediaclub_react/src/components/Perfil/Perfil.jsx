@@ -27,7 +27,7 @@ const Perfil = () => {
   }, []);
 
   if (!profile) {
-    return <div>Cargando...</div>;
+    return <p className="estado-carga">Cargando perfil...</p>;
   }
 
   let redesArray = [];
