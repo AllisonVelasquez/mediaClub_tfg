@@ -69,7 +69,7 @@ const PeliculaDetalles = () => {
     }
   };
 
-  if (!detalles) return <p>Cargando detalles...</p>;
+  if (!detalles) return <p className="estado-carga">Cargando detalles...</p>;
 
   const fechaFormateada = detalles.fecha_estreno
     ? new Date(detalles.fecha_estreno).toLocaleDateString("es-ES")
