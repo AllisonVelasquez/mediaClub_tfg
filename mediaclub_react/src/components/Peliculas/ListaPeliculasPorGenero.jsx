@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./ListaPeliculasPorGenero.css";
 import { getGeneros } from "../../services/Frames/CRUD_Frames";
 import ListaPeliculas from "./ListaPeliculas";
-import Generos from "./Generos";
 import { useNavigate } from "react-router-dom";
 
 const PeliculasPorGenero = () => {
@@ -28,13 +27,12 @@ const PeliculasPorGenero = () => {
     navigate("/generos");
   };
 
-  if (loadingGeneros) return <p className="estado-carga">Cargando todas las películas...</p>
+  if (loadingGeneros) return <p className="estado-carga">Cargando todas las películas...</p>;
 
   return (
     <div className="peliculas-container">
       <div className="peliculas-bg">
         <h2 className="peliculas-title">Películas por género</h2>
-        <Generos />
         {generos.map((genero) => (
           <section key={genero.id} style={{ marginBottom: "3rem" }}>
             <h3>{genero.nombre}</h3>

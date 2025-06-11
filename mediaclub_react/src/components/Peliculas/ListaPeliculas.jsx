@@ -15,21 +15,18 @@ const ListaPeliculas = ({ generoId = null, frames: framesProp = null }) => {
 
   useEffect(() => {
     const fetchFrames = async () => {
-      // Solo hacer la petición si no se pasaron frames y sí hay un generoId
       if (!framesProp && generoId) {
         setIsLoading(true);
         try {
           const data = await getFramesByGenero(generoId);
           setFrames(data.contenido?.data || []);
         } catch (error) {
-          console.error("Error cargando frames:", error);
           setFrames([]);
         } finally {
           setIsLoading(false);
         }
       }
     };
-
     fetchFrames();
   }, [generoId, framesProp]);
 
@@ -42,10 +39,10 @@ const ListaPeliculas = ({ generoId = null, frames: framesProp = null }) => {
   const handleConfirmarAñadir = async (idLista) => {
     try {
       await addFrameToLista(idLista, selectedFrame.id);
-      setMensaje(`✅ Película "${selectedFrame.titulo}" añadida correctamente.`);
+      setMensaje(`Película "${selectedFrame.titulo}" añadida correctamente.`);
     } catch (err) {
       console.error("Error añadiendo frame a lista:", err);
-      setMensaje("❌ Error al añadir la película.");
+      setMensaje("Error al añadir la película.");
     } finally {
       setShowSelector(false);
       setSelectedFrame(null);

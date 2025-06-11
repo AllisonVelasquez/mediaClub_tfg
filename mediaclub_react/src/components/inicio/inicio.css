@@ -17,7 +17,7 @@
   
   .inicio-seccion {
 	width: 100%;
-	max-width: 1680px;
+	max-width: 1400px;
 	margin-bottom: 2.5rem;
 	display: flex;
 	flex-direction: column;
@@ -35,7 +35,7 @@
   
   .inicio-peliculas-grid {
 	display: flex;
-	gap: 2.5rem;
+	gap: 1.5rem;
 	flex-wrap: nowrap;        
 	justify-content: center;
 	width: 100%;
@@ -57,7 +57,7 @@
   }
   
   .inicio-pelicula-poster {
-	width: 300px;
+	width: 260px;
 	height: auto;
 	object-fit: cover;
 	border-radius: 8px;
