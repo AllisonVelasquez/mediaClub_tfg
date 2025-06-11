@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../LogIn/AuthContext";
 import Buscador from "../Explorador/explorador";
 import "./Menu.css";
 
 function Menu() {
   const { logOut } = useContext(AuthContext);
+  const location = useLocation();
+
   return (
     <div className="container_menu">
-      
       <nav className="container_nav">
         <Link to="/Inicio">
           <img src="/logo.png" alt="Muvis Logo" className="logo" />
@@ -30,7 +31,6 @@ function Menu() {
           >
             Perfil
           </NavLink>
-
           <NavLink
             to="/listaActores"
             className={({ isActive }) =>
@@ -52,7 +52,8 @@ function Menu() {
           </button>
         </div>
       </nav>
-      <Buscador />
+      {/* Oculta el buscador solo en la página de inicio */}
+      {location.pathname !== "/Inicio" && <Buscador />}
     </div>
   );
 }

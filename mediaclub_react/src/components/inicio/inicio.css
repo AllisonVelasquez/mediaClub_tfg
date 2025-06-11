@@ -1,55 +1,74 @@
 .inicio-container {
-	padding: 2rem 3vw;
-	background: #e6f6eb;
 	min-height: 100vh;
-  }
-  .inicio-bienvenida {
-	margin-bottom: 2rem;
-  }
-  .inicio-seccion {
-	margin-bottom: 2.5rem;
-  }
-  .inicio-peliculas-grid {
-	display: flex;
-	gap: 2rem;
-	flex-wrap: wrap;
-	margin-top: 1rem;
-  }
-  .inicio-pelicula-card {
-	width: 200px;
-	cursor: pointer;
-	text-align: center;
-  }
-  .inicio-pelicula-poster {
-	width: 100%;
-	height: 300px;
-	object-fit: cover;
-	border-radius: 8px;
-	box-shadow: 0 2px 8px rgba(44,62,80,0.08);
-	background: #28543c;
-  }
-  .inicio-pelicula-titulo {
-	margin-top: 0.7rem;
-	font-weight: bold;
-  }
-  .inicio-actividad-lista {
-	margin-top: 1rem;
+	background: #c2ecd1;
 	display: flex;
 	flex-direction: column;
-	gap: 0.7rem;
+	align-items: center;
+	padding: 2rem 0 4rem 0;
   }
-  .inicio-actividad-card {
-	background: #f2f8f4;
+  
+  .inicio-bienvenida {
+	font-size: 2rem;
+	font-weight: 600;
+	color: #22322a;
+	margin-bottom: 2.5rem;
+	text-align: center;
+  }
+  
+  .inicio-seccion {
+	width: 100%;
+	max-width: 1680px;
+	margin-bottom: 2.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  }
+  
+  .inicio-seccion h3 {
+	font-size: 1.25rem;
+	font-weight: 600;
+	color: #22322a;
+	margin-bottom: 1.2rem;
+	text-align: left;
+	width: 100%;
+  }
+  
+  .inicio-peliculas-grid {
+	display: flex;
+	gap: 2.5rem;
+	flex-wrap: nowrap;        
+	justify-content: center;
+	width: 100%;
+	overflow-x: auto;          
+	padding-bottom: 1rem;
+	scrollbar-width: thin;
+	scrollbar-color: #28543c #c2ecd1;
+  }
+  
+  .inicio-pelicula-card {
+	flex: 0 0 220px;      
+	margin-bottom: 1rem;
+  }
+
+  .inicio-pelicula-poster:focus,
+  .inicio-pelicula-poster:hover {
+	transform: translateY(-5px) scale(1.03);
+	box-shadow: 0 4px 16px rgba(44,62,80,0.13);
+  }
+  
+  .inicio-pelicula-poster {
+	width: 300px;
+	height: auto;
+	object-fit: cover;
 	border-radius: 8px;
-	padding: 0.7rem 1.2rem;
-	font-size: 1rem;
+	margin-top: 15px;
+	background: #28543c;
   }
-  .inicio-actividad-usuario {
-	font-weight: bold;
-	color: #28543c;
-  }
-  .inicio-actividad-fecha {
-	float: right;
-	color: #888;
-	font-size: 0.95em;
+  
+  .inicio-pelicula-titulo {
+	font-size: 1.08rem;
+	font-weight: 500;
+	color: #22322a;
+	margin: 1rem 0 1.2rem 0;
+	text-align: center;
   }
