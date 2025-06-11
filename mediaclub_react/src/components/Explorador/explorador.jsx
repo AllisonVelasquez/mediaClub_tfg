@@ -1,8 +1,12 @@
-import "./explorador.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {buscarUsuarios, buscarPeliculas, buscarActores} from "../../services/Buscador/CRUD_buscador";
+import {
+  buscarUsuarios,
+  buscarPeliculas,
+  buscarActores,
+} from "../../services/Buscador/CRUD_buscador";
 import ListaPeliculas from "../Peliculas/ListaPeliculas";
+import "./explorador.css";
 
 const BuscadorConFiltro = () => {
   const [query, setQuery] = useState("");
@@ -52,8 +56,8 @@ const BuscadorConFiltro = () => {
   };
 
   return (
-    <div >
-      <form className="buscador"  onSubmit={(e) => { e.preventDefault(); realizarBusqueda(); }}>
+    <div className="buscador">
+      <form onSubmit={(e) => { e.preventDefault(); realizarBusqueda(); }}>
         <select
           value={filtro}
           onChange={(e) => setFiltro(e.target.value)}

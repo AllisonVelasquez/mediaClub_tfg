@@ -3,8 +3,14 @@
   padding: 18px 0;
   max-width: 95vw;
   margin: 0 auto;
+}
+
+.buscador form {
   display: flex;
-  align-items: flex-end;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
 }
 
 .buscador select {
