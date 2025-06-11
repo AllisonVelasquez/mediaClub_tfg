@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { actualizarMiPerfil, eliminarMiCuenta } from "../../services/Usuarios/Mi/CRUD_Usuarios";
 import { AuthContext } from "../LogIn/AuthContext";
 import "./EditarPerfil.css";
@@ -25,6 +25,9 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
   const [fotoPerfil, setFotoPerfil] = useState(originalDatos.foto_perfil);
   const [redes, setRedes] = useState(originalDatos.redes);
   const [dragOver, setDragOver] = useState(false);
+
+  // Usar useRef para el input de archivo
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     setAlias(datos?.alias || "");
@@ -53,7 +56,7 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
       reader.onerror = (error) => reject(error);
     });
 
-  // Handler para drop de archivo
+
   const handleDrop = async (e) => {
     e.preventDefault();
     setDragOver(false);
@@ -70,14 +73,14 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
     }
   };
 
-  // Otros handlers para drag events
+
   const handleDragOver = (e) => {
     e.preventDefault();
     setDragOver(true);
   };
   const handleDragLeave = () => setDragOver(false);
 
-  // Handler para input file (clic)
+
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith("image/")) {
@@ -130,9 +133,16 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
   };
 
   const handleEliminarCuenta = async () => {
-    if (!window.confirm("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es irreversible.")) return;
+    if (
+      !window.confirm(
+        "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es irreversible."
+      )
+    )
+      return;
 
-    const contrasena = window.prompt("Por favor, confirma tu contraseña para eliminar la cuenta:");
+    const contrasena = window.prompt(
+      "Por favor, confirma tu contraseña para eliminar la cuenta:"
+    );
     if (!contrasena) {
       alert("Debes ingresar tu contraseña.");
       return;
@@ -154,39 +164,37 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
       <form onSubmit={handleSubmit}>
         <label>
           Alias:
-          <input className="editar-input" value={alias} onChange={(e) => setAlias(e.target.value)} />
+          <input
+            className="editar-input"
+            value={alias}
+            onChange={(e) => setAlias(e.target.value)}
+          />
         </label>
 
         <label>
           Biografía:
-          <textarea className="editar-input" value={bio} onChange={(e) => setBio(e.target.value)} />
+          <textarea
+            className="editar-input"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+          />
         </label>
 
         <label>
           Foto de Perfil:
+          <span className="pf-instruccion">Arrastra una imagen aquí o haz clic para seleccionar</span>
           <div
             className={`dropzone ${dragOver ? "drag-over" : ""}`}
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
-            style={{
-              border: "2px dashed #aaa",
-              padding: "1rem",
-              textAlign: "center",
-              cursor: "pointer",
-              marginBottom: "1rem",
-            }}
-            onClick={() => document.getElementById("fileInput").click()}
+            onClick={() => fileInputRef.current && fileInputRef.current.click()}
           >
-            {fotoPerfil ? (
-              <img
-                src={fotoPerfil}
-                alt="Foto de perfil"
-                style={{ maxWidth: "150px", maxHeight: "150px" }}
-              />
-            ) : (
-              <p>Arrastra una imagen aquí o haz clic para seleccionar</p>
-            )}
+            <img
+              src={fotoPerfil}
+              alt="Foto de perfil"
+              style={{ maxWidth: "150px", maxHeight: "150px" }}
+            />
           </div>
           <input
             type="file"
@@ -194,6 +202,7 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
             accept="image/*"
             style={{ display: "none" }}
             onChange={handleFileChange}
+            ref={fileInputRef}
           />
         </label>
 
@@ -216,11 +225,9 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
           </button>
         </div>
       </form>
-      <br></br><hr/>
-      <button
-        className="btn-eliminar-cuenta"
-        onClick={handleEliminarCuenta}
-      >
+      <br />
+      <hr />
+      <button className="btn-eliminar-cuenta" onClick={handleEliminarCuenta}>
         Eliminar mi cuenta
       </button>
     </div>
@@ -228,3 +235,4 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
 };
 
 export default EditarPerfil;
+
