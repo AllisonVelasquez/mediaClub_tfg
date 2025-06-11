@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../LogIn/AuthContext";
-import Buscador from "../Explorador/explorador";
+import BuscadorGlobal from "../Explorador/explorador";
 import "./Menu.css";
 
 function Menu() {

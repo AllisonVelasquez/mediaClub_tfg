@@ -1,149 +1,55 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { obtenerMiPerfil } from "../../services/Usuarios/Mi/CRUD_Usuarios";
-import EditarPerfil from "./EditarPerfil";
+import MisListas from "../Listas/MisListas";
 import ListaResenas from "../Resenas/ListaResenas";
 import ListaPosts from "../Posts/ListaPosts";
-import MisListas from "../Listas/MisListas";
 import ListaAmigos from "../Listas/listaAmigos";
-import Amistades from "./Amistades";
-import { AuthContext } from "../LogIn/AuthContext";
 import "./perfil.css";
+const BASE_IMG_URL = "https://image.tmdb.org/t/p/w300";
 
 const Perfil = () => {
   const [profile, setProfile] = useState(null);
-  const [editando, setEditando] = useState(false);
-  const { logOut } = useContext(AuthContext);
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const user = await obtenerMiPerfil();
-        setProfile(user);
-      } catch (error) {
-        console.error("Error al obtener el perfil:", error);
-      }
+    const load = async () => {
+      const p = await obtenerMiPerfil();
+      setProfile(p);
     };
-    fetchProfile();
+    load();
   }, []);
 
-  if (!profile) {
-    return <p className="estado-carga">Cargando perfil...</p>;
-  }
-
-  let redesArray = [];
-  try {
-    redesArray = profile.redes ? JSON.parse(profile.redes) : [];
-  } catch (error) {
-    console.error("Error al parsear redes:", error);
-  }
-
-  const urlBasePorRed = {
-    Facebook: "https://facebook.com/",
-    Twitter: "https://twitter.com/",
-    Instagram: "https://instagram.com/",
-    YouTube: "https://youtube.com/",
-  };
-
-  const handleEditarClick = () => setEditando(true);
-  const handleCancelar = () => setEditando(false);
-
-  const handleGuardar = async () => {
-    try {
-      const user = await obtenerMiPerfil();
-      setProfile(user);
-    } catch (error) {
-      console.error("Error al obtener el perfil:", error);
-    }
-    setEditando(false);
-  };
-
-  if (editando) {
-    return <EditarPerfil datos={profile} onCancel={handleCancelar} onSave={handleGuardar} />;
-  }
-
-  const userId = profile.id;
+  if (!profile) return <p>Cargando perfil...</p>;
 
   return (
-    <div className="profile">
+    <div className="profile-page">
       <div className="profile-header">
-        <div className="profile-photo">
-          <img
-  src={profile.foto_perfil || "/images/perfiles/default.png"}
-  alt={profile.alias || "Foto de perfil"}
-  className="photo-img"
-  onError={(e) => {
-    e.target.onerror = null; // evita bucle infinito
-    e.target.src = "/images/perfiles/default.png";
-  }}
-/>
-
-        </div>
-
-        <div className="profile-info">
-          <div className="profile-username">{profile.alias }</div>
-          <div className="profile-bio">{profile.bio || "Sin biografía"}</div>
-          <div className="profile-creation-date">
-            <small>
-              Miembro desde: {profile.created_at ? new Date(profile.created_at).toLocaleDateString() : "Fecha no disponible"}
-            </small>
-          </div>
-
-          <div className="profile-redes">
-            <h4>Redes Sociales:</h4>
-            {redesArray.length > 0 ? (
-              <ul>
-                {redesArray.map(({ nombre, url }, index) => {
-                  const base = urlBasePorRed[nombre] || "";
-                  const link = base + url;
-                  return (
-                    <li key={index}>
-                      <strong>{nombre}:</strong>{" "}
-                      {url ? (
-                        <a href={link} target="_blank" rel="noopener noreferrer">
-                          {link}
-                        </a>
-                      ) : (
-                        "No disponible"
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            ) : (
-              <p>No hay redes sociales registradas.</p>
-            )}
-          </div>
-        </div>
-
-        <div className="profile-actions">
-          <button className="icon-btn" title="Editar perfil" onClick={handleEditarClick}>
-            <span role="img" aria-label="editar">
-              Editar Datos
-            </span>
-          </button>
+        <img src={BASE_IMG_URL+profile.foto_perfil || "/images/perfiles/default.png"} alt={profile.alias} />
+        <div>
+          <h2>{profile.alias}</h2>
+          <p>{profile.bio}</p>
+          <small>Miembro desde: {new Date(profile.created_at).toLocaleDateString()}</small>
         </div>
       </div>
-      <div className="profile-listas">
-        <MisListas modo="usuario" mostrarFormulario={true} currentUserId={userId} />
-      </div>
 
-      <div className="profile-resenas">
-        <h2>Mis Reseñas</h2>
+      <section>
+        <h2>Mis listas</h2>
+        <MisListas modo="usuario" mostrarFormulario currentUserId={profile.id} />
+      </section>
+
+      <section>
+        <h2>Mis reseñas</h2>
         <ListaResenas modo="usuario" mostrarFormulario={false} />
-      </div>
+      </section>
 
-      <div className="profile-posts">
-        <h2>Mis Posts</h2>
-        <ListaPosts modo="usuario" mostrarFormulario={true} currentUserId={userId} />
-      </div>
+      <section>
+        <h2>Mis posts</h2>
+        <ListaPosts modo="usuario" mostrarFormulario currentUserId={profile.id} />
+      </section>
 
-      <div className="profile-amistades">
-        <h2>Mis Amistades</h2>
-      <div className="lista-amigos">
-        <ListaAmigos mi={true} />
-      </div>
-        <Amistades userId={userId} />
-      </div>
+      <section>
+        <h2>Amistades</h2>
+        <ListaAmigos mi={true} userId={profile.id} />
+      </section>
     </div>
   );
 };
