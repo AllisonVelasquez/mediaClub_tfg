@@ -46,15 +46,7 @@ const Generos = () => {
             </li>
           ))}
         </ul>
-        <div className="generos-pagination">
-          <button onClick={() => setPage((p) => p - 1)} disabled={!prevPage}>
-            Anterior
-          </button>
-          <span>Página {page}</span>
-          <button onClick={() => setPage((p) => p + 1)} disabled={!nextPage}>
-            Siguiente
-          </button>
-        </div>
+
       </nav>
 
       {/* 👇 Mostrar ListaPeliculas si hay género seleccionado */}
