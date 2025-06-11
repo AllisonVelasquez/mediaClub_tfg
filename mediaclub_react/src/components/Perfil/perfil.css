@@ -1,5 +1,11 @@
-/* Contenedor principal del perfil */
-.profile {
+body, .profile-page {
+  background: #e3f6e5;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-page {
   background: #bfe0c7;
   border-radius: 16px;
   max-width: 900px;
@@ -11,58 +17,57 @@
   align-items: center;
 }
 
-/* Cabecera del perfil */
 .profile-header {
+  background: transparent;
+  border-radius: 16px;
+  max-width: 700px;
+  margin: 0 auto 2.5rem auto;
+  padding: 0;
+  box-shadow: none;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-bottom: 2.5rem;
 }
 
-/* Foto de perfil */
-.profile-photo {
+.profile-header img {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   background: #f8c6c6;
   border: 2.5px solid #e1bcbc;
   margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.photo-img {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
-  border-radius: 50%;
 }
 
-/* Nombre y alias */
-.profile-username {
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-header h2 {
   font-size: 1.5rem;
   font-weight: bold;
   color: #2a3b42;
   text-align: center;
   margin-bottom: 0.2rem;
 }
-.profile-alias {
-  font-size: 1rem;
-  color: #4b5c5e;
+.profile-header p {
+  font-size: 1.05rem;
+  color: #2a3b42;
   text-align: center;
   margin-bottom: 0.5rem;
 }
-
-/* Botones debajo del nombre */
-.profile-actions {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-  justify-content: center;
+.profile-header small {
+  font-size: 0.95rem;
+  color: #4b5c5e;
+  text-align: center;
+  display: block;
+  margin-bottom: 1.2rem;
 }
-.icon-btn {
+
+.edit-profile-btn {
   background: #d9e9dc;
   border: none;
   border-radius: 8px;
@@ -70,73 +75,65 @@
   font-size: 1rem;
   color: #2a3b42;
   cursor: pointer;
-  transition: background 0.2s;
-  margin: 0 0.1rem;
-}
-.icon-btn:hover {
-  background: #a9d3b4;
-}
-
-/* Biografía */
-.profile-bio {
-  font-size: 1.05rem;
-  color: #2a3b42;
-  text-align: center;
-  margin-bottom: 0.5rem;
-}
-
-/* Fecha de creación */
-.profile-creation-date {
-  font-size: 0.95rem;
-  color: #4b5c5e;
-  text-align: center;
-  margin-bottom: 1.2rem;
-}
-
-/* Redes sociales */
-.profile-redes {
-  margin-bottom: 1.2rem;
-  text-align: center;
-}
-.profile-redes h4 {
-  margin: 0 0 0.3rem 0;
-  font-size: 1rem;
-  color: #2a3b42;
-}
-.profile-redes ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.profile-redes li {
-  font-size: 0.98rem;
-  color: #2a3b42;
-  margin-bottom: 0.2rem;
-}
-.profile-redes a {
-  color: #2e5135;
-  text-decoration: underline;
-  word-break: break-all;
-}
-
-/* Sección de listas favoritas y últimas vistas */
-.profile-listas, .profile-resenas, .profile-posts, .profile-amistades {
-  width: 100%;
-  margin-bottom: 2.2rem;
-}
-
-.profile-listas h2,
-.profile-resenas h2,
-.profile-posts h2,
-.profile-amistades h2 {
-  font-size: 1.2rem;
-  color: #2a3b42;
-  margin-bottom: 1rem;
-  margin-top: 0;
   font-weight: bold;
+  align-self: center;
+  transition: background 0.2s;
+}
+.edit-profile-btn:hover {
+  background: #377d4a;
 }
 
-/* Tarjetas de películas/listas */
+.profile-page section {
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  max-width: 100%;
+  margin: 0 0 2rem 0;
+  padding: 0;
+  width: 100%;
+}
+
+.profile-page section h2 {
+  color: #2a3b42;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1.2rem;
+  margin-top: 0;
+  text-align: left;
+}
+
+.profile-page section p,
+.profile-page section ul {
+  margin-left: 0.5rem;
+  color: #2a3b42;
+}
+
+.profile-page > *:not(:last-child) {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .profile-page {
+    max-width: 99vw;
+    padding: 1rem 0.2rem;
+  }
+  .profile-header {
+    max-width: 99vw;
+  }
+}
+
+.profile-listas,
+.profile-resenas,
+.profile-posts,
+.profile-amistades {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 0 2rem 0 !important;
+  width: 100% !important;
+}
+
 .favoritos-grid, .ultimos-grid, .listas-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -191,7 +188,6 @@
   text-align: center;
 }
 
-/* Botón "Ver más" */
 .btn-ver-mas {
   background: #2a3b42;
   color: #d9e9dc;
@@ -211,7 +207,7 @@
 }
 
 .profile-posts {
-  padding: 1.5rem 1.2rem 2rem 1.2rem;
+  padding: 0 !important;
   margin-bottom: 2rem;
   width: 100%;
 }
@@ -225,9 +221,8 @@
   text-align: left;
 }
 
-/* Ajustes generales */
 @media (max-width: 700px) {
-  .profile {
+  .profile-page {
     padding: 1rem 0.2rem;
     max-width: 99vw;
   }

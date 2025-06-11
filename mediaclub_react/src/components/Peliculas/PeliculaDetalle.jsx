@@ -181,7 +181,7 @@ const PeliculaDetalles = () => {
         {mensajeLista && <p className="mensaje-lista">{mensajeLista}</p>}
       </div>
 
-      {/* Lista de actores */}
+      
       <div className="actores">
         <ListaActores
           actoresIniciales={detalles.actores}
@@ -189,8 +189,7 @@ const PeliculaDetalles = () => {
         />
       </div>
 
-      {/* Votación justo encima de las reseñas */}
-      <div className="votacion mt-6" style={{ marginBottom: "20px" }}>
+      <div className="review-card">
         <h2>Tu puntuación</h2>
         {votoEnviado ? (
           <p className="voto-exito">
@@ -221,11 +220,10 @@ const PeliculaDetalles = () => {
         )}
 
         {error && <p className="error">{error}</p>}
-      </div>
-
-      {/* Reseñas */}
-      <div className="resenas-final mt-10">
+      
+      <div className="resenas-final">
         <ListaResenas frameId={detalles.id} modo="frame" className="resena" />
+      </div>
       </div>
     </div>
   );

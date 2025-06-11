@@ -1,49 +1,52 @@
-/*Contenedor Buscador */
-.buscador-container {
-  width: 100%;
+.buscador {
   background: #8ac195;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 18px 0;
-}
-
-/* Formulario alineado horizontalmente */
-.buscador-container form {
-  display: flex;
-  align-items: center;
-  width: 600px;
   max-width: 95vw;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
 }
 
-/* Input de búsqueda */
-.buscador-input {
+.buscador select {
+  background: #d6eac6;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 8px 10px;
+  color: #234d36;
+  outline: none;
+  transition: box-shadow 0.2s;
+  margin:0 1rem 0 3rem;
+}
+
+.buscador select:focus {
+  box-shadow: 0 0 0 2px #5a9b7c33;
+}
+
+.buscador input[type="text"] {
   flex: 1;
   background: #d6eac6;
   border: none;
   border-radius: 5px 0 0 5px;
   font-size: 1rem;
-  padding: 5px 8px;
+  padding: 8px 10px;
   color: #234d36;
   outline: none;
   transition: box-shadow 0.2s;
-  box-shadow: none;
-  min-width: 0;
 }
 
-.buscador-input:focus {
+.buscador input[type="text"]:focus {
   box-shadow: 0 0 0 2px #5a9b7c33;
 }
 
-/* Botón Buscar */
 .buscador-btn {
   background: #295c3b;
   color: #d6eac6;
   border: none;
   border-radius: 0 5px 5px 0;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
-  padding: 5px 20px;
+  padding: 8px 20px;
   cursor: pointer;
   transition: background 0.18s, color 0.18s;
   display: flex;
@@ -60,16 +63,19 @@
 }
 
 @media (max-width: 500px) {
-  .buscador-container form {
+  .buscador > .flex {
     width: 98vw;
   }
+
   .buscador-btn {
     font-size: 1.1rem;
     padding: 0 14px;
     height: 40px;
   }
-  .buscador-input {
+
+  .buscador input[type="text"],
+  .buscador select {
     font-size: 1.1rem;
-    padding: 10px 10px;
+    padding: 10px;
   }
 }

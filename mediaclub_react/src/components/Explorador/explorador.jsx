@@ -1,10 +1,7 @@
+import "./explorador.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  buscarUsuarios,
-  buscarPeliculas,
-  buscarActores,
-} from "../../services/Buscador/CRUD_buscador";
+import {buscarUsuarios, buscarPeliculas, buscarActores} from "../../services/Buscador/CRUD_buscador";
 import ListaPeliculas from "../Peliculas/ListaPeliculas";
 
 const BuscadorConFiltro = () => {
@@ -50,87 +47,78 @@ const BuscadorConFiltro = () => {
 
   const handleRedirect = (item) => {
     if (filtro === "usuarios") navigate(`/perfil/${item.id}`);
-    if (filtro === "peliculas") navigate(`/peliculasDetalles/${item.id}`);
-    if (filtro === "actores") navigate(`/actores/${item.id}`);
+    else if (filtro === "peliculas") navigate(`/peliculasDetalles/${item.id}`);
+    else if (filtro === "actores") navigate(`/actores/${item.id}`);
   };
 
   return (
-    <div className="buscador w-full max-w-4xl mx-auto mt-4 px-4">
-      <div className="flex flex-col md:flex-row gap-3 mb-4">
+    <div >
+      <form className="buscador"  onSubmit={(e) => { e.preventDefault(); realizarBusqueda(); }}>
         <select
           value={filtro}
           onChange={(e) => setFiltro(e.target.value)}
-          className="border px-3 py-2 rounded"
         >
           <option value="usuarios">Usuarios</option>
           <option value="peliculas">Películas</option>
           <option value="actores">Actores</option>
         </select>
-
         <input
           type="text"
           placeholder={`Buscar ${filtro}...`}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="flex-grow border px-3 py-2 rounded"
         />
         <button type="submit" className="buscador-btn">
           Buscar
         </button>
-      </div>
+      </form>
 
-      {loading && <p className="text-center">Buscando...</p>}
+      {loading && <p className="center-text">Buscando...</p>}
 
       {buscado && resultados.length > 0 && (
-        <div className="border rounded-lg overflow-hidden">
+        <div className="resultados-container">
           <button
             onClick={() => setMostrarResultados(!mostrarResultados)}
-            className="w-full bg-gray-100 px-4 py-2 text-left font-semibold text-lg hover:bg-gray-200"
+            className="toggle-resultados"
           >
             {mostrarResultados ? "▼ Ocultar resultados" : "▶ Mostrar resultados"}
           </button>
-
           {mostrarResultados && (
-            <div className="p-4">
+            <div className="resultados-content">
               {filtro === "peliculas" && (
                 <ListaPeliculas frames={resultados} />
               )}
-
               {filtro === "usuarios" && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid-usuarios">
                   {resultados.map((user) => (
                     <div
                       key={user.id}
-                      className="border p-3 rounded hover:shadow cursor-pointer flex gap-3 items-center"
+                      className="resultado-usuario"
                       onClick={() => handleRedirect(user)}
                     >
                       <img
                         src={
                           user.foto_perfil
-                            ? `https://image.tmdb.org/t/p/w200/${user.foto_perfil}`
+                            ? `${user.foto_perfil}`
                             : "/images/perfiles/default.png"
                         }
                         alt={`Foto de ${user.alias}`}
-                        className="w-16 h-16 object-cover rounded-full"
                       />
-                      <p className="font-medium text-blue-700">{user.alias}</p>
+                      <p>{user.alias}</p>
                     </div>
                   ))}
                 </div>
               )}
-
               {filtro === "actores" && (
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid-actores">
                   {resultados.map((actor) => (
                     <div
                       key={actor.id}
-                      className="border p-3 rounded hover:shadow cursor-pointer"
+                      className="resultado-actor"
                       onClick={() => handleRedirect(actor)}
                     >
-                      <h4 className="font-semibold">{actor.nombre}</h4>
-                      <p className="text-sm text-gray-600">
-                        {actor.biografia?.slice(0, 100)}...
-                      </p>
+                      <h4>{actor.nombre}</h4>
+                      <p>{actor.biografia ? actor.biografia.slice(0, 100) : ""}...</p>
                     </div>
                   ))}
                 </div>
@@ -141,7 +129,7 @@ const BuscadorConFiltro = () => {
       )}
 
       {!loading && resultados.length === 0 && buscado && (
-        <p className="text-center text-gray-500">
+        <p className="center-text no-results">
           No se encontraron resultados para "{query}".
         </p>
       )}

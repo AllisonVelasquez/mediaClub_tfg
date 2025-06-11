@@ -12,10 +12,6 @@ const PeliculaCard = ({ pelicula, onClick }) => (
 		onClick={() => pelicula.id && onClick(pelicula.id)}
 		tabIndex={0}
 		role="button"
-		aria-label={`Ver detalles de ${pelicula.titulo}`}
-		onKeyPress={(e) => {
-			if (e.key === "Enter" || e.key === " ") onClick(pelicula.id);
-		}}
 	>
 		<img
 			src={

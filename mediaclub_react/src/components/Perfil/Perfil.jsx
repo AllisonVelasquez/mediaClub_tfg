@@ -5,7 +5,6 @@ import ListaResenas from "../Resenas/ListaResenas";
 import ListaPosts from "../Posts/ListaPosts";
 import ListaAmigos from "../Listas/listaAmigos";
 import "./perfil.css";
-const BASE_IMG_URL = "https://image.tmdb.org/t/p/w300";
 
 const Perfil = () => {
   const [profile, setProfile] = useState(null);
@@ -23,11 +22,12 @@ const Perfil = () => {
   return (
     <div className="profile-page">
       <div className="profile-header">
-        <img src={BASE_IMG_URL+profile.foto_perfil || "/images/perfiles/default.png"} alt={profile.alias} />
-        <div>
+        <img src={profile.foto_perfil} alt={profile.alias} />
+        <div className="profile-info">
           <h2>{profile.alias}</h2>
           <p>{profile.bio}</p>
           <small>Miembro desde: {new Date(profile.created_at).toLocaleDateString()}</small>
+          <button className="edit-profile-btn">Editar Datos</button>
         </div>
       </div>
 
