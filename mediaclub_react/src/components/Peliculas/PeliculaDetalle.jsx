@@ -98,18 +98,13 @@ const PeliculaDetalles = () => {
     ? new Date(detalles.fecha_estreno).toLocaleDateString("es-ES")
     : "N/A";
 
-  const baseImgUrl = "https://image.tmdb.org/t/p/w500";
 
   return (
     <div className="pelicula-container">
       <div className="pelicula-header">
         <div className="pelicula-poster">
           <img
-            src={
-              detalles.poster_url
-                ? baseImgUrl + detalles.poster_url
-                : "https://via.placeholder.com/400x600?text=Sin+imagen"
-            }
+            src={detalles.poster_url}
             alt={detalles.titulo}
           />
         </div>
@@ -161,7 +156,14 @@ const PeliculaDetalles = () => {
                 </span>
               </div>
             </div>
-
+            <div className="pelicula-generos">
+              <span className="pelicula-label">{
+              detalles.generos.map((genero, index) => (
+                <span key={genero.id}>  
+                  {genero.nombre +" " }
+                </span>
+              )) || "N/A"}</span>
+                            </div>
             <p className="pelicula-descripcion">{detalles.descripcion}</p>
           </div>
         </div>

@@ -1,11 +1,10 @@
 import axios from "axios";
 
 export const instance = axios.create({
-  baseURL: "http://laravel.local/api/", // Ajusta al dominio real de tu API
+  baseURL: "http://localhost:8000/api/",
   withCredentials: true,
 });
 
-// Interceptor para agregar token a cada request (si está disponible)
 instance.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {

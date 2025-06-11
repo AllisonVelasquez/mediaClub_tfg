@@ -15,7 +15,7 @@ import EditarPerfil from "./components/Perfil/EditarPerfil.jsx";
 import ListaPosts from "./components/Posts/ListaPosts.jsx";
 import ListaDetalle from "./components/Listas/ListasDetalles.jsx";
 import UserProfileFull from "./components/Perfil/PerfilUsuarios.jsx";
-import Inicio from "./components/Inicio/Inicio.jsx";
+import Inicio from "./components/inicio/inicio.jsx";
 // import Resenas from "./components/Resenas/Resenas.jsx"; // <-- Importa el componente de reseñas
 
 function App() {

@@ -26,7 +26,7 @@ const Generos = () => {
   }, [page]);
 
   const handleGeneroClick = (id) => {
-    setSelectedGeneroId(id); // 👈 Guardar género seleccionado
+    setSelectedGeneroId(id); 
   };
 
   return (
@@ -40,7 +40,7 @@ const Generos = () => {
             <li
               key={g.id}
               className="genero-item"
-              onClick={() => handleGeneroClick(g)} // 👈 CLICK aquí
+              onClick={() => handleGeneroClick(g)} 
             >
               {g.nombre}
             </li>
