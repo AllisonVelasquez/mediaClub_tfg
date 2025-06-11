@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getDetallesFrame, anadirPuntuacionFrame} from "../../services/Frames/CRUD_Frames.js";
+import { getDetallesFrame, anadirPuntuacionFrame } from "../../services/Frames/CRUD_Frames.js";
 import ListaResenas from "../Resenas/ListaResenas.jsx";
 import ListaActores from "../Actores/ListaActores.jsx";
+import MisListas from "../Listas/MisListas"; // Importa el componente de listas
+import { addFrameToLista } from "../../services/Listas/CRUD_Listas.js"; // Asegúrate del path correcto
 import "./PeliculaDetalles.css";
 
 const PeliculaDetalles = () => {
@@ -13,6 +15,9 @@ const PeliculaDetalles = () => {
   const [votoEnviado, setVotoEnviado] = useState(false);
   const [error, setError] = useState("");
   const [comentario, setComentario] = useState("");
+
+  const [listaSeleccionada, setListaSeleccionada] = useState(null);
+  const [mensajeLista, setMensajeLista] = useState("");
 
   useEffect(() => {
     const fetchDetalles = async () => {
@@ -69,6 +74,25 @@ const PeliculaDetalles = () => {
     }
   };
 
+  const handleAñadirALista = async () => {
+    if (!listaSeleccionada) {
+      setMensajeLista("Selecciona una lista primero.");
+      return;
+    }
+    try {
+      setMensajeLista("");
+      const res = await addFrameToLista(listaSeleccionada, detalles.id);
+      if (res.status === "success") {
+        setMensajeLista(`Película "${detalles.titulo}" añadida a la lista correctamente.`);
+      } else {
+        setMensajeLista("Error al añadir la película a la lista.");
+      }
+    } catch (error) {
+      setMensajeLista("Error al añadir la película a la lista.");
+      console.error(error);
+    }
+  };
+
   if (!detalles) return <p>Cargando detalles...</p>;
 
   const fechaFormateada = detalles.fecha_estreno
@@ -78,7 +102,7 @@ const PeliculaDetalles = () => {
   const baseImgUrl = "https://image.tmdb.org/t/p/w500";
 
   return (
-    <div className="pelicula-container">
+    <div className="pelicula-container" style={{ display: "flex", gap: "20px" }}>
       <div className="pelicula-poster">
         <img
           src={
@@ -90,74 +114,14 @@ const PeliculaDetalles = () => {
         />
       </div>
 
-      <div className="pelicula-info">
-        <h1 className="pelicula-titulo">{detalles.titulo}</h1>
-        <h3 className="pelicula-titulo-original">{detalles.titulo_original}</h3>
-
-        <div className="pelicula-datos-grid">
-          <div>
-            <span className="pelicula-label">Fecha de estreno:</span>
-            <span className="pelicula-valor">{fechaFormateada}</span>
-          </div>
-          <div>
-            <span className="pelicula-label">Duración:</span>
-            <span className="pelicula-valor">{detalles.duracion} min</span>
-          </div>
-          <div>
-            <span className="pelicula-label">Eslogan:</span>
-            <span className="pelicula-valor">{detalles.eslogan || "N/A"}</span>
-          </div>
-          <div>
-            <span className="pelicula-label">Presupuesto:</span>
-            <span className="pelicula-valor">
-              {detalles.presupuesto ? `$${detalles.presupuesto.toLocaleString()}` : "N/A"}
-            </span>
-          </div>
-          <div>
-            <span className="pelicula-label">Ingresos:</span>
-            <span className="pelicula-valor">
-              {detalles.ingresos ? `$${detalles.ingresos.toLocaleString()}` : "N/A"}
-            </span>
-          </div>
-        </div>
-
-        <div className="pelicula-promedios">
-          <div>
-            <span className="pelicula-label">Promedio Muvis:</span>
-            <span className="pelicula-valor">
-              {detalles.promedio_votos_muvis ?? "N/A"}
-            </span>
-          </div>
-          <div>
-            <span className="pelicula-label">Promedio TMDB:</span>
-            <span className="pelicula-valor">
-              {detalles.promedio_votos_tmdb ?? "N/A"}
-            </span>
-          </div>
-        </div>
-
-        <p className="pelicula-descripcion">{detalles.descripcion}</p>
-
-        <div className="generos">
-          <h2>Géneros</h2>
-          <ul>
-            {detalles.generos.map((genero) => (
-              <li key={genero.id}>{genero.nombre}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="actores">
-          <ListaActores
-            actoresIniciales={detalles.actores}
-            onActorClick={(actor) => navigate(`/actores/${actor.id}`)}
-          />
-        </div>
-
-        <div className="votacion">
+      <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+        {/* Votación justo después de la imagen */}
+        <div className="votacion mt-6" style={{ marginBottom: "20px" }}>
           <h2>Tu puntuación</h2>
           {votoEnviado ? (
-            <p className="voto-exito">Ya votaste: <strong>{miVoto}</strong></p>
+            <p className="voto-exito">
+              Ya votaste: <strong>{miVoto}</strong>
+            </p>
           ) : (
             <form
               onSubmit={(e) => {
@@ -177,13 +141,96 @@ const PeliculaDetalles = () => {
                 required
                 className="input-voto"
               />
-              <button type="submit" className="btn-votar">Votar</button>
+              <textarea
+                name="comentario"
+                placeholder="Comentario opcional..."
+                className="input-comentario"
+              />
+              <button type="submit" className="btn-votar">
+                Votar
+              </button>
             </form>
           )}
-          <ListaResenas frameId={detalles.id} modo="frame" className="resena"/>
+
           {error && <p className="error">{error}</p>}
         </div>
 
+        {/* Info de la película */}
+        <div className="pelicula-info">
+          <h1 className="pelicula-titulo">{detalles.titulo}</h1>
+          <h3 className="pelicula-titulo-original">{detalles.titulo_original}</h3>
+
+          <div className="pelicula-datos-grid">
+            <div>
+              <span className="pelicula-label">Fecha de estreno:</span>
+              <span className="pelicula-valor">{fechaFormateada}</span>
+            </div>
+            <div>
+              <span className="pelicula-label">Duración:</span>
+              <span className="pelicula-valor">{detalles.duracion} min</span>
+            </div>
+            <div>
+              <span className="pelicula-label">Eslogan:</span>
+              <span className="pelicula-valor">{detalles.eslogan || "N/A"}</span>
+            </div>
+            <div>
+              <span className="pelicula-label">Presupuesto:</span>
+              <span className="pelicula-valor">
+                {detalles.presupuesto ? `$${detalles.presupuesto.toLocaleString()}` : "N/A"}
+              </span>
+            </div>
+            <div>
+              <span className="pelicula-label">Ingresos:</span>
+              <span className="pelicula-valor">
+                {detalles.ingresos ? `$${detalles.ingresos.toLocaleString()}` : "N/A"}
+              </span>
+            </div>
+          </div>
+
+          <div className="pelicula-promedios">
+            <div>
+              <span className="pelicula-label">Promedio Muvis:</span>
+              <span className="pelicula-valor">
+                {detalles.promedio_votos_muvis ?? "N/A"}
+              </span>
+            </div>
+            <div>
+              <span className="pelicula-label">Promedio TMDB:</span>
+              <span className="pelicula-valor">
+                {detalles.promedio_votos_tmdb ?? "N/A"}
+              </span>
+            </div>
+          </div>
+
+          <p className="pelicula-descripcion">{detalles.descripcion}</p>
+
+          {/* Añadir a lista */}
+          <div className="añadir-a-lista mb-6">
+            <h3>Añadir a una lista</h3>
+            <MisListas seleccionable onSeleccionarLista={setListaSeleccionada} />
+            <button
+              onClick={handleAñadirALista}
+              disabled={!listaSeleccionada}
+              className="btn-añadir-lista"
+            >
+              Añadir a la lista
+            </button>
+            {mensajeLista && <p className="mensaje-lista">{mensajeLista}</p>}
+          </div>
+
+          {/* Lista de actores */}
+          <div className="actores">
+            <ListaActores
+              actoresIniciales={detalles.actores}
+              onActorClick={(actor) => navigate(`/actores/${actor.id}`)}
+            />
+          </div>
+        </div>
+
+        {/* RESEÑAS AL FINAL */}
+        <div className="resenas-final mt-10">
+          <ListaResenas frameId={detalles.id} modo="frame" className="resena" />
+        </div>
       </div>
     </div>
   );

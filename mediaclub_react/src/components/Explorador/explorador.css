@@ -1,45 +1,30 @@
-/*Contenedor Buscador */
-.buscador-container {
+.buscador-global {
+  position: relative;
+  max-width: 500px;
+  margin: auto;
+}
+
+.buscador-global input {
   width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: space-evenly;
-    background-color: #8AC195;
-  }
-  /*Contenedor del desplegable */
-.desplegable{
-  display: flex;
-  flex-flow: row wrap;
-  gap:1;
-  justify-content: center;
-  align-items: center;
+  padding: 10px;
+  font-size: 16px;
 }
 
-.opciones{
-    background-color: #5a9b7c;
-
+.resultados h3 {
+  margin-top: 1rem;
 }
 
-  .buscador-input {
-    border: none;
-    padding: 8px 10px;
-    font-size: 14px;
-    outline: none;
-    width: 180px;
-  }
-  
-  .buscador-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .buscador-btn:hover {
-    background-color: #0056b3;
-  }
+.resultados ul {
+  list-style: none;
+  padding-left: 0;
+}
 
-  
+.resultados li {
+  cursor: pointer;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.resultados li:hover {
+  background-color: #f0f0f0;
+}

@@ -1,117 +1,116 @@
 import React, { useEffect, useState } from "react";
-import "./listaAmigos.css"; // ✅ Importa tu archivo CSS
-
+import "./listaAmigos.css";
 import {
   obtenerMisAmigos,
-  eliminarAmigo,
+  getFriendRequestsReceived,
   getFriendRequestsSent,
-  cancelFriendRequest,
   enviarSolicitudAmistad,
+  cancelFriendRequest,
+  acceptFriendRequest,
+  rejectFriendRequest,
+  eliminarAmigo,
 } from "../../services/Usuarios/Mi/CRUD_Usuarios";
 
-import { getUserFriends } from "../../services/Usuarios/Usuarios/CRUD_Usuarios";
-
-const ListaAmigos = ({ mi = false, usuarioId }) => {
+const ListaAmigos = ({ mi = false, userId }) => {
   const [amigos, setAmigos] = useState([]);
   const [solicitudesEnviadas, setSolicitudesEnviadas] = useState([]);
+  const [solicitudesRecibidas, setSolicitudesRecibidas] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    cargarAmigos();
-    if (!mi) {
-      cargarSolicitudesEnviadas();
-    }
-  }, [mi, usuarioId]);
+    const cargar = async () => {
+      try {
+        const resAmigos = await obtenerMisAmigos();
+        setAmigos(resAmigos.contenido || []);
 
-  const cargarAmigos = async () => {
-    setLoading(true);
-    try {
-      const data = mi ? await obtenerMisAmigos() : await getUserFriends(usuarioId);
-      setAmigos(data.contenido || []);
-    } catch (error) {
-      console.error("Error al cargar amigos:", error);
-      setAmigos([]);
-    } finally {
-      setLoading(false);
-    }
+        if (mi) {
+          const resEnviadas = await getFriendRequestsSent();
+          setSolicitudesEnviadas(resEnviadas.contenido || []);
+          const resRecibidas = await getFriendRequestsReceived();
+          setSolicitudesRecibidas(resRecibidas.contenido || []);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    cargar();
+  }, [mi]);
+
+  const handleEnviar = async (id) => {
+    await enviarSolicitudAmistad(id);
+    setAmigos(amigos.map(a => a.id === id ? { ...a, solicitud_enviada: true } : a));
+    setSolicitudesEnviadas(prev => [...prev, amigos.find(a => a.id === id)]);
   };
 
-  const cargarSolicitudesEnviadas = async () => {
-    try {
-      const data = await getFriendRequestsSent();
-      setSolicitudesEnviadas(data);
-    } catch (error) {
-      console.error("Error al cargar solicitudes enviadas:", error);
-      setSolicitudesEnviadas([]);
-    }
+  const handleCancelarEnviado = async (id) => {
+    await cancelFriendRequest(id);
+    setAmigos(amigos.map(a => a.id === id ? { ...a, solicitud_enviada: false } : a));
+    setSolicitudesEnviadas(prev => prev.filter(s => s.id !== id));
   };
 
-  const handleEliminarAmigo = async (amigoId) => {
-    if (!window.confirm("¿Seguro que deseas eliminar a este amigo?")) return;
-    try {
-      await eliminarAmigo(amigoId);
-      await cargarAmigos();
-    } catch (error) {
-      console.error("Error al eliminar amigo:", error);
-    }
+  const handleEliminar = async (id) => {
+    await eliminarAmigo(id);
+    setAmigos(prev => prev.filter(a => a.id !== id));
   };
 
-  const handleSolicitarAmistad = async (usuarioId) => {
-    try {
-      await enviarSolicitudAmistad(usuarioId);
-      await cargarSolicitudesEnviadas();
-    } catch (error) {
-      console.error("Error al solicitar amistad:", error);
-    }
+  const handleAceptar = async (id) => {
+    await acceptFriendRequest(id);
+    setSolicitudesRecibidas(prev => prev.filter(s => s.id !== id));
+    setAmigos(prev => [...prev, solicitudesRecibidas.find(s => s.id === id)]);
   };
 
-  const handleCancelarSolicitud = async (usuarioId) => {
-    try {
-      await cancelFriendRequest(usuarioId);
-      await cargarSolicitudesEnviadas();
-    } catch (error) {
-      console.error("Error al cancelar solicitud:", error);
-    }
+  const handleRechazar = async (id) => {
+    await rejectFriendRequest(id);
+    setSolicitudesRecibidas(prev => prev.filter(s => s.id !== id));
   };
 
   if (loading) return <p>Cargando amigos...</p>;
 
-  if (amigos.length === 0) return <p>No hay amigos para mostrar.</p>;
-
   return (
-    <div>
+    <div className="lista-amigos">
       <h3>{mi ? "Mis Amigos" : "Amigos del Usuario"}</h3>
-      <div className="lista-amigos-container">
-        {amigos.map((amigo) => {
-          const solicitudEnviada = solicitudesEnviadas.some((s) => s.id === amigo.id);
-
-          return (
-            <div key={amigo.id} className="amigo-card">
-              <img
-                src={amigo.foto_perfil || "/images/perfiles/default.png"}
-                alt={amigo.alias || amigo.username}
-              />
-              <h4 className="amigo-nombre">
-                {amigo.alias || amigo.nombre || amigo.username || amigo.email}
-              </h4>
-
-              {mi ? (
-                <button onClick={() => handleEliminarAmigo(amigo.id)}>
-                  Cancelar amistad
-                </button>
-              ) : solicitudEnviada ? (
-                <button onClick={() => handleCancelarSolicitud(amigo.id)}>
-                  Cancelar solicitud
-                </button>
-              ) : (
-                <button onClick={() => handleSolicitarAmistad(amigo.id)}>
-                  Solicitar amistad
-                </button>
-              )}
-            </div>
-          );
-        })}
+      <div className="amigos-grid">
+        {amigos.map((a) => (
+          <div key={a.id} className="amigo-card">
+            <img src={a.foto_perfil || "/images/perfiles/default.png"} alt={a.alias} />
+            <div className="amigo-nombre">{a.alias}</div>
+            {mi ? (
+              <button onClick={() => handleEliminar(a.id)}>Eliminar amigo</button>
+            ) : a.solicitud_enviada ? (
+              <button onClick={() => handleCancelarEnviado(a.id)}>Cancelar solicitud</button>
+            ) : (
+              <button onClick={() => handleEnviar(a.id)}>Solicitar amistad</button>
+            )}
+          </div>
+        ))}
       </div>
+
+      {mi && (
+        <>
+          <h4>Solicitudes recibidas</h4>
+          <ul className="solicitudes-list">
+            {solicitudesRecibidas.map((s) => (
+              <li key={s.id}>
+                {s.alias}
+                <button onClick={() => handleAceptar(s.id)}>Aceptar</button>
+                <button onClick={() => handleRechazar(s.id)}>Rechazar</button>
+              </li>
+            ))}
+          </ul>
+
+          <h4>Solicitudes enviadas</h4>
+          <ul className="solicitudes-list">
+            {solicitudesEnviadas.map((s) => (
+              <li key={s.id}>
+                {s.alias}
+                <button onClick={() => handleCancelarEnviado(s.id)}>Cancelar</button>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 };
