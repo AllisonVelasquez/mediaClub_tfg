@@ -38,7 +38,7 @@ const UserFullProfile = () => {
   const [loadingInfo, setLoadingInfo] = useState(true);
   const [errorInfo, setErrorInfo] = useState(null);
 
-  useEffect(() => {
+  useEffect(() => { 
     if (!usuarioId) {
       setErrorProfile("No se proporcionó ID de usuario");
       setLoadingProfile(false);
