@@ -8,6 +8,8 @@ export const obtenerMiPerfil = async () => {
 
 export const actualizarMiPerfil = async (datos) => {
   const response = await instance.patch("mi/actualizar-datos", datos);
+  console.log(datos);
+  
   return response.data;
 };
 

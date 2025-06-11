@@ -98,18 +98,13 @@ const PeliculaDetalles = () => {
     ? new Date(detalles.fecha_estreno).toLocaleDateString("es-ES")
     : "N/A";
 
-  const baseImgUrl = "https://image.tmdb.org/t/p/w500";
 
   return (
     <div className="pelicula-container">
       <div className="pelicula-header">
         <div className="pelicula-poster">
           <img
-            src={
-              detalles.poster_url
-                ? baseImgUrl + detalles.poster_url
-                : "https://via.placeholder.com/400x600?text=Sin+imagen"
-            }
+            src={detalles.poster_url}
             alt={detalles.titulo}
           />
         </div>

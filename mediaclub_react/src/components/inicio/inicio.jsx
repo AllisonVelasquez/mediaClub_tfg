@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { obtenerMiPerfil } from "../../services/Usuarios/Mi/CRUD_Usuarios";
 import {getFramesOrderByVotosMuvis,	getFramesOrderByVotosTmdb,getFramesRecientes} from "../../services/Frames/CRUD_Frames";
-import "./Inicio.css";
+import "./inicio.css";
 
-const baseImgUrl = "https://image.tmdb.org/t/p/w500";
 
 const PeliculaCard = ({ pelicula, onClick }) => (
 	<div
@@ -14,11 +13,8 @@ const PeliculaCard = ({ pelicula, onClick }) => (
 		role="button"
 	>
 		<img
-			src={
-				pelicula.poster_url
-					? baseImgUrl + pelicula.poster_url
-					: "/images/posterDefault.png"
-			}
+			src={pelicula.poster_url
+}
 			alt={pelicula.titulo || "Sin título"}
 			className="inicio-pelicula-poster"
 			onError={(e) => {
