@@ -116,3 +116,4 @@ const ListaAmigos = ({ mi = false, userId }) => {
 };
 
 export default ListaAmigos;
+ 
