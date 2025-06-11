@@ -96,7 +96,7 @@ class Frame extends Model
 
 	public function generos()
 	{
-		return $this->belongsToMany(Genero::class, 'frame_genero', 'frame_id', 'genero_id')
+		return $this->belongsToMany(Genero::class)
 			->select('id', 'nombre');
 	}
 

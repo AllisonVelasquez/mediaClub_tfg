@@ -36,15 +36,15 @@ class FrameRepository implements FrameRepositoryInterface
         return $movie;
     }
 
-    public function filter(array $filters): LengthAwarePaginator
+     public function filter(array $filters): LengthAwarePaginator
     {
-        $query = Frame::query();
+        $query = Frame::categoriesData();
 
         if (isset($filters['genero_id'])) {
             $query->whereHas(
                 'generos',
                 fn($q) =>
-                $q->where('generos.id', $filters['genero_id'])
+                $q->where('genero.id', $filters['genero_id'])
             );
         }
 
@@ -65,8 +65,6 @@ class FrameRepository implements FrameRepositoryInterface
             $direction = strtolower($filters['promedio_votos_muvis']);
             $query->orderBy('promedio_votos_muvis', $direction);
         }
-
-        $query->select('id', 'titulo', 'poster_url', 'fecha_estreno', 'promedio_votos_tmdb', 'promedio_votos_muvis');
 
         return $query->paginate(15);
     }

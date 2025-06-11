@@ -22,7 +22,7 @@ class FilterFramesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'genero_id' => ['sometimes', 'integer', 'exists:generos,id'],
+            'genero_id' => ['sometimes', 'integer', 'exists:genero,id'],
             'duracion' => ['sometimes', 'in:asc,desc'],
             'fecha_estreno' => ['sometimes', 'integer', 'digits:4'],
             'promedio_votos_muvis' => ['sometimes', 'in:asc,desc'],

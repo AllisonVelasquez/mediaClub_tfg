@@ -17,7 +17,7 @@ class FilterFramesAction
         $this->filterFramesUseCase = $filterFramesUseCase;
     }
 
-    public function execute(array $data)
+     public function execute(array $data)
     {
         $frames = $this->filterFramesUseCase->execute($data);
         if($frames->total() === 0) return $this->success('No se han encontrado peliculas con esos filtros',200);
