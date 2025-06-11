@@ -92,7 +92,9 @@ const UserFullProfile = () => {
     const fetchPosts = async () => {
       try {
         const res = await getUserPosts(usuarioId);
-        setPosts(Array.isArray(res.contenido) ? res.contenido : []);
+        setPosts(Array.isArray(res?.contenido?.data) ? res?.contenido?.data : []);
+        console.log(res.contenido.data);
+        
       } catch (err) {
         setErrorPosts("No se pudieron cargar los posts.");
       } finally {
@@ -115,7 +117,7 @@ const UserFullProfile = () => {
     fetchProfile();
     fetchPublicLists();
     fetchFriends();
-    
+
     fetchUserInfo();
     fetchPosts();
     fetchActivity();
