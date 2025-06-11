@@ -1,0 +1,46 @@
+.pelicula-info {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	text-align: left;
+	gap: 2px;
+	font-size: 1rem;
+	color: #234d36;
+  }
+
+  .pelicula-poster {
+	width: 100%;
+	border-radius: 10px 10px;
+	cursor: pointer;
+	display: block;
+  }
+
+  .pelicula-nombre {
+	font-size: 1.1rem;
+	font-weight: 600;
+	margin-top: 10px; 
+	margin-bottom: 4px;
+	text-align: left;
+	color: #222;
+  }
+
+  .pelicula-puntuacion-num {
+	font-weight: bold;
+	margin-left: 4px;
+	color: #2e5135;
+  }
+
+  .pelicula-card-landing button {
+	cursor: pointer;
+	padding: 5px 15px;
+	font-weight: 500;
+	border: none;
+	border-radius: 15px;
+	font-size: 1rem;
+	transition: background-color 0.3s;
+	background-color: #2e5135;
+	color: #c1f7cc;
+	margin-top: 5px;
+	margin-bottom: 8px;
+  }
+  
