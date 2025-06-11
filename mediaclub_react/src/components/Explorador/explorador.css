@@ -1,45 +1,75 @@
-/*Contenedor Buscador */
+/* Fondo general (opcional, para igualar el entorno) */
 .buscador-container {
   width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: space-evenly;
-    background-color: #8AC195;
-  }
-  /*Contenedor del desplegable */
-.desplegable{
+  background: #8ac195;
   display: flex;
-  flex-flow: row wrap;
-  gap:1;
   justify-content: center;
+  align-items: center;
+  padding: 18px 0;
+}
+
+/* Formulario alineado horizontalmente */
+.buscador-container form {
+  display: flex;
+  align-items: center;
+  width: 600px;
+  max-width: 95vw;
+}
+
+/* Input de búsqueda */
+.buscador-input {
+  flex: 1;
+  background: #d6eac6;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  font-size: 1rem;
+  padding: 5px 8px;
+  color: #234d36;
+  outline: none;
+  transition: box-shadow 0.2s;
+  box-shadow: none;
+  min-width: 0;
+}
+
+.buscador-input:focus {
+  box-shadow: 0 0 0 2px #5a9b7c33;
+}
+
+/* Botón Buscar */
+.buscador-btn {
+  background: #295c3b;
+  color: #d6eac6;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 5px 20px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  display: flex;
   align-items: center;
 }
 
-.opciones{
-    background-color: #5a9b7c;
-
+.buscador-btn:hover,
+.buscador-btn:focus {
+  background: #163d25;
 }
 
-  .buscador-input {
-    border: none;
-    padding: 8px 10px;
-    font-size: 14px;
-    outline: none;
-    width: 180px;
-  }
-  
-  .buscador-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .buscador-btn:hover {
-    background-color: #0056b3;
-  }
+.buscador-btn:focus {
+  outline: none;
+}
 
-  
+@media (max-width: 500px) {
+  .buscador-container form {
+    width: 98vw;
+  }
+  .buscador-btn {
+    font-size: 1.1rem;
+    padding: 0 14px;
+    height: 40px;
+  }
+  .buscador-input {
+    font-size: 1.1rem;
+    padding: 10px 10px;
+  }
+}

@@ -32,11 +32,11 @@ const Buscador = ({ valorInicial = "", contextoOculto, onBuscar }) => {
           type="text"
           value={query}
           onChange={handleChange}
-          placeholder="Buscar por nombre..."
+          placeholder="Buscar en esta categoría ..."
           className="buscador-input"
         />
         <button type="submit" className="buscador-btn">
-          🔍
+          Buscar
         </button>
       </form>
     </div>
