@@ -56,7 +56,6 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
       reader.onerror = (error) => reject(error);
     });
 
-
   const handleDrop = async (e) => {
     e.preventDefault();
     setDragOver(false);
@@ -73,13 +72,11 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
     }
   };
 
-
   const handleDragOver = (e) => {
     e.preventDefault();
     setDragOver(true);
   };
   const handleDragLeave = () => setDragOver(false);
-
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
@@ -90,6 +87,13 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
       } catch {
         alert("Error al leer la imagen.");
       }
+    }
+  };
+
+  // Evita doble apertura del selector de archivos
+  const handleDivClick = (e) => {
+    if (e.target !== fileInputRef.current) {
+      fileInputRef.current && fileInputRef.current.click();
     }
   };
 
@@ -183,19 +187,19 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
         <label>
           Foto de Perfil:
           <span className="pf-instruccion">Arrastra una imagen aquí o haz clic para seleccionar</span>
-          <div
-            className={`dropzone ${dragOver ? "drag-over" : ""}`}
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            onClick={() => fileInputRef.current && fileInputRef.current.click()}
-          >
-            <img
-              src={fotoPerfil}
-              alt="Foto de perfil"
-              style={{ maxWidth: "150px", maxHeight: "150px" }}
-            />
-          </div>
+        </label>
+        <div
+          className={`dropzone ${dragOver ? "drag-over" : ""}`}
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onClick={handleDivClick}
+        >
+          <img
+            src={fotoPerfil}
+            alt="Foto de perfil"
+            style={{ maxWidth: "150px", maxHeight: "150px" }}
+          />
           <input
             type="file"
             id="fileInput"
@@ -204,7 +208,7 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
             onChange={handleFileChange}
             ref={fileInputRef}
           />
-        </label>
+        </div>
 
         <h4>Redes Sociales</h4>
         {["Facebook", "Twitter", "Instagram", "YouTube"].map((nombre) => (
@@ -235,4 +239,3 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
 };
 
 export default EditarPerfil;
-
