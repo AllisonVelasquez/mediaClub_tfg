@@ -156,7 +156,14 @@ const PeliculaDetalles = () => {
                 </span>
               </div>
             </div>
-
+            <div className="pelicula-generos">
+              <span className="pelicula-label">{
+              detalles.generos.map((genero, index) => (
+                <span key={genero.id}>  
+                  {genero.nombre +" " }
+                </span>
+              )) || "N/A"}</span>
+                            </div>
             <p className="pelicula-descripcion">{detalles.descripcion}</p>
           </div>
         </div>
