@@ -96,7 +96,7 @@ class Frame extends Model
 
 	public function generos()
 	{
-		return $this->belongsToMany(Genero::class)
+		return $this->belongsToMany(Genero::class, 'frame_genero', 'frame_id', 'genero_id')
 			->select('id', 'nombre');
 	}
 
@@ -113,11 +113,6 @@ class Frame extends Model
 	public function resenas()
 	{
 		return $this->hasMany(Resena::class);
-	}
-
-	public function scopeCategoriesData($query)
-	{
-		return $query->select('id', 'titulo', 'poster_url', 'fecha_estreno', 'promedio_votos_tmdb', 'promedio_votos_muvis');
 	}
 
 	public function scopeSearchData($query)
