@@ -9,6 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * Class Actor
@@ -50,6 +51,12 @@ class Actor extends Model
 		return $this->belongsToMany(Frame::class)
 			->withPivot('personaje', 'orden');
 	}
-
+public function getImagenUrlAttribute($value)
+	{
+		if (Str::startsWith($value, '/')) {
+			return $value;
+		}
+		return asset($value);
+	}
 	
 }

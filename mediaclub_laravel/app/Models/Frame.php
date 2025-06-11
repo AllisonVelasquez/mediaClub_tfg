@@ -9,6 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * Class Frame
@@ -122,5 +123,13 @@ class Frame extends Model
 	public function scopeSearchData($query)
 	{
 		return $query->select('id', 'titulo', 'poster_url');
+	}
+
+	public function getPosterUrlAttribute($value)
+	{
+		if (Str::startsWith($value, '/')) {
+			return $value;
+		}
+		return asset($value);
 	}
 }

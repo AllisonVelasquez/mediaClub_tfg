@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 /**
  * Class Usuario
@@ -123,5 +124,10 @@ class Usuario extends Authenticatable
 	public function routeNotificationForMail()
 	{
 		return $this->correo;
+	}
+
+	public function getFotoPerfilAttribute($value)
+	{
+		return asset($value);
 	}
 }

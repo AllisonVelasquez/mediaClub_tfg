@@ -41,8 +41,8 @@ class ImportMovieFromTMDB implements ShouldQueue
                     'titulo' => $data['title'],
                     'titulo_original' => $data['original_title'],
                     'descripcion' => $data['overview'],
-                    'poster_url' => $data['poster_path'],
-                    'fondo_url' => $data['backdrop_path'],
+                    'poster_url' => $data['poster_path'] ?? 'storage/frames/default.png',
+                    'fondo_url' => $data['backdrop_path'] ?? 'storage/frames/default.png',
                     'fecha_estreno' => $data['release_date'],
                     'duracion' => $data['runtime'],
                     'promedio_votos_tmdb' => $data['vote_average'],
@@ -85,7 +85,7 @@ class ImportMovieFromTMDB implements ShouldQueue
                         ['id' => $actorData['id']],
                         [
                             'nombre' => $actorData['name'],
-                            'imagen_url' => $actorData['profile_path'],
+                            'imagen_url' => $actorData['profile_path'] ?? 'storage/actors/default.png',
                             'popularidad' => $actorData['popularity'],
                         ]
                     );
