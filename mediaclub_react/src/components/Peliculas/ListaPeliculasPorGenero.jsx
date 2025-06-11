@@ -36,8 +36,6 @@ const PeliculasPorGenero = () => {
         {generos.map((genero) => (
           <section key={genero.id} style={{ marginBottom: "3rem" }}>
             <h3>{genero.nombre}</h3>
-                      { console.log(genero.id) }
-
             <ListaPeliculas generoId={genero.id} />
           </section>
         ))}
