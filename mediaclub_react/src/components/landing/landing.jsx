@@ -26,20 +26,6 @@ const Landing = () => {
     );
   };
 
-  const renderStars = (rating) => {
-    if (typeof rating !== "number") return null;
-    const stars = Math.round(rating / 2);
-    return (
-      <div className="stars">
-        {[...Array(5)].map((_, i) => (
-          <span key={i} className={i < stars ? "star filled" : "star"}>
-            ★
-          </span>
-        ))}
-      </div>
-    );
-  };
-
   const formatRating = (value) => {
     return typeof value === "number" ? value.toFixed(1) : "--";
   };
@@ -96,8 +82,6 @@ const Landing = () => {
                 <span>
                   <b>Muvis:</b> {formatRating(peli.promedio_votos_muvis)}
                 </span>
-                {renderStars(peli.promedio_votos_muvis)}
-                <br />
                 <span>
                   <b>TMDB:</b> {formatRating(peli.promedio_votos_tmdb)}
                 </span>

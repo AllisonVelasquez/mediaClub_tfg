@@ -52,8 +52,7 @@ function Menu() {
           </button>
         </div>
       </nav>
-      {/* Oculta el buscador solo en la página de inicio */}
-      {location.pathname !== "/Inicio" && <Buscador />}
+      {location.pathname !== "/Inicio" && <BuscadorGlobal />}
     </div>
   );
 }
