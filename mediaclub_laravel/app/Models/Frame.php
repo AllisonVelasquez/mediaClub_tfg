@@ -115,6 +115,11 @@ class Frame extends Model
 		return $this->hasMany(Resena::class);
 	}
 
+	public function scopeCategoriesData($query)
+	{
+		return $query->select('id', 'titulo', 'poster_url', 'fecha_estreno', 'promedio_votos_tmdb', 'promedio_votos_muvis');
+	}
+
 	public function scopeSearchData($query)
 	{
 		return $query->select('id', 'titulo', 'poster_url');
