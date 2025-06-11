@@ -1,55 +1,113 @@
 .resena {
-  position: relative; /* Necesario para posicionar el usuario_id */
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  background-color: #fafafa;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  background: #e3f9e4;
+  border: none;
+  border-radius: 16px;
+  padding: 22px 28px 18px 28px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
+  color: #222;
+  margin-bottom: 24px;
+  box-shadow: none;
+  position: relative;
+  min-height: 120px;
+  display: flex;
+  align-items: stretch; 
+  gap: 24px;
 }
 
-/* NUEVO: Posiciona el usuario_id arriba a la derecha */
-.resena-usuario-id {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 0.85rem;
-  color: #666;
-  font-weight: bold;
+.resena-avatar-nombre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 110px;
+  margin-right: 10px;
+  justify-content: center; 
 }
 
-.resena-header {
+.resena-avatar-circulo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #d3d3d3;
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
-  gap: 12px;
-}
-
-.resena-poster {
-  width: 60px;
-  height: auto;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-}
-
-.resena-titulo {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #222;
-}
-
-.resena-fecha {
-  font-size: 0.85rem;
-  color: #666;
+  justify-content: center;
+  overflow: hidden;
   margin-bottom: 8px;
 }
 
-.resena-contenido {
+.resena-usuario-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+.resena-usuario-nombre {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #222;
+  margin-top: 2px;
+  text-align: center;
+}
+
+.resena-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-width: 0;
+}
+
+.resena-fecha-likes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.resena-like-btn {
+  background: #295c3b;
+  color: #e3f9e4;
+  border: none;
+  border-radius: 1.2em;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 5px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  margin-left: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px; 
+}
+
+.resena-like-btn.liked {
+  background: #163d25;
+  color: #fff;
+}
+
+.resena-like-btn:focus {
+  outline: none;
+}
+.resena-fecha {
   font-size: 1rem;
-  line-height: 1.4;
-  margin-bottom: 10px;
+  color: #3b4b3b;
+  font-style: italic;
+  margin-top: 2px;
+  margin-bottom: 0;
+}
+
+.resena-contenido {
+  font-size: 1.13rem;
+  line-height: 1.5;
+  margin-bottom: 0;
+  margin-top: 0;
+  color: #222;
+  word-break: break-word;
+  text-align: left;
 }
 
 .resena-spoiler {
@@ -67,9 +125,23 @@
   cursor: pointer;
   font-weight: 600;
   transition: background-color 0.3s ease;
+  position: absolute;
+  bottom: 18px;
+  right: 24px;
 }
 
 .btn-eliminar:hover {
   background-color: #a71d2a;
 }
 
+@media (max-width: 700px) {
+  .resena {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 6vw 12px 6vw;
+  }
+  .resena-main {
+    width: 100%;
+  }
+}

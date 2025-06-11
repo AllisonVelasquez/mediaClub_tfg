@@ -139,17 +139,14 @@
 }
 
 .votacion button{
-  padding: 12px 32px;
-  border-radius: 30px;
-  font-size: 1.25rem;
+  border-radius: 20px;
+  font-size: 1rem;
   font-weight: 500;
   border: none;
   cursor: pointer;
   transition: background 0.18s, color 0.18s;
-  font-family: inherit;
   background: #2e5135;
   color: #c1f7cc;
-  margin-top: 1.2rem;
 }
 
 .votacion button:hover {

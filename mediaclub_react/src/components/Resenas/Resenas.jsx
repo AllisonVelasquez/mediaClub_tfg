@@ -18,10 +18,7 @@ const Resena = ({ resena, modo, onEliminar, onClick }) => {
   // Protege usuario para no romper si es undefined
   const usuario = resena.usuario || {};
   const fotoPerfil = usuario.foto_perfil || "/images/perfiles/default.png";
-  const aliasUsuario = usuario.alias || "Usuario anónimo";
-
-  // Protege frame (película) si modo usuario y existe frame
-  const tieneFrame = modo === "usuario" && resena.frame;
+  const aliasUsuario = usuario.alias || "Anónimo";
 
   const handleLikeClick = async () => {
     if (loadingLike) return;
@@ -46,8 +43,8 @@ const Resena = ({ resena, modo, onEliminar, onClick }) => {
 
   return (
     <div className="resena" onClick={onClick} style={{ cursor: "pointer" }}>
-      <div className="resena-usuario-id">
-        <div>
+      <div className="resena-avatar-nombre">
+        <div className="resena-avatar-circulo">
           <img
             className="resena-usuario-avatar"
             src={fotoPerfil}
@@ -57,63 +54,46 @@ const Resena = ({ resena, modo, onEliminar, onClick }) => {
               e.target.src = "/images/perfiles/default.png";
             }}
           />
-          <span className="resena-usuario-nombre">{aliasUsuario}</span>
         </div>
+        <div className="resena-usuario-nombre">{aliasUsuario}</div>
       </div>
-
-      {tieneFrame && (
-        <div className="resena-header">
-          <img
-            className="resena-poster"
-            src={`https://image.tmdb.org/t/p/w200${resena.frame.poster_url || ""}`}
-            alt={resena.frame.titulo || "Película"}
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = "/images/posters/default.png";
+      <div className="resena-main">
+        <div className="resena-fecha-likes">
+          <span className="resena-fecha">Fecha: {fecha}</span>
+          <button
+            className={`resena-like-btn ${likedByUser ? "liked" : ""}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleLikeClick();
             }}
-          />
-          <h3 className="resena-titulo">{resena.frame.titulo || "Título no disponible"}</h3>
+            disabled={loadingLike}
+            title={likedByUser ? "Quitar like" : "Dar like"}
+          >
+            {likedByUser ? "❤" : "♡"} {likesCount}
+          </button>
         </div>
-      )}
-
-      <p className="resena-fecha">Fecha: {fecha}</p>
-
-      {/* Contenido que oculta spoilers */}
-      {resena.spoiler && !mostrarSpoiler ? (
-        <div className="spoiler-aviso">
-          <label>
-            <input
-              type="checkbox"
-              checked={mostrarSpoiler}
-              onChange={(e) => {
-                e.stopPropagation();
-                setMostrarSpoiler(!mostrarSpoiler);
-              }}
-            />
-            Mostrar contenido con spoilers ⚠️
-          </label>
-        </div>
-      ) : (
-        <>
-          <p className="resena-contenido">{resena.contenido || "Sin contenido"}</p>
-          {resena.spoiler && <p className="resena-spoiler">⚠️ Contiene spoilers</p>}
-        </>
-      )}
-
-      <div className="resena-likes">
-        <button
-          className={`btn-like ${likedByUser ? "liked" : ""}`}
-          onClick={(e) => {
-            e.stopPropagation();
-            handleLikeClick();
-          }}
-          disabled={loadingLike}
-          title={likedByUser ? "Quitar like" : "Dar like"}
-        >
-          {likedByUser ? "❤️" : "🤍"} {likesCount}
-        </button>
+        {/* Contenido que oculta spoilers */}
+        {resena.spoiler && !mostrarSpoiler ? (
+          <div className="spoiler-aviso">
+            <label>
+              <input
+                type="checkbox"
+                checked={mostrarSpoiler}
+                onChange={(e) => {
+                  e.stopPropagation();
+                  setMostrarSpoiler(!mostrarSpoiler);
+                }}
+              />
+              Mostrar contenido con spoilers
+            </label>
+          </div>
+        ) : (
+          <>
+            <p className="resena-contenido">{resena.contenido || "Sin contenido"}</p>
+            {resena.spoiler && <p className="resena-spoiler">OJO! Contiene spoilers</p>}
+          </>
+        )}
       </div>
-
       {modo === "usuario" && onEliminar && (
         <button
           className="btn-eliminar"
