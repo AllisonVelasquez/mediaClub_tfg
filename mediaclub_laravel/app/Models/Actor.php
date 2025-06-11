@@ -30,7 +30,7 @@ class Actor extends Model
 {
 	protected $table = 'actor';
 	protected $primaryKey = 'id';
-	
+
 	public $incrementing = false;
 	public $timestamps = false;
 
@@ -51,12 +51,14 @@ class Actor extends Model
 		return $this->belongsToMany(Frame::class)
 			->withPivot('personaje', 'orden');
 	}
-public function getImagenUrlAttribute($value)
+	public function getImagenUrlAttribute($value)
 	{
+		if (is_null($value)) {
+			return asset('storage/actors/default.png');
+		}
 		if (Str::startsWith($value, '/')) {
-			return $value;
+			return 'https://image.tmdb.org/t/p/w185' . $value;
 		}
 		return asset($value);
 	}
-	
 }

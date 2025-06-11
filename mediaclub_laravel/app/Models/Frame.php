@@ -128,7 +128,7 @@ class Frame extends Model
 	public function getPosterUrlAttribute($value)
 	{
 		if (Str::startsWith($value, '/')) {
-			return $value;
+			return 'https://image.tmdb.org/t/p/w185' . $value;
 		}
 		return asset($value);
 	}
