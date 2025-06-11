@@ -15,8 +15,16 @@ class UpdateUserUseCase
         $this->userRepository = $userRepository;
     }
 
-    public function execute(Usuario $user, array $data)
+    public function execute(Usuario $user, array $data, $fotoPerfilFile = null)
     {
-        return $this->userRepository->update($user->id,$data);
+        if ($fotoPerfilFile) {
+            $path = $fotoPerfilFile->store('public/profiles');
+            $relativePath = str_replace('public/', 'storage/', $path);
+            $data['foto_perfil'] = $relativePath;
+        }
+         if (isset($data['contrasena'])) {
+            $data['contrasena'] = Hash::make($data['contrasena']);
+        }
+        return $this->userRepository->update($user->id, $data);
     }
 }

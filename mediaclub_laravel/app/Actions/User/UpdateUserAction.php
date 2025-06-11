@@ -17,10 +17,10 @@ class UpdateUserAction
     }
 
 
-    public function execute(Usuario $user, array $data)
+    public function execute(Usuario $user, array $data, $fotoPerfilFile = null)
     {
 
-        if ($this->updateUserUseCase->execute($user, $data)) {
+        if ($this->updateUserUseCase->execute($user, $data, $fotoPerfilFile)) {
             return $this->success('Datos actualizados correctamente.', 200);
         }
         return $this->error('No se han podido actualizar los datos.', 403);

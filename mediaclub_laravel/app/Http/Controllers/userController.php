@@ -72,7 +72,8 @@ class UserController extends Controller
     public function updateUser(UpdateUserRequest $request)
     {
         $user = $request->user();
-        return app(UpdateUserAction::class)->execute($user, $request->validated());
+        $fotoPerfilFile = $request->file('foto_perfil');
+        return app(UpdateUserAction::class)->execute($user, $request->validated(), $fotoPerfilFile);
     }
 
 

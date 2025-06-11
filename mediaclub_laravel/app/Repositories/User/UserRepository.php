@@ -12,9 +12,19 @@ class UserRepository implements UserRepositoryInterface
     public function searchByAlias(string $alias): ?LengthAwarePaginator
     {
         $alias = trim($alias);
-        return Usuario::select('id', 'alias', 'foto_perfil')
+
+        $users = Usuario::select('id', 'alias', 'foto_perfil')
             ->where('alias', 'like', "%{$alias}%")
             ->paginate(20);
+
+        $users->getCollection()->transform(function ($user) {
+            $user->foto_perfil = $user->foto_perfil
+                ? asset($user->foto_perfil)
+                : null;
+            return $user;
+        });
+
+        return $users;
     }
 
     public function findByLoginId(string $login_id): ?Usuario
@@ -31,9 +41,7 @@ class UserRepository implements UserRepositoryInterface
     public function update(int $id, array $data): bool
     {
         $user = Usuario::findOrFail($id);
-        if (isset($data['contrasena'])) {
-            $data['contrasena'] = Hash::make($data['contrasena']);
-        }
+       
         $user->fill($data);
         if ($user->isDirty()) {
             $user->save();

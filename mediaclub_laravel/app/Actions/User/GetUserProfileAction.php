@@ -11,7 +11,10 @@ class GetUserProfileAction
 
     public function execute(Usuario $user)
     {
-        $userProfileData = $user->makeHidden(['contrasena', 'usuario_id', 'login_id','confirmado']); 
+        if ($user->foto_perfil) {
+            $user->foto_perfil = asset($user->foto_perfil);
+        }
+        $userProfileData = $user->makeHidden(['contrasena', 'usuario_id', 'login_id', 'confirmado']);
         return $this->success('Usuario encontrado', 200, $userProfileData);
     }
 }
