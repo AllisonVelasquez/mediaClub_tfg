@@ -98,6 +98,25 @@ const handleSubmit = async (e) => {
             )}
           </div>
 
+          {/* Alias */}
+          <div className="registro-field">
+            <label className="registro-label" htmlFor="alias">Alias</label>
+            <input
+              className="registro-input"
+              type="text"
+              name="alias"
+              id="alias"
+              value={formData.alias}
+              onChange={handleChange}
+              required
+            />
+            {formData.alias && (
+              <span className={`registro-icon ${isAliasOk ? "success" : "error"}`}>
+                {isAliasOk ? "✓" : "✗"}
+              </span>
+            )}
+          </div>
+
           {/* Contraseña */}
           <div className="registro-field">
             <label className="registro-label" htmlFor="contrasena">Contraseña</label>
@@ -150,25 +169,9 @@ const handleSubmit = async (e) => {
                 {isRepeatOk ? "✓" : "✗"}
               </span>
             )}
-          </div>
-
-          {/* Alias */}
-          <div className="registro-field">
-            <label className="registro-label" htmlFor="alias">Alias</label>
-            <input
-              className="registro-input"
-              type="text"
-              name="alias"
-              id="alias"
-              value={formData.alias}
-              onChange={handleChange}
-              required
-            />
-            {formData.alias && (
-              <span className={`registro-icon ${isAliasOk ? "success" : "error"}`}>
-                {isAliasOk ? "✓" : "✗"}
-              </span>
-            )}
+            <p className="registro-password-info">
+              La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un símbolo especial.
+            </p>
           </div>
 
           {/* Correo */}
