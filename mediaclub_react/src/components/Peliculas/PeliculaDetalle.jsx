@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getDetallesFrame, anadirPuntuacionFrame} from "../../services/Frames/CRUD_Frames.js";
+import { getDetallesFrame, anadirPuntuacionFrame } from "../../services/Frames/CRUD_Frames.js";
 import ListaResenas from "../Resenas/ListaResenas.jsx";
 import ListaActores from "../Actores/ListaActores.jsx";
 import "./PeliculaDetalles.css";
@@ -12,7 +12,6 @@ const PeliculaDetalles = () => {
   const [miVoto, setMiVoto] = useState(null);
   const [votoEnviado, setVotoEnviado] = useState(false);
   const [error, setError] = useState("");
-  const [comentario, setComentario] = useState("");
 
   useEffect(() => {
     const fetchDetalles = async () => {
@@ -38,7 +37,7 @@ const PeliculaDetalles = () => {
     }
   }, [id]);
 
-  const handleVotar = async (voto, comentario) => {
+  const handleVotar = async (voto) => {
     if (voto < 1 || voto > 10 || !/^\d+(\.\d)?$/.test(voto)) {
       setError("La puntuación debe estar entre 1 y 10 y tener máximo un decimal.");
       return;
@@ -50,7 +49,7 @@ const PeliculaDetalles = () => {
       setVotoEnviado(true);
       localStorage.setItem(`voto_pelicula_${id}`, voto);
 
-      const response = await anadirPuntuacionFrame(id, voto, comentario);
+      const response = await anadirPuntuacionFrame(id, voto);
 
       if (response?.status === "success") {
         console.log("Comentario y puntuación enviados correctamente:", response.contenido);
@@ -79,65 +78,69 @@ const PeliculaDetalles = () => {
 
   return (
     <div className="pelicula-container">
-      <div className="pelicula-poster">
-        <img
-          src={
-            detalles.poster_url
-              ? baseImgUrl + detalles.poster_url
-              : "https://via.placeholder.com/400x600?text=Sin+imagen"
-          }
-          alt={detalles.titulo}
-        />
+      <div className="pelicula-header">
+        <div className="pelicula-poster">
+          <img
+            src={
+              detalles.poster_url
+                ? baseImgUrl + detalles.poster_url
+                : "https://via.placeholder.com/400x600?text=Sin+imagen"
+            }
+            alt={detalles.titulo}
+          />
+        </div>
+
+        <div className="pelicula-info">
+          <h1 className="pelicula-titulo">{detalles.titulo}</h1>
+          <h3 className="pelicula-titulo-original">{detalles.titulo_original}</h3>
+
+          <div className="pelicula-datos-grid">
+            <div>
+              <span className="pelicula-label">Fecha de estreno:</span>
+              <span className="pelicula-valor">{fechaFormateada}</span>
+            </div>
+            <div>
+              <span className="pelicula-label">Duración:</span>
+              <span className="pelicula-valor">{detalles.duracion} min</span>
+            </div>
+            <div>
+              <span className="pelicula-label">Eslogan:</span>
+              <span className="pelicula-valor">{detalles.eslogan || "N/A"}</span>
+            </div>
+            <div>
+              <span className="pelicula-label">Presupuesto:</span>
+              <span className="pelicula-valor">
+                {detalles.presupuesto ? `$${detalles.presupuesto.toLocaleString()}` : "N/A"}
+              </span>
+            </div>
+            <div>
+              <span className="pelicula-label">Ingresos:</span>
+              <span className="pelicula-valor">
+                {detalles.ingresos ? `$${detalles.ingresos.toLocaleString()}` : "N/A"}
+              </span>
+            </div>
+          </div>
+
+          <div className="pelicula-promedios">
+            <div>
+              <span className="pelicula-label">Promedio Muvis:</span>
+              <span className="pelicula-valor">
+                {detalles.promedio_votos_muvis ?? "N/A"}
+              </span>
+            </div>
+            <div>
+              <span className="pelicula-label">Promedio TMDB:</span>
+              <span className="pelicula-valor">
+                {detalles.promedio_votos_tmdb ?? "N/A"}
+              </span>
+            </div>
+          </div>
+
+          <p className="pelicula-descripcion">{detalles.descripcion}</p>
+        </div>
       </div>
 
-      <div className="pelicula-info">
-        <h1 className="pelicula-titulo">{detalles.titulo}</h1>
-        <h3 className="pelicula-titulo-original">{detalles.titulo_original}</h3>
-
-        <div className="pelicula-datos-grid">
-          <div>
-            <span className="pelicula-label">Fecha de estreno:</span>
-            <span className="pelicula-valor">{fechaFormateada}</span>
-          </div>
-          <div>
-            <span className="pelicula-label">Duración:</span>
-            <span className="pelicula-valor">{detalles.duracion} min</span>
-          </div>
-          <div>
-            <span className="pelicula-label">Eslogan:</span>
-            <span className="pelicula-valor">{detalles.eslogan || "N/A"}</span>
-          </div>
-          <div>
-            <span className="pelicula-label">Presupuesto:</span>
-            <span className="pelicula-valor">
-              {detalles.presupuesto ? `$${detalles.presupuesto.toLocaleString()}` : "N/A"}
-            </span>
-          </div>
-          <div>
-            <span className="pelicula-label">Ingresos:</span>
-            <span className="pelicula-valor">
-              {detalles.ingresos ? `$${detalles.ingresos.toLocaleString()}` : "N/A"}
-            </span>
-          </div>
-        </div>
-
-        <div className="pelicula-promedios">
-          <div>
-            <span className="pelicula-label">Promedio Muvis:</span>
-            <span className="pelicula-valor">
-              {detalles.promedio_votos_muvis ?? "N/A"}
-            </span>
-          </div>
-          <div>
-            <span className="pelicula-label">Promedio TMDB:</span>
-            <span className="pelicula-valor">
-              {detalles.promedio_votos_tmdb ?? "N/A"}
-            </span>
-          </div>
-        </div>
-
-        <p className="pelicula-descripcion">{detalles.descripcion}</p>
-
+      <div className="pelicula-extra">
         <div className="generos">
           <h2>Géneros</h2>
           <ul>
@@ -163,8 +166,7 @@ const PeliculaDetalles = () => {
               onSubmit={(e) => {
                 e.preventDefault();
                 const voto = parseFloat(e.target.voto.value);
-                const comentario = e.target.comentario.value.trim();
-                handleVotar(voto, comentario);
+                handleVotar(voto);
               }}
             >
               <input
@@ -180,10 +182,9 @@ const PeliculaDetalles = () => {
               <button type="submit" className="btn-votar">Votar</button>
             </form>
           )}
-          <ListaResenas frameId={detalles.id} modo="frame" className="resena"/>
+          <ListaResenas frameId={detalles.id} modo="frame" className="resena" />
           {error && <p className="error">{error}</p>}
         </div>
-
       </div>
     </div>
   );

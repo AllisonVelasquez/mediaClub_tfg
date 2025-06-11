@@ -4,38 +4,76 @@
   padding: 40px 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   background: #bfe0c7;
   border-radius: 16px;
+  gap: 40px;
+}
+
+.pelicula-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.pelicula-poster {
+  flex: 0 0 320px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .pelicula-poster img {
   width: 300px;
   border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 .pelicula-info {
-  text-align: center;
-  max-width: 800px;
+  text-align: left;
+  max-width: 700px;
+  flex: 1 1 0%;
+  margin-top: 0;
 }
 
-.pelicula-info h1 {
-  font-size: 2.5rem;
-  margin-bottom: 8px;
+.pelicula-datos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+  font-size: 1.1rem;
+  margin-bottom: 16px;
 }
 
-.pelicula-info h3 {
-  font-style: italic;
-  color: #666;
-  margin-bottom: 20px;
+.pelicula-label {
+  font-weight: bold;
+  margin-right: 4px;
 }
 
-.descripcion {
+.pelicula-valor {
+  font-weight: normal;
+}
+
+.pelicula-promedios {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.pelicula-descripcion {
   font-size: 1.1rem;
   color: #333;
   margin-bottom: 24px;
+}
+
+.pelicula-extra {
+  width: 100%;
+}
+
+.generos {
+  text-align: center;
+  width: 100%;
 }
 
 .generos ul,
@@ -162,6 +200,17 @@
   text-align: center;
 }
 
+@media (max-width: 900px) {
+  .pelicula-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .pelicula-info {
+    text-align: center;
+    margin-top: 0;
+  }
+}
 @media (max-width: 600px) {
   .votacion form,
   .resena-form {
@@ -172,5 +221,10 @@
   .resena-form button {
     width: 100%;
     font-size: 1.1rem;
+  }
+
+  .pelicula-container {
+    padding: 20px 2vw;
+    gap: 20px;
   }
 }

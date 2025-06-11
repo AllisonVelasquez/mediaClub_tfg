@@ -262,11 +262,10 @@ export const getFramesPorActor = async (actorId, pagina = 1) => {
 
 //anadir puntuación a un frame
 
-export const anadirPuntuacionFrame = async (frameId, puntuacion, comentario = "") => {
+export const anadirPuntuacionFrame = async (frameId, puntuacion= "") => {
   try {
     const response = await instance.post(`frames/${frameId}/anadir-puntuacion`, {
-      puntuacion: Number(puntuacion),
-      comentario: comentario,
+      puntuacion: Number(puntuacion)
     });
     return response.data;
   } catch (error) {
