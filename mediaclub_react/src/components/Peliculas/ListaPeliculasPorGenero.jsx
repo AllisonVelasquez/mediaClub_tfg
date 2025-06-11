@@ -3,6 +3,7 @@ import "./ListaPeliculasPorGenero.css";
 import { getGeneros } from "../../services/Frames/CRUD_Frames";
 import ListaPeliculas from "./ListaPeliculas";
 import { useNavigate } from "react-router-dom";
+import Generos from "./Generos";
 
 const PeliculasPorGenero = () => {
   const [generos, setGeneros] = useState([]);
@@ -31,6 +32,7 @@ const PeliculasPorGenero = () => {
 
   return (
     <div className="peliculas-container">
+      <Generos />
       <div className="peliculas-bg">
         <h2 className="peliculas-title">Películas por género</h2>
         {generos.map((genero) => (
