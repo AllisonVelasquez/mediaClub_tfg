@@ -1,0 +1,74 @@
+.inicio-container {
+	min-height: 100vh;
+	background: #c2ecd1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 2rem 0 4rem 0;
+  }
+  
+  .inicio-bienvenida {
+	font-size: 2rem;
+	font-weight: 600;
+	color: #22322a;
+	margin-bottom: 2.5rem;
+	text-align: center;
+  }
+  
+  .inicio-seccion {
+	width: 100%;
+	max-width: 1400px;
+	margin-bottom: 2.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  }
+  
+  .inicio-seccion h3 {
+	font-size: 1.25rem;
+	font-weight: 600;
+	color: #22322a;
+	margin-bottom: 1.2rem;
+	text-align: left;
+	width: 100%;
+  }
+  
+  .inicio-peliculas-grid {
+	display: flex;
+	gap: 1.5rem;
+	flex-wrap: nowrap;        
+	justify-content: center;
+	width: 100%;
+	overflow-x: auto;          
+	padding-bottom: 1rem;
+	scrollbar-width: thin;
+	scrollbar-color: #28543c #c2ecd1;
+  }
+  
+  .inicio-pelicula-card {
+	flex: 0 0 220px;      
+	margin-bottom: 1rem;
+  }
+
+  .inicio-pelicula-poster:focus,
+  .inicio-pelicula-poster:hover {
+	transform: translateY(-5px) scale(1.03);
+	box-shadow: 0 4px 16px rgba(44,62,80,0.13);
+  }
+  
+  .inicio-pelicula-poster {
+	width: 260px;
+	height: auto;
+	object-fit: cover;
+	border-radius: 8px;
+	margin-top: 15px;
+	background: #28543c;
+  }
+  
+  .inicio-pelicula-titulo {
+	font-size: 1.08rem;
+	font-weight: 500;
+	color: #22322a;
+	margin: 1rem 0 1.2rem 0;
+	text-align: center;
+  }

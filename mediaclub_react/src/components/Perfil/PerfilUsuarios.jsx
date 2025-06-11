@@ -115,6 +115,7 @@ const UserFullProfile = () => {
     fetchProfile();
     fetchPublicLists();
     fetchFriends();
+    
     fetchUserInfo();
     fetchPosts();
     fetchActivity();
@@ -127,7 +128,7 @@ const UserFullProfile = () => {
       <section className="perfil-seccion">
         <h2>Perfil</h2>
         {loadingProfile ? (
-          <p className="cargando">Cargando perfil...</p>
+          <p className="estado-carga">Cargando perfil...</p>
         ) : errorProfile ? (
           <p className="error">{errorProfile}</p>
         ) : profile ? (

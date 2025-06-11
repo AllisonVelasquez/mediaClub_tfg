@@ -1,15 +1,21 @@
-/* ListaActores.css */
 
 .lista-actores {
-  padding: 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #bfe0c7;
+  border-radius: 16px;
+  max-width: 900px;
+  margin: 2.5rem auto 0 auto;
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .lista-actores h2 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 1.5rem;
   color: #2e5135;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
@@ -18,54 +24,63 @@
   flex-wrap: wrap;
   gap: 1.5rem;
   justify-content: center;
+  width: 100%;
 }
 
 .actor-card {
-  width: 150px;
-  background: #f8ffe5;
+  width: 200px;
+  background: #a9d3b4;
   border-radius: 10px;
-  box-shadow: 0 2px 8px #bcd2c2;
-  padding: 10px;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+  padding: 1rem 0.5rem 0.7rem 0.5rem;
   text-align: center;
-  transition: transform 0.2s ease;
+  transition: transform 0.15s, box-shadow 0.15s;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .actor-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px #a0b692;
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 4px 16px rgba(44, 62, 80, 0.12);
 }
 
 .actor-card img {
-  width: 120px;
+  width: auto;
+  min-width: 130px;
   height: 180px;
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 8px;
+  background: #f8ffe5;
+  box-shadow: 0 1px 4px rgba(44, 62, 80, 0.05);
 }
 
 .actor-nombre {
-  font-weight: 600;
+  font-weight: bold;
   color: #2e5135;
   font-size: 1rem;
   margin-bottom: 4px;
 }
 
 .actor-popularidad {
-  font-size: 0.9rem;
-  color: #212226;
+  font-size: 0.95rem;
+  color: #2a3b42;
+  margin-bottom: 0.2rem;
 }
 
 /* Estado de carga y error */
 .estado-carga,
 .estado-error {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #2e5135;
   margin-top: 2rem;
+  width: 100%;
 }
 
-/* PAGINACIÓN */
+/* Paginación */
 .paginacion {
   margin-top: 2rem;
   display: flex;
@@ -74,29 +89,52 @@
 }
 
 .paginacion button {
-  padding: 6px 12px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-  color: #333;
+  background-color: #2e5135;
+  color: #c1f7cc;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 1.08rem;
+  font-family: inherit;
   font-weight: 600;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.paginacion button:hover:not(:disabled) {
-  background-color: #a9c27a;
-  color: white;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, opacity 0.2s;
+  box-shadow: none;
 }
 
 .paginacion button.activo {
-  background-color: #2e5135;
+  background-color: #1d3923;
   color: #fff;
   cursor: default;
 }
 
 .paginacion button:disabled {
-  background-color: #e0e0e0;
+  background-color: #b7cfc0;
+  color: #f8ffe5;
   cursor: not-allowed;
-  color: #999;
+  opacity: 0.7;
+}
+
+.paginacion button:not(:disabled):hover:not(.activo) {
+  background-color: #75a880;
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .lista-actores {
+    padding: 1rem 0.2rem;
+    max-width: 99vw;
+  }
+  .contenedor-actores {
+    gap: 0.7rem;
+  }
+  .actor-card {
+    width: 110px;
+    padding: 0.7rem 0.2rem 0.5rem 0.2rem;
+  }
+  .actor-card img {
+    width: 80px;
+    height: 120px;
+  }
 }

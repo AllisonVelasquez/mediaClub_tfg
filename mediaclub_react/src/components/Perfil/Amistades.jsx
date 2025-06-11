@@ -20,7 +20,6 @@ const Amistades = () => {
       const recibidas = await getFriendRequestsReceived();
       const enviadas = await getFriendRequestsSent();
 
-      // Aseguramos que recibimos arrays (ajusta 'contenido' si tu API usa otro campo)
       setSolicitudesRecibidas(Array.isArray(recibidas.contenido) ? recibidas.contenido : []);
       setSolicitudesEnviadas(Array.isArray(enviadas.contenido) ? enviadas.contenido : []);
 
@@ -73,12 +72,26 @@ const Amistades = () => {
       {solicitudesRecibidas.length === 0 ? (
         <p>No tienes solicitudes de amistad pendientes.</p>
       ) : (
-        <ul>
-          {solicitudesRecibidas.map(({ id, alias }) => (
-            <li key={id}>
-              {alias}{" "}
-              <button onClick={() => manejarAceptar(id)}>Aceptar</button>{" "}
-              <button onClick={() => manejarRechazar(id)}>Rechazar</button>
+        <ul style={{ listStyle: "none", padding: 0 }}>
+          {solicitudesRecibidas.map((solicitud, index) => (
+            <li
+              key={index}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                marginBottom: "10px",
+              }}
+            >
+              <img
+                src={solicitud.foto_perfil || "/images/perfiles/default.png"}
+                alt={`Foto de ${solicitud.alias}`}
+                style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover" }}
+                onError={(e) => (e.target.src = "/images/perfiles/default.png")}
+              />
+              <span>{solicitud.alias}</span>
+              <button onClick={() => manejarAceptar(solicitud.remitente_id)}>Aceptar</button>
+              <button onClick={() => manejarRechazar(solicitud.remitente_id)}>Rechazar</button>
             </li>
           ))}
         </ul>
@@ -88,11 +101,25 @@ const Amistades = () => {
       {solicitudesEnviadas.length === 0 ? (
         <p>No has enviado solicitudes pendientes.</p>
       ) : (
-        <ul>
-          {solicitudesEnviadas.map(({ id, alias }) => (
-            <li key={id}>
-              {alias}{" "}
-              <button onClick={() => manejarCancelar(id)}>Cancelar</button>
+        <ul style={{ listStyle: "none", padding: 0 }}>
+          {solicitudesEnviadas.map((solicitud, index) => (
+            <li
+              key={index}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                marginBottom: "10px",
+              }}
+            >
+              <img
+                src={solicitud.foto_perfil || "/images/perfiles/default.png"}
+                alt={`Foto de ${solicitud.alias}`}
+                style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover" }}
+                onError={(e) => (e.target.src = "/images/perfiles/default.png")}
+              />
+              <span>{solicitud.alias}</span>
+              <button onClick={() => manejarCancelar(solicitud.remitente_id)}>Cancelar</button>
             </li>
           ))}
         </ul>

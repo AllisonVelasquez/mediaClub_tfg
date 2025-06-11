@@ -26,20 +26,6 @@ const Landing = () => {
     );
   };
 
-  const renderStars = (rating) => {
-    if (typeof rating !== "number") return null;
-    const stars = Math.round(rating / 2);
-    return (
-      <div className="stars">
-        {[...Array(5)].map((_, i) => (
-          <span key={i} className={i < stars ? "star filled" : "star"}>
-            ★
-          </span>
-        ))}
-      </div>
-    );
-  };
-
   const formatRating = (value) => {
     return typeof value === "number" ? value.toFixed(1) : "--";
   };
@@ -48,7 +34,7 @@ const Landing = () => {
     <div className="landing-bg">
       <header className="landing-header">
         <div className="landing-logo">
-          <img src="../assents/logo_nombre_oscuro.png" alt="Muvis Logo" />
+          <img src="/logo_nombre_oscuro.png" alt="Muvis Logo" />
         </div>
         <div className="landing-actions">
           <Link to="/LogIn" className="landing-btn light">
@@ -96,12 +82,10 @@ const Landing = () => {
                 <span>
                   <b>Muvis:</b> {formatRating(peli.promedio_votos_muvis)}
                 </span>
-                {renderStars(peli.promedio_votos_muvis)}
-                <br />
                 <span>
                   <b>TMDB:</b> {formatRating(peli.promedio_votos_tmdb)}
                 </span>
-                {renderStars(peli.promedio_votos_tmdb)}
+
               </div>
             </div>
           ))}

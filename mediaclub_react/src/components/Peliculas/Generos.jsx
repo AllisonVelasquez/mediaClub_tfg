@@ -1,7 +1,6 @@
-// Generos.jsx
 import { useEffect, useState } from "react";
+import ListaPeliculas from "./ListaPeliculas";
 import { getGeneros } from "../../services/Frames/CRUD_Frames";
-import { useNavigate } from "react-router-dom";
 import "./Generos.css";
 
 const Generos = () => {
@@ -10,7 +9,7 @@ const Generos = () => {
   const [nextPage, setNextPage] = useState(null);
   const [prevPage, setPrevPage] = useState(null);
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
+  const [selectedGeneroId, setSelectedGeneroId] = useState(null); 
 
   useEffect(() => {
     const fetchGenres = async () => {
@@ -27,35 +26,46 @@ const Generos = () => {
   }, [page]);
 
   const handleGeneroClick = (id) => {
-    navigate(`/Peliculas/Genero/${id}`);
+    setSelectedGeneroId(id); // 👈 Guardar género seleccionado
   };
 
   return (
-    <nav className="generos-nav">
-      <button className="menu-toggle" onClick={() => setOpen(!open)}>
-        {open ? "Cerrar géneros" : "Ver géneros"}
-      </button>
-      <ul className={`generos-list ${open ? "open" : ""}`}>
-        {genres.map((g) => (
-          <li
-            key={g.id}
-            className="genero-item"
-            onClick={() => handleGeneroClick(g.id)}
-          >
-            {g.nombre}
-          </li>
-        ))}
-      </ul>
-      <div className="generos-pagination">
-        <button onClick={() => setPage((p) => p - 1)} disabled={!prevPage}>
-          Anterior
+    <div>
+      <nav className="generos-nav">
+        <button className="menu-toggle" onClick={() => setOpen(!open)}>
+          {open ? "Cerrar géneros" : "Ver géneros"}
         </button>
-        <span>Página {page}</span>
-        <button onClick={() => setPage((p) => p + 1)} disabled={!nextPage}>
-          Siguiente
-        </button>
-      </div>
-    </nav>
+        <ul className={`generos-list ${open ? "open" : ""}`}>
+          {genres.map((g) => (
+            <li
+              key={g.id}
+              className="genero-item"
+              onClick={() => handleGeneroClick(g)} // 👈 CLICK aquí
+            >
+              {g.nombre}
+            </li>
+          ))}
+        </ul>
+        <div className="generos-pagination">
+          <button onClick={() => setPage((p) => p - 1)} disabled={!prevPage}>
+            Anterior
+          </button>
+          <span>Página {page}</span>
+          <button onClick={() => setPage((p) => p + 1)} disabled={!nextPage}>
+            Siguiente
+          </button>
+        </div>
+      </nav>
+
+      {/* 👇 Mostrar ListaPeliculas si hay género seleccionado */}
+      {selectedGeneroId && (
+        <div style={{ marginTop: "2rem" }}>
+          
+          <h2>Películas del género seleccionado {selectedGeneroId.nombre}</h2>
+          <ListaPeliculas generoId={selectedGeneroId.id} />
+        </div>
+      )}
+    </div>
   );
 };
 

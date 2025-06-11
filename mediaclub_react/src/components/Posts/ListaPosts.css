@@ -1,0 +1,141 @@
+/* Formulario de nuevo post */
+.nuevo-post-form {
+  background: #a9d3b4;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+  padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+  margin-bottom: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #2a3b42;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.nuevo-post-form h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #2a3b42;
+}
+
+.nuevo-post-form label {
+  font-weight: 600;
+  color: #2a3b42;
+  margin-bottom: 0.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nuevo-post-form textarea {
+  width: 100%;
+  background: #d9e9dc;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 1.05rem;
+  color: #2a3b42;
+  font-family: inherit;
+  margin-bottom: 0.7rem;
+  box-sizing: border-box;
+  transition: box-shadow 0.2s;
+  min-height: 100px;
+  resize: none;
+}
+
+.nuevo-post-form textarea:focus {
+  outline: 2px solid #2e5135;
+}
+
+.nuevo-post-form input[type="checkbox"] {
+  accent-color: #2e5135;
+  width: 18px;
+  height: 18px;
+  margin-left: 0.5rem;
+}
+
+.nuevo-post-form button {
+  align-self: flex-end;
+  background-color: #2e5135;
+  color: #c1f7cc;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 28px;
+  font-size: 1.1rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s;
+}
+
+.nuevo-post-form button:hover {
+  background-color: #1d3923;
+}
+
+.nuevo-post-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.contador-caracteres {
+  font-size: 0.9rem;
+  color: #2a3b42;
+  background: transparent;
+}
+
+.contador-caracteres.error {
+  color: #c0392b;
+  font-weight: bold;
+}
+
+.mensaje-error {
+  color: #c0392b;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.2rem;
+  text-align: right;
+}
+
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  margin: 2rem 0 1rem 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.paginacion button {
+  background-color: #2e5135;
+  color: #c1f7cc;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 26px;
+  font-size: 1.08rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, opacity 0.2s;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+}
+
+.paginacion button:disabled {
+  background-color: #b7cfc0;
+  color: #f8ffe5;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.paginacion button:not(:disabled):hover {
+  background-color: #1d3923;
+  color: #fff;
+}
+
+.paginacion span {
+  color: #2a3b42;
+  font-size: 1.05rem;
+  font-weight: 500;
+}

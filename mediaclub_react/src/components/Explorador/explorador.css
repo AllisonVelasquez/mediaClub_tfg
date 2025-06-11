@@ -1,45 +1,87 @@
-/*Contenedor Buscador */
-.buscador-container {
-  width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: space-evenly;
-    background-color: #8AC195;
-  }
-  /*Contenedor del desplegable */
-.desplegable{
+.buscador {
+  background: #8ac195;
+  padding: 18px 0;
+  max-width: 95vw;
+  margin: 0 auto;
+}
+
+.buscador form {
   display: flex;
-  flex-flow: row wrap;
-  gap:1;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+
+}
+
+.buscador select {
+  background: #d6eac6;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 8px 10px;
+  color: #234d36;
+  outline: none;
+  transition: box-shadow 0.2s;
+  margin:0 1rem 0 3rem;
+}
+
+.buscador select:focus {
+  box-shadow: 0 0 0 2px #5a9b7c33;
+}
+
+.buscador input[type="text"] {
+  flex: 1;
+  background: #d6eac6;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  font-size: 1rem;
+  padding: 8px 10px;
+  color: #234d36;
+  outline: none;
+  transition: box-shadow 0.2s;
+}
+
+.buscador input[type="text"]:focus {
+  box-shadow: 0 0 0 2px #5a9b7c33;
+}
+
+.buscador-btn {
+  background: #295c3b;
+  color: #d6eac6;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  display: flex;
   align-items: center;
 }
 
-.opciones{
-    background-color: #5a9b7c;
-
+.buscador-btn:hover,
+.buscador-btn:focus {
+  background: #163d25;
 }
 
-  .buscador-input {
-    border: none;
-    padding: 8px 10px;
-    font-size: 14px;
-    outline: none;
-    width: 180px;
-  }
-  
-  .buscador-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .buscador-btn:hover {
-    background-color: #0056b3;
+.buscador-btn:focus {
+  outline: none;
+}
+
+@media (max-width: 500px) {
+  .buscador > .flex {
+    width: 98vw;
   }
 
-  
+  .buscador-btn {
+    font-size: 1.1rem;
+    padding: 0 14px;
+    height: 40px;
+  }
+
+  .buscador input[type="text"],
+  .buscador select {
+    font-size: 1.1rem;
+    padding: 10px;
+  }
+}

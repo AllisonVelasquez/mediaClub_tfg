@@ -13,7 +13,7 @@ const ListaDetalle = () => {
       setLoading(true);
       try {
         const data = await verDetallesLista(id);
-        setLista(data);  // ya es el contenido directo
+        setLista(data); // Ya es el contenido directo
         setError(null);
       } catch (error) {
         console.error("Error al obtener detalle de la lista", error);
@@ -26,23 +26,28 @@ const ListaDetalle = () => {
   }, [id]);
 
   if (loading) return <p className="p-4">Cargando...</p>;
-  if (error) return <p className="p-4" style={{ color: "red" }}>{error}</p>;
+  if (error) return <p className="p-4 text-red-600">{error}</p>;
   if (!lista) return <p className="p-4">Lista no encontrada</p>;
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-semibold mb-2">{lista.nombre_lista}</h2>
-      <p className="mb-2">Visibilidad: {lista.publica ? "Pública" : "Privada"}</p>
-      <p className="mb-4">Frames en la lista: {lista.frames_count}</p>
+    <div className="p-6 bg-gray-50 rounded-lg shadow-md">
+      <h2 className="text-3xl font-bold mb-3">{lista.nombre_lista}</h2>
+      <p className="text-gray-700 mb-1">
+        <strong>Visibilidad:</strong> {lista.publica ? "Pública" : "Privada"}
+      </p>
+      <p className="text-gray-700 mb-4">
+        <strong>Frames en la lista:</strong> {lista.frames_count}
+      </p>
 
       {(!lista.frames || lista.frames.length === 0) ? (
-        <p>No hay frames en esta lista.</p>
+        <p className="text-gray-500">No hay frames en esta lista.</p>
       ) : (
-        <ul className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {lista.frames.map((frame) => (
-            <li key={frame.id} className="border rounded p-2 shadow">
-              <p className="font-medium">{frame.titulo}</p>
-              {/* Más detalles del frame si quieres */}
+            <li key={frame.id} className="bg-white border rounded p-3 shadow hover:shadow-lg transition">
+              <p className="font-semibold">{frame.titulo}</p>
+              {/* Aquí puedes agregar más detalles del frame si los tienes */}
+              {/* <p className="text-sm text-gray-500">{frame.descripcion}</p> */}
             </li>
           ))}
         </ul>

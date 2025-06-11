@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // <--- Importa useNavigate
+import { useNavigate } from "react-router-dom";
 import Resena from "./Resenas";
-import {
-  getResenasFrame,
-  getResenasUsuario,
-  crearResena,
-  eliminarResena,
-} from "../../services/Resenas/CRUD_Resenas";
+import {getResenasFrame,getResenasUsuario,crearResena,eliminarResena,} from "../../services/Resenas/CRUD_Resenas";
 
 import "./ListaResenas.css";
 
@@ -16,7 +11,7 @@ const ListaResenas = ({ frameId = null, modo, mostrarFormulario = true }) => {
   const [nuevoContenido, setNuevoContenido] = useState("");
   const [spoiler, setSpoiler] = useState(false);
 
-  const navigate = useNavigate(); // <--- Hook para navegación
+  const navigate = useNavigate();
 
   useEffect(() => {
     cargarResenas();
@@ -71,7 +66,6 @@ const ListaResenas = ({ frameId = null, modo, mostrarFormulario = true }) => {
     }
   };
 
-  // Nueva función que recibe el click en una reseña y navega al perfil del usuario
   const handleResenaClick = (usuarioId) => {
     navigate(`/Perfil/${usuarioId}`);
   };
@@ -87,23 +81,22 @@ const ListaResenas = ({ frameId = null, modo, mostrarFormulario = true }) => {
             value={nuevoContenido}
             onChange={(e) => setNuevoContenido(e.target.value)}
             placeholder="Escribe tu reseña"
+            rows={6}
           />
           <div className="spoiler-checkbox">
-            <label>
-              <input
-                type="checkbox"
-                checked={spoiler}
-                onChange={(e) => setSpoiler(e.target.checked)}
-              />
-              ¿Contiene spoilers?
-            </label>
+            <input
+              type="checkbox"
+              id="spoiler"
+              checked={spoiler}
+              onChange={(e) => setSpoiler(e.target.checked)}
+            />
+            <label htmlFor="spoiler">¿Contiene spoilers?</label>
           </div>
           <button className="btn-publicar" onClick={handleCrear}>
             Publicar reseña
           </button>
         </div>
       )}
-
       {resenas.length === 0 ? (
         <p className="sin-resenas">No hay reseñas disponibles.</p>
       ) : (
@@ -114,7 +107,7 @@ const ListaResenas = ({ frameId = null, modo, mostrarFormulario = true }) => {
               resena={resena}
               modo={modo}
               onEliminar={modo === "usuario" ? handleEliminar : undefined}
-              onClick={() => handleResenaClick(resena.usuario_id)} // <--- Pasamos la función aquí
+              onClick={() => handleResenaClick(resena.usuario_id)}
             />
           ))}
         </div>

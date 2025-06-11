@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  getDetallesFrame,
-  anadirPuntuacionFrame,
-} from "../../services/Frames/CRUD_Frames.js";
+import { getDetallesFrame, anadirPuntuacionFrame } from "../../services/Frames/CRUD_Frames.js";
 import ListaResenas from "../Resenas/ListaResenas.jsx";
 import ListaActores from "../Actores/ListaActores.jsx";
-import "./PeliculaDetalles.css"; // Asegúrate de tener un archivo CSS para estilos
+import MisListas from "../Listas/MisListas";
+import { addFrameToLista } from "../../services/Listas/CRUD_Listas.js";
+import "./PeliculaDetalles.css";
 
 const PeliculaDetalles = () => {
   const { id } = useParams();
@@ -15,7 +14,9 @@ const PeliculaDetalles = () => {
   const [miVoto, setMiVoto] = useState(null);
   const [votoEnviado, setVotoEnviado] = useState(false);
   const [error, setError] = useState("");
-  const [comentario, setComentario] = useState("");
+
+  const [listaSeleccionada, setListaSeleccionada] = useState(null);
+  const [mensajeLista, setMensajeLista] = useState("");
 
   useEffect(() => {
     const fetchDetalles = async () => {
@@ -41,7 +42,7 @@ const PeliculaDetalles = () => {
     }
   }, [id]);
 
-  const handleVotar = async (voto, comentario) => {
+  const handleVotar = async (voto) => {
     if (voto < 1 || voto > 10 || !/^\d+(\.\d)?$/.test(voto)) {
       setError("La puntuación debe estar entre 1 y 10 y tener máximo un decimal.");
       return;
@@ -53,10 +54,10 @@ const PeliculaDetalles = () => {
       setVotoEnviado(true);
       localStorage.setItem(`voto_pelicula_${id}`, voto);
 
-      const response = await anadirPuntuacionFrame(id, voto, comentario);
+      const response = await anadirPuntuacionFrame(id, voto);
 
       if (response?.status === "success") {
-        console.log("Comentario y puntuación enviados correctamente:", response.contenido);
+        console.log("Puntuación enviada correctamente:", response.contenido);
       }
 
       if (response?.promedio_actualizado) {
@@ -72,6 +73,25 @@ const PeliculaDetalles = () => {
     }
   };
 
+  const handleAñadirALista = async () => {
+    if (!listaSeleccionada) {
+      setMensajeLista("Selecciona una lista primero.");
+      return;
+    }
+    try {
+      setMensajeLista("");
+      const res = await addFrameToLista(listaSeleccionada, detalles.id);
+      if (res.status === "success") {
+        setMensajeLista(`Película "${detalles.titulo}" añadida a la lista correctamente.`);
+      } else {
+        setMensajeLista("Error al añadir la película a la lista.");
+      }
+    } catch (error) {
+      setMensajeLista("Error al añadir la película a la lista.");
+      console.error(error);
+    }
+  };
+
   if (!detalles) return <p>Cargando detalles...</p>;
 
   const fechaFormateada = detalles.fecha_estreno
@@ -82,83 +102,128 @@ const PeliculaDetalles = () => {
 
   return (
     <div className="pelicula-container">
-      <div className="pelicula-poster">
-        <img
-          src={
-            detalles.poster_url
-              ? baseImgUrl + detalles.poster_url
-              : "https://via.placeholder.com/400x600?text=Sin+imagen"
-          }
-          alt={detalles.titulo}
-        />
-      </div>
-
-      <div className="pelicula-info">
-        <h1>{detalles.titulo}</h1>
-        <h3>{detalles.titulo_original}</h3>
-
-        <p className="descripcion">{detalles.descripcion}</p>
-
-        <p><strong>Fecha de estreno:</strong> {fechaFormateada}</p>
-        <p><strong>Duración:</strong> {detalles.duracion} minutos</p>
-        <p><strong>Eslogan:</strong> {detalles.eslogan || "N/A"}</p>
-        <p><strong>Promedio votos Muvis:</strong> {detalles.promedio_votos_muvis ?? "N/A"}</p>
-        <p><strong>Promedio votos TMDB:</strong> {detalles.promedio_votos_tmdb ?? "N/A"}</p>
-        <p><strong>Presupuesto:</strong> {detalles.presupuesto ? `$${detalles.presupuesto.toLocaleString()}` : "N/A"}</p>
-        <p><strong>Ingresos:</strong> {detalles.ingresos ? `$${detalles.ingresos.toLocaleString()}` : "N/A"}</p>
-
-        <div className="generos">
-          <h2>Géneros</h2>
-          <ul>
-            {detalles.generos.map((genero) => (
-              <li key={genero.id}>{genero.nombre}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="actores">
-          <h2>Actores</h2>
-          <ListaActores
-            actoresIniciales={detalles.actores}
-            onActorClick={(actor) => navigate(`/actores/${actor.id}`)}
+      <div className="pelicula-header">
+        <div className="pelicula-poster">
+          <img
+            src={
+              detalles.poster_url
+                ? baseImgUrl + detalles.poster_url
+                : "https://via.placeholder.com/400x600?text=Sin+imagen"
+            }
+            alt={detalles.titulo}
           />
         </div>
 
-        <div className="votacion">
-          <h2>Tu puntuación</h2>
-          {votoEnviado ? (
-            <p className="voto-exito">Ya votaste: <strong>{miVoto}</strong></p>
-          ) : (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const voto = parseFloat(e.target.voto.value);
-                const comentario = e.target.comentario.value.trim();
-                handleVotar(voto, comentario);
-              }}
-            >
-              <input
-                type="number"
-                name="voto"
-                step="0.1"
-                min="1"
-                max="10"
-                placeholder="Ej: 7.5"
-                required
-              />
-              <textarea
-                name="comentario"
-                placeholder="Escribe un comentario (opcional)"
-                rows="3"
-              ></textarea>
-              <button type="submit">Votar</button>
-            </form>
-          )}
+        <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+          {/* Info de la película */}
+          <div className="pelicula-info">
+            <h1 className="pelicula-titulo">{detalles.titulo}</h1>
+            <h3 className="pelicula-titulo-original">{detalles.titulo_original}</h3>
 
-          {error && <p className="error">{error}</p>}
+            <div className="pelicula-datos-grid">
+              <div>
+                <span className="pelicula-label">Fecha de estreno:</span>
+                <span className="pelicula-valor">{fechaFormateada}</span>
+              </div>
+              <div>
+                <span className="pelicula-label">Duración:</span>
+                <span className="pelicula-valor">{detalles.duracion} min</span>
+              </div>
+              <div>
+                <span className="pelicula-label">Eslogan:</span>
+                <span className="pelicula-valor">{detalles.eslogan || "N/A"}</span>
+              </div>
+              <div>
+                <span className="pelicula-label">Presupuesto:</span>
+                <span className="pelicula-valor">
+                  {detalles.presupuesto ? `$${detalles.presupuesto.toLocaleString()}` : "N/A"}
+                </span>
+              </div>
+              <div>
+                <span className="pelicula-label">Ingresos:</span>
+                <span className="pelicula-valor">
+                  {detalles.ingresos ? `$${detalles.ingresos.toLocaleString()}` : "N/A"}
+                </span>
+              </div>
+            </div>
+
+            <div className="pelicula-promedios">
+              <div>
+                <span className="pelicula-label">Promedio Muvis:</span>
+                <span className="pelicula-valor">
+                  {detalles.promedio_votos_muvis ?? "N/A"}
+                </span>
+              </div>
+              <div>
+                <span className="pelicula-label">Promedio TMDB:</span>
+                <span className="pelicula-valor">
+                  {detalles.promedio_votos_tmdb ?? "N/A"}
+                </span>
+              </div>
+            </div>
+
+            <p className="pelicula-descripcion">{detalles.descripcion}</p>
+          </div>
         </div>
-        <ListaResenas frameId={detalles.id} modo="frame" />
+      </div>
 
+      {/* Añadir a lista */}
+      <div className="añadir-a-lista mb-6">
+        <h3>Añadir a una lista</h3>
+        <MisListas seleccionable onSeleccionarLista={setListaSeleccionada} />
+        <button
+          onClick={handleAñadirALista}
+          disabled={!listaSeleccionada}
+          className="btn-añadir-lista"
+        >
+          Añadir a la lista
+        </button>
+        {mensajeLista && <p className="mensaje-lista">{mensajeLista}</p>}
+      </div>
+
+      
+      <div className="actores">
+        <ListaActores
+          actoresIniciales={detalles.actores}
+          onActorClick={(actor) => navigate(`/actores/${actor.id}`)}
+        />
+      </div>
+
+      <div className="review-card">
+        <h2>Tu puntuación</h2>
+        {votoEnviado ? (
+          <p className="voto-exito">
+            Ya votaste: <strong>{miVoto}</strong>
+          </p>
+        ) : (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              const voto = parseFloat(e.target.voto.value);
+              handleVotar(voto);
+            }}
+          >
+            <input
+              type="number"
+              name="voto"
+              step="0.1"
+              min="1"
+              max="10"
+              placeholder="Ej: 7.5"
+              required
+              className="input-voto"
+            />
+            <button type="submit" className="btn-votar">
+              Votar
+            </button>
+          </form>
+        )}
+
+        {error && <p className="error">{error}</p>}
+      
+      <div className="resenas-final">
+        <ListaResenas frameId={detalles.id} modo="frame" className="resena" />
+      </div>
       </div>
     </div>
   );

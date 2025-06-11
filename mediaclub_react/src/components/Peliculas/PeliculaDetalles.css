@@ -1,41 +1,79 @@
 .pelicula-container {
   max-width: 1000px;
-  margin: auto;
+  margin: 2.5rem auto;
   padding: 40px 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background: #f9f9f9;
+  background: #bfe0c7;
   border-radius: 16px;
+  gap: 40px;
+}
+
+.pelicula-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 40px;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.pelicula-poster {
+  flex: 0 0 320px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .pelicula-poster img {
   width: 300px;
   border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 .pelicula-info {
-  text-align: center;
-  max-width: 800px;
+  text-align: left;
+  max-width: 700px;
+  flex: 1 1 0%;
+  margin-top: 0;
 }
 
-.pelicula-info h1 {
-  font-size: 2.5rem;
-  margin-bottom: 8px;
+.pelicula-datos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+  font-size: 1.1rem;
+  margin-bottom: 16px;
 }
 
-.pelicula-info h3 {
-  font-style: italic;
-  color: #666;
-  margin-bottom: 20px;
+.pelicula-label {
+  font-weight: bold;
+  margin-right: 4px;
 }
 
-.descripcion {
+.pelicula-valor {
+  font-weight: normal;
+}
+
+.pelicula-promedios {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.pelicula-descripcion {
   font-size: 1.1rem;
   color: #333;
   margin-bottom: 24px;
+}
+
+.pelicula-extra {
+  width: 100%;
+}
+
+.generos {
+  text-align: center;
+  width: 100%;
 }
 
 .generos ul,
@@ -106,4 +144,146 @@
 .error {
   color: red;
   margin-top: 10px;
+}
+
+.votacion{
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  background: #c6e5ce;
+  border-radius: 10px;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  margin: 2rem auto 1.5rem auto;
+  max-width: 700px;
+  box-shadow: 0 4px 20px rgba(44, 62, 80, 0.08);
+}
+
+.votacion input[type="number"]{
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #e3f1e6;
+  font-size: 1.1rem;
+  color: #0b1c12;
+  margin-bottom: 0.5rem;
+  font-family: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.votacion input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: #2e5135;
+}
+
+.votacion button{
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  background: #2e5135;
+  color: #c1f7cc;
+}
+
+.votacion button:hover {
+  background: #1d3923;
+}
+
+.votacion .error,
+.resena-form .error,
+.resena-form .info {
+  color: #b22222;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.review-card {
+  background-color: #a9d3b4;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  margin: 40px auto; 
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+.review-card h2 {
+  margin-bottom: 15px;
+  font-size: 1.8em;
+  color: #333;
+}
+
+.review-card input[type="number"],
+.review-card textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border-radius: 5px;
+}
+
+.review-card .spoilers-checkbox {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.review-card .spoilers-checkbox input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.review-card .btn-votar,
+.review-card .btn-publicar {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px;
+  font-size: 1em;
+  cursor: pointer;
+  display: block;
+}
+
+.review-card .voto-exito,
+.review-card .error {
+  margin-top: 10px;
+  font-weight: bold;
+}
+.review-card .voto-exito {
+  color: #28a745;
+}
+.review-card .error {
+  color: #d9534f;
+}
+
+
+@media (max-width: 900px) {
+  .pelicula-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .pelicula-info {
+    text-align: center;
+    margin-top: 0;
+  }
+}
+@media (max-width: 600px) {
+  .votacion form,
+  .resena-form {
+    padding: 1rem 0.5rem;
+    max-width: 98vw;
+  }
+  .votacion button,
+  .resena-form button {
+    width: 100%;
+    font-size: 1.1rem;
+  }
+
+  .pelicula-container {
+    padding: 20px 2vw;
+    gap: 20px;
+  }
 }

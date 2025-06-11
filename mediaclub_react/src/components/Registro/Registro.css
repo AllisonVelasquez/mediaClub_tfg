@@ -135,6 +135,14 @@
   margin-top: 0.5rem;
 }
 
+.registro-password-info {
+  color: #2a3b42;
+  font-size: 0.7rem;
+  margin-top: 0.3rem;
+  margin-left: 2px;
+  opacity: 0.85;
+  display: block;
+}
 .error {
   color: #b22222;
 }

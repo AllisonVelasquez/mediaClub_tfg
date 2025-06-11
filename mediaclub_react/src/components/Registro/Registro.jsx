@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import logoNombreOscuro from "../assents/logo_nombre_oscuro.png";
 import "./Registro.css";
 import { crearUsuario } from "../../services/Usuarios/log";
 
@@ -74,7 +73,7 @@ const handleSubmit = async (e) => {
   return (
     <div className="registro-bg">
       <div className="registro-header">
-        <img src={logoNombreOscuro} alt="Muvis Logo" />
+        <img src="/logo_nombre_oscuro.png" alt="Muvis Logo" />
       </div>
       <div className="registro-title">Registra una nueva cuenta</div>
       <form className="registro-container" onSubmit={handleSubmit} autoComplete="off">
@@ -95,6 +94,25 @@ const handleSubmit = async (e) => {
             {formData.login_id && (
               <span className={`registro-icon ${isLoginIdOk ? "success" : "error"}`}>
                 {isLoginIdOk ? "✓" : "✗"}
+              </span>
+            )}
+          </div>
+
+          {/* Alias */}
+          <div className="registro-field">
+            <label className="registro-label" htmlFor="alias">Alias</label>
+            <input
+              className="registro-input"
+              type="text"
+              name="alias"
+              id="alias"
+              value={formData.alias}
+              onChange={handleChange}
+              required
+            />
+            {formData.alias && (
+              <span className={`registro-icon ${isAliasOk ? "success" : "error"}`}>
+                {isAliasOk ? "✓" : "✗"}
               </span>
             )}
           </div>
@@ -151,25 +169,9 @@ const handleSubmit = async (e) => {
                 {isRepeatOk ? "✓" : "✗"}
               </span>
             )}
-          </div>
-
-          {/* Alias */}
-          <div className="registro-field">
-            <label className="registro-label" htmlFor="alias">Alias</label>
-            <input
-              className="registro-input"
-              type="text"
-              name="alias"
-              id="alias"
-              value={formData.alias}
-              onChange={handleChange}
-              required
-            />
-            {formData.alias && (
-              <span className={`registro-icon ${isAliasOk ? "success" : "error"}`}>
-                {isAliasOk ? "✓" : "✗"}
-              </span>
-            )}
+            <p className="registro-password-info">
+              La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un símbolo especial.
+            </p>
           </div>
 
           {/* Correo */}
