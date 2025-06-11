@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { obtenerMiPerfil } from "../../services/Usuarios/Mi/CRUD_Usuarios";
-import {
-	getFramesOrderByVotosMuvis,
-	getFramesOrderByVotosTmdb,
-	getFramesRecientes,
-} from "../../services/Frames/CRUD_Frames";
-import ListaPeliculas from "../Peliculas/ListaPeliculas";
+import {getFramesOrderByVotosMuvis,	getFramesOrderByVotosTmdb,getFramesRecientes} from "../../services/Frames/CRUD_Frames";
 import "./Inicio.css";
 
 const baseImgUrl = "https://image.tmdb.org/t/p/w500";

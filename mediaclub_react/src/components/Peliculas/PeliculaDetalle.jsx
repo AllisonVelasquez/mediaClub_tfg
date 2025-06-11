@@ -249,7 +249,6 @@ const PeliculaDetalles = () => {
           <ListaResenas frameId={detalles.id} modo="frame" className="resena" />
         </div>
       </div>
-    </div>
   );
 };
 
