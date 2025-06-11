@@ -115,6 +115,7 @@ const UserFullProfile = () => {
     fetchProfile();
     fetchPublicLists();
     fetchFriends();
+    
     fetchUserInfo();
     fetchPosts();
     fetchActivity();
