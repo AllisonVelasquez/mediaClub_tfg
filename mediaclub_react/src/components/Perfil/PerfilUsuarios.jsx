@@ -59,7 +59,7 @@ const UserFullProfile = () => {
     const fetchPublicLists = async () => {
       try {
         const res = await getUserPublicLists(usuarioId);
-        setPublicLists(Array.isArray(res.contenido) ? res.contenido : []);
+        setPublicLists(Array.isArray(res.contenido.data) ? res.contenido.data : []);
       } catch (err) {
         setErrorLists("No se pudieron cargar las listas públicas.");
       } finally {
@@ -70,7 +70,7 @@ const UserFullProfile = () => {
     const fetchFriends = async () => {
       try {
         const res = await getUserFriends(usuarioId);
-        setFriends(Array.isArray(res.contenido) ? res.contenido : []);
+        setFriends(Array.isArray(res.contenido.data) ? res.contenido.data : []);
       } catch (err) {
         setErrorFriends("No se pudieron cargar los amigos.");
       } finally {
@@ -81,7 +81,7 @@ const UserFullProfile = () => {
     const fetchUserInfo = async () => {
       try {
         const res = await getUserInfo(usuarioId);
-        setUserInfo(res.contenido || null);
+        setUserInfo(res.contenido.data || null);
       } catch (err) {
         setErrorInfo("No se pudo cargar la información.");
       } finally {
@@ -92,7 +92,7 @@ const UserFullProfile = () => {
     const fetchPosts = async () => {
       try {
         const res = await getUserPosts(usuarioId);
-        setPosts(Array.isArray(res.contenido) ? res.contenido : []);
+        setPosts(Array.isArray(res.contenido.data) ? res.contenido.data : []);
       } catch (err) {
         setErrorPosts("No se pudieron cargar los posts.");
       } finally {
@@ -103,7 +103,7 @@ const UserFullProfile = () => {
     const fetchActivity = async () => {
       try {
         const res = await getUserActivity(usuarioId);
-        const actividad = res?.contenido?.data;
+        const actividad = res?.contenido.data;
         setActivity(Array.isArray(actividad) ? actividad : []);
       } catch (err) {
         setErrorActivity("No se pudo cargar la actividad.");
