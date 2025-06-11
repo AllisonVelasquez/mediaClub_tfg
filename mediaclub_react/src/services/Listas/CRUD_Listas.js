@@ -129,11 +129,7 @@ export const getFramesLista = async (listaId) => {
 export const getMisListas = async () => {
   try {
     const response = await instance.get("mi/listas/ver-todas");
-<<<<<<< HEAD
-    return response.data.contenido; // Incluye current_page, links, etc.
-=======
     return response.data; // Incluye current_page, links, etc.
->>>>>>> origin/Front_JOEL
   } catch (error) {
     console.error("Error al obtener tus listas:", error);
     throw error;

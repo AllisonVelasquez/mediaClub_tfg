@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const instance = axios.create({
-  baseURL: "http://localhost:8000/api/", // Ajusta al dominio real de tu API
+  baseURL: "http://laravel.local/api/", // Ajusta al dominio real de tu API
   withCredentials: true,
 });
 
