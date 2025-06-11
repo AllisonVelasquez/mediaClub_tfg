@@ -101,7 +101,7 @@ const Landing = () => {
                 <span>
                   <b>TMDB:</b> {formatRating(peli.promedio_votos_tmdb)}
                 </span>
-                {renderStars(peli.promedio_votos_tmdb)}
+
               </div>
             </div>
           ))}
