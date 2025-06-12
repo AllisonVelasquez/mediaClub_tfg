@@ -5,8 +5,7 @@ services:
     container_name: laravel_app
     restart: unless-stopped
     volumes:
-      - laravel_storage:/var/www/storage
-    working_dir: /var/www
+      - laravel_storage:/var/www/storage/app/public
     networks:
       - web
     depends_on:
