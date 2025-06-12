@@ -18,8 +18,7 @@ class UpdateUserUseCase
     public function execute(Usuario $user, array $data, $fotoPerfilFile = null)
     {
         if ($fotoPerfilFile) {
-            $path = $fotoPerfilFile->store('public/profiles');
-            $relativePath = str_replace('public/', 'storage/', $path);
+            $path = $fotoPerfilFile->store('profiles', 'public');
             $data['foto_perfil'] = $relativePath;
         }
          if (isset($data['contrasena'])) {
