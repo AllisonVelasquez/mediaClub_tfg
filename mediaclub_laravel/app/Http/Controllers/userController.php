@@ -73,6 +73,7 @@ class UserController extends Controller
     {
         $user = $request->user();
         $fotoPerfilFile = $request->file('foto_perfil');
+        dd($request->file('foto_perfil'));
         return app(UpdateUserAction::class)->execute($user, $request->validated(), $fotoPerfilFile);
     }
 

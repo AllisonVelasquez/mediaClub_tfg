@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { getMyPosts, getUserPosts, deletePost, editPost, crearPost } from "../../services/Posts/CRUD_post";
+import {
+  getMyPosts,
+  getUserPosts,
+  deletePost,
+  editPost,
+  crearPost,
+} from "../../services/Posts/CRUD_post";
 import Post from "./Posts";
 import "./ListaPosts.css";
 
 const MAX_CARACTERES = 1500;
 
-const ListaPosts = ({ modo = "publico", mostrarFormulario = false, currentUserId }) => {
+const ListaPosts = ({
+  modo = "publico",
+  mostrarFormulario = false,
+  currentUserId,
+}) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -28,8 +38,13 @@ const ListaPosts = ({ modo = "publico", mostrarFormulario = false, currentUserId
       } else {
         data = await getUserPosts(currentUserId, pageNum);
       }
-      setPosts(data.contenido.data);
-      setTotalPages(data.contenido.last_page);
+      if (data.contenido?.data) {
+        setPosts(data.contenido.data);
+        setTotalPages(data.contenido.last_page);
+      } else {
+        setPosts([]);
+        setError("No se encontraron publicaciones.");
+      }
     } catch (error) {
       console.error("Error al cargar posts:", error);
       setPosts([]);
@@ -68,7 +83,10 @@ const ListaPosts = ({ modo = "publico", mostrarFormulario = false, currentUserId
       return;
     }
     try {
-      await crearPost({ contenido: nuevoContenido, publico: nuevoPublico ? 1 : 0 });
+      await crearPost({
+        contenido: nuevoContenido,
+        publico: nuevoPublico ? 1 : 0,
+      });
       setNuevoContenido("");
       setNuevoPublico(true);
       setError("");
@@ -95,7 +113,11 @@ const ListaPosts = ({ modo = "publico", mostrarFormulario = false, currentUserId
               }}
               maxLength={MAX_CARACTERES + 1}
             />
-            <div className={`contador-caracteres${nuevoContenido.length > MAX_CARACTERES ? " error" : ""}`}>
+            <div
+              className={`contador-caracteres${
+                nuevoContenido.length > MAX_CARACTERES ? " error" : ""
+              }`}
+            >
               {nuevoContenido.length}/{MAX_CARACTERES}
             </div>
           </div>
@@ -110,7 +132,7 @@ const ListaPosts = ({ modo = "publico", mostrarFormulario = false, currentUserId
             </label>
             <button onClick={handleCrear}>Publicar</button>
           </div>
-          {error && <div className="mensaje-error">{error}</div>}
+          {error && <div className="sin-resenas">{error}</div>}
         </div>
       )}
 
@@ -130,13 +152,19 @@ const ListaPosts = ({ modo = "publico", mostrarFormulario = false, currentUserId
       )}
 
       <div className="paginacion">
-        <button onClick={() => setPage((p) => Math.max(p - 1, 1))} disabled={page === 1}>
+        <button
+          onClick={() => setPage((p) => Math.max(p - 1, 1))}
+          disabled={page === 1}
+        >
           Anterior
         </button>
         <span>
           Página {page} de {totalPages}
         </span>
-        <button onClick={() => setPage((p) => Math.min(p + 1, totalPages))} disabled={page === totalPages}>
+        <button
+          onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
+          disabled={page === totalPages}
+        >
           Siguiente
         </button>
       </div>

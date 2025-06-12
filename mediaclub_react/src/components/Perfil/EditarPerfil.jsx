@@ -25,7 +25,7 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
   const [fotoPerfil, setFotoPerfil] = useState(originalDatos.foto_perfil);
   const [redes, setRedes] = useState(originalDatos.redes);
   const [dragOver, setDragOver] = useState(false);
-
+const [fotoPerfilFile, setFotoPerfilFile] = useState(null);
   // Usar useRef para el input de archivo
   const fileInputRef = useRef(null);
 
@@ -47,23 +47,15 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
     setRedes({ ...redes, [nombre]: valor });
   };
 
-  // Función para convertir archivo a base64
-  const fileToBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-
   const handleDrop = async (e) => {
     e.preventDefault();
     setDragOver(false);
     const file = e.dataTransfer.files[0];
     if (file && file.type.startsWith("image/")) {
       try {
-        const base64 = await fileToBase64(file);
-        setFotoPerfil(base64);
+    const url = URL.createObjectURL(file);
+        setFotoPerfil(url);
+        setFotoPerfilFile(file);  
       } catch (error) {
         alert("Error al leer la imagen.");
       }
@@ -82,8 +74,9 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
     const file = e.target.files[0];
     if (file && file.type.startsWith("image/")) {
       try {
-        const base64 = await fileToBase64(file);
-        setFotoPerfil(base64);
+        const url = URL.createObjectURL(file);
+        setFotoPerfil(url);
+        setFotoPerfilFile(file);
       } catch {
         alert("Error al leer la imagen.");
       }
@@ -104,8 +97,9 @@ const EditarPerfil = ({ datos, onCancel, onSave }) => {
 
     if (alias !== originalDatos.alias) datosActualizados.alias = alias;
     if (bio !== originalDatos.bio) datosActualizados.bio = bio;
-    if (fotoPerfil !== originalDatos.foto_perfil)
-      datosActualizados.foto_perfil = fotoPerfil;
+    if (fotoPerfilFile !== originalDatos.foto_perfil) {
+      datosActualizados.foto_perfil = fotoPerfilFile;
+    }
 
     const redesModificadas = Object.entries(redes).filter(([nombre, url]) => {
       const originalUrl = originalDatos.redes[nombre] || "";

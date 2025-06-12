@@ -19,7 +19,7 @@ class UpdateUserUseCase
     {
         if ($fotoPerfilFile) {
             $path = $fotoPerfilFile->store('profiles', 'public');
-            $data['foto_perfil'] = $relativePath;
+            $data['foto_perfil'] = $path;
         }
          if (isset($data['contrasena'])) {
             $data['contrasena'] = Hash::make($data['contrasena']);

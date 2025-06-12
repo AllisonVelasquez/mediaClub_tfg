@@ -7,8 +7,13 @@ export const obtenerMiPerfil = async () => {
 };
 
 export const actualizarMiPerfil = async (datos) => {
-  const response = await instance.patch("mi/actualizar-datos", datos);
-  console.log(datos);
+  const formData = new FormData();
+
+  for (const key in datos) {
+    formData.append(key, datos[key]);
+  }
+
+   const response = await instance.patch("mi/actualizar-datos", formData);
   
   return response.data;
 };
