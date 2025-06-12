@@ -19,6 +19,11 @@ COPY . .
 # Instala dependencias
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
+#Optimizacion para produccion
+RUN php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache
+    
 # Da permisos
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www/storage
