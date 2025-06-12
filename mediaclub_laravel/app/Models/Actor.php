@@ -52,13 +52,15 @@ class Actor extends Model
 			->withPivot('personaje', 'orden');
 	}
 	public function getImagenUrlAttribute($value)
-	{
-		if (is_null($value)) {
-			return asset('storage/actors/default.png');
-		}
-		if (Str::startsWith($value, '/')) {
-			return 'https://image.tmdb.org/t/p/w185' . $value;
-		}
-		return asset($value);
+    {
+	if (Str::startsWith($value, ['http://', 'https://'])) {
+		return $value;
 	}
+
+	if (Str::startsWith($value, '/')) {
+		return 'https://image.tmdb.org/t/p/w185' . $value;
+	}
+
+	return asset($value);
+    }
 }
