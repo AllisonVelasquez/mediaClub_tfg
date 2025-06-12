@@ -28,11 +28,11 @@ services:
     ports:
       - "80:80"
     volumes:
-      - laravel_Storage:/usr/share/nginx/html/storage
+      - laravel_storage:/usr/share/nginx/html/storage
     networks:
       - web
     depends_on:
-      - app
+      - back
       - front
 
   db:
@@ -63,7 +63,6 @@ services:
 
 volumes:
   db_data:
-volumes:
   laravel_storage:
 
 networks:
