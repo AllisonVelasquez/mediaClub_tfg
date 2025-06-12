@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllActores } from "../../services/Actores/CRUD_actores";
 import "./ListaActores.css";
-const BASE_IMG_URL = "https://image.tmdb.org/t/p/w185";
 const BOTONES_VISIBLES = 5;
 
 const ListaActores = ({ actoresIniciales = null, onActorClick = null }) => {
@@ -63,7 +62,7 @@ const ListaActores = ({ actoresIniciales = null, onActorClick = null }) => {
             style={{ cursor: "pointer" }}
           >
             <img
-              src={BASE_IMG_URL + actor.imagen_url}
+              src={actor.imagen_url}
               onError={(e) => {
                 e.target.alt = actor.nombre;
               }}

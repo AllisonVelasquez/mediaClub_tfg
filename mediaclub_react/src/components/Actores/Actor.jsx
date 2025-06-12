@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getActorDetalles, getActorFilmografia } from "../../services/Actores/CRUD_actores";
 
-const BASE_IMG_URL = "https://image.tmdb.org/t/p/w300";
 
 const Actor = () => {
   const { id } = useParams();
@@ -44,7 +43,7 @@ const { imagen_url, nombre, popularidad } = detalles;
     <div>
       <h2>{detalles.nombre}</h2>
       <img
-        src={BASE_IMG_URL+detalles.imagen_url}
+        src={detalles.imagen_url}
         alt={detalles.nombre}
         onError={(e) => {
           e.target.alt =detalles.nombre;
@@ -58,7 +57,7 @@ const { imagen_url, nombre, popularidad } = detalles;
           <li className="filmografia-item" key={pelicula.frame_id}>
             <Link className="actor-link" to={`/peliculasDetalles/${pelicula.frame_id}`}>
               <img
-                src={BASE_IMG_URL + pelicula.poster_url}
+                src={pelicula.poster_url}
                 alt={pelicula.titulo}
                 onError={(e) => {
                   e.target.src = pelicula.titulo;

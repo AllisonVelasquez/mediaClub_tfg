@@ -128,6 +128,6 @@ class Usuario extends Authenticatable
 
 	public function getFotoPerfilAttribute($value)
 	{
-        return asset('storage/' . $value);
+        return asset('storage/profiles/' . $value);
 	}
 }
