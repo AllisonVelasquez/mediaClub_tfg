@@ -128,13 +128,26 @@ class Frame extends Model
 	public function getPosterUrlAttribute($value)
 	{
 		if (is_null($value) || $value === 'default.png') {
-		return asset('storage/frames/default.png');
+			return asset('storage/frames/default.png');
+		}
+
+		if (Str::startsWith($value, '/')) {
+			return 'https://image.tmdb.org/t/p/w342' . $value;
+		}
+
+		return asset('storage/frames/' . $value);
 	}
 
-	if (Str::startsWith($value, '/')) {
-		return 'https://image.tmdb.org/t/p/w185' . $value;
-	}
+	public function getFondoUrlAttribute($value)
+	{
+		if (is_null($value) || $value === 'default.png') {
+			return asset('storage/frames/default.png');
+		}
 
-	return asset('storage/frames/' . $value);
+		if (Str::startsWith($value, '/')) {
+			return 'https://image.tmdb.org/t/p/w780' . $value;
+		}
+
+		return asset('storage/frames/' . $value);
 	}
 }

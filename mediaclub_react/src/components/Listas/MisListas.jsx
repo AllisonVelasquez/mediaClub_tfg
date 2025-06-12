@@ -15,7 +15,7 @@ const MisListas = ({ seleccionable = false, onSeleccionarLista }) => {
       setError(null);
       try {
         const contenido = await obtenerMisListas(paginaActual);
-        setListas(Array.isArray(contenido.data) ? contenido.data : []);
+        setListas(Array.isArray(contenido?.data) ? contenido.data : []);
         setUltimaPagina(contenido.last_page || 1);
       } catch (error) {
         console.error("Error cargando listas", error);

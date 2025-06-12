@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('alias', 100)->unique('alias');
             $table->text('bio')->nullable();
             $table->json('redes')->nullable();
-            $table->string('foto_perfil')->default('storage/profiles/default.png'); 
+            $table->string('foto_perfil')->default('default.png'); 
             $table->timestamps();
         });
     }
