@@ -37,8 +37,8 @@ export const getFramesPopulares = async () => {
     // Obtener frames por género con paginación
 export const getFramesByGenero = async (genero, pagina = 1) => {
   try {
-    const response = await instance.get("frames/filtrar/?gerno=", {
-      params: { genero:genero, page: pagina },
+    const response = await instance.get("frames/filtrar", {
+      params: { genero: genero, page: pagina },
     });
     console.log("Respuesta de getFramesByGenero:", response.data.contenido);
     
