@@ -15,8 +15,16 @@ const MisListas = ({ seleccionable = false, onSeleccionarLista }) => {
       setError(null);
       try {
         const contenido = await obtenerMisListas(paginaActual);
-        setListas(Array.isArray(contenido?.data) ? contenido.data : []);
-        setUltimaPagina(contenido.last_page || 1);
+        console.log("Contenido de listas:", contenido);
+        if(!Array.isArray(contenido)){
+          setListas([]);
+          setError("No se encontraron listas.");
+        } else {
+          setListas(contenido);
+          setError(null);
+          setUltimaPagina(contenido.last_page || 1);
+        }
+        
       } catch (error) {
         console.error("Error cargando listas", error);
         setError("No se pudieron cargar las listas.");
@@ -50,7 +58,7 @@ const MisListas = ({ seleccionable = false, onSeleccionarLista }) => {
   };
 
   if (loading) return <div className="p-4">Cargando listas...</div>;
-  if (error) return <div className="p-4 text-red-600">{error}</div>;
+  if (error) return <div className="sin-resenas">{error}</div>;
   if (listas.length === 0) return <div className="p-4">No tienes listas disponibles.</div>;
 
   return (
