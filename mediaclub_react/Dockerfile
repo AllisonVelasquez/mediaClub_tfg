@@ -1,13 +1,12 @@
-FROM node:16.20.2-alpine
+# Stage 1: Build the React application
+FROM node:18-alpine 
 
 WORKDIR /app
 
 COPY package*.json ./
+
 RUN npm install
 
 COPY . .
 
 RUN npm run build
-
-EXPOSE 3000
-CMD ["npx", "serve", "-s", "build", "-l", "3000"]
