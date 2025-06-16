@@ -61,7 +61,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if ($request->expectsJson() || $request->is('api/*')) {
+      
             // Si la excepción es de modelo no encontrado (ModelNotFoundException)
             if ($exception instanceof ModelNotFoundException) {
                 return $this->error('No se encontró el modelo solicitado.', 404);
@@ -90,6 +90,6 @@ class Handler extends ExceptionHandler
 
             // Si ninguna de las excepciones anteriores se maneja, devolvemos un error genérico
             return $this->error('Error inesperado', $exception->getCode(), $exception->getMessage());
-        }
+        
     }
 }

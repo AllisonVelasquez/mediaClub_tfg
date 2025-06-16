@@ -35,8 +35,9 @@ class UserRepository implements UserRepositoryInterface
         $user->fill($data);
         if ($user->isDirty()) {
             $user->save();
+            return true;
         }
-        return true;
+        return false;
     }
 
     public function deleteUser(int $id): bool
